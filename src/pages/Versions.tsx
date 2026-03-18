@@ -131,7 +131,7 @@ export default function Versions() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Version Management</h1>
-          <p className="text-sm text-zinc-400 mt-0.5">
+          <p className="text-sm text-[var(--text-secondary)] mt-0.5">
             Create snapshots and restore previous database states
           </p>
         </div>
@@ -153,14 +153,14 @@ export default function Versions() {
             </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 bg-black/60 z-[60]" />
-            <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl p-6 z-[61] min-w-[400px]">
-              <Dialog.Title className="text-lg font-bold text-white mb-2">Create New Version</Dialog.Title>
-              <Dialog.Description className="text-sm text-zinc-400 mb-4">
+            <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-xl shadow-lg p-6 z-[61] min-w-[400px]">
+              <Dialog.Title className="text-lg font-bold text-[var(--text-primary)] mb-2">Create New Version</Dialog.Title>
+              <Dialog.Description className="text-sm text-[var(--text-secondary)] mb-4">
                 Create a snapshot of the current database state and customer abbreviations.
               </Dialog.Description>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs text-zinc-500 mb-1.5">Name *</label>
+                  <label className="block text-xs text-[var(--text-muted)] mb-1.5">Name *</label>
                   <input
                     type="text"
                     value={newVersionName}
@@ -171,7 +171,7 @@ export default function Versions() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-zinc-500 mb-1.5">Description</label>
+                  <label className="block text-xs text-[var(--text-muted)] mb-1.5">Description</label>
                   <textarea
                     value={newVersionDesc}
                     onChange={e => setNewVersionDesc(e.target.value)}
@@ -199,48 +199,48 @@ export default function Versions() {
       {/* Versions Table */}
       {versions.length === 0 ? (
         <div className="card text-center py-12">
-          <p className="text-zinc-400">No versions created yet</p>
-          <p className="text-sm text-zinc-500 mt-2">Create your first version to get started</p>
+          <p className="text-[var(--text-secondary)]">No versions created yet</p>
+          <p className="text-sm text-[var(--text-muted)] mt-2">Create your first version to get started</p>
         </div>
       ) : (
         <div className="card overflow-hidden p-0">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/[0.06]">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">Version</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">Name</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">Description</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">Created</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">By</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">Records</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">Size</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-zinc-400 uppercase">Actions</th>
+                <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]">
+                  <th className="text-left px-4 py-3 text-caption font-semibold uppercase">Version</th>
+                  <th className="text-left px-4 py-3 text-caption font-semibold uppercase">Name</th>
+                  <th className="text-left px-4 py-3 text-caption font-semibold uppercase">Description</th>
+                  <th className="text-left px-4 py-3 text-caption font-semibold uppercase">Created</th>
+                  <th className="text-left px-4 py-3 text-caption font-semibold uppercase">By</th>
+                  <th className="text-left px-4 py-3 text-caption font-semibold uppercase">Records</th>
+                  <th className="text-left px-4 py-3 text-caption font-semibold uppercase">Size</th>
+                  <th className="text-right px-4 py-3 text-caption font-semibold uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {versions.map((v) => (
-                  <tr key={v.id} className="border-b border-white/[0.06] hover:bg-zinc-800/50 transition-colors">
+                  <tr key={v.id} className="border-b border-[var(--border-subtle)] hover:bg-[var(--bg-hover)] transition-colors">
                     <td className="px-4 py-3">
                       <span className="font-mono text-sm font-bold text-accent">v{v.versionNumber}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-sm text-zinc-200">{v.name}</span>
+                      <span className="text-sm text-[var(--text-primary)]">{v.name}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-sm text-zinc-400">{v.description || '—'}</span>
+                      <span className="text-sm text-[var(--text-secondary)]">{v.description || '—'}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-xs text-zinc-400">{formatDate(v.createdAt)}</span>
+                      <span className="text-xs text-[var(--text-muted)]">{formatDate(v.createdAt)}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-xs text-zinc-400">{v.createdByName}</span>
+                      <span className="text-xs text-[var(--text-muted)]">{v.createdByName}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-xs text-zinc-400">{v.recordCount?.toLocaleString() || '—'}</span>
+                      <span className="text-xs text-[var(--text-muted)]">{v.recordCount?.toLocaleString() || '—'}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-xs text-zinc-400">{formatFileSize(v.fileSize)}</span>
+                      <span className="text-xs text-[var(--text-muted)]">{formatFileSize(v.fileSize)}</span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">
@@ -275,12 +275,12 @@ export default function Versions() {
         <Dialog.Root open={!!showRestoreDialog} onOpenChange={(open) => !open && setShowRestoreDialog(null)}>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 bg-black/60 z-[60]" />
-            <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl p-6 z-[61] min-w-[400px]">
-              <Dialog.Title className="text-lg font-bold text-white mb-2">Restore Version</Dialog.Title>
-              <Dialog.Description className="text-sm text-zinc-400 mb-4">
+            <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-xl shadow-lg p-6 z-[61] min-w-[400px]">
+              <Dialog.Title className="text-lg font-bold text-[var(--text-primary)] mb-2">Restore Version</Dialog.Title>
+              <Dialog.Description className="text-sm text-[var(--text-secondary)] mb-4">
                 Are you sure you want to restore to <span className="font-bold text-accent">Version {showRestoreDialog.versionNumber}: {showRestoreDialog.name}</span>?
                 <br />
-                <span className="text-zinc-500">This will replace the current database with the snapshot. A safety backup will be created automatically.</span>
+                <span className="text-[var(--text-muted)]">This will replace the current database with the snapshot. A safety backup will be created automatically.</span>
               </Dialog.Description>
               <div className="flex items-center justify-end gap-3">
                 <Dialog.Close asChild>
@@ -301,12 +301,12 @@ export default function Versions() {
         <Dialog.Root open={!!showDeleteDialog} onOpenChange={(open) => !open && setShowDeleteDialog(null)}>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 bg-black/60 z-[60]" />
-            <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl p-6 z-[61] min-w-[400px]">
-              <Dialog.Title className="text-lg font-bold text-white mb-2">Delete Version</Dialog.Title>
-              <Dialog.Description className="text-sm text-zinc-400 mb-4">
+            <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-xl shadow-lg p-6 z-[61] min-w-[400px]">
+              <Dialog.Title className="text-lg font-bold text-[var(--text-primary)] mb-2">Delete Version</Dialog.Title>
+              <Dialog.Description className="text-sm text-[var(--text-secondary)] mb-4">
                 Are you sure you want to delete <span className="font-bold text-accent">Version {showDeleteDialog.versionNumber}: {showDeleteDialog.name}</span>?
                 <br />
-                <span className="text-zinc-500">This action cannot be undone.</span>
+                <span className="text-[var(--text-muted)]">This action cannot be undone.</span>
               </Dialog.Description>
               <div className="flex items-center justify-end gap-3">
                 <Dialog.Close asChild>

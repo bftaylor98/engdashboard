@@ -37,7 +37,7 @@ export default function Settings() {
           <SettingsIcon className="w-6 h-6" />
           Settings
         </h1>
-        <p className="text-sm text-zinc-400 mt-1">Manage your account preferences</p>
+        <p className="text-sm text-[var(--text-secondary)] mt-1">Manage your account preferences</p>
       </div>
 
       {/* User Info */}
@@ -48,17 +48,17 @@ export default function Settings() {
           </div>
           <div>
             <h2 className="text-lg font-semibold">Account Information</h2>
-            <p className="text-sm text-zinc-400">Your account details</p>
+            <p className="text-sm text-[var(--text-secondary)]">Your account details</p>
           </div>
         </div>
         <div className="space-y-2">
           <div>
-            <label className="text-sm text-zinc-400">Username</label>
-            <p className="text-zinc-100 font-mono">{user?.username}</p>
+            <label className="text-sm text-[var(--text-secondary)]">Username</label>
+            <p className="text-[var(--text-primary)] font-mono">{user?.username}</p>
           </div>
           <div>
-            <label className="text-sm text-zinc-400">Display Name</label>
-            <p className="text-zinc-100">{user?.displayName}</p>
+            <label className="text-sm text-[var(--text-secondary)]">Display Name</label>
+            <p className="text-[var(--text-primary)]">{user?.displayName}</p>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function Settings() {
           </div>
           <div>
             <h2 className="text-lg font-semibold">Appearance</h2>
-            <p className="text-sm text-zinc-400">Choose your preferred theme</p>
+            <p className="text-sm text-[var(--text-secondary)]">Choose your preferred theme</p>
           </div>
         </div>
 
@@ -87,7 +87,7 @@ export default function Settings() {
               w-full flex items-center gap-3 px-4 py-3 rounded-lg border transition-all
               ${theme === 'light'
                 ? 'bg-blue-600/20 border-blue-500/50 text-blue-400'
-                : 'bg-zinc-800/50 border-white/[0.06] text-zinc-300 hover:bg-zinc-800 hover:border-white/[0.12]'
+                : 'bg-[var(--bg-elevated)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:border-[var(--border-default)]'
               }
               disabled:opacity-50 disabled:cursor-not-allowed
             `}
@@ -109,7 +109,7 @@ export default function Settings() {
               w-full flex items-center gap-3 px-4 py-3 rounded-lg border transition-all
               ${theme === 'dark'
                 ? 'bg-blue-600/20 border-blue-500/50 text-blue-400'
-                : 'bg-zinc-800/50 border-white/[0.06] text-zinc-300 hover:bg-zinc-800 hover:border-white/[0.12]'
+                : 'bg-[var(--bg-elevated)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:border-[var(--border-default)]'
               }
               disabled:opacity-50 disabled:cursor-not-allowed
             `}
