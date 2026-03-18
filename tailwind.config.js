@@ -10,20 +10,45 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
+        bg: {
+          primary: 'var(--bg-primary)',
+          surface: 'var(--bg-surface)',
+          elevated: 'var(--bg-elevated)',
+          hover: 'var(--bg-hover)',
+          active: 'var(--bg-active)',
+        },
+        text: {
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
+        },
+        border: {
+          subtle: 'var(--border-subtle)',
+          default: 'var(--border-default)',
+          strong: 'var(--border-strong)',
+        },
         accent: {
-          DEFAULT: '#3b82f6',
-          hover: '#60a5fa',
-          muted: '#1d4ed8',
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+          muted: 'var(--accent-muted)',
+          strong: 'var(--accent-strong)',
         },
         hot: '#f97316',
-        surface: {
-          DEFAULT: '#18181b',
-          elevated: '#27272a',
-        },
       },
-      borderColor: {
-        subtle: 'rgba(255,255,255,0.06)',
-        DEFAULT: 'rgba(255,255,255,0.10)',
+      borderRadius: {
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
+        xl: 'var(--radius-xl)',
+      },
+      boxShadow: {
+        sm: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+      },
+      transitionTimingFunction: {
+        smooth: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out',
