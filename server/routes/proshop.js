@@ -7,6 +7,7 @@ import XLSX from 'xlsx';
 import { v4 as uuidv4 } from 'uuid';
 import { eventBus } from '../lib/eventBus.js';
 import { getProshopToken, executeGraphQLQuery, PROSHOP_CONFIG, isProshopRateLimitError } from '../lib/proshopClient.js';
+import { cacheLog } from '../lib/cacheLogger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -238,13 +239,13 @@ function transformPartNumber(rawPartNumber, customerName) {
         }
       } else if (!customerUniqueIdWarned.has(customerUpper)) {
         customerUniqueIdWarned.add(customerUpper);
-        console.warn(`[proshop] Customer uniqueId not found for: ${customerName} (add to customer_abb.csv Company Name / Unique Id)`);
+        cacheLog.warn('proshop', 'Customer uniqueId not found for:', customerName, '(add to customer_abb.csv Company Name / Unique Id)');
       }
     }
     
     return transformed;
   } catch (err) {
-    console.error('[proshop] Error transforming part number:', err);
+    cacheLog.error('proshop', 'Error transforming part number:', err);
     return rawPartNumber; // Return original on error
   }
 }
@@ -271,7 +272,7 @@ async function fetchPartDescriptions(partNumbers, token) {
       const desc = data?.part?.partDescription;
       map.set(partNumber, (typeof desc === 'string' && desc.trim()) ? desc.trim() : null);
     } catch (err) {
-      console.warn(`[proshop] Could not fetch part description for ${partNumber}:`, err.message);
+      cacheLog.warn('proshop', 'Could not fetch part description for', partNumber, err.message);
       map.set(partNumber, null);
     }
   }));
@@ -666,14 +667,14 @@ export function warmToolingExpensesCache() {
       expensesCache = response;
       cacheTimestamp = Date.now();
       expensesLastError = null;
-      console.log('[proshop] Tooling expenses cache warmed');
+      cacheLog.info('proshop', 'Tooling expenses cache warmed');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
         expensesLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
-        console.warn('[proshop] Tooling expenses warm rate limited (429/400), cache unchanged');
+        cacheLog.warn('proshop', 'Tooling expenses warm rate limited (429/400), cache unchanged');
       } else {
-        console.error('[proshop] Tooling expenses warm failed:', err.message || err);
+        cacheLog.error('proshop', 'Tooling expenses warm failed:', err.message || err);
       }
     });
 }
@@ -867,7 +868,7 @@ async function buildMaterialStatusResponse(db, woNumbersFromQuery = null) {
           const data = await executeGraphQLQuery(poQuery, { id }, token);
           poMap[id] = data?.purchaseOrder ?? null;
         } catch (err) {
-          console.error(`[proshop] material-status: failed to fetch PO ${id}:`, err.message);
+          cacheLog.error('proshop', 'material-status: failed to fetch PO', id, err.message);
           poMap[id] = null;
         }
       }));
@@ -1048,7 +1049,7 @@ async function buildMaterialStatusResponse(db, woNumbersFromQuery = null) {
 
 export function warmMaterialStatusCache(db) {
   if (!db) {
-    console.warn('[proshop] warmMaterialStatusCache skipped: no db');
+    cacheLog.warn('proshop', 'warmMaterialStatusCache skipped: no db');
     return;
   }
   buildMaterialStatusResponse(db, null)
@@ -1057,14 +1058,14 @@ export function warmMaterialStatusCache(db) {
       materialStatusCacheKey = cacheKey;
       materialStatusCacheTimestamp = Date.now();
       materialStatusLastError = null;
-      console.log('[proshop] Material status cache warmed');
+      cacheLog.info('proshop', 'Material status cache warmed');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
         materialStatusLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
-        console.warn('[proshop] Material status warm rate limited (429/400), cache unchanged');
+        cacheLog.warn('proshop', 'Material status warm rate limited (429/400), cache unchanged');
       } else {
-        console.error('[proshop] Material status warm failed:', err.message || err);
+        cacheLog.error('proshop', 'Material status warm failed:', err.message || err);
       }
     });
 }
@@ -1232,7 +1233,7 @@ async function buildOpenPOsResponse() {
             lineItems: processedLineItems.length > 0 ? processedLineItems : null,
           };
         } catch (err) {
-          console.error(`Error fetching details for PO ${po.id}:`, err);
+          cacheLog.error('proshop', 'Error fetching details for PO', po.id, err);
           // Return basic info if detail query fails
           return {
             id: po.id,
@@ -1265,14 +1266,14 @@ export function warmOpenPOsCache() {
       openPOsCache = response;
       openPOsCacheTimestamp = Date.now();
       openPOsLastError = null;
-      console.log('[proshop] Open POs cache warmed');
+      cacheLog.info('proshop', 'Open POs cache warmed');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
         openPOsLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
-        console.warn('[proshop] Open POs warm rate limited (429/400), cache unchanged');
+        cacheLog.warn('proshop', 'Open POs warm rate limited (429/400), cache unchanged');
       } else {
-        console.error('[proshop] Open POs warm failed:', err.message || err);
+        cacheLog.error('proshop', 'Open POs warm failed:', err.message || err);
       }
     });
 }
@@ -1427,7 +1428,7 @@ async function fetchAllNcrs(token, options = {}) {
     const raw = countData?.nonConformanceReports?.totalRecords;
     totalRecords = typeof raw === 'number' ? raw : parseInt(raw, 10) || 0;
   } catch (e) {
-    console.warn('[proshop] NCR count query failed, will try direct fetch:', e.message);
+    cacheLog.warn('proshop', 'NCR count query failed, will try direct fetch:', e.message);
   }
   const pageSize = totalRecords > 0 ? Math.min(totalRecords, maxRecords) : maxRecords;
   const data = await executeGraphQLQuery(NCR_LIST_QUERY, { pageSize }, token);
@@ -1602,14 +1603,14 @@ export function warmSharedNcrCache() {
       };
       byAssigneeCacheTimestamp = now;
       ncrLastError = null;
-      console.log('[proshop] Shared NCR cache warmed (recent, last24h, by-assignee)');
+      cacheLog.info('proshop', 'Shared NCR cache warmed (recent, last24h, by-assignee)');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
         ncrLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
-        console.warn('[proshop] Shared NCR cache warm rate limited (429/400), cache unchanged');
+        cacheLog.warn('proshop', 'Shared NCR cache warm rate limited (429/400), cache unchanged');
       } else {
-        console.error('[proshop] Shared NCR cache warm failed:', err.message || err);
+        cacheLog.error('proshop', 'Shared NCR cache warm failed:', err.message || err);
       }
     });
 }
@@ -1649,7 +1650,7 @@ router.post('/import-work-orders', async (req, res) => {
     try {
       token = await getProshopToken();
     } catch (authError) {
-      console.error('[proshop] Authentication failed:', authError);
+      cacheLog.error('proshop', 'Authentication failed:', authError);
       return res.status(500).json({
         success: false,
         error: 'Failed to authenticate with Proshop API. Please check credentials and network connection.',
@@ -1709,7 +1710,7 @@ router.post('/import-work-orders', async (req, res) => {
       try {
         data = await executeGraphQLQuery(query, variables, token);
       } catch (queryError) {
-        console.error(`[proshop] GraphQL query failed at page ${pagesFetched + 1}:`, queryError);
+        cacheLog.error('proshop', 'GraphQL query failed at page', pagesFetched + 1, queryError);
         // If it's the first page, fail completely; otherwise, continue with what we have
         if (pagesFetched === 0) {
           return res.status(500).json({
@@ -1722,7 +1723,7 @@ router.post('/import-work-orders', async (req, res) => {
       }
       
       if (!data || !data.workOrders) {
-        console.warn(`[proshop] Unexpected response structure at page ${pagesFetched + 1}`);
+        cacheLog.warn('proshop', 'Unexpected response structure at page', pagesFetched + 1);
         break;
       }
 
@@ -1740,8 +1741,8 @@ router.post('/import-work-orders', async (req, res) => {
       }
     }
 
-    console.log(`[proshop] Found ${allWorkOrders.length} Active work orders with Ops; Work Center = ENGINEERING to import`);
-    console.log(`[proshop] Using filter: status: ["Active"] + ops.workCenter: ["ENGINEERING"]`);
+    cacheLog.info('proshop', 'Found', allWorkOrders.length, 'Active work orders with Ops; Work Center = ENGINEERING to import');
+    cacheLog.info('proshop', 'Using filter: status: ["Active"] + ops.workCenter: ["ENGINEERING"]');
 
     // Fetch part descriptions via Part(partNumber).partDescription (API rejects "description" field)
     const rawPartNumbers = allWorkOrders.map(wo => wo.part?.partNumber).filter(Boolean);
@@ -1750,9 +1751,9 @@ router.post('/import-work-orders', async (req, res) => {
       try {
         partDescriptionMap = await fetchPartDescriptions(rawPartNumbers, token);
         const withDesc = [...partDescriptionMap.values()].filter(Boolean).length;
-        if (withDesc > 0) console.log(`[proshop] Fetched part descriptions for ${withDesc} parts`);
+        if (withDesc > 0) cacheLog.info('proshop', 'Fetched part descriptions for', withDesc, 'parts');
       } catch (err) {
-        console.warn('[proshop] Part description fetch failed, using Unnamed for part names:', err.message);
+        cacheLog.warn('proshop', 'Part description fetch failed, using Unnamed for part names:', err.message);
       }
     }
 
@@ -1791,7 +1792,7 @@ router.post('/import-work-orders', async (req, res) => {
     const checkExistsStmt = db.prepare('SELECT id, wo_number FROM engineering_work_orders WHERE wo_number = ?');
 
     if (allWorkOrders.length === 0) {
-      console.log('[proshop] No active Engineering work orders found to import');
+      cacheLog.info('proshop', 'No active Engineering work orders found to import');
       return res.json({
         success: true,
         data: {
@@ -1919,7 +1920,7 @@ router.post('/import-work-orders', async (req, res) => {
             report.imported++;
           }
         } catch (rowErr) {
-          console.error(`[proshop] Error processing work order ${wo.workOrderNumber || 'unknown'}:`, rowErr);
+          cacheLog.error('proshop', 'Error processing work order', wo.workOrderNumber || 'unknown', rowErr);
           report.errors.push({
             wo: wo.workOrderNumber || 'unknown',
             error: rowErr.message
@@ -1931,7 +1932,7 @@ router.post('/import-work-orders', async (req, res) => {
     try {
       importWorkOrders(allWorkOrders);
     } catch (transErr) {
-      console.error('[proshop] Database transaction failed:', transErr);
+      cacheLog.error('proshop', 'Database transaction failed:', transErr);
       return res.status(500).json({
         success: false,
         error: `Database error during import: ${transErr.message}. Partial import may have occurred.`,
@@ -1956,7 +1957,7 @@ router.post('/import-work-orders', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('[proshop] Error importing work orders:', error);
+    cacheLog.error('proshop', 'Error importing work orders:', error);
     
     // Provide more specific error messages
     let errorMessage = 'Failed to import work orders from Proshop API';
@@ -2021,8 +2022,8 @@ router.get('/test-query', async (req, res) => {
       }
     `;
 
-    console.log('[proshop] Testing query with fields:', fields);
-    console.log('[proshop] Query:', query);
+    cacheLog.info('proshop', 'Testing query with fields:', fields);
+    cacheLog.info('proshop', 'Query:', query);
 
     // Try the query
     const variables = { pageSize: 5, pageStart: 0 };
@@ -2033,7 +2034,7 @@ router.get('/test-query', async (req, res) => {
       data = await executeGraphQLQuery(query, variables, token);
     } catch (queryError) {
       error = queryError.message;
-      console.error('[proshop] Query failed:', queryError);
+      cacheLog.error('proshop', 'Query failed:', queryError);
     }
 
     res.json({
@@ -2047,7 +2048,7 @@ router.get('/test-query', async (req, res) => {
       recordsReturned: data?.workOrders?.records?.length || 0
     });
   } catch (error) {
-    console.error('[proshop] Error in test query:', error);
+    cacheLog.error('proshop', 'Error in test query:', error);
     res.status(500).json({
       success: false,
       error: error.message || 'Failed to test query',
@@ -2130,7 +2131,7 @@ router.get('/cost-analysis', async (req, res) => {
     try {
       token = await getProshopToken();
     } catch (authError) {
-      console.warn('[proshop] cost-analysis: Proshop auth failed, returning DB-only data:', authError?.message);
+      cacheLog.warn('proshop', 'cost-analysis: Proshop auth failed, returning DB-only data:', authError?.message);
       data.estimatedHours = data.estimatedTotalMinutes != null ? Math.round((data.estimatedTotalMinutes / 60) * 100) / 100 : null;
       return res.json({ success: true, data });
     }
@@ -2192,7 +2193,7 @@ router.get('/cost-analysis', async (req, res) => {
         filter: { workOrderNumber: [woNumber] },
       }, token);
     } catch (queryError) {
-      console.warn('[proshop] cost-analysis: Proshop query failed, returning DB-only data:', queryError?.message);
+      cacheLog.warn('proshop', 'cost-analysis: Proshop query failed, returning DB-only data:', queryError?.message);
       data.estimatedTotalMinutes = totalMinutes > 0 ? Math.round(totalMinutes) : null;
       data.estimatedHours = totalMinutes > 0 ? Math.round((totalMinutes / 60) * 100) / 100 : null;
       return res.json({ success: true, data });
@@ -2268,7 +2269,7 @@ router.get('/cost-analysis', async (req, res) => {
           filter: { workOrderNumber: [woNumber] },
         }, token);
       } catch (opsErr) {
-        console.warn('[proshop] cost-analysis: ops pagination failed:', opsErr?.message);
+        cacheLog.warn('proshop', 'cost-analysis: ops pagination failed:', opsErr?.message);
         break;
       }
       const recs = opsData?.workOrders?.records ?? [];
@@ -2310,7 +2311,7 @@ router.get('/cost-analysis', async (req, res) => {
             proshopMaterialTotal += costPer * share;
           }
         } catch (err) {
-          console.warn('[proshop] cost-analysis: failed to fetch PO', id, err?.message);
+          cacheLog.warn('proshop', 'cost-analysis: failed to fetch PO', id, err?.message);
         }
       }));
       if (i + PO_BATCH_SIZE < poIdsArray.length) {
@@ -2369,7 +2370,7 @@ router.get('/cost-analysis', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (error) {
-    console.error('[proshop] cost-analysis error:', error);
+    cacheLog.error('proshop', 'cost-analysis error:', error);
     res.status(500).json({
       success: false,
       error: error.message || 'Failed to get cost analysis',
@@ -2390,7 +2391,7 @@ router.get('/debug-work-orders', async (req, res) => {
     try {
       token = await getProshopToken();
     } catch (authError) {
-      console.error('[proshop] Authentication failed:', authError);
+      cacheLog.error('proshop', 'Authentication failed:', authError);
       return res.status(500).json({
         success: false,
         error: 'Failed to authenticate with Proshop API. Please check credentials and network connection.',
@@ -2424,7 +2425,7 @@ router.get('/debug-work-orders', async (req, res) => {
     try {
       data = await executeGraphQLQuery(query, variables, token);
     } catch (queryError) {
-      console.error('[proshop] GraphQL query failed:', queryError);
+      cacheLog.error('proshop', 'GraphQL query failed:', queryError);
       return res.status(500).json({
         success: false,
         error: `Failed to fetch work orders from Proshop API: ${queryError.message}`,
@@ -2464,7 +2465,7 @@ router.get('/debug-work-orders', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('[proshop] Error in debug endpoint:', error);
+    cacheLog.error('proshop', 'Error in debug endpoint:', error);
     res.status(500).json({
       success: false,
       error: error.message || 'Failed to fetch work orders from Proshop API',
@@ -2485,7 +2486,7 @@ router.get('/export-work-orders-csv', async (req, res) => {
     try {
       token = await getProshopToken();
     } catch (authError) {
-      console.error('[proshop] Authentication failed:', authError);
+      cacheLog.error('proshop', 'Authentication failed:', authError);
       return res.status(500).json({
         success: false,
         error: 'Failed to authenticate with Proshop API.',
@@ -2527,7 +2528,7 @@ router.get('/export-work-orders-csv', async (req, res) => {
       try {
         data = await executeGraphQLQuery(query, variables, token);
       } catch (queryError) {
-        console.error(`[proshop] GraphQL query failed at page ${pagesFetched + 1}:`, queryError);
+        cacheLog.error('proshop', 'GraphQL query failed at page', pagesFetched + 1, queryError);
         if (pagesFetched === 0) {
           return res.status(500).json({
             success: false,
@@ -2571,7 +2572,7 @@ router.get('/export-work-orders-csv', async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="Proshop_WorkOrders_${timestamp}.csv"`);
     res.send(csv);
   } catch (error) {
-    console.error('[proshop] Error exporting work orders to CSV:', error);
+    cacheLog.error('proshop', 'Error exporting work orders to CSV:', error);
     res.status(500).json({
       success: false,
       error: error.message || 'Failed to export work orders to CSV',

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { cacheLog } from '../lib/cacheLogger.js';
 
 const router = Router();
 
@@ -191,7 +192,7 @@ async function fetchMonthlyData(mssql, pool, itemKey, sinceDate) {
 
     return result.recordset;
   } catch (err) {
-    console.error(`Error fetching monthly data for item ${itemKey}:`, err);
+    cacheLog.error('stock-grid', 'Error fetching monthly data for item', itemKey, err);
     return [];
   }
 }
@@ -298,7 +299,7 @@ async function buildStockGridResponse() {
       try {
         await pool.close();
       } catch (closeErr) {
-        console.error('[stock-grid] Error closing connection:', closeErr);
+        cacheLog.error('stock-grid', 'Error closing connection:', closeErr);
       }
     }
   }
@@ -309,10 +310,10 @@ export function warmStockGridCache() {
     .then((response) => {
       stockGridCache = response;
       stockGridCacheTimestamp = Date.now();
-      console.log('[stock-grid] Cache warmed');
+      cacheLog.info('stock-grid', 'Cache warmed');
     })
     .catch((err) => {
-      console.error('[stock-grid] Warm failed:', err.message || err);
+      cacheLog.error('stock-grid', 'Warm failed:', err.message || err);
     });
 }
 
@@ -337,7 +338,7 @@ router.get('/', async (req, res) => {
     stockGridCacheTimestamp = now;
     res.json(response);
   } catch (err) {
-    console.error('[stock-grid] Error:', err);
+    cacheLog.error('stock-grid', 'Error:', err);
     res.status(500).json({
       success: false,
       error: err.message || 'Failed to fetch stock grid data',

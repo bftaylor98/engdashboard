@@ -2,6 +2,7 @@
  * Shared Proshop API client: auth and GraphQL execution.
  * Used by routes/proshop.js and routes/timeTracking.js.
  */
+import { cacheLog } from './cacheLogger.js';
 
 export const PROSHOP_CONFIG = {
   ROOT_URL: process.env.PROSHOP_ROOT_URL || 'https://est.adionsystems.com',
@@ -123,7 +124,7 @@ export async function getProshopToken() {
           const parsed = JSON.parse(text);
           detail = parsed.message || parsed.error || JSON.stringify(parsed);
         } catch (_) {}
-        console.error('[proshop] beginsession failed:', response.status, detail);
+        cacheLog.error('proshop-client', 'beginsession failed:', response.status, detail);
         const e = new Error(`Proshop authentication failed: ${response.status}`);
         e.status = response.status;
         if (response.status === 429 || response.status === 400) {
@@ -175,7 +176,7 @@ export async function executeGraphQLQuery(query, variables, token) {
           const parsed = JSON.parse(text);
           detail = parsed.message || parsed.error || JSON.stringify(parsed);
         } catch (_) {}
-        console.error('[proshop] GraphQL non-OK:', response.status, detail);
+        cacheLog.error('proshop-client', 'GraphQL non-OK:', response.status, detail);
         const e = new Error(`GraphQL request failed: ${response.status}`);
         e.status = response.status;
         e.detail = detail;

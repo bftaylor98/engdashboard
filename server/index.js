@@ -206,7 +206,7 @@ const server = app.listen(PORT, () => {
   console.log(`[server] Engineering Schedule Dashboard API running on http://localhost:${PORT}`);
   const count = db.prepare('SELECT COUNT(*) as count FROM engineering_work_orders').get();
   console.log(`[server] Database initialized with ${count.count} work orders`);
-  console.log('[server] ProShop caches: initial warm then NCR 10min, material 5min, tooling/open POs 15min, time-tracking 10min (staggered)');
+  console.log('[server] ProShop cache warming started (see logs/cache.log for details)');
   setImmediate(() => runProshopWarmsSequentially());
 
   // Staggered background refresh only (no user request ever triggers ProShop)

@@ -1,5 +1,6 @@
 import express from 'express';
 import { getProshopToken, executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
+import { cacheLog } from '../lib/cacheLogger.js';
 
 const router = express.Router();
 
@@ -63,8 +64,8 @@ function isIncompleteOpForMachine(op, key) {
  * isOpComplete is false and workCenter.commonName contains one of the three machine names.
  */
 export async function buildMachinesResponse() {
-  console.log('[machines] buildMachinesResponse started');
-  console.log('[machines] fetching ProShop token...');
+  cacheLog.info('machines', 'buildMachinesResponse started');
+  cacheLog.info('machines', 'fetching ProShop token...');
   let token;
   try {
     token = await Promise.race([
@@ -74,10 +75,10 @@ export async function buildMachinesResponse() {
       )
     ]);
   } catch (err) {
-    console.error('[machines] Token fetch failed:', err.message);
+    cacheLog.error('machines', 'Token fetch failed:', err.message);
     throw err;
   }
-  console.log('[machines] token acquired, starting pagination...');
+  cacheLog.info('machines', 'token acquired, starting pagination...');
   const query = `
     query GetWorkOrdersForMachines($pageSize: Int!, $pageStart: Int!, $filter: WorkOrderFilter) {
       workOrders(pageSize: $pageSize, pageStart: $pageStart, filter: $filter) {
@@ -116,15 +117,15 @@ export async function buildMachinesResponse() {
   let pagesFetched = 0;
 
   try {
-    console.log('[machines] starting pagination loop...');
+    cacheLog.info('machines', 'starting pagination loop...');
     while (hasMore && pagesFetched < MAX_PAGES) {
-      console.log(`[machines] fetching page ${pagesFetched + 1} (pageStart ${pageStart})...`);
+      cacheLog.info('machines', 'fetching page', pagesFetched + 1, '(pageStart', pageStart, ')...');
       const data = await executeGraphQLQuery(query, {
         pageSize,
         pageStart,
         filter: { status: ['Active'] },
       }, token);
-      console.log(`[machines] page ${pagesFetched + 1} returned ${data?.workOrders?.records?.length ?? 'null'} records`);
+      cacheLog.info('machines', 'page', pagesFetched + 1, 'returned', data?.workOrders?.records?.length ?? 'null', 'records');
 
       if (!data?.workOrders?.records) break;
 
@@ -142,9 +143,9 @@ export async function buildMachinesResponse() {
       if (records.length < pageSize) hasMore = false;
       else pageStart += pageSize;
     }
-    console.log(`[machines] pagination complete, total records: ${allWorkOrders.length}`);
+    cacheLog.info('machines', 'pagination complete, total records:', allWorkOrders.length);
   } catch (err) {
-    console.error('[machines] Error inside buildMachinesResponse:', err.message, err.stack);
+    cacheLog.error('machines', 'Error inside buildMachinesResponse:', err.message, err.stack);
     throw err;
   }
 
@@ -217,16 +218,16 @@ export async function buildMachinesResponse() {
 }
 
 export function warmMachinesCache() {
-  console.log('[machines] warmMachinesCache called');
+  cacheLog.info('machines', 'warmMachinesCache called');
   buildMachinesResponse()
     .then((response) => {
       machinesCache = response;
       machinesLastError = null;
-      console.log('[machines] Machines cache warmed');
+      cacheLog.info('machines', 'Machines cache warmed');
     })
     .catch((err) => {
-      console.error('[machines] buildMachinesResponse FAILED:', err.message);
-      console.error(err.stack);
+      cacheLog.error('machines', 'buildMachinesResponse FAILED:', err.message);
+      cacheLog.error('machines', err.stack);
       if (isProshopRateLimitError(err)) {
         machinesLastError = { reason: 'rate_limited', message: 'ProShop temporarily unavailable.' };
       }

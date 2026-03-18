@@ -1,5 +1,6 @@
 import express from 'express';
 import { getProshopToken, executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
+import { cacheLog } from '../lib/cacheLogger.js';
 
 const router = express.Router();
 
@@ -337,10 +338,10 @@ export function warmTimeTrackingCache() {
     .then((response) => {
       timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
       timeTrackingLastError = null;
-      console.log('[time-tracking] Cache warmed for date:', dateStr);
+      cacheLog.info('time-tracking', 'Cache warmed for date:', dateStr);
     })
     .catch((err) => {
-      console.error('[time-tracking] Warm failed:', err.message || err);
+      cacheLog.error('time-tracking', 'Warm failed:', err.message || err);
       if (isProshopRateLimitError(err)) {
         timeTrackingLastError = { reason: 'rate_limited' };
       } else {
@@ -441,10 +442,10 @@ export function warmLatestDateCache() {
       latestDateCache = response;
       latestDateCacheTimestamp = Date.now();
       timeTrackingLastError = null;
-      console.log('[time-tracking] Latest-date cache warmed');
+      cacheLog.info('time-tracking', 'Latest-date cache warmed');
     })
     .catch((err) => {
-      console.error('[time-tracking] Latest-date warm failed:', err.message || err);
+      cacheLog.error('time-tracking', 'Latest-date warm failed:', err.message || err);
       if (isProshopRateLimitError(err)) {
         timeTrackingLastError = { reason: 'rate_limited' };
       } else {
@@ -593,10 +594,10 @@ export function warmTimeTrackingStatsCache() {
       statsCache = response;
       statsCacheTimestamp = Date.now();
       timeTrackingLastError = null;
-      console.log('[time-tracking] Stats cache warmed');
+      cacheLog.info('time-tracking', 'Stats cache warmed');
     })
     .catch((err) => {
-      console.error('[time-tracking] Stats warm failed:', err.message || err);
+      cacheLog.error('time-tracking', 'Stats warm failed:', err.message || err);
       if (isProshopRateLimitError(err)) {
         timeTrackingLastError = { reason: 'rate_limited' };
       } else {

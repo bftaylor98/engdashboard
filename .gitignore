@@ -8,4 +8,5 @@ uploads/
 .dashboard-token
 .DS_Store
 *.har
+logs/
 
