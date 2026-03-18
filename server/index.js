@@ -167,23 +167,100 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function runInitialWarm() {
+  // 2. material status
+  try {
+    await warmMaterialStatusCache(db);
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+  await sleep(3000);
+
+  // 3. shared NCR cache
+  try {
+    await warmSharedNcrCache();
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+  await sleep(3000);
+
+  // 4. time tracking caches (run sequentially, no gaps between them)
+  try {
+    await warmTimeTrackingCache();
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+  try {
+    await warmLatestDateCache();
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+  try {
+    await warmTimeTrackingStatsCache();
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+  await sleep(3000);
+
+  // 5. machines
+  try {
+    await warmMachinesCache();
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+  await sleep(3000);
+
+  // 6. tooling expenses
+  try {
+    await warmToolingExpensesCache();
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+  await sleep(3000);
+
+  // 7. open POs
+  try {
+    await warmOpenPOsCache();
+  } catch (_) {
+    // warm functions already log to cache.log; keep startup console clean
+  }
+
+  console.log('[server] Initial cache warm complete');
+
+  // Register recurring refresh jobs after initial caches are populated.
+  registerJob('material-status', () => warmMaterialStatusCache(db), { intervalMs: 5 * 60 * 1000 });
+  registerJob('ncrs', warmSharedNcrCache, { intervalMs: 10 * 60 * 1000 });
+  registerJob(
+    'time-tracking',
+    async () => {
+      await warmTimeTrackingCache();
+      await warmLatestDateCache();
+      await warmTimeTrackingStatsCache();
+    },
+    { intervalMs: 10 * 60 * 1000 }
+  );
+  registerJob('machines', warmMachinesCache, { intervalMs: 10 * 60 * 1000 });
+  registerJob('tooling-expenses', warmToolingExpensesCache, { intervalMs: 15 * 60 * 1000 });
+  registerJob('open-pos', warmOpenPOsCache, { intervalMs: 15 * 60 * 1000 });
+}
+
 const server = app.listen(PORT, () => {
   console.log(`[server] Engineering Schedule Dashboard API running on http://localhost:${PORT}`);
   const count = db.prepare('SELECT COUNT(*) as count FROM engineering_work_orders').get();
   console.log(`[server] Database initialized with ${count.count} work orders`);
   console.log('[server] ProShop cache warming started (see logs/cache.log for details)');
 
+  // 1. stock grid (SQL, not ProShop) can warm/refresh immediately and independently
   registerJob('stock-grid', warmStockGridCache, { intervalMs: 5 * 60 * 1000, initialDelayMs: 0 });
-  registerJob('material-status', () => warmMaterialStatusCache(db), { intervalMs: 5 * 60 * 1000, initialDelayMs: 2000 });
-  registerJob('ncrs', warmSharedNcrCache, { intervalMs: 10 * 60 * 1000, initialDelayMs: 7000 });
-  registerJob('time-tracking', async () => {
-    await warmTimeTrackingCache();
-    await warmLatestDateCache();
-    await warmTimeTrackingStatsCache();
-  }, { intervalMs: 10 * 60 * 1000, initialDelayMs: 12000 });
-  registerJob('machines', warmMachinesCache, { intervalMs: 10 * 60 * 1000, initialDelayMs: 17000 });
-  registerJob('tooling-expenses', warmToolingExpensesCache, { intervalMs: 15 * 60 * 1000, initialDelayMs: 22000 });
-  registerJob('open-pos', warmOpenPOsCache, { intervalMs: 15 * 60 * 1000, initialDelayMs: 27000 });
+
+  // Run sequential initial warm without blocking server startup
+  setImmediate(() => {
+    runInitialWarm();
+  });
 });
 
 server.on('error', (err) => {
