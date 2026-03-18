@@ -304,7 +304,7 @@ export default function Analytics() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold">Workload Analytics</h1>
-        <p className="text-sm text-zinc-400 mt-0.5">All metrics computed from live database</p>
+        <p className="text-sm text-[var(--text-secondary)] mt-0.5">All metrics computed from live database</p>
       </div>
 
       {/* Summary row */}
@@ -334,7 +334,7 @@ export default function Analytics() {
             <Users className="w-5 h-5 text-accent" /> Workload by Assignee
           </h2>
           {assigneeWorkload.length === 0 ? (
-            <p className="text-zinc-500 text-sm">No assignee data available</p>
+            <p className="text-[var(--text-muted)] text-sm">No assignee data available</p>
           ) : (
             <div className="space-y-3">
               {assigneeWorkload.map(a => {
@@ -342,13 +342,13 @@ export default function Analytics() {
                 return (
                   <div key={a.name}>
                     <div className="flex items-center justify-between text-sm mb-1">
-                      <span className="text-zinc-200 font-medium">{a.name}</span>
-                      <span className="text-zinc-400 text-xs">
+                      <span className="text-[var(--text-primary)] font-medium">{a.name}</span>
+                      <span className="text-[var(--text-secondary)] text-xs">
                         {a.count} items · {a.progHours.toFixed(1)}h prog · {a.engHours.toFixed(1)}h eng
                         {a.overdue > 0 && <span className="text-red-400 ml-1">({a.overdue} overdue)</span>}
                       </span>
                     </div>
-                    <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="h-2 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-accent to-blue-400 rounded-full transition-all"
                         style={{ width: `${(a.count / maxCount) * 100}%` }}
@@ -371,8 +371,8 @@ export default function Analytics() {
               const pct = orders.length ? Math.round((s.count / orders.length) * 100) : 0;
               return (
                 <div key={s.value} className="flex items-center gap-3">
-                  <span className="text-xs text-zinc-400 w-24 text-right">{s.label}</span>
-                  <div className="flex-1 h-6 bg-zinc-800 rounded-lg overflow-hidden relative">
+                  <span className="text-xs text-[var(--text-secondary)] w-24 text-right">{s.label}</span>
+                  <div className="flex-1 h-6 bg-[var(--bg-elevated)] rounded-lg overflow-hidden relative">
                     <div
                       className={cn('h-full rounded-lg transition-all', statusBarColor(s.value))}
                       style={{ width: `${pct}%` }}
@@ -393,15 +393,15 @@ export default function Analytics() {
             <TrendingUp className="w-5 h-5 text-accent" /> By Customer
           </h2>
           {customerBreakdown.length === 0 ? (
-            <p className="text-zinc-500 text-sm">No customer data available</p>
+            <p className="text-[var(--text-muted)] text-sm">No customer data available</p>
           ) : (
             <div className="space-y-2">
               {customerBreakdown.slice(0, 10).map(c => {
                 const maxCount = customerBreakdown[0].count;
                 return (
                   <div key={c.name} className="flex items-center gap-3">
-                    <span className="text-xs text-zinc-300 w-24 text-right truncate">{c.name}</span>
-                    <div className="flex-1 h-5 bg-zinc-800 rounded overflow-hidden relative">
+                    <span className="text-xs text-[var(--text-secondary)] w-24 text-right truncate">{c.name}</span>
+                    <div className="flex-1 h-5 bg-[var(--bg-elevated)] rounded overflow-hidden relative">
                       <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded transition-all" style={{ width: `${(c.count / maxCount) * 100}%` }} />
                       <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-white/80">{c.count}</span>
                     </div>
@@ -422,8 +422,8 @@ export default function Analytics() {
               const maxCount = Math.max(...priorityBreakdown.map(x => x.count));
               return (
                 <div key={p.priority} className="flex items-center gap-3">
-                  <span className="text-xs text-zinc-300 w-24 text-right">{p.label}</span>
-                  <div className="flex-1 h-5 bg-zinc-800 rounded overflow-hidden relative">
+                  <span className="text-xs text-[var(--text-secondary)] w-24 text-right">{p.label}</span>
+                  <div className="flex-1 h-5 bg-[var(--bg-elevated)] rounded overflow-hidden relative">
                     <div className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded transition-all" style={{ width: `${(p.count / maxCount) * 100}%` }} />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-white/80">{p.count}</span>
                   </div>
@@ -441,7 +441,7 @@ export default function Analytics() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-zinc-400 text-left border-b border-white/[0.06]">
+                <tr className="text-[var(--text-secondary)] text-left border-b border-[var(--border-subtle)]">
                   <th className="pb-2 font-medium">Box Name</th>
                   <th className="pb-2 font-medium text-right">Total Jobs</th>
                   <th className="pb-2 font-medium text-right">Jobs Scheduled</th>
@@ -450,15 +450,15 @@ export default function Analytics() {
                   <th className="pb-2 font-medium">Snapshot Date</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/[0.04]">
+              <tbody className="divide-y divide-[var(--border-subtle)]">
                 {construction.map(c => (
-                  <tr key={c.id} className="hover:bg-zinc-800/50">
-                    <td className="py-2 text-zinc-200 font-medium">{c.boxName}</td>
-                    <td className="py-2 text-zinc-200 text-right">{c.totalJobs ?? '—'}</td>
-                    <td className="py-2 text-zinc-200 text-right">{c.jobsScheduled ?? '—'}</td>
-                    <td className="py-2 text-zinc-200 text-right">{c.jobsToGo ?? '—'}</td>
-                    <td className="py-2 text-zinc-200 text-right">{c.percentageOfJobs != null ? `${c.percentageOfJobs}%` : '—'}</td>
-                    <td className="py-2 text-zinc-400">{c.snapshotDate}</td>
+                  <tr key={c.id} className="hover:bg-[var(--bg-hover)]">
+                    <td className="py-2 text-[var(--text-primary)] font-medium">{c.boxName}</td>
+                    <td className="py-2 text-[var(--text-primary)] text-right">{c.totalJobs ?? '—'}</td>
+                    <td className="py-2 text-[var(--text-primary)] text-right">{c.jobsScheduled ?? '—'}</td>
+                    <td className="py-2 text-[var(--text-primary)] text-right">{c.jobsToGo ?? '—'}</td>
+                    <td className="py-2 text-[var(--text-primary)] text-right">{c.percentageOfJobs != null ? `${c.percentageOfJobs}%` : '—'}</td>
+                    <td className="py-2 text-[var(--text-secondary)]">{c.snapshotDate}</td>
                   </tr>
                 ))}
               </tbody>
@@ -468,9 +468,9 @@ export default function Analytics() {
       )}
 
       {/* Tooling Expenses Widget */}
-      <div className="bg-zinc-900/50 border border-white/10 rounded-lg p-6">
+      <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100 flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-accent" />
             Tooling Expenses
           </h2>
@@ -478,7 +478,7 @@ export default function Analytics() {
             onClick={loadToolingExpenses}
             disabled={expensesLoading}
             className={cn(
-              'p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors',
+              'p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors',
               'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
             title="Refresh expenses"
@@ -509,11 +509,11 @@ export default function Analytics() {
             <div className="flex items-center justify-between gap-4 flex-wrap">
               {/* Month Selector */}
               <div className="flex items-center gap-2">
-                <label className="text-sm text-zinc-400">View Month:</label>
+                <label className="text-sm text-[var(--text-secondary)]">View Month:</label>
                 <select
                   value={selectedMonthIndex}
                   onChange={(e) => setSelectedMonthIndex(Number(e.target.value))}
-                  className="px-3 py-1.5 bg-zinc-800/50 border border-white/10 rounded-lg text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  className="select px-3 py-1.5 text-sm"
                 >
                   {expensesData.sixMonthHistory.map((month, idx) => (
                     <option key={idx} value={idx}>
@@ -524,10 +524,10 @@ export default function Analytics() {
               </div>
 
               {/* 6-Month Average Stat */}
-              <div className="bg-zinc-800/30 border border-white/5 rounded-lg px-4 py-2">
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg px-4 py-2">
                 <div className="flex items-center gap-3">
                   <div>
-                    <p className="text-xs text-zinc-500">6-Month Average</p>
+                    <p className="text-xs text-[var(--text-muted)]">6-Month Average</p>
                     <p className="text-xl font-semibold text-cyan-400">
                       ${expensesData.sixMonthAverage.toLocaleString('en-US', {
                         minimumFractionDigits: 2,
@@ -540,9 +540,9 @@ export default function Analytics() {
             </div>
 
             {/* Primary Focus: Selected Month Spending */}
-            <div className="bg-zinc-800/50 border border-white/10 rounded-lg p-6">
+            <div className="bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-lg p-6">
               <div className="text-center mb-6">
-                <p className="text-sm text-zinc-400 mb-2">
+                <p className="text-sm text-[var(--text-secondary)] mb-2">
                   {expensesData.sixMonthHistory[selectedMonthIndex]?.month}
                   {selectedMonthIndex === 0 && ' (Current Month)'}
                 </p>
@@ -552,7 +552,7 @@ export default function Analytics() {
                     maximumFractionDigits: 2,
                   })}
                 </p>
-                <p className="text-sm text-zinc-500">
+                <p className="text-sm text-[var(--text-muted)]">
                   {expensesData.sixMonthHistory[selectedMonthIndex]?.poCount} purchase order
                   {expensesData.sixMonthHistory[selectedMonthIndex]?.poCount !== 1 ? 's' : ''}
                 </p>
@@ -560,19 +560,19 @@ export default function Analytics() {
 
               {/* Type Breakdown */}
               {expensesData.sixMonthHistory[selectedMonthIndex]?.typeBreakdown && (
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <p className="text-sm font-medium text-zinc-300 mb-3">Cost Breakdown by PO Type</p>
+                <div className="mt-6 pt-6 border-t border-[var(--border-subtle)]">
+                  <p className="text-sm font-medium text-[var(--text-primary)] mb-3">Cost Breakdown by PO Type</p>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {Object.entries(expensesData.sixMonthHistory[selectedMonthIndex].typeBreakdown).map(([type, stats]) => (
-                      <div key={type} className="bg-zinc-900/50 rounded-lg p-3">
-                        <p className="text-xs text-zinc-400 mb-1">{type}</p>
-                        <p className="text-lg font-semibold text-zinc-200">
+                      <div key={type} className="bg-[var(--bg-surface)] rounded-lg p-3 border border-[var(--border-subtle)]">
+                        <p className="text-xs text-[var(--text-secondary)] mb-1">{type}</p>
+                        <p className="text-lg font-semibold text-[var(--text-primary)]">
                           ${stats.totalExpense.toLocaleString('en-US', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}
                         </p>
-                        <p className="text-xs text-zinc-500 mt-1">
+                        <p className="text-xs text-[var(--text-muted)] mt-1">
                           {stats.poCount} PO{stats.poCount !== 1 ? 's' : ''}
                         </p>
                       </div>
@@ -583,8 +583,8 @@ export default function Analytics() {
 
               {/* Verification Section - Only for current month */}
               {selectedMonthIndex === 0 && expensesData.verification && (
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <p className="text-sm font-medium text-zinc-300 mb-3">Required PO Type Verification</p>
+                <div className="mt-6 pt-6 border-t border-[var(--border-subtle)]">
+                  <p className="text-sm font-medium text-[var(--text-primary)] mb-3">Required PO Type Verification</p>
                   <div className="space-y-2">
                     {Object.entries(expensesData.verification).map(([type, verification]) => (
                       <div
@@ -610,11 +610,11 @@ export default function Analytics() {
                             {type}
                           </p>
                           {verification.hasPO ? (
-                            <p className="text-xs text-zinc-400 mt-1">
+                            <p className="text-xs text-[var(--text-secondary)] mt-1">
                               First PO: {verification.firstPODate || 'N/A'} ({verification.poCount} PO{verification.poCount !== 1 ? 's' : ''} total)
                             </p>
                           ) : (
-                            <p className="text-xs text-zinc-400 mt-1">
+                            <p className="text-xs text-[var(--text-secondary)] mt-1">
                               No PO this month
                             </p>
                           )}
@@ -627,10 +627,10 @@ export default function Analytics() {
 
               {/* Budget Information - Only show for current month */}
               {selectedMonthIndex === 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-6 border-t border-white/10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-6 border-t border-[var(--border-subtle)]">
                   {/* Remaining Budget */}
-                  <div className="bg-zinc-900/50 rounded-lg p-4">
-                    <p className="text-xs text-zinc-400 mb-1">Remaining Budget</p>
+                  <div className="bg-[var(--bg-surface)] rounded-lg p-4 border border-[var(--border-subtle)]">
+                    <p className="text-xs text-[var(--text-secondary)] mb-1">Remaining Budget</p>
                     <p className={cn(
                       "text-3xl font-bold mb-1",
                       expensesData.budget.remaining > 5000 
@@ -644,7 +644,7 @@ export default function Analytics() {
                         maximumFractionDigits: 2,
                       })}
                     </p>
-                    <div className="w-full bg-zinc-800 rounded-full h-2 mt-2">
+                    <div className="w-full bg-[var(--bg-elevated)] rounded-full h-2 mt-2">
                       <div
                         className={cn(
                           "h-2 rounded-full transition-all",
@@ -657,18 +657,18 @@ export default function Analytics() {
                         style={{ width: `${Math.min(100, expensesData.budget.usedPercent)}%` }}
                       />
                     </div>
-                    <p className="text-xs text-zinc-500 mt-1">
+                    <p className="text-xs text-[var(--text-muted)] mt-1">
                       {expensesData.budget.usedPercent.toFixed(1)}% of ${expensesData.budget.monthlyBudget.toLocaleString('en-US')} budget used
                     </p>
                   </div>
 
                   {/* Days Remaining */}
-                  <div className="bg-zinc-900/50 rounded-lg p-4">
-                    <p className="text-xs text-zinc-400 mb-1">Days Until Renewal</p>
+                  <div className="bg-[var(--bg-surface)] rounded-lg p-4 border border-[var(--border-subtle)]">
+                    <p className="text-xs text-[var(--text-secondary)] mb-1">Days Until Renewal</p>
                     <p className="text-3xl font-bold text-blue-400 mb-1">
                       {expensesData.budget.daysRemaining}
                     </p>
-                    <p className="text-xs text-zinc-500 mt-2">
+                    <p className="text-xs text-[var(--text-muted)] mt-2">
                       Budget resets on the 1st
                     </p>
                   </div>
@@ -679,33 +679,33 @@ export default function Analytics() {
             {/* Secondary Stats: Rolling 30 Days and Last Month */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Rolling 30 Days */}
-              <div className="bg-zinc-800/30 border border-white/5 rounded-lg p-4">
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-4">
                 <div className="text-center">
-                  <p className="text-xs text-zinc-500 mb-1">Last 30 Days</p>
+                  <p className="text-xs text-[var(--text-muted)] mb-1">Last 30 Days</p>
                   <p className="text-2xl font-semibold text-blue-400 mb-1">
                     ${expensesData.rolling30Days.totalExpense.toLocaleString('en-US', {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
                   </p>
-                  <p className="text-xs text-zinc-600">
+                  <p className="text-xs text-[var(--text-muted)]">
                     {expensesData.rolling30Days.poCount} PO{expensesData.rolling30Days.poCount !== 1 ? 's' : ''}
                   </p>
                 </div>
               </div>
 
               {/* Last Month */}
-              <div className="bg-zinc-800/30 border border-white/5 rounded-lg p-4">
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-4">
                 <div className="text-center">
-                  <p className="text-xs text-zinc-500 mb-1">Last Month</p>
+                  <p className="text-xs text-[var(--text-muted)] mb-1">Last Month</p>
                   <p className="text-2xl font-semibold text-purple-400 mb-1">
                     ${expensesData.lastMonth.totalExpense.toLocaleString('en-US', {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
                   </p>
-                  <p className="text-xs text-zinc-600 mb-1">{expensesData.lastMonth.month}</p>
-                  <p className="text-xs text-zinc-600">
+                  <p className="text-xs text-[var(--text-muted)] mb-1">{expensesData.lastMonth.month}</p>
+                  <p className="text-xs text-[var(--text-muted)]">
                     {expensesData.lastMonth.poCount} PO{expensesData.lastMonth.poCount !== 1 ? 's' : ''}
                   </p>
                 </div>
@@ -713,14 +713,14 @@ export default function Analytics() {
             </div>
 
             {/* Vendor Info */}
-            <div className="flex items-center justify-center text-xs text-zinc-600">
+            <div className="flex items-center justify-center text-xs text-[var(--text-muted)]">
               <span>Vendor: Rocket Supply</span>
             </div>
           </div>
         )}
 
         {!expensesData && !expensesLoading && !expensesError && (
-          <div className="text-center py-8 text-zinc-500">
+          <div className="text-center py-8 text-[var(--text-muted)]">
             <TrendingUp className="w-12 h-12 mx-auto mb-3 opacity-50" />
             <p className="text-sm">No expense data available</p>
           </div>
@@ -728,18 +728,18 @@ export default function Analytics() {
       </div>
 
       {/* Open Purchase Orders Table */}
-      <div className="bg-zinc-900/50 border border-white/10 rounded-lg p-6">
+      <div className="card">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => setIsOpenPOSectionCollapsed(!isOpenPOSectionCollapsed)}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
             {isOpenPOSectionCollapsed ? (
-              <ChevronRight className="w-5 h-5 text-zinc-400" />
+              <ChevronRight className="w-5 h-5 text-[var(--text-secondary)]" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-zinc-400" />
+              <ChevronDown className="w-5 h-5 text-[var(--text-secondary)]" />
             )}
-            <h2 className="text-lg font-semibold text-zinc-100 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-accent" />
               Open Rocket Supply Purchase Orders
             </h2>
@@ -747,16 +747,16 @@ export default function Analytics() {
           <div className="flex items-center gap-2">
             {/* Sort Controls */}
             {openPOs.length > 0 && (
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-zinc-800/50 rounded-lg border border-white/10">
-                <ArrowUpDown className="w-3.5 h-3.5 text-zinc-400" />
-                <span className="text-xs text-zinc-400">Sort:</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-elevated)]/50 rounded-lg border border-[var(--border-default)]">
+                <ArrowUpDown className="w-3.5 h-3.5 text-[var(--text-secondary)]" />
+                <span className="text-xs text-[var(--text-secondary)]">Sort:</span>
                 <button
                   onClick={() => handleSortChange('poNumber')}
                   className={cn(
                     'px-2 py-1 rounded text-xs font-medium transition-colors',
                     sortField === 'poNumber'
                       ? 'bg-accent/20 text-accent'
-                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)]'
                   )}
                 >
                   PO #
@@ -770,7 +770,7 @@ export default function Analytics() {
                     'px-2 py-1 rounded text-xs font-medium transition-colors',
                     sortField === 'date'
                       ? 'bg-accent/20 text-accent'
-                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/50'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)]'
                   )}
                 >
                   Date
@@ -784,7 +784,7 @@ export default function Analytics() {
               onClick={loadOpenPOs}
               disabled={openPOsLoading}
               className={cn(
-                'p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors',
+                'p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors',
                 'disabled:opacity-50 disabled:cursor-not-allowed'
               )}
               title="Refresh purchase orders"
@@ -815,46 +815,46 @@ export default function Analytics() {
             {!openPOsLoading && !openPOsError && (
           <div className="overflow-x-auto">
             {openPOs.length === 0 ? (
-              <div className="text-center py-8 text-zinc-500">
+              <div className="text-center py-8 text-[var(--text-muted)]">
                 <p className="text-sm">No open purchase orders found</p>
               </div>
             ) : (
               <>
-                <div className="mb-3 text-xs text-zinc-500">
+                <div className="mb-3 text-xs text-[var(--text-muted)]">
                   Showing {openPOs.length} open purchase order{openPOs.length !== 1 ? 's' : ''} (Status: Outstanding or Partially Released)
                 </div>
                 <div className="space-y-2">
                   {sortedPOs.map((po) => {
                     const isExpanded = expandedPOs.has(po.id);
                     return (
-                      <div key={po.id} className="border border-white/10 rounded-lg overflow-hidden">
+                      <div key={po.id} className="border border-[var(--border-default)] rounded-lg overflow-hidden">
                         {/* PO Header Row - Clickable */}
                         <button
                           onClick={() => togglePOExpansion(po.id)}
-                          className="w-full bg-zinc-800/50 p-3 grid grid-cols-6 gap-4 items-center hover:bg-zinc-800/70 transition-colors text-left"
+                          className="w-full bg-[var(--bg-elevated)]/50 p-3 grid grid-cols-6 gap-4 items-center hover:bg-[var(--bg-elevated)]/70 transition-colors text-left"
                         >
                           <div className="flex items-center gap-2">
                             {isExpanded ? (
-                              <ChevronDown className="w-4 h-4 text-zinc-400 shrink-0" />
+                              <ChevronDown className="w-4 h-4 text-[var(--text-secondary)] shrink-0" />
                             ) : (
-                              <ChevronRight className="w-4 h-4 text-zinc-400 shrink-0" />
+                              <ChevronRight className="w-4 h-4 text-[var(--text-secondary)] shrink-0" />
                             )}
                             <div>
-                              <span className="text-xs text-zinc-500">PO #</span>
+                              <span className="text-xs text-[var(--text-muted)]">PO #</span>
                               <a
                                 href={`https://est.adionsystems.com/procnc/purchaseorders/${po.poNumber}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="text-zinc-200 font-medium font-mono hover:text-accent hover:underline transition-colors"
+                                className="text-[var(--text-primary)] font-medium font-mono hover:text-accent hover:underline transition-colors"
                               >
                                 {po.poNumber}
                               </a>
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="text-xs text-zinc-500">Total Cost</span>
-                            <p className="text-zinc-200 font-medium">
+                            <span className="text-xs text-[var(--text-muted)]">Total Cost</span>
+                            <p className="text-[var(--text-primary)] font-medium">
                               ${po.cost.toLocaleString('en-US', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
@@ -862,11 +862,11 @@ export default function Analytics() {
                             </p>
                           </div>
                           <div>
-                            <span className="text-xs text-zinc-500">Order Date</span>
-                            <p className="text-zinc-300">{po.date}</p>
+                            <span className="text-xs text-[var(--text-muted)]">Order Date</span>
+                            <p className="text-[var(--text-secondary)]">{po.date}</p>
                           </div>
                           <div>
-                            <span className="text-xs text-zinc-500">Status</span>
+                            <span className="text-xs text-[var(--text-muted)]">Status</span>
                             <div>
                               <span
                                 className={cn(
@@ -881,21 +881,21 @@ export default function Analytics() {
                             </div>
                           </div>
                           <div>
-                            <span className="text-xs text-zinc-500">PO Type</span>
-                            <p className="text-zinc-300 font-medium">{po.poType}</p>
+                            <span className="text-xs text-[var(--text-muted)]">PO Type</span>
+                            <p className="text-[var(--text-secondary)] font-medium">{po.poType}</p>
                           </div>
                           {po.lineItems && po.lineItems.length > 0 && (
                             <div className="text-right">
-                              <span className="text-xs text-zinc-500">Items</span>
-                              <p className="text-zinc-300">{po.lineItems.length}</p>
+                              <span className="text-xs text-[var(--text-muted)]">Items</span>
+                              <p className="text-[var(--text-secondary)]">{po.lineItems.length}</p>
                             </div>
                           )}
                         </button>
                         
                         {/* Line Items - Collapsible */}
                         {isExpanded && po.lineItems && po.lineItems.length > 0 && (
-                          <div className="bg-zinc-900/30 p-3 border-t border-white/10">
-                            <p className="text-xs text-zinc-500 mb-2 font-medium">Line Items ({po.lineItems.length}):</p>
+                          <div className="bg-[var(--bg-surface)]/30 p-3 border-t border-[var(--border-default)]">
+                            <p className="text-xs text-[var(--text-muted)] mb-2 font-medium">Line Items ({po.lineItems.length}):</p>
                             <div className="space-y-3">
                               {po.lineItems.map((item, idx) => {
                                 // Determine line item status
@@ -922,24 +922,24 @@ export default function Analytics() {
                                 }
                                 
                                 return (
-                                  <div key={idx} className="border border-white/5 rounded-lg p-3 bg-zinc-800/30">
+                                  <div key={idx} className="border border-[var(--border-subtle)] rounded-lg p-3 bg-[var(--bg-elevated)]/30">
                                     <div className="grid grid-cols-6 gap-4 text-sm mb-2">
                                       <div className="col-span-2">
-                                        <p className="text-zinc-300 font-medium">{item.description}</p>
+                                        <p className="text-[var(--text-secondary)] font-medium">{item.description}</p>
                                         {item.orderNumber && (
-                                          <p className="text-xs text-zinc-500 mt-1">Order: {item.orderNumber}</p>
+                                          <p className="text-xs text-[var(--text-muted)] mt-1">Order: {item.orderNumber}</p>
                                         )}
                                         {item.itemNumber && (
-                                          <p className="text-xs text-zinc-500">Item #: {item.itemNumber}</p>
+                                          <p className="text-xs text-[var(--text-muted)]">Item #: {item.itemNumber}</p>
                                         )}
                                       </div>
                                       <div className="text-right">
-                                        <span className="text-zinc-500 text-xs">Qty Ordered</span>
-                                        <p className="text-zinc-300">{item.quantity}</p>
+                                        <span className="text-[var(--text-muted)] text-xs">Qty Ordered</span>
+                                        <p className="text-[var(--text-secondary)]">{item.quantity}</p>
                                       </div>
                                       <div className="text-right">
-                                        <span className="text-zinc-500 text-xs">Unit Price</span>
-                                        <p className="text-zinc-300">
+                                        <span className="text-[var(--text-muted)] text-xs">Unit Price</span>
+                                        <p className="text-[var(--text-secondary)]">
                                           ${(item.unitPrice || 0).toLocaleString('en-US', {
                                             minimumFractionDigits: 2,
                                             maximumFractionDigits: 2,
@@ -947,8 +947,8 @@ export default function Analytics() {
                                         </p>
                                       </div>
                                       <div className="text-right">
-                                        <span className="text-zinc-500 text-xs">Total</span>
-                                        <p className="text-zinc-200 font-medium">
+                                        <span className="text-[var(--text-muted)] text-xs">Total</span>
+                                        <p className="text-[var(--text-primary)] font-medium">
                                           ${(item.totalPrice || 0).toLocaleString('en-US', {
                                             minimumFractionDigits: 2,
                                             maximumFractionDigits: 2,
@@ -958,13 +958,13 @@ export default function Analytics() {
                                     </div>
                                     
                                     {/* Status Information */}
-                                    <div className="mt-2 pt-2 border-t border-white/5">
+                                    <div className="mt-2 pt-2 border-t border-[var(--border-subtle)]">
                                       <div className="flex items-center gap-2 mb-2">
                                         <span className={cn('px-2 py-1 rounded text-xs font-medium border', statusColor)}>
                                           {lineStatus}
                                         </span>
                                         {(qtyReleased > 0 || qtyReceived > 0 || qtyStatus > 0) && (
-                                          <div className="flex items-center gap-4 text-xs text-zinc-400">
+                                          <div className="flex items-center gap-4 text-xs text-[var(--text-secondary)]">
                                             {qtyReleased > 0 && (
                                               <span>
                                                 Released: {qtyReleased}
@@ -987,7 +987,7 @@ export default function Analytics() {
                                         )}
                                       </div>
                                       {item.releasedBy && (
-                                        <p className="text-xs text-zinc-500">Released by: {item.releasedBy}</p>
+                                        <p className="text-xs text-[var(--text-muted)]">Released by: {item.releasedBy}</p>
                                       )}
                                     </div>
                                   </div>
@@ -1009,18 +1009,18 @@ export default function Analytics() {
       </div>
 
       {/* Stock Grid Section */}
-      <div className="bg-zinc-900/50 border border-white/10 rounded-lg p-6">
+      <div className="card">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => setIsStockGridCollapsed(!isStockGridCollapsed)}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
             {isStockGridCollapsed ? (
-              <ChevronRight className="w-5 h-5 text-zinc-400" />
+              <ChevronRight className="w-5 h-5 text-[var(--text-secondary)]" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-zinc-400" />
+              <ChevronDown className="w-5 h-5 text-[var(--text-secondary)]" />
             )}
-            <h2 className="text-lg font-semibold text-zinc-100 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
               <Package className="w-5 h-5 text-accent" />
               Matrix Stock Report
             </h2>
@@ -1029,7 +1029,7 @@ export default function Analytics() {
             onClick={loadStockGrid}
             disabled={stockGridLoading}
             className={cn(
-              'p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors',
+              'p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors',
               'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
             title="Refresh stock report"
@@ -1060,20 +1060,20 @@ export default function Analytics() {
               <div className="space-y-6">
                 {/* Summary Stats */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="bg-zinc-800/30 border border-white/5 rounded-lg p-3 text-center">
-                    <p className="text-xs text-zinc-500 mb-1">Total Items</p>
-                    <p className="text-xl font-semibold text-zinc-200">{stockGridData.summary.totalItems}</p>
+                  <div className="bg-[var(--bg-elevated)]/30 border border-[var(--border-subtle)] rounded-lg p-3 text-center">
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Total Items</p>
+                    <p className="text-xl font-semibold text-[var(--text-primary)]">{stockGridData.summary.totalItems}</p>
                   </div>
-                  <div className="bg-zinc-800/30 border border-white/5 rounded-lg p-3 text-center">
-                    <p className="text-xs text-zinc-500 mb-1">Below Minimum</p>
+                  <div className="bg-[var(--bg-elevated)]/30 border border-[var(--border-subtle)] rounded-lg p-3 text-center">
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Below Minimum</p>
                     <p className="text-xl font-semibold text-red-400">{stockGridData.summary.totalBelowMinimum}</p>
                   </div>
-                  <div className="bg-zinc-800/30 border border-white/5 rounded-lg p-3 text-center">
-                    <p className="text-xs text-zinc-500 mb-1">Total Shortage</p>
+                  <div className="bg-[var(--bg-elevated)]/30 border border-[var(--border-subtle)] rounded-lg p-3 text-center">
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Total Shortage</p>
                     <p className="text-xl font-semibold text-red-400">{stockGridData.summary.totalShortage.toFixed(0)}</p>
                   </div>
-                  <div className="bg-zinc-800/30 border border-white/5 rounded-lg p-3 text-center">
-                    <p className="text-xs text-zinc-500 mb-1">Cost to Replenish</p>
+                  <div className="bg-[var(--bg-elevated)]/30 border border-[var(--border-subtle)] rounded-lg p-3 text-center">
+                    <p className="text-xs text-[var(--text-muted)] mb-1">Cost to Replenish</p>
                     <p className="text-xl font-semibold text-yellow-400">${stockGridData.summary.totalCost.toFixed(2)}</p>
                   </div>
                 </div>
@@ -1082,7 +1082,7 @@ export default function Analytics() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="text-zinc-400 text-left border-b border-white/[0.06]">
+                      <tr className="text-[var(--text-secondary)] text-left border-b border-[var(--border-subtle)]">
                         <th className="pb-2 font-medium w-8"></th>
                         <th className="pb-2 font-medium">Item Description</th>
                         <th className="pb-2 font-medium">Item Code</th>
@@ -1096,7 +1096,7 @@ export default function Analytics() {
                         <th className="pb-2 font-medium text-right">Max Usage</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/[0.04]">
+                    <tbody className="divide-y divide-[var(--border-subtle)]">
                       {stockGridData.items.map((item, idx) => {
                         const isExpanded = expandedRows.has(idx);
                         return (
@@ -1104,7 +1104,7 @@ export default function Analytics() {
                             <tr
                               key={idx}
                               className={cn(
-                                'hover:bg-zinc-800/50 cursor-pointer',
+                                'hover:bg-[var(--bg-elevated)]/50 cursor-pointer',
                                 item.isBelowMinimum && 'bg-red-500/10'
                               )}
                               onClick={() => {
@@ -1121,37 +1121,37 @@ export default function Analytics() {
                             >
                               <td className="py-2">
                                 {isExpanded ? (
-                                  <ChevronDown className="w-4 h-4 text-zinc-400" />
+                                  <ChevronDown className="w-4 h-4 text-[var(--text-secondary)]" />
                                 ) : (
-                                  <ChevronRight className="w-4 h-4 text-zinc-400" />
+                                  <ChevronRight className="w-4 h-4 text-[var(--text-secondary)]" />
                                 )}
                               </td>
-                              <td className="py-2 text-zinc-200">{item.itemDescription}</td>
-                              <td className="py-2 text-zinc-300 font-mono">{item.itemCode}</td>
-                              <td className="py-2 text-zinc-200 text-right font-mono">{item.stockQty.toFixed(0)}</td>
+                              <td className="py-2 text-[var(--text-primary)]">{item.itemDescription}</td>
+                              <td className="py-2 text-[var(--text-secondary)] font-mono">{item.itemCode}</td>
+                              <td className="py-2 text-[var(--text-primary)] text-right font-mono">{item.stockQty.toFixed(0)}</td>
                               <td className="py-2 text-red-400 text-right font-mono font-bold">
                                 {item.shortage > 0 ? item.shortage.toFixed(0) : '-'}
                               </td>
-                              <td className="py-2 text-zinc-200 text-right font-mono">
+                              <td className="py-2 text-[var(--text-primary)] text-right font-mono">
                                 {item.minQty > 0 ? item.minQty.toFixed(0) : '-'}
                               </td>
-                              <td className="py-2 text-zinc-200 text-right font-mono">
+                              <td className="py-2 text-[var(--text-primary)] text-right font-mono">
                                 {item.maxQty > 0 ? item.maxQty.toFixed(0) : '-'}
                               </td>
-                              <td className="py-2 text-zinc-200 text-right font-mono">
+                              <td className="py-2 text-[var(--text-primary)] text-right font-mono">
                                 {item.itemPrice > 0 ? `$${item.itemPrice.toFixed(2)}` : '-'}
                               </td>
                               <td className="py-2 text-yellow-400 text-right font-mono font-bold">
                                 {item.costToReplenish > 0 ? `$${item.costToReplenish.toFixed(2)}` : '-'}
                               </td>
-                              <td className="py-2 text-zinc-200 text-right font-mono">{item.avgMonthlyUse}</td>
-                              <td className="py-2 text-zinc-200 text-right font-mono">{item.maxUsage}</td>
+                              <td className="py-2 text-[var(--text-primary)] text-right font-mono">{item.avgMonthlyUse}</td>
+                              <td className="py-2 text-[var(--text-primary)] text-right font-mono">{item.maxUsage}</td>
                             </tr>
                             {isExpanded && (
-                              <tr key={`${idx}-chart`} className="bg-zinc-900/50">
+                              <tr key={`${idx}-chart`} className="bg-[var(--bg-surface)]/50">
                                 <td colSpan={11} className="py-4 px-4">
                                   <div className="space-y-4">
-                                    <h4 className="text-sm font-semibold text-zinc-300 mb-3">
+                                    <h4 className="text-sm font-semibold text-[var(--text-secondary)] mb-3">
                                       Monthly Usage - {item.itemDescription}
                                     </h4>
                                     <div className="h-64 w-full">
@@ -1199,14 +1199,14 @@ export default function Analytics() {
                 </div>
 
                 {/* Generated At */}
-                <div className="text-xs text-zinc-500 text-center pt-2 border-t border-white/5">
+                <div className="text-xs text-[var(--text-muted)] text-center pt-2 border-t border-[var(--border-subtle)]">
                   Generated: {new Date(stockGridData.generatedAt).toLocaleString()}
                 </div>
               </div>
             )}
 
             {!stockGridData && !stockGridLoading && !stockGridError && (
-              <div className="text-center py-8 text-zinc-500">
+              <div className="text-center py-8 text-[var(--text-muted)]">
                 <Package className="w-12 h-12 mx-auto mb-3 opacity-50" />
                 <p className="text-sm">No stock report data available</p>
               </div>
@@ -1315,8 +1315,8 @@ function MiniStat({
   if (!workOrders || workOrders.length === 0) {
     return (
       <div className="stat-card">
-        <p className={cn('text-2xl font-bold', color || 'text-zinc-100')}>{value}</p>
-        <p className="text-sm text-zinc-400">{label}</p>
+        <p className={cn('text-2xl font-bold', color || 'text-[var(--text-primary)]')}>{value}</p>
+        <p className="text-sm text-[var(--text-secondary)]">{label}</p>
       </div>
     );
   }
@@ -1328,23 +1328,23 @@ function MiniStat({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <p className={cn('text-2xl font-bold', color || 'text-zinc-100')}>{value}</p>
-      <p className="text-sm text-zinc-400">{label}</p>
+      <p className={cn('text-2xl font-bold', color || 'text-[var(--text-primary)]')}>{value}</p>
+      <p className="text-sm text-[var(--text-secondary)]">{label}</p>
       
       {showTooltip && (
         <div
           ref={tooltipRef}
-          className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-3 min-w-[280px] max-w-[400px] max-h-96 overflow-y-auto"
+          className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-lg shadow-2xl p-3 min-w-[280px] max-w-[400px] max-h-96 overflow-y-auto"
           style={{ top: 0, left: 0 }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <p className="text-xs font-semibold text-zinc-300 mb-2 uppercase tracking-wide border-b border-white/10 pb-2">
+          <p className="text-xs font-semibold text-[var(--text-secondary)] mb-2 uppercase tracking-wide border-b border-[var(--border-default)] pb-2">
             {label} Work Orders
           </p>
           <div className="space-y-1 mt-2">
             {workOrders.length === 0 ? (
-              <p className="text-xs text-zinc-500 italic">No work orders found</p>
+              <p className="text-xs text-[var(--text-muted)] italic">No work orders found</p>
             ) : (
               workOrders.map((wo) => {
                 let dueDateStr = '';
@@ -1366,23 +1366,23 @@ function MiniStat({
                       e.stopPropagation();
                       handleWorkOrderClick(wo);
                     }}
-                    className="w-full text-left text-xs text-zinc-400 py-1.5 px-2 border-b border-white/5 last:border-0 hover:bg-zinc-700/50 rounded transition-colors"
+                    className="w-full text-left text-xs text-[var(--text-secondary)] py-1.5 px-2 border-b border-[var(--border-subtle)] last:border-0 hover:bg-[var(--bg-hover)] rounded transition-colors"
                   >
                     {/* Line 1: WO Number + Due Date */}
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-medium text-zinc-200 text-sm">
+                      <span className="font-medium text-[var(--text-primary)] text-sm">
                         {wo.woNumber || wo.id}
                       </span>
-                      <span className="text-zinc-500 ml-2 text-xs">
+                      <span className="text-[var(--text-muted)] ml-2 text-xs">
                         {dueDateStr ? `Due: ${dueDateStr}` : 'Due: N/A'}
                       </span>
                     </div>
                     {/* Line 2: Customer - always shown */}
-                    <p className="text-zinc-500 text-xs mb-0.5">
+                    <p className="text-[var(--text-muted)] text-xs mb-0.5">
                       Customer: {wo.customer || 'N/A'}
                     </p>
                     {/* Line 3: Assignee - always shown */}
-                    <p className="text-zinc-500 text-xs">
+                    <p className="text-[var(--text-muted)] text-xs">
                       Assignee: {wo.currentBox || 'N/A'}
                     </p>
                   </button>

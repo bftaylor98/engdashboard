@@ -51,14 +51,14 @@ function formatDateTime(dateStr: string | null | undefined): string {
 function NcrTable({ ncrs, emptyMessage }: { ncrs: NCR[]; emptyMessage: string }) {
   if (ncrs.length === 0) {
     return (
-      <p className="text-sm text-zinc-500 py-4 text-center">{emptyMessage}</p>
+      <p className="text-sm text-[var(--text-muted)] py-4 text-center">{emptyMessage}</p>
     );
   }
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-zinc-400 border-b border-white/10">
+          <tr className="text-left text-[var(--text-secondary)] border-b border-[var(--border-default)]">
             <th className="pb-2 pr-4 font-medium">NCR #</th>
             <th className="pb-2 pr-4 font-medium">Created</th>
             <th className="pb-2 pr-4 font-medium">Assigned to</th>
@@ -71,9 +71,9 @@ function NcrTable({ ncrs, emptyMessage }: { ncrs: NCR[]; emptyMessage: string })
           {ncrs.map((ncr) => (
             <tr
               key={ncr.ncrRefNumber ?? ''}
-              className="border-b border-white/5 hover:bg-white/[0.03]"
+              className="border-b border-[var(--border-subtle)] hover:bg-[var(--bg-hover)]"
             >
-              <td className="py-2 pr-4 text-zinc-200 font-mono">
+              <td className="py-2 pr-4 text-[var(--text-primary)] font-mono">
                 {ncr.ncrRefNumber ? (
                   <a
                     href={`https://est.adionsystems.com/procnc/nonconformancereports/${encodeURIComponent(ncr.ncrRefNumber)}`}
@@ -87,19 +87,19 @@ function NcrTable({ ncrs, emptyMessage }: { ncrs: NCR[]; emptyMessage: string })
                   '—'
                 )}
               </td>
-              <td className="py-2 pr-4 text-zinc-400 whitespace-nowrap">
+              <td className="py-2 pr-4 text-[var(--text-secondary)] whitespace-nowrap">
                 {formatDateTime(ncr.createdTime)}
               </td>
-              <td className="py-2 pr-4 text-zinc-300">
+              <td className="py-2 pr-4 text-[var(--text-primary)]">
                 {ncr.assignedToPlainText ?? '—'}
               </td>
-              <td className="py-2 pr-4 text-zinc-300">
+              <td className="py-2 pr-4 text-[var(--text-primary)]">
                 {ncr.workOrderNumber ?? '—'}
               </td>
-              <td className="py-2 pr-4 text-zinc-400 max-w-[140px] truncate">
+              <td className="py-2 pr-4 text-[var(--text-secondary)] max-w-[140px] truncate">
                 {ncr.partNumber ?? '—'}
               </td>
-              <td className="py-2 text-zinc-400">{ncr.status ?? '—'}</td>
+              <td className="py-2 text-[var(--text-secondary)]">{ncr.status ?? '—'}</td>
             </tr>
           ))}
         </tbody>
@@ -343,7 +343,7 @@ export default function NonConformances() {
     <div className="space-y-8 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2 text-zinc-100">
+          <h1 className="text-2xl font-bold flex items-center gap-2 text-[var(--text-primary)]">
             <AlertCircle className="w-7 h-7 text-amber-500" />
             NCRs
           </h1>
@@ -355,7 +355,7 @@ export default function NonConformances() {
             loading24h ||
             (admin && (loadingByAssignee || loadingTimeTracking))
           }
-          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100 transition-colors disabled:opacity-50 text-sm"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)] transition-colors disabled:opacity-50 text-sm"
         >
           <RefreshCw
             className={cn(
@@ -373,14 +373,14 @@ export default function NonConformances() {
       {/* Section A: Last 10 */}
       <section className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100 flex items-center gap-2">
-            <ClipboardList className="w-5 h-5 text-zinc-400" />
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
+            <ClipboardList className="w-5 h-5 text-[var(--text-muted)]" />
             Last 10 NCRs
           </h2>
           <button
             onClick={loadRecent}
             disabled={loadingRecent}
-            className="text-xs text-zinc-500 hover:text-zinc-300 disabled:opacity-50"
+            className="text-xs text-[var(--text-muted)] hover:text-[var(--text-secondary)] disabled:opacity-50"
           >
             Refresh
           </button>
@@ -392,7 +392,7 @@ export default function NonConformances() {
             </p>
             <button
               onClick={loadRecent}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-sm"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] text-sm"
             >
               <RefreshCw className="w-4 h-4" />
               Retry
@@ -410,10 +410,10 @@ export default function NonConformances() {
       {/* Section B: Last 24h */}
       <section className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-zinc-100">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)]">
             NCRs in the last 24 hours
             {!loading24h && (
-              <span className="ml-2 text-sm font-normal text-zinc-500">
+              <span className="ml-2 text-sm font-normal text-[var(--text-muted)]">
                 ({last24h.length})
               </span>
             )}
@@ -421,7 +421,7 @@ export default function NonConformances() {
           <button
             onClick={loadLast24h}
             disabled={loading24h}
-            className="text-xs text-zinc-500 hover:text-zinc-300 disabled:opacity-50"
+            className="text-xs text-[var(--text-muted)] hover:text-[var(--text-secondary)] disabled:opacity-50"
           >
             Refresh
           </button>
@@ -433,7 +433,7 @@ export default function NonConformances() {
             </p>
             <button
               onClick={loadLast24h}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-sm"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] text-sm"
             >
               <RefreshCw className="w-4 h-4" />
               Retry
@@ -454,7 +454,7 @@ export default function NonConformances() {
       {/* Section C: By assignee (admin only) */}
       {admin && (
       <section className="card">
-        <h2 className="text-lg font-semibold text-zinc-100 mb-4">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
           By assignee (year, quarter, month, week)
         </h2>
         {rateLimitByAssignee ? (
@@ -464,7 +464,7 @@ export default function NonConformances() {
             </p>
             <button
               onClick={loadByAssignee}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-sm"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] text-sm"
             >
               <RefreshCw className="w-4 h-4" />
               Retry
@@ -478,7 +478,7 @@ export default function NonConformances() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-zinc-400 border-b border-white/10">
+                <tr className="text-left text-[var(--text-secondary)] border-b border-[var(--border-default)]">
                   <th className="pb-2 pr-4 font-medium">Assignee</th>
                   <th className="pb-2 pr-4 font-medium text-right">Year</th>
                   <th className="pb-2 pr-4 font-medium text-right">Quarter</th>
@@ -505,7 +505,7 @@ export default function NonConformances() {
                   return (
                     <tr
                       key={name}
-                      className="border-b border-white/5 hover:bg-white/[0.03]"
+                      className="border-b border-[var(--border-subtle)] hover:bg-[var(--bg-hover)]"
                     >
                       <td className="py-2 pr-4">
                         <button
@@ -516,25 +516,25 @@ export default function NonConformances() {
                           <ChevronRight className="w-4 h-4" />
                         </button>
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-300">
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {stats.year}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-300">
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {stats.quarter}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-300">
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {stats.month}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-300">
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {stats.week}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-400">
+                      <td className="py-2 pr-4 text-right text-[var(--text-secondary)]">
                         {stats.monthlyAvg.toFixed(2)}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-400">
+                      <td className="py-2 pr-4 text-right text-[var(--text-secondary)]">
                         {stats.weeklyAvg.toFixed(2)}
                       </td>
-                      <td className="py-2 text-right text-zinc-300">
+                      <td className="py-2 text-right text-[var(--text-primary)]">
                         {ncrRatePct != null
                           ? `${ncrRatePct.toFixed(1)}%`
                           : '—'}
@@ -566,27 +566,27 @@ export default function NonConformances() {
                   const totalNcrRatePct =
                     totalUniqueWOs > 0 ? (totalYear / totalUniqueWOs) * 100 : null;
                   return (
-                    <tr className="border-t-2 border-white/20 bg-white/[0.02] font-medium">
-                      <td className="py-2 pr-4 text-zinc-100">Total</td>
-                      <td className="py-2 pr-4 text-right text-zinc-100">
+                    <tr className="border-t-2 border-[var(--border-default)] bg-[var(--bg-hover)] font-medium">
+                      <td className="py-2 pr-4 text-[var(--text-primary)]">Total</td>
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {totalYear}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-100">
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {totalQuarter}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-100">
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {totalMonth}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-100">
+                      <td className="py-2 pr-4 text-right text-[var(--text-primary)]">
                         {totalWeek}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-300">
+                      <td className="py-2 pr-4 text-right text-[var(--text-secondary)]">
                         {(totalYear / 12).toFixed(2)}
                       </td>
-                      <td className="py-2 pr-4 text-right text-zinc-300">
+                      <td className="py-2 pr-4 text-right text-[var(--text-secondary)]">
                         {(totalYear / 52).toFixed(2)}
                       </td>
-                      <td className="py-2 text-right text-zinc-300">
+                      <td className="py-2 text-right text-[var(--text-secondary)]">
                         {totalNcrRatePct != null
                           ? `${totalNcrRatePct.toFixed(1)}%`
                           : '—'}
@@ -598,7 +598,7 @@ export default function NonConformances() {
             </table>
           </div>
         ) : (
-          <p className="text-sm text-zinc-500 py-4">No assignee data.</p>
+          <p className="text-sm text-[var(--text-muted)] py-4">No assignee data.</p>
         )}
       </section>
       )}
@@ -610,21 +610,21 @@ export default function NonConformances() {
             className="fixed inset-0 bg-black/60 z-40"
             onClick={() => setAssigneeModal(null)}
           />
-          <div className="fixed top-4 bottom-4 left-4 right-4 md:top-8 md:bottom-8 md:left-8 md:right-8 lg:top-12 lg:bottom-12 lg:left-1/2 lg:-translate-x-1/2 lg:right-auto lg:w-full lg:max-w-5xl bg-zinc-900 border border-white/10 rounded-xl shadow-2xl z-50 flex flex-col overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-              <h3 className="text-lg font-semibold text-zinc-100">
+          <div className="fixed top-4 bottom-4 left-4 right-4 md:top-8 md:bottom-8 md:left-8 md:right-8 lg:top-12 lg:bottom-12 lg:left-1/2 lg:-translate-x-1/2 lg:right-auto lg:w-full lg:max-w-5xl bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-xl shadow-lg z-50 flex flex-col overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-subtle)]">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)]">
                 All NCRs assigned to {assigneeModal} (this year)
               </h3>
               <button
                 onClick={() => setAssigneeModal(null)}
-                className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-zinc-100"
+                className="p-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
               {modalNcrs.length === 0 ? (
-                <p className="text-zinc-500 text-sm">No NCRs for this assignee this year.</p>
+                <p className="text-[var(--text-muted)] text-sm">No NCRs for this assignee this year.</p>
               ) : (
                 <NcrTable ncrs={modalNcrs} emptyMessage="" />
               )}
