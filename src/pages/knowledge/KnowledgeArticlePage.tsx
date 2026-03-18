@@ -126,7 +126,7 @@ export default function KnowledgeArticlePage() {
   if (!article) {
     return (
       <div className="card p-8 text-center">
-        <p className="text-zinc-400">Article not found.</p>
+        <p className="text-[var(--text-secondary)]">Article not found.</p>
         <Link to="/knowledge" className="text-accent hover:underline mt-2 inline-block">
           Back to Knowledge Base
         </Link>
@@ -139,7 +139,7 @@ export default function KnowledgeArticlePage() {
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
           <h1 className="text-2xl font-bold text-zinc-100">{article.title}</h1>
-          <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-zinc-400">
+          <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-[var(--text-secondary)]">
             {article.categoryName && (
               <span className="flex items-center gap-1">
                 <Tag className="w-4 h-4" />
@@ -164,7 +164,7 @@ export default function KnowledgeArticlePage() {
                 'px-2 py-0.5 rounded text-xs font-medium',
                 article.status === 'standard' && 'bg-green-500/20 text-green-400',
                 article.status === 'reviewed' && 'bg-blue-500/20 text-blue-400',
-                article.status === 'draft' && 'bg-zinc-500/20 text-zinc-400'
+                article.status === 'draft' && 'bg-zinc-500/20 text-[var(--text-secondary)]'
               )}
             >
               {article.status}
@@ -193,7 +193,7 @@ export default function KnowledgeArticlePage() {
           {article.tags.map((t) => (
             <span
               key={t}
-              className="px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 text-xs"
+              className="px-2 py-0.5 rounded bg-[var(--bg-elevated)] text-[var(--text-secondary)] text-xs"
             >
               {t}
             </span>
@@ -207,7 +207,7 @@ export default function KnowledgeArticlePage() {
 
       {article.attachments.length > 0 && (
         <div className="card p-4 mb-6">
-          <h3 className="text-sm font-semibold text-zinc-300 flex items-center gap-2 mb-2">
+          <h3 className="text-sm font-semibold text-[var(--text-secondary)] flex items-center gap-2 mb-2">
             <Paperclip className="w-4 h-4" />
             Attachments
           </h3>
@@ -229,7 +229,7 @@ export default function KnowledgeArticlePage() {
       )}
 
       <div className="card p-4 mb-6">
-        <h3 className="text-sm font-semibold text-zinc-300 mb-2">Was this helpful?</h3>
+        <h3 className="text-sm font-semibold text-[var(--text-secondary)] mb-2">Was this helpful?</h3>
         <div className="flex gap-2">
           <button
             type="button"
@@ -238,8 +238,8 @@ export default function KnowledgeArticlePage() {
             className={cn(
               'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm border transition-colors',
               helpfulSubmitted
-                ? 'border-zinc-600 text-zinc-500 cursor-default'
-                : 'border-white/10 text-zinc-400 hover:bg-green-500/10 hover:border-green-500/30 hover:text-green-400'
+                ? 'border-[var(--border-default)] text-[var(--text-muted)] cursor-default'
+                : 'border-[var(--border-default)] text-[var(--text-secondary)] hover:bg-green-500/10 hover:border-green-500/30 hover:text-green-400'
             )}
           >
             <ThumbsUp className="w-4 h-4" />
@@ -252,8 +252,8 @@ export default function KnowledgeArticlePage() {
             className={cn(
               'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm border transition-colors',
               helpfulSubmitted
-                ? 'border-zinc-600 text-zinc-500 cursor-default'
-                : 'border-white/10 text-zinc-400 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400'
+                ? 'border-[var(--border-default)] text-[var(--text-muted)] cursor-default'
+                : 'border-[var(--border-default)] text-[var(--text-secondary)] hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400'
             )}
           >
             <ThumbsDown className="w-4 h-4" />
@@ -266,18 +266,18 @@ export default function KnowledgeArticlePage() {
         <button
           type="button"
           onClick={() => setShowRevisions(!showRevisions)}
-          className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-zinc-100"
+          className="flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <History className="w-4 h-4" />
           Revision history ({revisions.length})
         </button>
         {showRevisions && (
-          <ul className="mt-3 space-y-2 text-sm text-zinc-400">
+          <ul className="mt-3 space-y-2 text-sm text-[var(--text-secondary)]">
             {revisions.map((r) => (
               <li key={r.id} className="flex items-center gap-2">
                 <span>{r.userDisplayName ?? 'Unknown'}</span>
                 <span>{formatDistanceToNow(new Date(r.createdAt), { addSuffix: true })}</span>
-                {r.note && <span className="text-zinc-500">— {r.note}</span>}
+                {r.note && <span className="text-[var(--text-muted)]">— {r.note}</span>}
               </li>
             ))}
           </ul>
@@ -285,22 +285,22 @@ export default function KnowledgeArticlePage() {
       </div>
 
       <div className="card p-4">
-        <h3 className="text-sm font-semibold text-zinc-300 flex items-center gap-2 mb-3">
+        <h3 className="text-sm font-semibold text-[var(--text-secondary)] flex items-center gap-2 mb-3">
           <MessageSquare className="w-4 h-4" />
           Comments
         </h3>
         <ul className="space-y-3 mb-4">
           {comments.map((c) => (
-            <li key={c.id} className="border-b border-white/5 pb-3 last:border-0">
-              <div className="flex items-center gap-2 text-xs text-zinc-500 mb-1">
+            <li key={c.id} className="border-b border-[var(--border-subtle)] pb-3 last:border-0">
+              <div className="flex items-center gap-2 text-xs text-[var(--text-muted)] mb-1">
                 <span>{c.userDisplayName ?? 'Unknown'}</span>
                 <span>{c.type === 'edit_suggestion' ? 'Suggested edit' : 'Comment'}</span>
                 <span>{formatDistanceToNow(new Date(c.createdAt), { addSuffix: true })}</span>
               </div>
-              <p className="text-sm text-zinc-300 whitespace-pre-wrap">{c.body}</p>
+              <p className="text-sm text-[var(--text-secondary)] whitespace-pre-wrap">{c.body}</p>
             </li>
           ))}
-          {comments.length === 0 && <p className="text-sm text-zinc-500">No comments yet.</p>}
+          {comments.length === 0 && <p className="text-sm text-[var(--text-muted)]">No comments yet.</p>}
         </ul>
         <div className="space-y-2">
           <select

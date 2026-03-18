@@ -83,16 +83,16 @@ export default function KnowledgeNewPage() {
   return (
     <div className="max-w-3xl mx-auto animate-fade-in">
       <div className="flex items-center gap-4 mb-6">
-        <Link to="/knowledge" className="text-zinc-400 hover:text-zinc-200">
+        <Link to="/knowledge" className="text-[var(--text-muted)] hover:text-[var(--text-primary)]">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h1 className="text-2xl font-bold text-zinc-100">New Article</h1>
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">New Article</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="card p-4 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Title *</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Title *</label>
             <input
               type="text"
               className="input w-full"
@@ -103,7 +103,7 @@ export default function KnowledgeNewPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Category *</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Category *</label>
             <select
               className="input w-full"
               value={categoryId}
@@ -118,7 +118,7 @@ export default function KnowledgeNewPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Tags (comma-separated)</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Tags (comma-separated)</label>
             <input
               type="text"
               className="input w-full"
@@ -128,7 +128,7 @@ export default function KnowledgeNewPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Summary</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Summary</label>
             <input
               type="text"
               className="input w-full"
@@ -139,7 +139,7 @@ export default function KnowledgeNewPage() {
           </div>
           {isEditor && (
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">Status</label>
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Status</label>
               <select
                 className="input w-full"
                 value={status}
@@ -154,7 +154,7 @@ export default function KnowledgeNewPage() {
         </div>
 
         <div className="card p-4">
-          <label className="block text-sm font-medium text-zinc-300 mb-2">Body (Markdown)</label>
+          <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">Body (Markdown)</label>
           <textarea
             className="input w-full min-h-[320px] font-mono text-sm"
             value={body}

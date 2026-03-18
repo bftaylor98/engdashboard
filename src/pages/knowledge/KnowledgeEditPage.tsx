@@ -93,7 +93,7 @@ export default function KnowledgeEditPage() {
   if (!article) {
     return (
       <div className="card p-8 text-center">
-        <p className="text-zinc-400">Article not found.</p>
+        <p className="text-[var(--text-secondary)]">Article not found.</p>
         <Link to="/knowledge" className="text-accent hover:underline mt-2 inline-block">
           Back to Knowledge Base
         </Link>
@@ -103,7 +103,7 @@ export default function KnowledgeEditPage() {
   if (!canEdit) {
     return (
       <div className="card p-8 text-center">
-        <p className="text-zinc-400">You do not have permission to edit this article.</p>
+        <p className="text-[var(--text-secondary)]">You do not have permission to edit this article.</p>
         <Link to={`/knowledge/${article.slug}`} className="text-accent hover:underline mt-2 inline-block">
           View article
         </Link>
@@ -114,16 +114,16 @@ export default function KnowledgeEditPage() {
   return (
     <div className="max-w-3xl mx-auto animate-fade-in">
       <div className="flex items-center gap-4 mb-6">
-        <Link to={`/knowledge/${article.slug}`} className="text-zinc-400 hover:text-zinc-200">
+        <Link to={`/knowledge/${article.slug}`} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h1 className="text-2xl font-bold text-zinc-100">Edit: {article.title}</h1>
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Edit: {article.title}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="card p-4 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Title *</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Title *</label>
             <input
               type="text"
               className="input w-full"
@@ -134,7 +134,7 @@ export default function KnowledgeEditPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Category *</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Category *</label>
             <select
               className="input w-full"
               value={categoryId}
@@ -149,7 +149,7 @@ export default function KnowledgeEditPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Tags (comma-separated)</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Tags (comma-separated)</label>
             <input
               type="text"
               className="input w-full"
@@ -159,7 +159,7 @@ export default function KnowledgeEditPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">Summary</label>
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Summary</label>
             <input
               type="text"
               className="input w-full"
@@ -171,7 +171,7 @@ export default function KnowledgeEditPage() {
           {isEditor && (
             <>
               <div>
-                <label className="block text-sm font-medium text-zinc-300 mb-1">Status</label>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Status</label>
                 <select
                   className="input w-full"
                   value={status}
@@ -183,7 +183,7 @@ export default function KnowledgeEditPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-zinc-300 mb-1">Review due (optional)</label>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Review due (optional)</label>
                 <input
                   type="date"
                   className="input w-full"
@@ -196,7 +196,7 @@ export default function KnowledgeEditPage() {
         </div>
 
         <div className="card p-4">
-          <label className="block text-sm font-medium text-zinc-300 mb-2">Body (Markdown)</label>
+          <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">Body (Markdown)</label>
           <textarea
             className="input w-full min-h-[320px] font-mono text-sm"
             value={body}

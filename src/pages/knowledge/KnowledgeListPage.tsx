@@ -67,7 +67,7 @@ function CategoryTree({
         <div
           className={cn(
             'flex items-center gap-1 py-1.5 px-2 rounded-lg cursor-pointer text-sm',
-            isSelected ? 'bg-accent/15 text-accent' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+            isSelected ? 'bg-accent/15 text-accent' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)]'
           )}
           style={{ paddingLeft: `${12 + depth * 12}px` }}
         >
@@ -75,7 +75,7 @@ function CategoryTree({
             <button
               type="button"
               onClick={() => toggle(node.id)}
-              className="p-0.5 -m-0.5 rounded hover:bg-zinc-700"
+              className="p-0.5 -m-0.5 rounded hover:bg-[var(--bg-hover)]"
             >
               {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
             </button>
@@ -102,7 +102,7 @@ function CategoryTree({
         onClick={() => onSelect(null)}
         className={cn(
           'w-full text-left py-1.5 px-2 rounded-lg text-sm',
-          selectedId === null ? 'bg-accent/15 text-accent' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
+          selectedId === null ? 'bg-accent/15 text-accent' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)]'
         )}
       >
         All categories
@@ -119,20 +119,20 @@ function ArticleCard({ article }: { article: KbArticle }) {
       className="card card-hover block p-4 space-y-2"
     >
       <div className="flex items-start justify-between gap-2">
-        <h3 className="font-semibold text-zinc-100 truncate flex-1">{article.title}</h3>
+        <h3 className="font-semibold text-[var(--text-primary)] truncate flex-1">{article.title}</h3>
         <span
           className={cn(
             'shrink-0 text-xs px-2 py-0.5 rounded',
             article.status === 'standard' && 'bg-green-500/20 text-green-400',
             article.status === 'reviewed' && 'bg-blue-500/20 text-blue-400',
-            article.status === 'draft' && 'bg-zinc-500/20 text-zinc-400'
+            article.status === 'draft' && 'bg-[var(--bg-elevated)] text-[var(--text-secondary)]'
           )}
         >
           {article.status}
         </span>
       </div>
-      {article.summary && <p className="text-sm text-zinc-400 line-clamp-2">{article.summary}</p>}
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-500">
+      {article.summary && <p className="text-sm text-[var(--text-secondary)] line-clamp-2">{article.summary}</p>}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--text-muted)]">
         {article.categoryName && <span>{article.categoryName}</span>}
         <span>{formatDistanceToNow(new Date(article.updatedAt), { addSuffix: true })}</span>
         <span>{article.viewsCount} views</span>
@@ -223,7 +223,7 @@ export default function KnowledgeListPage() {
           Knowledge Base
         </h1>
         <div className="flex-1 min-w-[200px] max-w-md relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
           <input
             type="text"
             placeholder="Search articles..."
@@ -241,7 +241,7 @@ export default function KnowledgeListPage() {
             <Paperclip className="w-4 h-4" />
             Import/Attach
           </button>
-          <span className="text-sm text-zinc-500" title="Use Suggest Edit on an article page">
+          <span className="text-sm text-[var(--text-muted)]" title="Use Suggest Edit on an article page">
             <MessageSquare className="w-4 h-4 inline mr-1" />
             Suggest Edit
           </span>
@@ -252,7 +252,7 @@ export default function KnowledgeListPage() {
         {/* Left sidebar */}
         <aside className="w-56 shrink-0 flex flex-col gap-4">
           <div className="card p-3">
-            <h2 className="text-sm font-semibold text-zinc-300 mb-2">Categories</h2>
+            <h2 className="text-sm font-semibold text-[var(--text-secondary)] mb-2">Categories</h2>
             <CategoryTree
               categories={categories}
               selectedId={categoryId ? parseInt(categoryId, 10) : null}
@@ -260,10 +260,10 @@ export default function KnowledgeListPage() {
             />
           </div>
           <div className="card p-3">
-            <h2 className="text-sm font-semibold text-zinc-300 mb-2">Filters</h2>
+            <h2 className="text-sm font-semibold text-[var(--text-secondary)] mb-2">Filters</h2>
             <div className="space-y-2">
               <div>
-                <label className="text-xs text-zinc-500 block mb-1">Status</label>
+                <label className="text-xs text-[var(--text-muted)] block mb-1">Status</label>
                 <select
                   className="input w-full text-sm"
                   value={status}
@@ -276,7 +276,7 @@ export default function KnowledgeListPage() {
                 </select>
               </div>
               <div>
-                <label className="text-xs text-zinc-500 block mb-1">Tags (comma-separated)</label>
+                <label className="text-xs text-[var(--text-muted)] block mb-1">Tags (comma-separated)</label>
                 <input
                   type="text"
                   className="input w-full text-sm"
@@ -288,7 +288,7 @@ export default function KnowledgeListPage() {
             </div>
           </div>
           <div className="card p-3">
-            <h2 className="text-sm font-semibold text-zinc-300 mb-2 flex items-center gap-1">
+            <h2 className="text-sm font-semibold text-[var(--text-secondary)] mb-2 flex items-center gap-1">
               <Clock className="w-4 h-4" />
               Recently Updated
             </h2>
@@ -297,13 +297,13 @@ export default function KnowledgeListPage() {
                 <li key={a.id}>
                   <Link
                     to={`/knowledge/${a.slug}`}
-                    className="text-sm text-zinc-400 hover:text-accent truncate block"
+                    className="text-sm text-[var(--text-secondary)] hover:text-accent truncate block"
                   >
                     {a.title}
                   </Link>
                 </li>
               ))}
-              {recent.length === 0 && !loading && <p className="text-xs text-zinc-500">No articles yet</p>}
+              {recent.length === 0 && !loading && <p className="text-xs text-[var(--text-muted)]">No articles yet</p>}
             </ul>
           </div>
         </aside>
@@ -320,7 +320,7 @@ export default function KnowledgeListPage() {
                 <>
                   {featured.pinned.length > 0 && (
                     <section>
-                      <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2 mb-3">
+                      <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2 mb-3">
                         <Pin className="w-5 h-5 text-amber-400" />
                         Pinned / Must-read
                       </h2>
@@ -333,7 +333,7 @@ export default function KnowledgeListPage() {
                   )}
                   {featured.faq.length > 0 && (
                     <section>
-                      <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2 mb-3">
+                      <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2 mb-3">
                         <HelpCircle className="w-5 h-5 text-blue-400" />
                         Common Questions
                       </h2>
@@ -348,7 +348,7 @@ export default function KnowledgeListPage() {
               )}
 
               <section>
-                <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2 mb-3">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2 mb-3">
                   {showSearchResults ? (
                     <>Search results for &quot;{debouncedQ}&quot;</>
                   ) : (
@@ -359,7 +359,7 @@ export default function KnowledgeListPage() {
                   )}
                 </h2>
                 {mainList.length === 0 ? (
-                  <div className="card p-8 text-center text-zinc-500">
+                  <div className="card p-8 text-center text-[var(--text-muted)]">
                     {showSearchResults ? 'No articles match your search.' : 'No articles yet. Create one with New Article.'}
                   </div>
                 ) : (
@@ -373,7 +373,7 @@ export default function KnowledgeListPage() {
 
               {!showSearchResults && (
                 <section>
-                  <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2 mb-3">
+                  <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2 mb-3">
                     <Eye className="w-5 h-5" />
                     Most Viewed / Helpful
                   </h2>
@@ -381,7 +381,7 @@ export default function KnowledgeListPage() {
                     {mostViewed.length > 0 ? (
                       mostViewed.map((a) => <ArticleCard key={a.id} article={a} />)
                     ) : (
-                      <div className="card p-6 text-zinc-500 col-span-2">No view data yet.</div>
+                      <div className="card p-6 text-[var(--text-muted)] col-span-2">No view data yet.</div>
                     )}
                   </div>
                 </section>
