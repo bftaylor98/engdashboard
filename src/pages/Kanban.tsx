@@ -74,7 +74,7 @@ function KanbanCard({
         'kanban-card group cursor-grab active:cursor-grabbing select-none transition-all',
         isDragging && 'opacity-30',
         wo.isHotJob && 'border-l-2 border-l-orange-500',
-        isSelected && 'ring-2 ring-accent ring-offset-1 ring-offset-zinc-800',
+        isSelected && 'ring-2 ring-accent ring-offset-1 ring-offset-[var(--bg-elevated)]',
       )}
       onDoubleClick={(e) => {
         e.stopPropagation();
@@ -84,7 +84,7 @@ function KanbanCard({
       }}
     >
       <div className="font-mono text-xs text-accent">{wo.woNumber}</div>
-      <div className="text-sm text-zinc-200 font-medium truncate">{wo.partName}</div>
+      <div className="text-sm text-[var(--text-primary)] font-medium truncate">{wo.partName}</div>
     </div>
   );
 }
@@ -114,14 +114,14 @@ function KanbanColumn({
     <div className="flex flex-col flex-1 min-w-[280px] max-w-[360px]">
       <div className="flex items-center gap-2 mb-3 px-1">
         <div className={cn('w-2.5 h-2.5 rounded-full', color)} />
-        <h3 className="text-sm font-semibold text-zinc-200">{label}</h3>
-        <span className="text-xs text-zinc-500 bg-zinc-800/50 px-1.5 py-0.5 rounded-full">{items.length}</span>
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">{label}</h3>
+        <span className="text-xs text-[var(--text-muted)] bg-[var(--bg-elevated)] px-1.5 py-0.5 rounded-full">{items.length}</span>
       </div>
       <div
         ref={setNodeRef}
         className={cn(
           'flex-1 space-y-1.5 p-2 rounded-xl min-h-[200px] transition-colors',
-          isOver ? 'bg-accent/5 ring-1 ring-accent/30' : 'bg-zinc-800/20',
+          isOver ? 'bg-accent/5 ring-1 ring-accent/30' : 'bg-[var(--bg-elevated)]',
         )}
       >
         {items.map(wo => {
@@ -140,7 +140,7 @@ function KanbanColumn({
           );
         })}
         {items.length === 0 && (
-          <div className="text-center py-8 text-zinc-600 text-xs">Drop items here</div>
+          <div className="text-center py-8 text-[var(--text-muted)] text-xs">Drop items here</div>
         )}
       </div>
     </div>
@@ -441,7 +441,7 @@ export default function Kanban() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Kanban Board</h1>
-          <p className="text-sm text-zinc-400 mt-0.5">
+          <p className="text-sm text-[var(--text-secondary)] mt-0.5">
             {viewMode === 'status' ? 'Drag work orders between stages' : 'Drag work orders between assignees'}
             {selectedIds.size > 0 && (
               <span className="ml-2 text-accent">({selectedIds.size} selected)</span>
@@ -510,7 +510,7 @@ export default function Kanban() {
               flatData={flatData}
             />
           )) : (
-            <div className="text-center py-8 text-zinc-400">No columns available</div>
+            <div className="text-center py-8 text-[var(--text-secondary)]">No columns available</div>
           )}
           {viewMode === 'assignment' && grouped['unassigned'] && (
             <KanbanColumn
@@ -535,7 +535,7 @@ export default function Kanban() {
           {activeCard && (
             <div className="kanban-card ring-2 ring-accent shadow-2xl rotate-2 scale-105 relative">
               <div className="font-mono text-xs text-accent">{activeCard.woNumber}</div>
-              <div className="text-sm text-zinc-200 font-medium truncate">{activeCard.partName}</div>
+              <div className="text-sm text-[var(--text-primary)] font-medium truncate">{activeCard.partName}</div>
               {draggingSelected.size > 1 && (
                 <div className="absolute -top-2 -right-2 bg-accent text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                   {draggingSelected.size}

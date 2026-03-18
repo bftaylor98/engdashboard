@@ -56,7 +56,7 @@ export default function RevisionAlerts() {
               </span>
             )}
           </h1>
-          <p className="text-sm text-zinc-400 mt-0.5">Parts that need engineering revision attention</p>
+          <p className="text-sm text-[var(--text-secondary)] mt-0.5">Parts that need engineering revision attention</p>
         </div>
         <div className="flex items-center gap-2">
           {([
@@ -69,7 +69,7 @@ export default function RevisionAlerts() {
               onClick={() => setFilter(f.key)}
               className={cn(
                 'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
-                filter === f.key ? 'bg-accent text-white' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700',
+                filter === f.key ? 'bg-accent text-white' : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)]',
               )}
             >
               {f.label}
@@ -80,8 +80,8 @@ export default function RevisionAlerts() {
 
       {filtered.length === 0 ? (
         <div className="card text-center py-12">
-          <Bell className="w-8 h-8 text-zinc-600 mx-auto mb-2" />
-          <p className="text-zinc-500">No revision alerts {filter !== 'all' ? `matching filter "${filter}"` : ''}</p>
+          <Bell className="w-8 h-8 text-[var(--text-muted)] mx-auto mb-2" />
+          <p className="text-[var(--text-muted)]">No revision alerts {filter !== 'all' ? `matching filter "${filter}"` : ''}</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -108,7 +108,7 @@ export default function RevisionAlerts() {
                 <div className="flex items-center gap-2 mb-1">
                   <span className="font-mono text-sm text-accent">{alert.partNumber}</span>
                   {alert.partName && (
-                    <span className="text-xs text-zinc-400">— {alert.partName}</span>
+                    <span className="text-xs text-[var(--text-secondary)]">— {alert.partName}</span>
                   )}
                 </div>
 
@@ -121,7 +121,7 @@ export default function RevisionAlerts() {
                         href={erpWorkOrderUrl(wo.woNumber)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs bg-zinc-800 text-zinc-300 hover:text-white px-2 py-0.5 rounded transition-colors"
+                        className="inline-flex items-center gap-1 text-xs bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] px-2 py-0.5 rounded transition-colors"
                       >
                         WO {wo.woNumber}
                         <ExternalLink className="w-2.5 h-2.5 opacity-50" />
@@ -130,7 +130,7 @@ export default function RevisionAlerts() {
                   </div>
                 )}
 
-                <div className="flex items-center gap-3 text-xs text-zinc-500">
+                <div className="flex items-center gap-3 text-xs text-[var(--text-muted)]">
                   {alert.revisionDate && (
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3" /> Rev: {formatDate(alert.revisionDate)}

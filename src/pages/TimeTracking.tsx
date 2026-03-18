@@ -100,7 +100,7 @@ function addDays(dateStr: string, days: number): string {
 }
 
 function CategoryBadge({ category }: { category: string }) {
-  const cls = CATEGORY_COLORS[category] ?? 'bg-zinc-500/20 text-zinc-400';
+  const cls = CATEGORY_COLORS[category] ?? 'bg-[var(--bg-elevated)]/80 text-[var(--text-secondary)]';
   return (
     <span className={cn('inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium', cls)}>
       {category}
@@ -130,13 +130,13 @@ function UserTimeCard({ user, defaultExpanded = true }: { user: TimeTrackingUser
 
   if (user.error) {
     return (
-      <div className="rounded-lg border border-white/[0.07] bg-zinc-900/60 p-4">
+      <div className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] p-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center text-zinc-300 text-sm font-medium">
+          <div className="w-10 h-10 rounded-full bg-[var(--bg-surface)] flex items-center justify-center text-[var(--text-secondary)] text-sm font-medium">
             {initials}
           </div>
           <div>
-            <p className="font-medium text-zinc-200">{user.displayName}</p>
+            <p className="font-medium text-[var(--text-primary)]">{user.displayName}</p>
             <p className="text-sm text-red-400">{user.error}</p>
           </div>
         </div>
@@ -145,40 +145,40 @@ function UserTimeCard({ user, defaultExpanded = true }: { user: TimeTrackingUser
   }
 
   return (
-    <div className="rounded-lg border border-white/[0.07] bg-zinc-900/60 overflow-hidden">
+    <div className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] overflow-hidden">
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center gap-3 p-4 text-left hover:bg-white/[0.03] transition-colors"
+        className="w-full flex items-center gap-3 p-4 text-left hover:bg-[var(--bg-hover)] transition-colors"
       >
         <div
           className={cn(
             'w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium shrink-0 text-white',
-            style?.dot ?? 'bg-zinc-700'
+            style?.dot ?? 'bg-[var(--bg-surface)]'
           )}
         >
           {initials}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-medium text-zinc-200">{user.displayName}</p>
-          <p className="text-sm text-zinc-500">
+          <p className="font-medium text-[var(--text-primary)]">{user.displayName}</p>
+          <p className="text-sm text-[var(--text-muted)]">
             {user.totalEntries} {user.totalEntries === 1 ? 'entry' : 'entries'}
           </p>
         </div>
-        <p className="text-zinc-300 font-medium shrink-0">
+        <p className="text-[var(--text-secondary)] font-medium shrink-0">
           {formatHours(user.totalLaborTime)}h
         </p>
         {expanded ? (
-          <ChevronUp className="w-5 h-5 text-zinc-500 shrink-0" />
+          <ChevronUp className="w-5 h-5 text-[var(--text-muted)] shrink-0" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-zinc-500 shrink-0" />
+          <ChevronDown className="w-5 h-5 text-[var(--text-muted)] shrink-0" />
         )}
       </button>
       {expanded && user.entries.length > 0 && (
-        <div className="border-t border-white/[0.06] overflow-x-auto">
+        <div className="border-t border-[var(--border-subtle)] overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-zinc-500 text-left border-b border-white/[0.06]">
+              <tr className="text-[var(--text-muted)] text-left border-b border-[var(--border-subtle)]">
                 <th className="px-4 py-2 font-medium">Category</th>
                 <th className="px-4 py-2 font-medium">WO#</th>
                 <th className="px-4 py-2 font-medium">Op#</th>
@@ -197,7 +197,7 @@ function UserTimeCard({ user, defaultExpanded = true }: { user: TimeTrackingUser
                   tabIndex={0}
                   onClick={() => setSelectedEntry(entry)}
                   onKeyDown={(e) => e.key === 'Enter' && setSelectedEntry(entry)}
-                  className="border-b border-white/[0.04] cursor-pointer hover:bg-white/[0.04] transition-colors"
+                  className="border-b border-[var(--border-subtle)] cursor-pointer hover:bg-[var(--bg-hover)] transition-colors"
                 >
                   <td className="px-4 py-2">
                     <CategoryBadge category={entry.category} />
@@ -205,19 +205,19 @@ function UserTimeCard({ user, defaultExpanded = true }: { user: TimeTrackingUser
                   <td className="px-4 py-2" onClick={(e) => e.stopPropagation()}>
                     <WOLink wo={entry.workOrderNumber} />
                   </td>
-                  <td className="px-4 py-2 text-zinc-300">{entry.operationNumber ?? '—'}</td>
-                  <td className="px-4 py-2 text-zinc-300">{entry.workCell ?? '—'}</td>
-                  <td className="px-4 py-2 text-zinc-300">{formatTime(entry.timeIn)}</td>
-                  <td className="px-4 py-2 text-zinc-300">{formatTime(entry.timeOut)}</td>
-                  <td className="px-4 py-2 text-zinc-300">{formatHours(entry.laborTime)}</td>
-                  <td className="px-4 py-2 text-zinc-400 max-w-xs truncate" title={entry.spentDoing ?? undefined}>
+                  <td className="px-4 py-2 text-[var(--text-secondary)]">{entry.operationNumber ?? '—'}</td>
+                  <td className="px-4 py-2 text-[var(--text-secondary)]">{entry.workCell ?? '—'}</td>
+                  <td className="px-4 py-2 text-[var(--text-secondary)]">{formatTime(entry.timeIn)}</td>
+                  <td className="px-4 py-2 text-[var(--text-secondary)]">{formatTime(entry.timeOut)}</td>
+                  <td className="px-4 py-2 text-[var(--text-secondary)]">{formatHours(entry.laborTime)}</td>
+                  <td className="px-4 py-2 text-[var(--text-secondary)] max-w-xs truncate" title={entry.spentDoing ?? undefined}>
                     {entry.spentDoing ?? '—'}
                   </td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
-              <tr className="bg-white/[0.02] border-t border-white/5 font-medium text-zinc-300">
+              <tr className="bg-[var(--bg-hover)] border-t border-[var(--border-subtle)] font-medium text-[var(--text-secondary)]">
                 <td className="px-4 py-2" colSpan={6}>
                   Total
                 </td>
@@ -229,15 +229,15 @@ function UserTimeCard({ user, defaultExpanded = true }: { user: TimeTrackingUser
         </div>
       )}
       {expanded && user.entries.length === 0 && (
-        <div className="px-4 py-6 text-center text-zinc-500 text-sm border-t border-white/[0.06]">
+        <div className="px-4 py-6 text-center text-[var(--text-muted)] text-sm border-t border-[var(--border-subtle)]">
           No entries for this day
         </div>
       )}
       <Dialog.Root open={!!selectedEntry} onOpenChange={(open) => !open && setSelectedEntry(null)}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/60 z-[60]" />
-          <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl p-6 z-[61] max-w-lg max-h-[80vh] overflow-hidden flex flex-col">
-            <Dialog.Title className="text-lg font-semibold text-zinc-100 mb-2">Spent Doing What?</Dialog.Title>
+          <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--bg-primary)] border border-[var(--border-default)] rounded-xl shadow-lg p-6 z-[61] max-w-lg max-h-[80vh] overflow-hidden flex flex-col">
+            <Dialog.Title className="text-lg font-semibold text-[var(--text-primary)] mb-2">Spent Doing What?</Dialog.Title>
             {selectedEntry && (
               <>
                 <div className="flex flex-wrap gap-2 mb-3">
@@ -245,19 +245,19 @@ function UserTimeCard({ user, defaultExpanded = true }: { user: TimeTrackingUser
                   {selectedEntry.workOrderNumber && (
                     <WOLink wo={selectedEntry.workOrderNumber} />
                   )}
-                  <span className="text-zinc-500 text-sm">
+                  <span className="text-[var(--text-muted)] text-sm">
                     {formatTime(selectedEntry.timeIn)} – {formatTime(selectedEntry.timeOut)}
                     {selectedEntry.laborTime != null && ` · ${formatHours(selectedEntry.laborTime)}h`}
                   </span>
                 </div>
-                <p className="text-zinc-300 text-sm whitespace-pre-wrap overflow-y-auto flex-1 min-h-0">
+                <p className="text-[var(--text-secondary)] text-sm whitespace-pre-wrap overflow-y-auto flex-1 min-h-0">
                   {selectedEntry.spentDoing ?? '—'}
                 </p>
               </>
             )}
             <div className="mt-4 flex justify-end">
               <Dialog.Close asChild>
-                <button type="button" className="px-3 py-1.5 rounded-lg bg-zinc-700 hover:bg-zinc-600 text-zinc-200 text-sm">
+                <button type="button" className="px-3 py-1.5 rounded-lg bg-[var(--bg-surface)] hover:bg-[var(--bg-hover)] text-[var(--text-primary)] text-sm">
                   Close
                 </button>
               </Dialog.Close>
@@ -293,7 +293,7 @@ function TimelineView({ data }: { data: TimeTrackingData }) {
 
   if (entries.length === 0) {
     return (
-      <div className="py-8 text-center text-zinc-500 text-sm">
+      <div className="py-8 text-center text-[var(--text-muted)] text-sm">
         No entries for this day
       </div>
     );
@@ -302,7 +302,7 @@ function TimelineView({ data }: { data: TimeTrackingData }) {
   return (
     <div className="space-y-4">
       <div className="relative flex">
-        <div className="absolute left-[5px] top-0 bottom-0 w-0.5 bg-white/10 rounded-full" />
+        <div className="absolute left-[5px] top-0 bottom-0 w-0.5 bg-[var(--border-subtle)] rounded-full" />
         <div className="pl-6 space-y-4 flex-1">
           {entries.map((entry) => {
             const style = USER_STYLE[entry.displayName];
@@ -310,14 +310,14 @@ function TimelineView({ data }: { data: TimeTrackingData }) {
               <div key={entry.id} className="relative flex gap-3">
                 <div
                   className={cn(
-                    'absolute left-0 w-[11px] h-[11px] rounded-full ring-2 ring-zinc-950 shrink-0 mt-0.5',
-                    style?.dot ?? 'bg-zinc-500'
+                    'absolute left-0 w-[11px] h-[11px] rounded-full ring-2 ring-[var(--bg-primary)] shrink-0 mt-0.5',
+                    style?.dot ?? 'bg-[var(--text-muted)]'
                   )}
                 />
                 <div
                   className={cn(
-                    'flex-1 min-w-0 rounded-lg border border-white/[0.07] bg-zinc-900/60 border-l-[3px]',
-                    style?.card ?? 'border-l-zinc-500'
+                    'flex-1 min-w-0 rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] border-l-[3px]',
+                    style?.card ?? 'border-l-[var(--text-muted)]'
                   )}
                 >
                   <div className="p-3 space-y-1">
@@ -325,7 +325,7 @@ function TimelineView({ data }: { data: TimeTrackingData }) {
                       <span
                         className={cn(
                           'inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium border',
-                          style?.badge ?? 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30'
+                          style?.badge ?? 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-default)]'
                         )}
                       >
                         {entry.displayName}
@@ -333,17 +333,17 @@ function TimelineView({ data }: { data: TimeTrackingData }) {
                       <CategoryBadge category={entry.category} />
                       <WOLink wo={entry.workOrderNumber} />
                       {entry.operationNumber && (
-                        <span className="text-zinc-500 text-xs">Op {entry.operationNumber}</span>
+                        <span className="text-[var(--text-muted)] text-xs">Op {entry.operationNumber}</span>
                       )}
                       {entry.laborTime != null && (
-                        <span className="text-zinc-400 text-xs">{formatHours(entry.laborTime)}h</span>
+                        <span className="text-[var(--text-secondary)] text-xs">{formatHours(entry.laborTime)}h</span>
                       )}
                     </div>
                     {entry.spentDoing && (
-                      <p className="text-sm text-zinc-400 line-clamp-2">{entry.spentDoing}</p>
+                      <p className="text-sm text-[var(--text-secondary)] line-clamp-2">{entry.spentDoing}</p>
                     )}
                   </div>
-                  <div className="px-3 py-2 bg-white/[0.02] border-t border-white/5 text-xs text-zinc-500 flex flex-wrap gap-x-4 gap-y-1">
+                  <div className="px-3 py-2 bg-[var(--bg-hover)] border-t border-[var(--border-subtle)] text-xs text-[var(--text-muted)] flex flex-wrap gap-x-4 gap-y-1">
                     <span>In: {formatTime(entry.timeIn)}</span>
                     <span>Out: {formatTime(entry.timeOut)}</span>
                     <span>Duration: {formatHours(entry.laborTime)}h</span>
@@ -355,7 +355,7 @@ function TimelineView({ data }: { data: TimeTrackingData }) {
           })}
         </div>
       </div>
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-[var(--text-muted)]">
         Total across all users {formatHours(totalHours)}h
       </p>
     </div>
@@ -589,7 +589,7 @@ export default function TimeTracking() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-xl font-semibold text-zinc-100">Time Tracking</h1>
+        <h1 className="text-xl font-semibold text-[var(--text-primary)]">Time Tracking</h1>
         {admin && (
           <div className="flex items-center gap-2">
             <button
@@ -599,7 +599,7 @@ export default function TimeTracking() {
                 'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
                 viewMode === 'by-user'
                   ? 'bg-accent/20 text-accent border border-accent/30'
-                  : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-transparent'
+                  : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-transparent'
               )}
             >
               By User
@@ -611,7 +611,7 @@ export default function TimeTracking() {
                 'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
                 viewMode === 'chronological'
                   ? 'bg-accent/20 text-accent border border-accent/30'
-                  : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-transparent'
+                  : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-transparent'
               )}
             >
               Timeline
@@ -624,7 +624,7 @@ export default function TimeTracking() {
         <button
           type="button"
           onClick={handlePrevDay}
-          className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300"
+          className="p-2 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-hover)] text-[var(--text-secondary)]"
           aria-label="Previous day"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -633,13 +633,13 @@ export default function TimeTracking() {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="bg-zinc-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-zinc-200"
+          className="input rounded-lg px-3 py-2 text-sm"
         />
-        <span className="text-sm text-zinc-400 min-w-[200px]">{date ? formatDateLong(date) : ''}</span>
+        <span className="text-sm text-[var(--text-secondary)] min-w-[200px]">{date ? formatDateLong(date) : ''}</span>
         <button
           type="button"
           onClick={handleNextDay}
-          className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300"
+          className="p-2 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-hover)] text-[var(--text-secondary)]"
           aria-label="Next day"
         >
           <ChevronRight className="w-5 h-5" />
@@ -647,25 +647,25 @@ export default function TimeTracking() {
         <button
           type="button"
           onClick={handleToday}
-          className="px-3 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-sm font-medium"
+          className="px-3 py-2 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] text-sm font-medium"
         >
           Today
         </button>
       </div>
 
-      <div className="flex flex-wrap gap-4 text-sm text-zinc-500">
+      <div className="flex flex-wrap gap-4 text-sm text-[var(--text-muted)]">
         {admin && <span>Users Tracked: {userCount}</span>}
         <span>Total Hours: {formatHours(totalHours)}</span>
       </div>
 
       {rateLimitData ? (
-        <div className="flex flex-col items-center justify-center min-h-[120px] gap-3 text-center rounded-lg border border-white/[0.07] bg-zinc-900/60 p-6">
+        <div className="flex flex-col items-center justify-center min-h-[120px] gap-3 text-center rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] p-6">
           <p className="text-sm text-amber-400">
             ProShop rate limit – data temporarily unavailable. Try again in a minute.
           </p>
           <button
             onClick={() => fetchData(date)}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-sm"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] text-sm"
           >
             <RefreshCw className="w-4 h-4" />
             Retry
@@ -678,7 +678,7 @@ export default function TimeTracking() {
       ) : viewMode === 'by-user' ? (
         <div className="space-y-3">
           {displayData?.users.length === 0 && !admin ? (
-            <div className="rounded-lg border border-white/[0.07] bg-zinc-900/60 p-6 text-center text-zinc-500 text-sm">
+            <div className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] p-6 text-center text-[var(--text-muted)] text-sm">
               No time tracking data for you for this day.
             </div>
           ) : (
@@ -689,7 +689,7 @@ export default function TimeTracking() {
         </div>
       ) : displayData ? (
         displayData.users.length === 0 && !admin ? (
-          <div className="rounded-lg border border-white/[0.07] bg-zinc-900/60 p-6 text-center text-zinc-500 text-sm">
+          <div className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] p-6 text-center text-[var(--text-muted)] text-sm">
             No time tracking data for you for this day.
           </div>
         ) : (
@@ -697,8 +697,8 @@ export default function TimeTracking() {
         )
       ) : null}
 
-      <section className="rounded-lg border border-white/[0.07] bg-zinc-900/60 overflow-hidden">
-        <h2 className="px-4 py-3 text-base font-semibold text-zinc-100 border-b border-white/[0.06]">
+      <section className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] overflow-hidden">
+        <h2 className="px-4 py-3 text-base font-semibold text-[var(--text-primary)] border-b border-[var(--border-subtle)]">
           Time & work order stats
         </h2>
         {rateLimitStats ? (
@@ -722,7 +722,7 @@ export default function TimeTracking() {
                   })
                   .finally(() => setStatsLoading(false));
               }}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-sm"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] text-sm"
             >
               <RefreshCw className="w-4 h-4" />
               Retry
@@ -738,7 +738,7 @@ export default function TimeTracking() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-zinc-500 text-left border-b border-white/[0.06]">
+                <tr className="text-[var(--text-muted)] text-left border-b border-[var(--border-subtle)]">
                   <th className="px-4 py-2 font-medium">User</th>
                   <th className="px-4 py-2 font-medium">Unique WOs (Year)</th>
                   <th className="px-4 py-2 font-medium">Unique WOs (Quarter)</th>
@@ -754,7 +754,7 @@ export default function TimeTracking() {
                   return (
                     <tr
                       key={row.userId}
-                      className="border-b border-white/[0.04] hover:bg-white/[0.02] transition-colors"
+                      className="border-b border-[var(--border-subtle)] hover:bg-[var(--bg-hover)] transition-colors"
                     >
                       <td className="px-4 py-2">
                         {row.error ? (
@@ -763,19 +763,19 @@ export default function TimeTracking() {
                           <span
                             className={cn(
                               'inline-flex items-center rounded px-1.5 py-0.5 text-xs font-medium border',
-                              style?.badge ?? 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30'
+                              style?.badge ?? 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-default)]'
                             )}
                           >
                             {row.displayName}
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-2 text-zinc-300">{row.error ? '—' : row.uniqueWorkOrdersThisYear}</td>
-                      <td className="px-4 py-2 text-zinc-300">{row.error ? '—' : row.uniqueWorkOrdersThisQuarter}</td>
-                      <td className="px-4 py-2 text-zinc-300">{row.error ? '—' : row.uniqueWorkOrdersThisMonth}</td>
-                      <td className="px-4 py-2 text-zinc-300">{row.error ? '—' : row.uniqueWorkOrdersThisWeek}</td>
-                      <td className="px-4 py-2 text-zinc-300">{row.error ? '—' : formatHours(row.hoursThisWeek)}</td>
-                      <td className="px-4 py-2 text-zinc-300">{row.error ? '—' : formatHours(row.averageWeeklyHoursYTD)}</td>
+                      <td className="px-4 py-2 text-[var(--text-secondary)]">{row.error ? '—' : row.uniqueWorkOrdersThisYear}</td>
+                      <td className="px-4 py-2 text-[var(--text-secondary)]">{row.error ? '—' : row.uniqueWorkOrdersThisQuarter}</td>
+                      <td className="px-4 py-2 text-[var(--text-secondary)]">{row.error ? '—' : row.uniqueWorkOrdersThisMonth}</td>
+                      <td className="px-4 py-2 text-[var(--text-secondary)]">{row.error ? '—' : row.uniqueWorkOrdersThisWeek}</td>
+                      <td className="px-4 py-2 text-[var(--text-secondary)]">{row.error ? '—' : formatHours(row.hoursThisWeek)}</td>
+                      <td className="px-4 py-2 text-[var(--text-secondary)]">{row.error ? '—' : formatHours(row.averageWeeklyHoursYTD)}</td>
                     </tr>
                   );
                 })}
@@ -783,42 +783,42 @@ export default function TimeTracking() {
             </table>
           </div>
         ) : (
-          <div className="px-4 py-4 text-sm text-zinc-500">No stats available.</div>
+          <div className="px-4 py-4 text-sm text-[var(--text-muted)]">No stats available.</div>
         )}
       </section>
 
       {admin && (
-        <section className="rounded-lg border border-white/[0.07] bg-zinc-900/60 overflow-hidden">
-          <h2 className="px-4 py-3 text-base font-semibold text-zinc-100 border-b border-white/[0.06]">
+        <section className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] overflow-hidden">
+          <h2 className="px-4 py-3 text-base font-semibold text-[var(--text-primary)] border-b border-[var(--border-subtle)]">
             Custom range summary
           </h2>
           <div className="p-4 space-y-4">
             <div className="flex flex-wrap items-center gap-3">
-              <label className="flex flex-col gap-1 text-sm text-zinc-400">
+              <label className="flex flex-col gap-1 text-sm text-[var(--text-secondary)]">
                 Start date
                 <input
                   type="date"
                   value={rangeStart}
                   onChange={(e) => handleRangeStartChange(e.target.value)}
-                  className="bg-zinc-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-zinc-200"
+                  className="input rounded-lg px-3 py-2 text-sm"
                 />
               </label>
-              <label className="flex flex-col gap-1 text-sm text-zinc-400">
+              <label className="flex flex-col gap-1 text-sm text-[var(--text-secondary)]">
                 End date
                 <input
                   type="date"
                   value={rangeEnd}
                   onChange={(e) => handleRangeEndChange(e.target.value)}
-                  className="bg-zinc-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-zinc-200"
+                  className="input rounded-lg px-3 py-2 text-sm"
                 />
               </label>
-              <label className="flex flex-col gap-1 text-sm text-zinc-400">
+              <label className="flex flex-col gap-1 text-sm text-[var(--text-secondary)]">
                 Employee
                 <select
                   value={rangeEmployeeId}
                   onChange={(e) => handleRangeEmployeeChange(e.target.value)}
                   disabled={statsLoading || !stats?.length}
-                  className="bg-zinc-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-zinc-200 min-w-[160px] disabled:opacity-50"
+                  className="input rounded-lg px-3 py-2 text-sm min-w-[160px] disabled:opacity-50"
                 >
                   <option value="all">Everyone</option>
                   {stats?.map((u) => (
@@ -856,8 +856,8 @@ export default function TimeTracking() {
             const uniqueWOCount = uniqueWOs.size;
             const totalEntries = displayRangeData.users.reduce((s, u) => s + (u.error ? 0 : u.totalEntries), 0);
             return (
-            <div className="border-t border-white/[0.06] p-4 space-y-4">
-              <p className="text-sm text-zinc-400">
+            <div className="border-t border-[var(--border-subtle)] p-4 space-y-4">
+              <p className="text-sm text-[var(--text-secondary)]">
                 Summary:{' '}
                 {displayRangeData.users.length === 1
                   ? displayRangeData.users[0].displayName
@@ -875,7 +875,7 @@ export default function TimeTracking() {
               ) : (
                 <TimelineView data={displayRangeData} />
               )}
-              <div className="flex flex-wrap gap-4 text-sm text-zinc-500 border-t border-white/[0.06] pt-4">
+              <div className="flex flex-wrap gap-4 text-sm text-[var(--text-muted)] border-t border-[var(--border-subtle)] pt-4">
                 <span>Total entries: {totalEntries}</span>
                 <span>Unique work orders: {uniqueWOCount}</span>
               </div>
