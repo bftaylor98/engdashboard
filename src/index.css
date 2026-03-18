@@ -92,29 +92,20 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
-  /* Custom scrollbar */
+  /* Custom scrollbar — uses theme tokens so .light overrides apply automatically */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-  }
-  .light ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.02);
+    background: var(--bg-primary);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border-default);
     border-radius: 4px;
   }
-  .light ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.1);
-  }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  .light ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--border-strong);
   }
 }
 
@@ -148,7 +139,83 @@
   }
   .stat-card:hover {
     border-color: var(--border-default);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  @keyframes pageEnter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .page-enter {
+    animation: pageEnter 0.25s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  @keyframes dropdownEnter {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .dropdown-menu {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 0.25rem;
+    min-width: 8rem;
+    max-height: 16rem;
+    overflow-y: auto;
+    animation: dropdownEnter 0.15s ease-out forwards;
+  }
+  .dropdown-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    transition: background var(--transition-fast), color var(--transition-fast);
+  }
+  .dropdown-item:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+  .dropdown-item[data-active="true"] {
+    background: var(--accent-muted);
+    color: var(--accent);
+  }
+
+  @keyframes drawerPanelEnter {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  .drawer-overlay {
+    background: var(--bg-overlay);
+    backdrop-filter: blur(4px);
+    transition: opacity var(--transition-normal);
+  }
+  .drawer-panel {
+    background: var(--bg-primary);
+    border-left: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+    animation: drawerPanelEnter 0.25s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   }
 
   .badge {

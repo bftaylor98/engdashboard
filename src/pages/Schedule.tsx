@@ -70,7 +70,7 @@ function PriorityCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[120px] max-h-64 overflow-y-auto animate-fade-in"
+            className="dropdown-menu fixed z-[9999] min-w-[120px] max-h-64"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
             {Array.from({ length: 12 }, (_, i) => (
@@ -81,10 +81,8 @@ function PriorityCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
                   onUpdate(wo.id, { priority: i, isHotJob: i === 11 });
                   setOpen(false);
                 }}
-                className={cn(
-                  'flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors text-left',
-                  wo.priority === i && 'bg-[var(--accent-muted)]'
-                )}
+                className="dropdown-item flex items-center gap-2"
+                data-active={wo.priority === i ? 'true' : undefined}
               >
                 <span className={cn('w-5 h-5 rounded flex items-center justify-center text-white text-[10px] font-bold', PRIORITY_COLORS[i])}>
                   {i === 0 ? '—' : i === 11 ? 'H' : i}
@@ -141,7 +139,7 @@ function AssigneeCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[140px] max-h-64 overflow-y-auto animate-fade-in"
+            className="dropdown-menu fixed z-[9999] min-w-[140px] max-h-64"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
             {ASSIGNEES.map(a => (
@@ -152,10 +150,8 @@ function AssigneeCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
                   onUpdate(wo.id, { currentBox: a });
                   setOpen(false);
                 }}
-                className={cn(
-                  'block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors',
-                  wo.currentBox === a ? 'bg-[var(--accent-muted)] text-[var(--accent)]' : 'text-[var(--text-secondary)]'
-                )}
+                className="dropdown-item"
+                data-active={wo.currentBox === a ? 'true' : undefined}
               >
                 {a}
               </button>
@@ -216,7 +212,7 @@ function ProshopMaterialCell({ woNumber, proshop }: { woNumber: string; proshop:
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-4 min-w-[320px] max-w-[420px] animate-fade-in"
+            className="dropdown-menu fixed z-[9999] p-4 min-w-[320px] max-w-[420px]"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
             <p className="text-xs text-[var(--text-muted)] font-medium mb-2">Proshop material — {woNumber}</p>

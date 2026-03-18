@@ -121,22 +121,22 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/60 z-40 animate-fade-in" onClick={onClose} />
+      <div className="drawer-overlay fixed inset-0 z-40 animate-fade-in" onClick={onClose} />
 
       {/* Drawer - tabIndex and ref so we can focus without scrolling the page */}
       <div
         ref={drawerPanelRef}
         tabIndex={-1}
-        className="fixed top-0 right-0 bottom-0 w-full max-w-lg z-50 bg-zinc-900 border-l border-white/10 shadow-2xl flex flex-col animate-slide-in-right overflow-hidden outline-none"
+        className="drawer-panel fixed top-0 right-0 bottom-0 w-full max-w-lg z-50 flex flex-col overflow-hidden outline-none"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.06]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-subtle)]">
           <div>
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
               {isCreating ? 'Create Work Order' : `WO ${workOrder?.woNumber}`}
               {!isCreating && workOrder?.isHotJob && <span className="text-xs bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded-full">HOT</span>}
             </h2>
-            {!isCreating && <p className="text-sm text-zinc-400">{workOrder?.partName}</p>}
+            {!isCreating && <p className="text-sm text-[var(--text-secondary)]">{workOrder?.partName}</p>}
           </div>
           <div className="flex items-center gap-2">
             {hasChanges && (
@@ -154,12 +154,12 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
                 </Dialog.Trigger>
                 <Dialog.Portal>
                   <Dialog.Overlay className="fixed inset-0 bg-black/60 z-[60]" />
-                  <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl p-6 z-[61] min-w-[400px]">
-                    <Dialog.Title className="text-lg font-bold text-white mb-2">Delete Work Order</Dialog.Title>
-                    <Dialog.Description className="text-sm text-zinc-400 mb-4">
-                      Are you sure you want to delete work order <span className="font-mono text-accent">{workOrder.woNumber}</span>?
+                  <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg shadow-lg p-6 z-[61] min-w-[400px]">
+                    <Dialog.Title className="text-lg font-bold text-[var(--text-primary)] mb-2">Delete Work Order</Dialog.Title>
+                    <Dialog.Description className="text-sm text-[var(--text-secondary)] mb-4">
+                      Are you sure you want to delete work order <span className="font-mono text-[var(--accent)]">{workOrder.woNumber}</span>?
                       <br />
-                      <span className="text-zinc-500">This action cannot be undone.</span>
+                      <span className="text-[var(--text-muted)]">This action cannot be undone.</span>
                     </Dialog.Description>
                     <div className="flex items-center justify-end gap-3">
                       <Dialog.Close asChild>
@@ -174,8 +174,8 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
                 </Dialog.Portal>
               </Dialog.Root>
             )}
-            <button onClick={onClose} className="p-2 hover:bg-zinc-800 rounded-lg transition-colors">
-              <X className="w-5 h-5 text-zinc-400" />
+            <button onClick={onClose} className="p-2 hover:bg-[var(--bg-hover)] rounded-lg transition-colors">
+              <X className="w-5 h-5 text-[var(--text-muted)]" />
             </button>
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
               }}
                 options={Array.from({ length: 12 }, (_, i) => ({ value: String(i), label: PRIORITY_LABELS[i] }))} />
               <div className="flex items-center gap-2 py-1">
-                <span className="text-xs text-zinc-500 w-32 shrink-0">Hot Job</span>
+                <span className="text-xs text-[var(--text-muted)] w-32 shrink-0">Hot Job</span>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
@@ -249,9 +249,9 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
                         set('priority', 0);
                       }
                     }}
-                    className="w-4 h-4 rounded border-white/20 bg-zinc-800 text-accent focus:ring-2 focus:ring-accent/50"
+                    className="w-4 h-4 rounded border border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--accent)] focus:ring-2 focus:ring-[var(--accent-muted)]"
                   />
-                  <span className="text-sm text-zinc-200">Mark as hot job</span>
+                  <span className="text-sm text-[var(--text-secondary)]">Mark as hot job</span>
                 </label>
               </div>
               <EditableFieldWithCopy label="Due Date" type="date" value={val('dueDate') || ''} onChange={v => set('dueDate', v || null)}
@@ -273,7 +273,7 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
               )}
               {admin && !isCreating && workOrder && (val('currentStatus') === 'engineering-completed' || val('currentStatus') === 'programming-completed') && (
                 <div className="flex items-center gap-2 py-1">
-                  <span className="text-xs text-zinc-500 w-32 shrink-0"></span>
+                  <span className="text-xs text-[var(--text-muted)] w-32 shrink-0"></span>
                   <button
                     onClick={async () => {
                       if (!workOrder) return;
@@ -313,11 +313,11 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
             <FieldGroup title="Notes">
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs text-zinc-500">Engineering notes</label>
+                  <label className="text-xs text-[var(--text-muted)]">Engineering notes</label>
                   {!isCreating && onCopyProperty && val('notes') && (
                     <button
                       onClick={() => onCopyProperty('notes', val('notes'))}
-                      className="p-1 hover:bg-zinc-800 rounded text-zinc-400 hover:text-zinc-200 transition-colors"
+                      className="p-1 hover:bg-[var(--bg-hover)] rounded text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
                       title="Copy Notes"
                     >
                       <Copy className="w-3 h-3" />
@@ -335,10 +335,10 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
 
             {!isCreating && (
               <FieldGroup title="Work order notes">
-                <p className="text-xs text-zinc-500 mb-1">From Proshop; not shown in table.</p>
+                <p className="text-xs text-[var(--text-muted)] mb-1">From Proshop; not shown in table.</p>
                 <textarea
                   rows={10}
-                  className="input w-full resize-none bg-zinc-800/80"
+                  className="input w-full resize-none"
                   placeholder="No work order notes"
                   value={stripHtml(val('workOrderNotes') ?? '') || ''}
                   onChange={e => set('workOrderNotes', e.target.value)}
@@ -364,7 +364,7 @@ export default function WorkOrderDrawer({ workOrder, isCreating = false, onClose
 function FieldGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2">{title}</h3>
+      <h3 className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider mb-2">{title}</h3>
       <div className="space-y-2">{children}</div>
     </div>
   );
@@ -373,8 +373,8 @@ function FieldGroup({ title, children }: { title: string; children: React.ReactN
 function ReadOnlyField({ label, value }: { label: string; value: string | number | null | undefined }) {
   return (
     <div className="flex items-center gap-2 py-1">
-      <span className="text-xs text-zinc-500 w-32 shrink-0">{label}</span>
-      <span className="text-sm text-zinc-200">{value || '—'}</span>
+      <span className="text-xs text-[var(--text-muted)] w-32 shrink-0">{label}</span>
+      <span className="text-sm text-[var(--text-secondary)]">{value || '—'}</span>
     </div>
   );
 }
@@ -388,7 +388,7 @@ function EditableField({ label, type, value, onChange, options }: {
 }) {
   return (
     <div className="flex items-center gap-2 py-1">
-      <span className="text-xs text-zinc-500 w-32 shrink-0">{label}</span>
+      <span className="text-xs text-[var(--text-muted)] w-32 shrink-0">{label}</span>
       {type === 'select' && options ? (
         <select value={value} onChange={e => onChange(e.target.value)} className="select flex-1 text-sm">
           {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -415,7 +415,7 @@ function EditableFieldWithCopy({ label, type, value, onChange, options, onCopy }
 }) {
   return (
     <div className="flex items-center gap-2 py-1">
-      <span className="text-xs text-zinc-500 w-32 shrink-0">{label}</span>
+      <span className="text-xs text-[var(--text-muted)] w-32 shrink-0">{label}</span>
       <div className="flex items-center gap-1 flex-1">
         {type === 'select' && options ? (
           <select value={value} onChange={e => onChange(e.target.value)} className="select flex-1 text-sm">
@@ -432,7 +432,7 @@ function EditableFieldWithCopy({ label, type, value, onChange, options, onCopy }
         {onCopy && value && (
           <button
             onClick={onCopy}
-            className="p-1 hover:bg-zinc-800 rounded text-zinc-400 hover:text-zinc-200 transition-colors shrink-0"
+            className="p-1 hover:bg-[var(--bg-hover)] rounded text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors shrink-0"
             title={`Copy ${label}`}
           >
             <Copy className="w-3.5 h-3.5" />

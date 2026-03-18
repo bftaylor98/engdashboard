@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
-import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import Layout from '@/components/Layout';
 import Login from '@/pages/Login';
 import Dashboard from '@/pages/Dashboard';
@@ -31,16 +31,17 @@ import { isAdmin } from '@/lib/utils';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 function ToasterWithTheme() {
-  const { theme } = useTheme();
   return (
     <Toaster
       position="bottom-right"
-      theme={theme === 'light' ? 'light' : 'dark'}
+      theme="system"
       toastOptions={{
         style: {
-          background: theme === 'light' ? '#ffffff' : '#18181b',
-          border: theme === 'light' ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(255,255,255,0.06)',
-          color: theme === 'light' ? '#18181b' : '#fafafa',
+          background: 'var(--bg-elevated)',
+          border: '1px solid var(--border-default)',
+          color: 'var(--text-primary)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: 'var(--shadow-lg)',
         },
       }}
     />
@@ -63,7 +64,7 @@ function AppRoutes() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-zinc-950 text-zinc-400 gap-3">
+      <div className="flex flex-col items-center justify-center h-screen bg-[var(--bg-primary)] text-[var(--text-secondary)] gap-3">
         <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
         <span className="text-sm">Loading...</span>
       </div>

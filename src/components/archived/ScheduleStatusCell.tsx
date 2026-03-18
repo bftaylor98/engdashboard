@@ -61,7 +61,7 @@ export function StatusCell({
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-1 min-w-[160px]"
+            className="dropdown-menu fixed z-[9999] min-w-[160px]"
             style={{ top: `${position.top}px`, right: `${position.right}px` }}
           >
             {STATUS_OPTIONS.filter((s) => isAdminUser || s.value !== 'completed').map((s) => (
@@ -72,10 +72,8 @@ export function StatusCell({
                   onUpdate(wo.id, { currentStatus: s.value as WorkOrder['currentStatus'] });
                   setOpen(false);
                 }}
-                className={cn(
-                  'block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-zinc-700 transition-colors',
-                  wo.currentStatus === s.value ? 'bg-zinc-700 text-white' : 'text-zinc-300'
-                )}
+                className="dropdown-item"
+                data-active={wo.currentStatus === s.value ? 'true' : undefined}
               >
                 {s.label}
               </button>
