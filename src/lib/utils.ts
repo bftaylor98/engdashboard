@@ -39,7 +39,7 @@ export function materialStatusColor(status: string): string {
     case 'arrived': return 'text-green-400';
     case 'ordered': return 'text-yellow-400';
     case 'not-ordered': return 'text-red-400';
-    default: return 'text-zinc-400';
+    default: return 'text-[var(--text-secondary)]';
   }
 }
 
@@ -59,8 +59,8 @@ export function statusColor(status: string): string {
     case 'programming': return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
     case 'programming-completed': return 'bg-green-500/20 text-green-400 border-green-500/30';
     case 'hold': return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
-    case 'completed': return 'bg-zinc-600/20 text-zinc-400 border-zinc-600/30';
-    default: return 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30';
+    case 'completed': return 'bg-[var(--bg-hover)] text-[var(--text-muted)] border-[var(--border-default)]';
+    default: return 'bg-[var(--bg-hover)] text-[var(--text-muted)] border-[var(--border-default)]';
   }
 }
 
@@ -98,18 +98,18 @@ const ASSIGNEE_COLORS: Record<string, string> = {
 };
 
 export function assigneeColor(assignee: string | null | undefined): string {
-  if (!assignee) return 'bg-zinc-700/50 text-zinc-400 border border-zinc-600/30';
-  return ASSIGNEE_COLORS[assignee] ?? 'bg-zinc-600/20 text-zinc-400 border border-zinc-500/30';
+  if (!assignee) return 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border border-[var(--border-default)]';
+  return ASSIGNEE_COLORS[assignee] ?? 'bg-[var(--bg-hover)] text-[var(--text-muted)] border border-[var(--border-default)]';
 }
 
 /** Calendar event pill color from title: if title contains an assignee name, use that color; else unused/gray. */
 export function calendarEventColor(title: string | null | undefined): string {
-  if (!title || typeof title !== 'string') return 'bg-zinc-600/20 text-zinc-400 border border-zinc-500/30';
+  if (!title || typeof title !== 'string') return 'bg-[var(--bg-hover)] text-[var(--text-muted)] border border-[var(--border-default)]';
   const lower = title.toLowerCase();
   for (const name of Object.keys(ASSIGNEE_COLORS)) {
     if (lower.includes(name.toLowerCase())) return ASSIGNEE_COLORS[name];
   }
-  return 'bg-zinc-600/20 text-zinc-400 border border-zinc-500/30';
+  return 'bg-[var(--bg-hover)] text-[var(--text-muted)] border border-[var(--border-default)]';
 }
 
 export function isAdmin(user: { username: string } | null): boolean {
