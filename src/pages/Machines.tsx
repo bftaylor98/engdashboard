@@ -55,15 +55,15 @@ export default function Machines() {
   if (rateLimited) {
     return (
       <div className="space-y-6 animate-fade-in">
-        <h1 className="text-2xl font-bold text-zinc-100">Machines</h1>
-        <div className="flex flex-col items-center justify-center min-h-[200px] gap-4 rounded-lg border border-white/[0.07] bg-zinc-900/60 p-8 text-center">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Machines</h1>
+        <div className="flex flex-col items-center justify-center min-h-[200px] gap-4 rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-8 text-center">
           <p className="text-sm text-amber-400">
             ProShop rate limit – data temporarily unavailable. Try again in a minute.
           </p>
           <button
             type="button"
             onClick={loadData}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-sm"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] text-sm"
           >
             <RefreshCw className="w-4 h-4" />
             Retry
@@ -76,10 +76,10 @@ export default function Machines() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <h1 className="text-2xl font-bold text-zinc-100">Machines</h1>
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Machines</h1>
         <div className="flex items-center gap-3">
           {lastUpdated && (
-            <span className="text-xs text-zinc-500">
+            <span className="text-xs text-[var(--text-muted)]">
               Last updated {new Date(lastUpdated).toLocaleString()}
             </span>
           )}
@@ -88,7 +88,7 @@ export default function Machines() {
             onClick={loadData}
             disabled={loading}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-zinc-700 text-sm transition-colors',
+              'flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] text-sm transition-colors',
               loading && 'opacity-50 cursor-not-allowed'
             )}
           >
@@ -116,19 +116,19 @@ export default function Machines() {
                 key={machineKey}
                 className="card flex flex-col overflow-hidden"
               >
-                <div className="flex items-center justify-between mb-3 pb-2 border-b border-white/[0.06]">
-                  <h2 className="text-lg font-semibold text-zinc-100 flex items-center gap-2">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-[var(--border-subtle)]">
+                  <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
                     <Cpu className="w-5 h-5 text-accent" />
                     {machineKey}
                   </h2>
-                  <span className="text-sm text-zinc-400">
+                  <span className="text-sm text-[var(--text-secondary)]">
                     {totalHours.toFixed(1)}h backlog
                   </span>
                 </div>
 
                 <div className="flex-1 min-h-0 overflow-y-auto space-y-2">
                   {workOrders.length === 0 ? (
-                    <p className="text-sm text-zinc-500 py-4 text-center">
+                    <p className="text-sm text-[var(--text-muted)] py-4 text-center">
                       No jobs currently scheduled
                     </p>
                   ) : (
@@ -136,7 +136,7 @@ export default function Machines() {
                       <div
                         key={`${machineKey}-${wo.workOrderNumber}`}
                         className={cn(
-                          'rounded-lg border border-white/[0.06] bg-zinc-800/40 p-3 border-l-4',
+                          'rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-3 border-l-4',
                           dueDateIndicatorClass(wo.dueDate)
                         )}
                       >
@@ -148,7 +148,7 @@ export default function Machines() {
                         >
                           {wo.workOrderNumber}
                         </a>
-                        <div className="mt-1 text-xs text-zinc-400 space-y-0.5">
+                        <div className="mt-1 text-xs text-[var(--text-secondary)] space-y-0.5">
                           <div>{wo.partNumber || '—'}</div>
                           <div>{wo.customer || '—'}</div>
                           <div>
@@ -160,8 +160,8 @@ export default function Machines() {
                   )}
                 </div>
 
-                <div className="mt-3 pt-3 border-t border-white/[0.06]">
-                  <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div className="mt-3 pt-3 border-t border-[var(--border-subtle)]">
+                  <div className="h-2 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
                     <div
                       className="h-full bg-accent rounded-full transition-all"
                       style={{ width: `${progressPercent}%` }}
