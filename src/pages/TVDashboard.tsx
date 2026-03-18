@@ -114,25 +114,25 @@ function StatCard({
 }) {
   if (compact) {
     return (
-      <div className="flex items-center gap-3 rounded-xl bg-zinc-900/80 border border-white/10 p-4">
+      <div className="flex items-center gap-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-4">
         <div className={`p-2 rounded-lg shrink-0 ${color}`}>
           <Icon className="w-6 h-6 text-white" />
         </div>
         <div className="min-w-0">
           <p className="text-2xl md:text-3xl font-bold text-white tabular-nums truncate">{value}</p>
-          <p className="text-sm text-zinc-400 truncate">{label}</p>
+          <p className="text-sm text-[var(--text-secondary)] truncate">{label}</p>
         </div>
       </div>
     );
   }
   return (
-    <div className="flex items-center gap-4 rounded-xl bg-zinc-900/80 border border-white/10 p-6">
+    <div className="flex items-center gap-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6">
       <div className={`p-3 rounded-lg ${color}`}>
         <Icon className="w-8 h-8 text-white" />
       </div>
       <div>
         <p className="text-4xl md:text-5xl font-bold text-white tabular-nums">{value}</p>
-        <p className="text-lg text-zinc-400">{label}</p>
+        <p className="text-lg text-[var(--text-secondary)]">{label}</p>
       </div>
     </div>
   );
@@ -298,7 +298,7 @@ export default function TVDashboard() {
 
   if (loading && !data) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center" style={{ zoom: TV_SCALE }}>
+      <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center" style={{ zoom: TV_SCALE }}>
         <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
       </div>
     );
@@ -306,7 +306,7 @@ export default function TVDashboard() {
 
   if (error && !data) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-red-400 text-xl" style={{ zoom: TV_SCALE }}>
+      <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center text-red-400 text-xl" style={{ zoom: TV_SCALE }}>
         {error}
       </div>
     );
@@ -383,21 +383,21 @@ export default function TVDashboard() {
         );
       case 'status-breakdown':
         return (
-          <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col h-full min-h-0">
+          <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col h-full min-h-0">
             <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5" />
               Status Breakdown
             </h2>
             {statusBreakdown.length === 0 ? (
-              <p className="text-sm text-zinc-500">No status data</p>
+              <p className="text-sm text-[var(--text-muted)]">No status data</p>
             ) : (
               <div className="space-y-2 flex-1">
                 {statusBreakdown.map((s) => {
                   const pct = totalForStatusPct ? Math.round((s.count / totalForStatusPct) * 100) : 0;
                   return (
                     <div key={s.value} className="flex items-center gap-3">
-                      <span className="text-xs text-zinc-400 w-24 text-right shrink-0">{s.label}</span>
-                      <div className="flex-1 h-6 bg-zinc-800 rounded-lg overflow-hidden relative min-w-0">
+                      <span className="text-xs text-[var(--text-secondary)] w-24 text-right shrink-0">{s.label}</span>
+                      <div className="flex-1 h-6 bg-[var(--bg-elevated)] rounded-lg overflow-hidden relative min-w-0">
                         <div
                           className={cn('h-full rounded-lg transition-all', statusBarColor(s.value))}
                           style={{ width: `${pct}%` }}
@@ -415,13 +415,13 @@ export default function TVDashboard() {
         );
       case 'workload-distribution':
         return (
-          <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col h-full min-h-0">
+          <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col h-full min-h-0">
             <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <Users className="w-5 h-5" />
               Workload Distribution
             </h2>
             {workload.length === 0 ? (
-              <p className="text-zinc-500 text-center py-4">No assignees with active work orders</p>
+              <p className="text-[var(--text-muted)] text-center py-4">No assignees with active work orders</p>
             ) : (
               <div className="space-y-3">
                 {workload.map((row) => {
@@ -432,15 +432,15 @@ export default function TVDashboard() {
                   return (
                     <div key={row.assignee}>
                       <div className="flex items-center justify-between text-sm mb-1">
-                        <span className="text-zinc-200 font-medium">{row.assignee}</span>
-                        <span className="text-zinc-400 text-xs">
+                            <span className="text-[var(--text-primary)] font-medium">{row.assignee}</span>
+                            <span className="text-[var(--text-secondary)] text-xs">
                           {row.jobCount} items · {progHours.toFixed(1)}h prog · {engHours.toFixed(1)}h eng
                           {overdueCount > 0 && (
                             <span className="text-red-400 ml-1">({overdueCount} overdue)</span>
                           )}
                         </span>
                       </div>
-                      <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                          <div className="h-2 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all"
                           style={{ width: `${maxCount > 0 ? (row.jobCount / maxCount) * 100 : 0}%` }}
@@ -551,7 +551,7 @@ export default function TVDashboard() {
   const useConfigLayout = tvConfig && activeSet && layout.length > 0;
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 p-8 md:p-10 flex flex-col" style={{ zoom: TV_SCALE }}>
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] p-8 md:p-10 flex flex-col" style={{ zoom: TV_SCALE }}>
       <div className="max-w-7xl mx-auto flex-1 w-full relative pb-8">
         {useConfigLayout ? (
           <div

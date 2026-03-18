@@ -43,7 +43,7 @@ function WidgetPlaceholder({
     <div
       draggable
       onDragStart={handleDragStart}
-      className="rounded-lg border-2 border-dashed border-white/30 bg-white/5 p-2 flex items-center justify-center text-center text-sm font-medium text-zinc-300 cursor-grab active:cursor-grabbing select-none relative"
+      className="rounded-lg border-2 border-dashed border-[var(--border-default)] bg-[var(--bg-surface)] p-2 flex items-center justify-center text-center text-sm font-medium text-[var(--text-secondary)] cursor-grab active:cursor-grabbing select-none relative"
       style={{
         gridColumn: `${gridCol} / span ${gridColSpan}`,
         gridRow: `${gridRow} / span ${gridRowSpan}`,
@@ -55,7 +55,7 @@ function WidgetPlaceholder({
         tabIndex={0}
         draggable={false}
         onMouseDown={handleResizeMouseDown}
-        className="absolute bottom-0 right-0 w-4 h-4 flex items-center justify-center rounded-tl bg-white/10 hover:bg-white/20 cursor-se-resize text-zinc-400"
+        className="absolute bottom-0 right-0 w-4 h-4 flex items-center justify-center rounded-tl bg-[var(--bg-hover)] hover:bg-[var(--bg-active)] cursor-se-resize text-[var(--text-muted)]"
         aria-label="Resize widget"
       >
         <ArrowDownRight className="w-3 h-3" />
@@ -68,7 +68,7 @@ function WidgetPlaceholder({
 function GridCell({ col, row }: { col: number; row: number }) {
   return (
     <div
-      className="min-h-[32px] rounded border border-white/10 bg-white/[0.02]"
+      className="min-h-[32px] rounded border border-[var(--border-subtle)] bg-[var(--bg-primary)]"
       data-cell={`cell-${col}-${row}`}
     />
   );
@@ -265,7 +265,7 @@ export default function TVConfig() {
             <Tv className="w-6 h-6" />
             TV Config
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[var(--text-secondary)] mt-1">
             Choose widgets and arrange them on the TV dashboard. Only active widgets appear on /tv.
           </p>
         </div>
@@ -283,8 +283,8 @@ export default function TVConfig() {
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
         {/* Widget library */}
         <div className="card">
-          <h2 className="text-lg font-semibold text-zinc-100 mb-3">Widget library</h2>
-          <p className="text-sm text-zinc-400 mb-4">Toggle widgets on/off. Active widgets appear on the canvas and on the TV.</p>
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-3">Widget library</h2>
+          <p className="text-sm text-[var(--text-secondary)] mb-4">Toggle widgets on/off. Active widgets appear on the canvas and on the TV.</p>
           <ul className="space-y-3">
             {TV_WIDGETS.map((widget) => (
               <WidgetLibraryRow
@@ -299,10 +299,10 @@ export default function TVConfig() {
 
         {/* Layout editor */}
         <div className="card">
-          <h2 className="text-lg font-semibold text-zinc-100 mb-3">Layout (16:9)</h2>
-          <p className="text-sm text-zinc-400 mb-4">Drag widgets on the canvas to position them. They snap to the grid.</p>
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-3">Layout (16:9)</h2>
+          <p className="text-sm text-[var(--text-secondary)] mb-4">Drag widgets on the canvas to position them. They snap to the grid.</p>
             <div
-              className="w-full max-w-4xl rounded-xl overflow-hidden border border-white/10 bg-zinc-900/50 relative"
+              className="w-full max-w-4xl rounded-xl overflow-hidden border border-[var(--border-default)] bg-[var(--bg-surface)] relative"
               style={{ aspectRatio: '16/9' }}
             >
               <div
@@ -362,18 +362,18 @@ function WidgetLibraryRow({
     e.dataTransfer.effectAllowed = 'move';
   };
   return (
-    <li className="flex items-start gap-3 p-3 rounded-lg bg-zinc-800/50 border border-white/5">
+    <li className="flex items-start gap-3 p-3 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)]">
       <div
         draggable
         onDragStart={handleDragStart}
-        className="w-12 h-12 shrink-0 rounded-lg bg-zinc-700/80 border border-white/10 flex items-center justify-center text-zinc-400 cursor-grab active:cursor-grabbing"
+        className="w-12 h-12 shrink-0 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-default)] flex items-center justify-center text-[var(--text-muted)] cursor-grab active:cursor-grabbing"
         title="Drag to canvas"
       >
         <GripVertical className="w-5 h-5" />
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2">
-          <span className="font-medium text-zinc-200">{widget.name}</span>
+          <span className="font-medium text-[var(--text-primary)]">{widget.name}</span>
           <label className="relative inline-flex items-center cursor-pointer shrink-0">
             <input
               type="checkbox"
@@ -381,10 +381,10 @@ function WidgetLibraryRow({
               onChange={onToggle}
               className="sr-only peer"
             />
-            <span className="relative block w-9 h-5 rounded-full bg-zinc-600 peer-focus:ring-2 peer-focus:ring-accent/50 peer-checked:bg-accent after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all after:duration-200 peer-checked:after:translate-x-4" />
+            <span className="relative block w-9 h-5 rounded-full bg-[var(--bg-hover)] peer-focus:ring-2 peer-focus:ring-accent/50 peer-checked:bg-accent after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all after:duration-200 peer-checked:after:translate-x-4" />
           </label>
         </div>
-        <p className="text-xs text-zinc-500 mt-0.5">{widget.description}</p>
+        <p className="text-xs text-[var(--text-muted)] mt-0.5">{widget.description}</p>
       </div>
     </li>
   );
