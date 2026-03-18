@@ -1,9 +1,11 @@
+import 'dotenv/config';
+
 // Test querying a specific purchase order by ID
 const PROSHOP_CONFIG = {
-  ROOT_URL: 'https://est.adionsystems.com',
-  USERNAME: 'admin@esttool.com',
-  PASSWORD: 'EstAdmin4626!!',
-  SCOPE: 'nonconformancereports:r workorders:r parts:r users:r toolpots:r purchaseorders:r contacts:r',
+  ROOT_URL: process.env.PROSHOP_ROOT_URL,
+  USERNAME: process.env.PROSHOP_USERNAME,
+  PASSWORD: process.env.PROSHOP_PASSWORD,
+  SCOPE: process.env.PROSHOP_SCOPE,
 };
 
 async function getProshopToken() {

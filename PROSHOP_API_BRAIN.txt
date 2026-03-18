@@ -21,14 +21,14 @@ Credentials and base URL are **hardcoded** in `server/lib/proshopClient.js`. No 
 export const PROSHOP_CONFIG = {
   ROOT_URL: 'https://est.adionsystems.com',
   USERNAME: 'admin@esttool.com',
-  PASSWORD: 'EstAdmin4626!!',
+  PASSWORD: '[REDACTED - see .env]',
   SCOPE: 'nonconformancereports:r workorders:r parts:r users:r toolpots:r purchaseorders:r contacts:r',
 };
 ```
 
 - **Base URL**: https://est.adionsystems.com
 - **Username**: admin@esttool.com
-- **Password**: EstAdmin4626!!
+- **Password**: [REDACTED - see .env]
 - **Scope**: Must include at least `workorders:r parts:r users:r purchaseorders:r contacts:r` for the queries used in this app. The full scope above is what the app uses.
 
 ---
@@ -42,7 +42,7 @@ export const PROSHOP_CONFIG = {
      ```json
      {
        "username": "admin@esttool.com",
-       "password": "EstAdmin4626!!",
+       "password": "[REDACTED - see .env]",
        "scope": "nonconformancereports:r workorders:r parts:r users:r toolpots:r purchaseorders:r contacts:r"
      }
      ```
@@ -323,3 +323,4 @@ The app treats: numeric-only `psPONumberPlainText` → PO id (ordered); date `M/
 4. **Code**: All logic in `server/lib/proshopClient.js` and `server/routes/proshop.js`; reuse `getProshopToken()` and `executeGraphQLQuery()`.
 5. **Pagination**: All lists use `pageSize` and `pageStart`; response has `totalRecords` and `records`.
 6. **Gotchas**: Use `id`/`cost`/`supplier.name`/`partDescription` as in the table above; filter ENGINEERING WOs via `ops(filter: { workCenter: ["ENGINEERING"] })`.
+

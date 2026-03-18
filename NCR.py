@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://default8b194f6d59c94b4287861c626d1ec2.e6.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=IY4hJDV6XBJrypE8k4p23AeNIdbDpIreXOgULzexwfY"
 # ----------------------------------------------------------------

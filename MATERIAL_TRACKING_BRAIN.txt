@@ -80,7 +80,7 @@ AUTHENTICATION:
   Headers: Accept: application/json, Content-Type: application/json
   Body: {
     "username": "admin@esttool.com",
-    "password": "EstAdmin4626!!",
+    "password": "[REDACTED - see .env]",
     "scope": "nonconformancereports:r workorders:r parts:r users:r
               toolpots:r purchaseorders:r contacts:r"
   }
@@ -602,3 +602,4 @@ KEY VALIDATION:
 ================================================================================
 END OF MATERIAL TRACKING BRAIN FILE
 ================================================================================
+

@@ -151,7 +151,7 @@ GET /api/proshop/time-tracking/latest-date
 AUTHENTICATION:
   POST https://est.adionsystems.com/api/beginsession
   Body: { username: "admin@esttool.com",
-          password: "EstAdmin4626!!",
+          password: "[REDACTED - see .env]",
           scope: "nonconformancereports:r workorders:r parts:r users:r
                   toolpots:r purchaseorders:r contacts:r" }
   Response: { authorizationResult: { token: "..." } }
@@ -497,3 +497,4 @@ CHANGE TIMEZONE:
 ================================================================================
 END OF TIME TRACKING BRAIN FILE
 ================================================================================
+

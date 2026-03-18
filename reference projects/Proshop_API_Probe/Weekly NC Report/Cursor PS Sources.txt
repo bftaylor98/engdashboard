@@ -502,7 +502,7 @@ import requests, sys
 # MODIFIED: Using credentials and URL from the working script
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 # MODIFIED: Added the correct scope for Non-Conformance Reports
 SCOPE     = "nonconformancereports:r"
 
@@ -612,7 +612,7 @@ import requests, sys
 # ---- CONFIG (Uses the same working credentials) ----
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------
 
@@ -741,7 +741,7 @@ import requests, sys
 # ---- CONFIG (Uses the same working credentials) ----
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------
 
@@ -956,7 +956,7 @@ import requests, sys
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------------------
 
@@ -1051,7 +1051,7 @@ import requests, sys
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------------------
 
@@ -1226,7 +1226,7 @@ from zoneinfo import ZoneInfo
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------------------
 
@@ -1335,7 +1335,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------------------
 
@@ -1457,7 +1457,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------------------
 
@@ -1599,7 +1599,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r" # MODIFIED: Added scopes for WO and Parts
 # ----------------------------------------------------------------
 
@@ -1738,7 +1738,7 @@ import requests, sys
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "parts:r" # We only need permission to read parts for this
 # ----------------------------------------------------------------
 
@@ -2035,7 +2035,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 # ----------------------------------------------------------------
 
@@ -2262,7 +2262,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 # ----------------------------------------------------------------
 
@@ -2410,7 +2410,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 # MODIFIED: Added the Power Automate Webhook URL
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
@@ -2581,7 +2581,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -3052,7 +3052,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -3202,7 +3202,7 @@ import requests, sys
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------------------
 
@@ -3346,7 +3346,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -3478,7 +3478,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -3619,7 +3619,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -3780,7 +3780,7 @@ import requests, sys
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "users:r"
 # ----------------------------------------------------------------
 
@@ -3831,7 +3831,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG (Same as before) ------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -4031,7 +4031,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -4164,7 +4164,7 @@ import requests, sys
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r"
 # ----------------------------------------------------------------
 
@@ -4265,7 +4265,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -4407,7 +4407,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -5074,7 +5074,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -5685,7 +5685,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG (Same as before) ------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -5862,7 +5862,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -6150,7 +6150,7 @@ from datetime import datetime, timezone, timedelta
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------
@@ -6276,7 +6276,7 @@ import requests, sys
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = "[REDACTED - see .env]"
 SCOPE     = "workorders:r parts:r"
 
 TARGET_WO = "25-0718"   # <— change here if you want another WO
@@ -6341,4 +6341,5 @@ if __name__ == "__main__":
     except Exception as e:
         print("Error:", e)
         sys.exit(1)
+
 

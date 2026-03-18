@@ -1,10 +1,10 @@
-import requests, sys, re, html, json
+import os, requests, sys, re, html, json
 from datetime import datetime, timezone, timedelta
 
 # ---- CONFIG -----------------------------------------------------
 ROOT_URL  = "https://est.adionsystems.com"
 USERNAME  = "admin@esttool.com"
-PASSWORD  = "EstAdmin4626!!"
+PASSWORD  = os.environ.get("PROSHOP_PASSWORD", "")  # Set in .env
 SCOPE     = "nonconformancereports:r workorders:r parts:r"
 WEBHOOK_URL = "https://prod-138.westus.logic.azure.com:443/workflows/9a3ae54474864ed3929883d2254861a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z7iRoHHPuzVUSk5UaHDrmvWj-rQiRK7Dxj-voh8orCU"
 # ----------------------------------------------------------------

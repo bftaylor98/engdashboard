@@ -113,7 +113,7 @@ Create a file called `.env` in the project root with this content:
 ```env
 PROSHOP_ROOT_URL=https://est.adionsystems.com
 PROSHOP_USERNAME=admin@esttool.com
-PROSHOP_PASSWORD=EstAdmin4626!!
+PROSHOP_PASSWORD=[REDACTED - see .env]
 PROSHOP_SCOPE=nonconformancereports:r workorders:r parts:r users:r toolpots:r purchaseorders:r contacts:r customerPo:r estimates:r
 ```
 
@@ -205,7 +205,7 @@ For the `.ini` and `.txt` config files, replace the password line with:
 password = SEE_ENV_FILE
 ```
 
-For `Cursor PS Sources.txt`, this is a documentation/reference dump — just do a find-and-replace of the actual password string `EstAdmin4626!!` with `[REDACTED - see .env]` throughout the file.
+For `Cursor PS Sources.txt`, this is a documentation/reference dump — just do a find-and-replace of the actual password string `[REDACTED - see .env]` with `[REDACTED - see .env]` throughout the file.
 
 ### 0.5.8 — Verify the server still starts
 
@@ -1122,3 +1122,4 @@ git log --oneline
 # Find the commit hash for "backup: before phase X"
 git checkout <hash> -- .
 ```
+
