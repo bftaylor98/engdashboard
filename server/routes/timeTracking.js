@@ -1,15 +1,12 @@
 import express from 'express';
 import { getProshopToken, executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
 import { cacheLog } from '../lib/cacheLogger.js';
+import { setCache, setCacheError, clearCacheError, getCacheData, getCacheError } from '../lib/cacheStore.js';
 
 const router = express.Router();
 
 const TT_CACHE_TTL = 2 * 60 * 1000; // 2 minutes
-const timeTrackingCache = {}; // key -> { response, timestamp }
-let latestDateCache = null;
-let latestDateCacheTimestamp = null;
-let statsCache = null;
-let statsCacheTimestamp = null;
+const timeTrackingCache = {}; // key -> { response, timestamp }; also mirrored in cacheStore 'time-tracking'
 
 // When cache is empty, return same shape as other ProShop routes (route never calls ProShop)
 const RATE_LIMIT_RESPONSE = {
@@ -17,7 +14,6 @@ const RATE_LIMIT_RESPONSE = {
   reason: 'rate_limited',
   message: 'ProShop is temporarily unavailable. Please try again shortly.',
 };
-let timeTrackingLastError = null;
 
 const TRACKED_USERS = [
   { proshopId: '345', firstName: 'Alex', lastName: 'Vincent' },
@@ -337,15 +333,16 @@ export function warmTimeTrackingCache() {
   buildTimeTrackingResponse(dateStr, null)
     .then((response) => {
       timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
-      timeTrackingLastError = null;
+      setCache('time-tracking', { entries: { ...timeTrackingCache } });
+      clearCacheError('time-tracking');
       cacheLog.info('time-tracking', 'Cache warmed for date:', dateStr);
     })
     .catch((err) => {
       cacheLog.error('time-tracking', 'Warm failed:', err.message || err);
       if (isProshopRateLimitError(err)) {
-        timeTrackingLastError = { reason: 'rate_limited' };
+        setCacheError('time-tracking', { reason: 'rate_limited' });
       } else {
-        timeTrackingLastError = { reason: 'error', message: err.message || String(err) };
+        setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
       }
     });
 }
@@ -365,13 +362,10 @@ router.get('/', (req, res) => {
 
   if (isRange) {
     const cacheKey = `range:${startDateStr}:${endDateStr}:${userIdFilter || 'all'}`;
-    const cached = timeTrackingCache[cacheKey];
-    if (cached?.response) {
-      return res.json(cached.response);
-    }
-    if (timeTrackingLastError?.reason === 'rate_limited') {
-      return res.status(200).json(RATE_LIMIT_RESPONSE);
-    }
+    const entries = getCacheData('time-tracking')?.entries;
+    const cached = entries?.[cacheKey];
+    if (cached?.response) return res.json(cached.response);
+    if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
     return res.status(200).json({
       success: true,
       data: { date: startDateStr, endDate: endDateStr, users: [] },
@@ -380,13 +374,10 @@ router.get('/', (req, res) => {
 
   const dateStr = req.query.date || getESTDate();
   const cacheKey = `${dateStr}:${userIdFilter || 'all'}`;
-  const cached = timeTrackingCache[cacheKey];
-  if (cached?.response) {
-    return res.json(cached.response);
-  }
-  if (timeTrackingLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const entries = getCacheData('time-tracking')?.entries;
+  const cached = entries?.[cacheKey];
+  if (cached?.response) return res.json(cached.response);
+  if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({
     success: true,
     data: { date: dateStr, users: [] },
@@ -439,17 +430,16 @@ async function buildLatestDateResponse() {
 export function warmLatestDateCache() {
   buildLatestDateResponse()
     .then((response) => {
-      latestDateCache = response;
-      latestDateCacheTimestamp = Date.now();
-      timeTrackingLastError = null;
+      setCache('time-tracking-latest-date', response);
+      clearCacheError('time-tracking');
       cacheLog.info('time-tracking', 'Latest-date cache warmed');
     })
     .catch((err) => {
       cacheLog.error('time-tracking', 'Latest-date warm failed:', err.message || err);
       if (isProshopRateLimitError(err)) {
-        timeTrackingLastError = { reason: 'rate_limited' };
+        setCacheError('time-tracking', { reason: 'rate_limited' });
       } else {
-        timeTrackingLastError = { reason: 'error', message: err.message || String(err) };
+        setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
       }
     });
 }
@@ -461,12 +451,9 @@ export function warmLatestDateCache() {
 router.get('/latest-date', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.set('Pragma', 'no-cache');
-  if (latestDateCache) {
-    return res.json(latestDateCache);
-  }
-  if (timeTrackingLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('time-tracking-latest-date');
+  if (cached) return res.json(cached);
+  if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   const today = getESTDate();
   return res.status(200).json({ success: true, data: { date: today } });
 });
@@ -591,17 +578,16 @@ async function buildStatsResponse() {
 export function warmTimeTrackingStatsCache() {
   buildStatsResponse()
     .then((response) => {
-      statsCache = response;
-      statsCacheTimestamp = Date.now();
-      timeTrackingLastError = null;
+      setCache('time-tracking-stats', response);
+      clearCacheError('time-tracking');
       cacheLog.info('time-tracking', 'Stats cache warmed');
     })
     .catch((err) => {
       cacheLog.error('time-tracking', 'Stats warm failed:', err.message || err);
       if (isProshopRateLimitError(err)) {
-        timeTrackingLastError = { reason: 'rate_limited' };
+        setCacheError('time-tracking', { reason: 'rate_limited' });
       } else {
-        timeTrackingLastError = { reason: 'error', message: err.message || String(err) };
+        setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
       }
     });
 }
@@ -613,12 +599,9 @@ export function warmTimeTrackingStatsCache() {
 router.get('/stats', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.set('Pragma', 'no-cache');
-  if (statsCache) {
-    return res.json(statsCache);
-  }
-  if (timeTrackingLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('time-tracking-stats');
+  if (cached) return res.json(cached);
+  if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({ success: true, data: { users: [] } });
 });
 

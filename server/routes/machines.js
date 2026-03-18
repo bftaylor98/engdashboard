@@ -1,6 +1,7 @@
 import express from 'express';
 import { getProshopToken, executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
 import { cacheLog } from '../lib/cacheLogger.js';
+import { setCache, setCacheError, getCacheData, getCacheError } from '../lib/cacheStore.js';
 
 const router = express.Router();
 
@@ -42,8 +43,7 @@ function opRemainingHours(op) {
   return Math.round(remaining * 100) / 100;
 }
 
-let machinesCache = null;
-let machinesLastError = null;
+// machines cache state in cacheStore key 'machines'
 
 function emptyMachinesData() {
   return {
@@ -221,26 +221,22 @@ export function warmMachinesCache() {
   cacheLog.info('machines', 'warmMachinesCache called');
   buildMachinesResponse()
     .then((response) => {
-      machinesCache = response;
-      machinesLastError = null;
+      setCache('machines', response);
       cacheLog.info('machines', 'Machines cache warmed');
     })
     .catch((err) => {
       cacheLog.error('machines', 'buildMachinesResponse FAILED:', err.message);
       cacheLog.error('machines', err.stack);
       if (isProshopRateLimitError(err)) {
-        machinesLastError = { reason: 'rate_limited', message: 'ProShop temporarily unavailable.' };
+        setCacheError('machines', { reason: 'rate_limited', message: 'ProShop temporarily unavailable.' });
       }
     });
 }
 
 router.get('/', (req, res) => {
-  if (machinesCache) {
-    return res.json(machinesCache);
-  }
-  if (machinesLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('machines');
+  if (cached) return res.json(cached);
+  if (getCacheError('machines')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({ success: true, data: null });
 });
 

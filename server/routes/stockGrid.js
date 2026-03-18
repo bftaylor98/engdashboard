@@ -1,11 +1,10 @@
 import { Router } from 'express';
 import { cacheLog } from '../lib/cacheLogger.js';
+import { setCache, getCache, getCacheData } from '../lib/cacheStore.js';
 
 const router = Router();
 
 const STOCK_GRID_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-let stockGridCache = null;
-let stockGridCacheTimestamp = null;
 
 // Lazy load mssql to avoid breaking server startup if package isn't installed
 let mssqlModule = null;
@@ -308,8 +307,7 @@ async function buildStockGridResponse() {
 export function warmStockGridCache() {
   buildStockGridResponse()
     .then((response) => {
-      stockGridCache = response;
-      stockGridCacheTimestamp = Date.now();
+      setCache('stock-grid', response);
       cacheLog.info('stock-grid', 'Cache warmed');
     })
     .catch((err) => {
@@ -328,14 +326,14 @@ router.get('/', async (req, res) => {
   }
 
   const now = Date.now();
-  if (stockGridCache && stockGridCacheTimestamp && (now - stockGridCacheTimestamp) < STOCK_GRID_CACHE_TTL) {
-    return res.json(stockGridCache);
+  const entry = getCache('stock-grid');
+  if (entry?.data && entry.timestamp && (now - entry.timestamp) < STOCK_GRID_CACHE_TTL) {
+    return res.json(entry.data);
   }
 
   try {
     const response = await buildStockGridResponse();
-    stockGridCache = response;
-    stockGridCacheTimestamp = now;
+    setCache('stock-grid', response);
     res.json(response);
   } catch (err) {
     cacheLog.error('stock-grid', 'Error:', err);

@@ -32,6 +32,7 @@ import tvRoutes from './routes/tv.js';
 import calendarRoutes from './routes/calendar.js';
 import machinesRoutes, { warmMachinesCache } from './routes/machines.js';
 import { getProshopToken } from './lib/proshopClient.js';
+import { getCacheStatus } from './lib/cacheStore.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -151,6 +152,11 @@ app.get('/api/debug/status', requireAuth, async (req, res) => {
 // Debug: recent request timings – requires auth
 app.get('/api/debug/requests', requireAuth, (req, res) => {
   res.json({ requests: recentRequests });
+});
+
+// Debug: cache status – requires auth
+app.get('/api/debug/caches', requireAuth, (req, res) => {
+  res.json({ caches: getCacheStatus() });
 });
 
 // Serve static frontend in production

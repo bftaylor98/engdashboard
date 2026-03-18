@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { eventBus } from '../lib/eventBus.js';
 import { getProshopToken, executeGraphQLQuery, PROSHOP_CONFIG, isProshopRateLimitError } from '../lib/proshopClient.js';
 import { cacheLog } from '../lib/cacheLogger.js';
+import { setCache, setCacheError, clearCacheError, getCacheData, getCacheError } from '../lib/cacheStore.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,15 +22,9 @@ const RATE_LIMIT_RESPONSE = {
   message: 'ProShop is temporarily unavailable. Please try again shortly.',
 };
 
-// Tooling expenses: cache filled only by background refresh; routes never call ProShop
-let expensesCache = null;
-let cacheTimestamp = null;
-let expensesLastError = null;
+// Tooling expenses: cache filled only by background refresh; routes never call ProShop (state in cacheStore)
 
-// Open POs: cache filled only by background refresh
-let openPOsCache = null;
-let openPOsCacheTimestamp = null;
-let openPOsLastError = null;
+// Open POs: cache filled only by background refresh (state in cacheStore)
 
 // Customer abbreviation mapping (reused from import.js logic)
 let customerAbbrMap = {}; // For customer field: companyName -> abbreviation
@@ -664,14 +659,12 @@ async function buildToolingExpensesResponse() {
 export function warmToolingExpensesCache() {
   buildToolingExpensesResponse()
     .then((response) => {
-      expensesCache = response;
-      cacheTimestamp = Date.now();
-      expensesLastError = null;
+      setCache('tooling-expenses', response);
       cacheLog.info('proshop', 'Tooling expenses cache warmed');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
-        expensesLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
+        setCacheError('tooling-expenses', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
         cacheLog.warn('proshop', 'Tooling expenses warm rate limited (429/400), cache unchanged');
       } else {
         cacheLog.error('proshop', 'Tooling expenses warm failed:', err.message || err);
@@ -684,8 +677,9 @@ export function warmToolingExpensesCache() {
  * @returns {Promise<number|null>} total expense for current month, or null if no cache
  */
 export async function getToolingExpensesCurrentMonth() {
-  if (!expensesCache?.data) return null;
-  const total = expensesCache.data.totalExpense;
+  const cached = getCacheData('tooling-expenses');
+  if (!cached?.data) return null;
+  const total = cached.data.totalExpense;
   return typeof total === 'number' ? total : null;
 }
 
@@ -694,20 +688,14 @@ export async function getToolingExpensesCurrentMonth() {
  * Returns cached tooling expenses only (never calls ProShop). Background job refreshes cache.
  */
 router.get('/tooling-expenses', (req, res) => {
-  if (expensesCache) {
-    return res.json(expensesCache);
-  }
-  if (expensesLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('tooling-expenses');
+  if (cached) return res.json(cached);
+  const err = getCacheError('tooling-expenses');
+  if (err?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({ success: true, data: null });
 });
 
-// Material status: cache filled only by background refresh; routes never call ProShop
-let materialStatusCache = null;
-let materialStatusCacheKey = null;
-let materialStatusCacheTimestamp = null;
-let materialStatusLastError = null;
+// Material status: cache filled only by background refresh; routes never call ProShop (state in cacheStore)
 
 /**
  * Build material status response (shared for route and cache warming).
@@ -1053,16 +1041,13 @@ export function warmMaterialStatusCache(db) {
     return;
   }
   buildMaterialStatusResponse(db, null)
-    .then(({ response, cacheKey }) => {
-      materialStatusCache = response;
-      materialStatusCacheKey = cacheKey;
-      materialStatusCacheTimestamp = Date.now();
-      materialStatusLastError = null;
+    .then(({ response }) => {
+      setCache('material-status', response);
       cacheLog.info('proshop', 'Material status cache warmed');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
-        materialStatusLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
+        setCacheError('material-status', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
         cacheLog.warn('proshop', 'Material status warm rate limited (429/400), cache unchanged');
       } else {
         cacheLog.error('proshop', 'Material status warm failed:', err.message || err);
@@ -1076,8 +1061,9 @@ export function warmMaterialStatusCache(db) {
  * @returns {Promise<number|null>} count, or null if no cache
  */
 export async function getMaterialArrivedCount(_db) {
-  if (!materialStatusCache?.data || !Array.isArray(materialStatusCache.data)) return null;
-  return materialStatusCache.data.filter((row) => row.materialStatus === 'arrived').length;
+  const cached = getCacheData('material-status');
+  if (!cached?.data || !Array.isArray(cached.data)) return null;
+  return cached.data.filter((row) => row.materialStatus === 'arrived').length;
 }
 
 /**
@@ -1086,12 +1072,10 @@ export async function getMaterialArrivedCount(_db) {
  * If client's woNumbers differ from cached key, we still return cache (best effort).
  */
 router.get('/material-status', (req, res) => {
-  if (materialStatusCache) {
-    return res.json(materialStatusCache);
-  }
-  if (materialStatusLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('material-status');
+  if (cached) return res.json(cached);
+  const err = getCacheError('material-status');
+  if (err?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({ success: true, data: [] });
 });
 
@@ -1263,14 +1247,12 @@ async function buildOpenPOsResponse() {
 export function warmOpenPOsCache() {
   buildOpenPOsResponse()
     .then((response) => {
-      openPOsCache = response;
-      openPOsCacheTimestamp = Date.now();
-      openPOsLastError = null;
+      setCache('open-pos', response);
       cacheLog.info('proshop', 'Open POs cache warmed');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
-        openPOsLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
+        setCacheError('open-pos', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
         cacheLog.warn('proshop', 'Open POs warm rate limited (429/400), cache unchanged');
       } else {
         cacheLog.error('proshop', 'Open POs warm failed:', err.message || err);
@@ -1283,12 +1265,10 @@ export function warmOpenPOsCache() {
  * Returns cached open POs only (never calls ProShop). Background job refreshes cache.
  */
 router.get('/open-pos', (req, res) => {
-  if (openPOsCache) {
-    return res.json(openPOsCache);
-  }
-  if (openPOsLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('open-pos');
+  if (cached) return res.json(cached);
+  const err = getCacheError('open-pos');
+  if (err?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({ success: true, data: [] });
 });
 
@@ -1437,21 +1417,11 @@ async function fetchAllNcrs(token, options = {}) {
   return records.filter((ncr) => ncr && typeof ncr === 'object');
 }
 
-let byAssigneeCache = null;
-let byAssigneeCacheTimestamp = null;
+// NCR cache state in cacheStore: ncrs-all, ncrs-recent-10, ncrs-last24h, ncrs-by-assignee; error key 'ncrs'
 const BY_ASSIGNEE_CACHE_TTL = 3 * 60 * 1000;
-
-const NCR_RECENT_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-const recentNcrsCacheByLimit = {}; // limit -> { response, timestamp }
-let last24hNcrsCache = null;
-let last24hNcrsCacheTimestamp = null;
-const NCR_LAST24H_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-
-/** Single shared cache for raw "all NCRs" list; one fetch feeds recent, last24h, by-assignee, and TV 30-day count */
-let allNcrsCache = null;
-let allNcrsCacheTimestamp = null;
-const ALL_NCRS_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-let ncrLastError = null;
+const NCR_RECENT_CACHE_TTL = 5 * 60 * 1000;
+const NCR_LAST24H_CACHE_TTL = 5 * 60 * 1000;
+const ALL_NCRS_CACHE_TTL = 5 * 60 * 1000;
 
 /**
  * Get the shared "all NCRs" list. If cache is valid, return it. Otherwise fetch once from ProShop, fill cache, return.
@@ -1459,16 +1429,16 @@ let ncrLastError = null;
  */
 async function getSharedAllNcrs() {
   const now = Date.now();
-  if (allNcrsCache && allNcrsCacheTimestamp && (now - allNcrsCacheTimestamp) < ALL_NCRS_CACHE_TTL) {
-    return allNcrsCache;
+  const entry = getCache('ncrs-all');
+  if (entry?.data && entry.timestamp && (now - entry.timestamp) < ALL_NCRS_CACHE_TTL) {
+    return entry.data;
   }
   const token = await getProshopToken();
   if (!token || typeof token !== 'string') {
     throw new Error('ProShop authentication did not return a valid token.');
   }
   const all = await fetchAllNcrs(token, { maxRecords: NCR_FETCH_CAP });
-  allNcrsCache = all;
-  allNcrsCacheTimestamp = now;
+  setCache('ncrs-all', all);
   return all;
 }
 
@@ -1480,13 +1450,9 @@ router.get('/ncrs/recent', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.set('Pragma', 'no-cache');
   const limit = Math.min(parseInt(req.query.limit, 10) || 10, 50);
-  const cached = recentNcrsCacheByLimit[limit];
-  if (cached?.response) {
-    return res.json(cached.response);
-  }
-  if (ncrLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('ncrs-recent-' + limit);
+  if (cached) return res.json(cached);
+  if (getCacheError('ncrs')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({ success: true, data: [] });
 });
 
@@ -1497,12 +1463,9 @@ router.get('/ncrs/recent', (req, res) => {
 router.get('/ncrs/last24h', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.set('Pragma', 'no-cache');
-  if (last24hNcrsCache) {
-    return res.json(last24hNcrsCache);
-  }
-  if (ncrLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('ncrs-last24h');
+  if (cached) return res.json(cached);
+  if (getCacheError('ncrs')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({ success: true, data: [] });
 });
 
@@ -1513,12 +1476,9 @@ router.get('/ncrs/last24h', (req, res) => {
 router.get('/ncrs/by-assignee', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.set('Pragma', 'no-cache');
-  if (byAssigneeCache) {
-    return res.json(byAssigneeCache);
-  }
-  if (ncrLastError?.reason === 'rate_limited') {
-    return res.status(200).json(RATE_LIMIT_RESPONSE);
-  }
+  const cached = getCacheData('ncrs-by-assignee');
+  if (cached) return res.json(cached);
+  if (getCacheError('ncrs')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
   return res.status(200).json({
     success: true,
     data: {
@@ -1547,15 +1507,16 @@ export function warmSharedNcrCache() {
       if (slice.length === 0 && all.length > 0) {
         slice = all.slice(0, limit).map((ncr) => normalizeNcrRecord(ncr));
       }
-      recentNcrsCacheByLimit[limit] = { response: { success: true, data: slice }, timestamp: now };
+      setCache('ncrs-recent-10', { success: true, data: slice });
+      const slice50 = withDate.slice(0, 50).map((x) => normalizeNcrRecord(x.ncr));
+      setCache('ncrs-recent-50', { success: true, data: slice50.length ? slice50 : slice });
 
       const nowDate = new Date();
       const cutoff24h = new Date(nowDate.getTime() - 24 * 60 * 60 * 1000);
       const inWindow = withDate.filter((x) => x.created && x.created >= cutoff24h);
       inWindow.sort((a, b) => b.created.getTime() - a.created.getTime());
       const data24h = inWindow.map((x) => normalizeNcrRecord(x.ncr));
-      last24hNcrsCache = { success: true, data: data24h };
-      last24hNcrsCacheTimestamp = now;
+      setCache('ncrs-last24h', { success: true, data: data24h });
 
       const currentYear = new Date().getFullYear();
       const yearRange = getYearStartEnd(currentYear);
@@ -1597,17 +1558,16 @@ export function warmSharedNcrCache() {
         byAssignee[name].monthlyAvg = Math.round((y / 12) * 100) / 100;
         byAssignee[name].weeklyAvg = Math.round((y / 52) * 100) / 100;
       }
-      byAssigneeCache = {
+      setCache('ncrs-by-assignee', {
         success: true,
         data: { byAssignee, allNcrsByAssignee },
-      };
-      byAssigneeCacheTimestamp = now;
-      ncrLastError = null;
+      });
+      clearCacheError('ncrs');
       cacheLog.info('proshop', 'Shared NCR cache warmed (recent, last24h, by-assignee)');
     })
     .catch((err) => {
       if (isProshopRateLimitError(err)) {
-        ncrLastError = { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message };
+        setCacheError('ncrs', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
         cacheLog.warn('proshop', 'Shared NCR cache warm rate limited (429/400), cache unchanged');
       } else {
         cacheLog.error('proshop', 'Shared NCR cache warm failed:', err.message || err);
@@ -1620,10 +1580,11 @@ export function warmSharedNcrCache() {
  * @returns {Promise<number|null>} count, or null if no cache
  */
 export async function getNcrCountLast30Days() {
-  if (!allNcrsCache || !Array.isArray(allNcrsCache)) return null;
+  const all = getCacheData('ncrs-all');
+  if (!all || !Array.isArray(all)) return null;
   const now = new Date();
   const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const withDate = allNcrsCache.map((ncr) => ({ ncr, created: getNcrCreatedTime(ncr) }));
+  const withDate = all.map((ncr) => ({ ncr, created: getNcrCreatedTime(ncr) }));
   const inWindow = withDate.filter((x) => x.created && x.created >= cutoff);
   return inWindow.length;
 }
