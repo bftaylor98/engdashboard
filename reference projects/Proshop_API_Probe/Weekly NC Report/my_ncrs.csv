@@ -1,0 +1,31 @@
+ncrRefNumber,workOrderNumber,partDescription,createdById,notes,timestamp
+25-0536.01,25-0536,D-14862-S6 DET 4 Top Twist Die Holder Base Sub-Assembly,117,4 brass bushings unaccounted for,2025-07-23 12:20 PM
+25-0559.01,25-0559,D-14862-S8 DET 4B - Twist Die Holder Base Top Flange Side Block,117,"Op 4&5 for handling hole was set up incorrectly 
+
+holes are in wrong location. 
+see pic and print.
+
+ 
+
+process packet could use better instructions but operators need to pay attention to the print and process packet.",2025-07-23 03:26 PM
+25-0748.46.01,25-0748,D-14770-S2 DET 1 Bottom Bolster Plate,117,"My program Y zero is comming off the bottom of the part, but the dimension check is comming off the top of the part. due to the thickness not being perfect this caused Dim 6 to be out of tollerance. I will change my Y zero to come off the top of the par for future parts",2025-07-22 09:58 AM
+25-0860.01,25-0860,D-14849-S10 DET 8 Bottom Twist Die Holder,117,The 1st 3 operation have the same program name  ?????n Setup OP2 checked tools on list and drawed on console started running OP2,2025-07-23 04:52 AM
+25-0869.02,25-0869,4198 Trim Nest,117,Chamfer missing on the bottom side of the part. will deburr edge and ship.,2025-07-22 09:59 AM
+25-0871.1.01,25-0871,4198 Flash Stripper Plate,117,t25 drill  will drill thought mag. drill goes 1.25 and part is 1.246 thickness,2025-07-23 05:55 AM
+25-0890.01,25-0890,4199 Flash Stripper Plate,117,"Material was purchased blanchard ground at a 1/4"" thick. Shouldnt have been quoted that way and engineering should have caught it before purchasing. Drawing also needs updated to reflect.",2025-07-21 12:43 PM
+25-0890.02,25-0890,4199 Flash Stripper Plate,117,"part not cleaning up when profiling, part had a step in left side of material",2025-07-24 04:41 PM
+25-0894.01,25-0894,D-14852-S2 DET 1U FCA-SO Top Pulley Stationary Twist Die,117,"impression of die .012 too deep. should have been caught on mill. 
+
+Part check stated dim in tolerance.",2025-07-24 08:15 AM
+25-0905.01,25-0905,D-14850-S5 DET 2L FCA-SO Bottom Blocker Die,397,the process packet has 7 operations at the 6030 and one at the boring mill but proshop only has 6 at the 6030 and one at the boring mill.,2025-07-28 07:49 AM
+25-0905.46.01,25-0905,D-14850-S5 DET 2L FCA-SO Bottom Blocker Die,117,"program Dim says .787 and the blue print dim says .874. I measured dim, and it came out to blue print size .874",2025-07-25 09:31 PM
+25-0906.46.01,25-0906,D-14850-S1 DET 3U FCA-SO Top Finisher Die,117,"Not sure why measuring low all the rest of the dimensions are within .003, But dim #12 is measuring .015 under nom.",2025-07-25 03:46 AM
+25-0910.01,25-0910,V8 Bottom Center Rotating Member Resink Level 5,117,shop order number wrong on 2 of the 4 pages of the process packet,2025-07-23 08:21 AM
+25-0910.02,25-0910,V8 Bottom Center Rotating Member Resink Level 5,117,tool 4 was in the machine touched off  i checked touch off but assumed it was out enought sionce we just ran a rotating member before this one but it was .100 shrter than what qwe mneeded to clear the part so yhe tool changer rub the back radius,2025-07-23 01:00 PM
+25-0929.01,25-0929,12561 Swage Floating Nest Pressure Pad,117,"I came to machine with part setup straight, flat, and vises tight, i double checked brandons flatness and straightness but orientation did not come to mind, program was started with part upside down, im going to go ahead and pull it and put it in inspection, i dont think its salvagable unless we can fill holes with weld.",2025-07-23 05:46 PM
+25-0959.01,25-0959,4197 Top Forging Die,117,"dim 22,24, and 26 was cut from .007 to .013 heavy",2025-07-21 09:07 AM
+25-0960.N/A.01,25-0960,4197 Bottom Forging Die,117,XYZ was not wrote down in the first article.,2025-07-24 11:25 AM
+25-0966.46.01,25-0966,4135 Bottom Forging Die,117,.003 out,2025-07-22 01:44 AM
+25-0966.46.02,25-0966,4135 Bottom Forging Die,117,.006 out,2025-07-22 01:55 AM
+25-0972.46.01,25-0972,4168 Trim Blade,419,.003,2025-07-26 12:27 AM
+25-0972.46.02,25-0972,4168 Trim Blade,419,.0042,2025-07-26 12:36 AM

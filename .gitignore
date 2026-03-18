@@ -1,0 +1,10 @@
+node_modules/
+dist/
+database/
+uploads/
+*.db
+.env
+.env.chart
+.dashboard-token
+.DS_Store
+

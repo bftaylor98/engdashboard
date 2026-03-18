@@ -1,0 +1,217 @@
+{
+  "basic_info": {
+    "ObjId": 3339,
+    "ObjType": 11,
+    "ObjTxt": "C-112",
+    "DescrTxt": "0.093\" Harvey Tool Long Reach Ball Endmill - 0.500\" Neck Length - 2.5\" OAL",
+    "ClassId": null,
+    "State": 0,
+    "StateBits": 0,
+    "Embedded": false,
+    "CountInv": null,
+    "InvMode": null,
+    "TS": 638987419814526220,
+    "ModuleName": "Component",
+    "ObjName": "Component",
+    "ObjTypeFullName": "Zoller.Sys.Data.Component.ComponentData",
+    "EntryDate": "2024-12-17 03:00:00"
+  },
+  "val_data": [
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 6774,
+      "ColumnName": "CouplingUseCharacteristic",
+      "DataType": "DataBoolean",
+      "ValType": "ValNum",
+      "Unit": null,
+      "ValStr": null,
+      "ValNum": 1.0,
+      "ValTextPreview": null
+    },
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 283,
+      "ColumnName": "Fabrication",
+      "DataType": "DataInteger",
+      "ValType": "ValNum",
+      "Unit": null,
+      "ValStr": null,
+      "ValNum": 0.0,
+      "ValTextPreview": null
+    },
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 291,
+      "ColumnName": "Norm",
+      "DataType": "DataString",
+      "ValType": "ValStr",
+      "Unit": null,
+      "ValStr": "Harvey Tool",
+      "ValNum": null,
+      "ValTextPreview": null
+    },
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 286,
+      "ColumnName": "OrderNo",
+      "DataType": "DataString",
+      "ValType": "ValStr",
+      "Unit": null,
+      "ValStr": "HARV-33493-C3",
+      "ValNum": null,
+      "ValTextPreview": null
+    },
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 282,
+      "ColumnName": "PartClass",
+      "DataType": "DataInteger",
+      "ValType": "ValNum",
+      "Unit": null,
+      "ValStr": null,
+      "ValNum": 0.0,
+      "ValTextPreview": null
+    },
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 100,
+      "ColumnName": "StorageLocation",
+      "DataType": "DataString",
+      "ValType": "ValStr",
+      "Unit": null,
+      "ValStr": "ZTO_2",
+      "ValNum": null,
+      "ValTextPreview": null
+    },
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 4337,
+      "ColumnName": "StorageUse",
+      "DataType": "DataInteger",
+      "ValType": "ValNum",
+      "Unit": null,
+      "ValStr": null,
+      "ValNum": 0.0,
+      "ValTextPreview": null
+    },
+    {
+      "ObjId": 3339,
+      "ObjTxt": "C-112",
+      "FieldId": 285,
+      "ColumnName": "Supplier",
+      "DataType": "DataString",
+      "ValType": "ValStr",
+      "Unit": null,
+      "ValStr": "Rocket Supply",
+      "ValNum": null,
+      "ValTextPreview": null
+    }
+  ],
+  "val_act_data": [],
+  "val_inv_data": [],
+  "inventory": [],
+  "statistics": [],
+  "references": [
+    {
+      "ObjId": 3339,
+      "ObjInv": 0,
+      "TableId": 15,
+      "Sub1": -1,
+      "Sub2": -1,
+      "Sub3": -1,
+      "Sub4": -1,
+      "FieldId": 559,
+      "ColumnName": "ArticleRef",
+      "RefObjId": 3340,
+      "Quantity": null
+    }
+  ],
+  "flow_statistics": [
+    {
+      "AutoCounter": 1164,
+      "Time": "2025-11-14 20:15:38.547000",
+      "Duration": 0,
+      "Delay": 0,
+      "UserObjId": 2689,
+      "EntryTypeId": 1,
+      "EntrySubTypeId": 5,
+      "Quantity": 5,
+      "EntryComment": "5",
+      "Cost": 0.0,
+      "CostCurrencyCode": null,
+      "StoragePlace": "D1-P5",
+      "OrderObjId": 0,
+      "OrderSupplierOrderNo": null
+    }
+  ],
+  "history": [
+    {
+      "Counter": 4969,
+      "DT": "2025-11-14 18:33:03.413000",
+      "ActionType": 104,
+      "ObjType": 11,
+      "ObjId": 3339,
+      "ObjInv": 0,
+      "ObjTxt": "C-112",
+      "ObjInvTxt": null,
+      "ClientId": 1077537893,
+      "ClientTxt": "DT001",
+      "UserId": 1003,
+      "UserTxt": "Brad Taylor",
+      "Comment": null
+    },
+    {
+      "Counter": 4946,
+      "DT": "2025-11-14 18:02:08.610000",
+      "ActionType": 104,
+      "ObjType": 11,
+      "ObjId": 3339,
+      "ObjInv": 0,
+      "ObjTxt": "C-112",
+      "ObjInvTxt": null,
+      "ClientId": 1077537893,
+      "ClientTxt": "DT001",
+      "UserId": 1003,
+      "UserTxt": "Brad Taylor",
+      "Comment": null
+    },
+    {
+      "Counter": 4945,
+      "DT": "2025-11-14 18:02:08.610000",
+      "ActionType": 101,
+      "ObjType": 11,
+      "ObjId": 3339,
+      "ObjInv": 0,
+      "ObjTxt": "C-112",
+      "ObjInvTxt": null,
+      "ClientId": 1077537893,
+      "ClientTxt": "DT001",
+      "UserId": 1003,
+      "UserTxt": "Brad Taylor",
+      "Comment": null
+    }
+  ],
+  "change_history": [
+    {
+      "ObjId": 3339,
+      "ChangeDateTime": "2025-11-14 18:33:03.407000",
+      "UserTxt": "Brad Taylor",
+      "Comment": null,
+      "HasChangeData": "Yes"
+    },
+    {
+      "ObjId": 3339,
+      "ChangeDateTime": "2025-11-14 18:02:08.613000",
+      "UserTxt": "Brad Taylor",
+      "Comment": null,
+      "HasChangeData": "Yes"
+    }
+  ]
+}

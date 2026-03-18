@@ -1,0 +1,70 @@
+{
+  "ncr_records": [
+    {
+      "ncrRefNumber": "25-0905.46.01",
+      "workOrderNumber": "25-0905",
+      "partDescription": "D-14850-S5 DET 2L FCA-SO Bottom Blocker Die",
+      "lastModifiedBy": "Justin Barnes",
+      "operationNumber": "46",
+      "resource": "PART CHECK",
+      "causeCode": "N/A",
+      "dispositionNotes": "N/A",
+      "perPartValue": "N/A",
+      "improvementSuggestion": "",
+      "status": "Outstanding",
+      "notes": "program Dim says .787 and the blue print dim says .874. I measured dim, and it came out to blue print size .874",
+      "timestamp": "2025-07-25 08:31 PM"
+    },
+    {
+      "ncrRefNumber": "25-0906.46.01",
+      "workOrderNumber": "25-0906",
+      "partDescription": "D-14850-S1 DET 3U FCA-SO Top Finisher Die",
+      "lastModifiedBy": "Justin Barnes",
+      "operationNumber": "46",
+      "resource": "PART CHECK",
+      "causeCode": "N/A",
+      "dispositionNotes": "N/A",
+      "perPartValue": "N/A",
+      "improvementSuggestion": "will not effect function of part.",
+      "status": "Complete",
+      "notes": "Not sure why measuring low all the rest of the dimensions are within .003, But dim #12 is measuring .015 under nom.",
+      "timestamp": "2025-07-25 02:46 AM"
+    },
+    {
+      "ncrRefNumber": "25-0972.46.01",
+      "workOrderNumber": "25-0972",
+      "partDescription": "4168 Trim Blade",
+      "lastModifiedBy": "Justin Young",
+      "operationNumber": "46",
+      "resource": "INSPECT",
+      "causeCode": "N/A",
+      "dispositionNotes": "N/A",
+      "perPartValue": "N/A",
+      "improvementSuggestion": "",
+      "status": "Outstanding",
+      "notes": ".003",
+      "timestamp": "2025-07-25 11:27 PM"
+    },
+    {
+      "ncrRefNumber": "25-0972.46.02",
+      "workOrderNumber": "25-0972",
+      "partDescription": "4168 Trim Blade",
+      "lastModifiedBy": "Justin Young",
+      "operationNumber": "46",
+      "resource": "INSPECT",
+      "causeCode": "N/A",
+      "dispositionNotes": "N/A",
+      "perPartValue": "N/A",
+      "improvementSuggestion": "",
+      "status": "Outstanding",
+      "notes": ".0042",
+      "timestamp": "2025-07-25 11:36 PM"
+    }
+  ],
+  "summary": {
+    "total_ncrs": 4,
+    "time_window_start": "2025-07-25 00:00",
+    "time_window_end": "2025-07-26 00:00",
+    "timezone": "Eastern Time"
+  }
+} 

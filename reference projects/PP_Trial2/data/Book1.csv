@@ -1,0 +1,37 @@
+﻿Tool #,Tool Description,Radius,Length,Holder Type,Cooling
+1,"ø5/8"" Mitsubishi AJX Feedmill",.078,"2.5""",Weldon / Collet,Air
+2,"ø5/8"" Mitsubishi AJX Feedmill",.078,"4.1""",Weldon / Collet,Air
+3,"ø3/4"" Mitsubishi AJX Feedmill",.098,"2.5""",Weldon / Collet,Air
+4,"ø3/4"" Mitsubishi AJX Feedmill",.098,"5""",Weldon / Collet,Air
+5,"ø1"" Mitsubishi AJX Feedmill",.118,"2.5""",Weldon / Collet,Air
+6,"ø1"" Mitsubishi AJX Feedmill",.118,"5""",Weldon / Collet,Air
+7,"ø1 1/4"" Mitsubishi AJX Feedmill",.118,"3.25""",Weldon,Air
+8,"ø1 1/4"" Mitsubishi AJX Feedmill",.118,"5.5""",Weldon,Air
+9,"ø2"" Mitsubishi AJX Feedmill",.118,"2.5""",Arbor,Air
+10,"ø2"" Mitsubishi AJX Feedmill",.118,"6""",Arbor,Air
+11,"ø3/8"" Millstar / OSG Bullmill",.06/.015,"3""",Collet / Shrinkfit,Flood
+12,"ø3/8"" Millstar / OSG Ballnose",N/A,"3""",Collet / Shrinkfit,Flood
+13,"ø1/2"" Millstar / OSG Bullmill",.06/.015,"3""",Collet / Shrinkfit,Flood
+14,"ø1/2"" Millstar / OSG Ballnose",N/A,"3""",Collet / Shrinkfit,Flood
+15,"ø3/4"" Millstar / OSG Bullmill",.06/.015,"3""",Collet / Shrinkfit,Flood
+16,"ø3/4"" Millstar / OSG Ballnose",N/A,"3""",Collet / Shrinkfit,Flood
+17,"ø1"" Millstar / OSG Bullmill",.06/.015,"4.2""",Collet / Shrinkfit,Flood
+18,Nine9 Spotdrill,N/A,"1.5""",Weldon / Collet,Flood
+19,ø.315 Mitubishi Chamfer Mill,N/A,"1.5""",Weldon / Collet,Air
+20,ø 1  1/4'' Mitubishi Slotmill,.03,6.5'',Weldon  ,Air
+21,"ø3"" Mitsubishi WJX Feedmill",.118,"4.5""",Arbor,Air
+22,"ø3"" Mistubishi WJX Feedmill",.118,Long,Arbor,Air
+23,ø.464 OSG Solid Carbide Drill,N/A,"2.8""",Collet / Drill Chuck,Flood
+24,"1/2""-13 OSG Form Tap",N/A,"1.9"" ",Morse Taper / Collet,Oil
+25,ø0.705 Iscar Sumocham Drill,N/A,"3.25""",Weldon / Collet,Flood
+26,"3/4""-10 OSG Form Tap",N/A,"2.5""",Morse Taper / Collet,Cutting Oil
+27,ø0.660 Sumitomo SMD Drill,N/A,"3.2""",Weldon / Collet,Flood
+28,ø0.984 Sumitomo SMD Drill,N/A,"4.9""",Weldon / Collet,Flood
+29,ø0.234 HSS Drill,N/A,"1""",Collet,Flood
+30,ø0.250 HSS Slip Fit Reamer,N/A,"1""",Collet,Oil
+31,ø0.991 Allied TA Pro Drill,N/A,"6""",Weldon / Collet,Flood
+32,ø1.004 Allied Replaceable Head Reamer,N/A,"5.5""",Special Holder,Flood
+33,ø1.001 HSS Reamer,N/A,"4""",Collet,Oil
+34,"ø2"" Ingersoll IsoPlus Feedmill",.155,"3.75""",Arbor,Air
+35,"ø2"" Ingersoll IsoPlus Feedmill",.155,"6""",Arbor,Air
+36,Ingersoll Fine Engraving Tool,N/A,"1.5""",Weldon / Collet,Flood

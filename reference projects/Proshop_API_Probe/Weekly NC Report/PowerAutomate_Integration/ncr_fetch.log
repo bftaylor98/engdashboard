@@ -1,0 +1,15 @@
+2025-08-01 07:21:40,029 - INFO - Starting NCR fetch...
+2025-08-01 07:21:40,030 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 07:21:47,756 - INFO - Fetched 317 NCRs in 4 pages
+2025-08-01 07:21:47,757 - INFO - Filtered 20 NCRs from 317 total (skipped 297)
+2025-08-01 07:22:06,677 - INFO - Printed 20 NCRs to console
+2025-08-01 07:43:03,737 - INFO - Starting NCR fetch...
+2025-08-01 07:43:03,738 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 07:43:10,837 - INFO - Fetched 317 NCRs in 4 pages
+2025-08-01 07:43:10,838 - INFO - Filtered 20 NCRs from 317 total (skipped 297)
+2025-08-01 07:43:30,014 - INFO - Printed 20 NCRs to console
+2025-08-01 07:46:33,702 - INFO - Starting NCR fetch...
+2025-08-01 07:46:33,702 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 07:46:41,075 - INFO - Fetched 317 NCRs in 4 pages
+2025-08-01 07:46:41,077 - INFO - Filtered 20 NCRs from 317 total (skipped 297)
+2025-08-01 07:47:00,585 - INFO - Printed 20 NCRs to console

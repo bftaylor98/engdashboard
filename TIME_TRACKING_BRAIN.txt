@@ -1,0 +1,499 @@
+================================================================================
+              TIME TRACKING PAGE – STANDALONE BRAIN FILE
+                         Last Updated: 2026-02-25
+================================================================================
+
+
+================================================================================
+1. WHAT THIS PAGE DOES
+================================================================================
+
+Admin-only dashboard page at /time-tracking that shows daily time tracking
+data for four engineering team members. Data is pulled live from the Proshop
+ERP system (est.adionsystems.com) via its GraphQL API.
+
+Admins (username "admin" or "brad") can:
+  - View time tracking entries for any date (defaults to most recent day
+    with data)
+  - Switch between two views:
+    * "By User" – one expandable card per person with a table of entries
+    * "Timeline" – all entries from all users merged into a visual
+      vertical timeline sorted by checkout/end time
+  - Navigate dates with left/right arrows, date picker, or "Today" button
+
+Non-admin users cannot see the nav item or access the route (redirected to /).
+
+
+================================================================================
+2. TRACKED USERS (Proshop IDs)
+================================================================================
+
+These are hardcoded in server/routes/timeTracking.js in the TRACKED_USERS array.
+To add/remove a user, edit that array AND add a color entry in USER_STYLE in
+src/pages/TimeTracking.tsx.
+
+  Name               Proshop ID    Timeline Color
+  ─────────────────  ──────────    ──────────────
+  Alex Vincent       345           blue
+  Thad Slone         039           emerald
+  Rob Perkins        035           amber
+  Damien McDaniel    268           rose
+
+
+================================================================================
+3. FILES INVOLVED
+================================================================================
+
+BACKEND:
+  server/routes/timeTracking.js    – Express route handler. Two endpoints.
+  server/index.js                  – Mounts route at /api/proshop/time-tracking
+
+FRONTEND:
+  src/pages/TimeTracking.tsx       – Full page component (both views)
+  src/services/api.ts              – getTimeTracking(), getTimeTrackingLatestDate()
+  src/types/index.ts               – TimeTrackingEntry, TimeTrackingUser,
+                                     TimeTrackingData interfaces
+  src/App.tsx                      – Route: /time-tracking (admin-only guard)
+  src/components/Layout.tsx        – Nav item: Clock icon, "Time Tracking"
+                                     (admin-only, between Tools and Versions)
+
+REFERENCE:
+  PS-API-Schema.gql                – Full Proshop GraphQL schema (43k lines)
+  View Time Tracking.csv           – Example CSV of Alex's Feb 25 data
+                                     (used to validate API integration)
+
+
+================================================================================
+4. BACKEND API ENDPOINTS
+================================================================================
+
+Both endpoints require a valid session token (requireAuth middleware).
+They are mounted under /api/proshop/time-tracking.
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/proshop/time-tracking
+────────────────────────────────────────────────────────────────────────────────
+
+  Query params:
+    date    – YYYY-MM-DD, defaults to today in Eastern Time
+    userId  – Proshop user ID string, optional (filters to one user)
+
+  Response:
+    {
+      success: true,
+      data: {
+        date: "2026-02-25",
+        users: [
+          {
+            userId: "345",
+            firstName: "Alex",
+            lastName: "Vincent",
+            displayName: "Alex Vincent",
+            totalEntries: 5,
+            totalLaborTime: 8.00,
+            error: null,               // string if query failed for this user
+            entries: [
+              {
+                id: "20260225153302-9c1fd1d87fe49c",
+                category: "Programming",       // human-readable label
+                categoryCode: "PR",            // raw Proshop code
+                workOrderNumber: "26-0333",
+                operationNumber: "15",
+                workCell: "ALEX",
+                timeIn: "2026-02-25T11:30:00.000Z",   // ISO UTC
+                timeOut: "2026-02-25T13:15:00.000Z",   // ISO UTC
+                percentLaborTime: 100,
+                percentResourceTime: 0,
+                pauseTime: 0,
+                laborTime: 1.75,               // hours, rounded 2 decimals
+                spentDoing: "Completed programming...",
+                status: "loggedout"
+              },
+              ...
+            ]
+          },
+          ...
+        ]
+      }
+    }
+
+  How it works:
+    1. Authenticates with Proshop API (POST /api/beginsession)
+    2. For each tracked user, runs a GraphQL query against user(id).timeTracking
+       with a date filter scoped to a single EST day
+    3. Normalizes Proshop's non-standard time format (see Timezone section)
+    4. Calculates laborTime = (timeOut - timeIn - pauseTime) in hours
+    5. Returns all results in parallel
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/proshop/time-tracking/latest-date
+────────────────────────────────────────────────────────────────────────────────
+
+  No query params.
+
+  Response:
+    { success: true, data: { date: "2026-02-25" } }
+
+  How it works:
+    Checks today (EST) then goes back day-by-day up to 7 days. For each day,
+    does a quick totalRecords check across all tracked users. Returns the
+    first date that has any entries. Falls back to today if nothing found.
+
+  Purpose:
+    The frontend calls this on initial page load so admins always see data
+    instead of an empty "today" page when nobody has logged time yet today.
+
+
+================================================================================
+5. PROSHOP API DETAILS
+================================================================================
+
+AUTHENTICATION:
+  POST https://est.adionsystems.com/api/beginsession
+  Body: { username: "admin@esttool.com",
+          password: "EstAdmin4626!!",
+          scope: "nonconformancereports:r workorders:r parts:r users:r
+                  toolpots:r purchaseorders:r contacts:r" }
+  Response: { authorizationResult: { token: "..." } }
+
+  The token is used as Bearer token for GraphQL requests.
+  A new token is obtained per API request (no caching currently).
+
+GRAPHQL ENDPOINT:
+  POST https://est.adionsystems.com/api/graphql
+  Headers: Authorization: Bearer <token>
+
+GRAPHQL QUERY FOR TIME TRACKING:
+  query GetUserTimeTracking(
+    $userId: String!,
+    $pageSize: Int!,
+    $pageStart: Int!,
+    $filter: UserTimeTrackingFilter
+  ) {
+    user(id: $userId) {
+      id  firstName  lastName
+      timeTracking(pageSize: $pageSize, pageStart: $pageStart,
+                   filter: $filter) {
+        totalRecords
+        records {
+          id  category  operationNumber  operatorPlainText
+          percentTime  percentWorkCellTime  qtyRun  spentDoing
+          status  timeIn  timeOut  totalQty  totalTimePaused
+          workCellPlainText  workOrderPlainText
+        }
+      }
+    }
+  }
+
+FILTER (UserTimeTrackingFilter):
+  {
+    timeIn: {
+      greaterThanOrEqual: "2026-02-25T05:00:00.000Z",  // midnight EST as UTC
+      lessThanOrEqual: "2026-02-26T04:59:59.999Z"       // end of day EST as UTC
+    }
+  }
+
+KEY GRAPHQL TYPES (from PS-API-Schema.gql):
+  - User: has timeTracking(filter, pageSize, pageStart) field
+  - TimeTrackingEntry: id, category, timeIn, timeOut, spentDoing, status,
+    operationNumber, workCellPlainText, workOrderPlainText, percentTime,
+    percentWorkCellTime, totalTimePaused, totalQty, qtyRun
+  - UserTimeTrackingFilter: timeIn (DateFilterInput), timeOut (DateFilterInput),
+    category ([String]), status ([TimeTrackingStatus!]), workCell ([String]),
+    operationNumber ([String]), workOrderNumber ([String])
+  - DateFilterInput: exactly, greaterThan, greaterThanOrEqual, lessThan,
+    lessThanOrEqual (all String, ISO-8601 format)
+  - PaginatedTimeTrackingEntryResult: records, totalRecords, pageSize, pageStart
+
+CATEGORY CODE MAPPING:
+  PR -> Programming         EN -> Engineering
+  MP -> Manufacturing Process  SE -> Setup
+  RN -> Run                 IN -> Inspection
+  PK -> Packing             SH -> Shipping
+  MA -> Maintenance         TR -> Training
+  MT -> Meeting             CL -> Cleanup
+  OT -> Other
+
+
+================================================================================
+6. CRITICAL: TIMEZONE HANDLING
+================================================================================
+
+The shop operates in Eastern Time (America/New_York, EST = UTC-5, EDT = UTC-4).
+
+PROSHOP TIME FORMAT GOTCHA:
+  Proshop returns times in a NON-STANDARD ISO-like format WITHOUT colons:
+    "2026-02-25T113000Z"   (means 11:30:00 UTC)
+  Standard ISO would be:
+    "2026-02-25T11:30:00Z"
+
+  The backend parseProshopTime() function detects and normalizes this:
+    /^(\d{4}-\d{2}-\d{2})T(\d{2})(\d{2})(\d{2})Z$/
+  Converts to proper ISO which JavaScript's Date constructor can parse.
+
+BACKEND DATE FILTERING:
+  The toESTRange(dateStr) function converts a YYYY-MM-DD date string into
+  a UTC range that corresponds to midnight-to-midnight Eastern Time:
+    "2026-02-25" -> start: 2026-02-25T05:00:00.000Z
+                    end:   2026-02-26T04:59:59.999Z
+
+  This ensures entries logged in the evening EST (which are the next day UTC)
+  are grouped with the correct local day.
+
+  The getESTDate() function returns today's date in YYYY-MM-DD format using
+  the America/New_York timezone, not the server's system timezone.
+
+FRONTEND TIME DISPLAY:
+  The formatTime() function explicitly sets timeZone: 'America/New_York':
+    d.toLocaleTimeString('en-US', {
+      hour: 'numeric', minute: '2-digit', hour12: true,
+      timeZone: 'America/New_York',
+    })
+  This guarantees times display in Eastern Time regardless of browser/server
+  timezone. Without this, a UTC server would show times 5 hours ahead.
+
+
+================================================================================
+7. FRONTEND COMPONENT ARCHITECTURE
+================================================================================
+
+File: src/pages/TimeTracking.tsx (single file, ~460 lines)
+
+MAIN COMPONENT: TimeTracking (default export)
+  State:
+    - date (string): YYYY-MM-DD, initially empty until latest-date resolves
+    - data (TimeTrackingData | null): API response
+    - loading / initializing (boolean): loading states
+    - viewMode ('by-user' | 'chronological'): current view
+
+  Initial Load:
+    1. useEffect on mount → calls getTimeTrackingLatestDate()
+    2. Sets date to returned date (most recent day with data)
+    3. Sets initializing=false, which triggers fetchData()
+    4. fetchData() calls getTimeTracking(date), sets data
+
+  Layout:
+    ┌─────────────────────────────────────────────────────────────┐
+    │  Title: "Time Tracking"          [By User] [Timeline] toggle│
+    ├─────────────────────────────────────────────────────────────┤
+    │  [<] [date picker] [date label] [>]  [Today]               │
+    ├─────────────────────────────────────────────────────────────┤
+    │  [Users Tracked: 4] [Total Entries: 20] [Total Hours: 34.5]│
+    ├─────────────────────────────────────────────────────────────┤
+    │  < View content: By-User cards OR Timeline >               │
+    └─────────────────────────────────────────────────────────────┘
+
+BY-USER VIEW:
+  Component: UserTimeCard({ user })
+  One expandable card per tracked user. Click header to expand/collapse.
+
+  Card header:
+    [Avatar] [Name]         [Total hours]h  [>]
+             [N entries]    total
+
+  Card body (expanded): HTML table
+    Columns: Category | WO# | Op# | Work Cell | Time In | Time Out |
+             Labor Time | Spent Doing What?
+    Footer row: "Total  X.XXh"
+
+  Cards default to expanded (useState(true)).
+
+TIMELINE VIEW:
+  Component: TimelineView({ data })
+  Merges all entries from all users, sorts by checkout/end time (timeOut),
+  renders as a vertical visual timeline.
+
+  Sorting: entries.sort by timeOut descending → earliest checkout first.
+  Falls back to timeIn if timeOut is null.
+
+  Layout structure:
+    Vertical spine (2px line) on the left.
+    For each entry:
+      ● Colored dot on spine (color = user)
+      └─ Card with colored left border (3px, color = user)
+         ┌──────────────────────────────────────────────────────┐
+         │ [User badge] [Category badge] [WO# link] Op N  Xh   │
+         │ Description text...                                  │
+         ├──────────────────────────────────────────────────────┤
+         │ In: 6:30 AM   Out: 8:15 AM   Duration: 1.75h   ALEX │
+         └──────────────────────────────────────────────────────┘
+
+  Footer: "Total across all users  XX.XXh"
+
+SHARED COMPONENTS (defined in same file):
+  CategoryBadge({ category }) – colored pill for time tracking category
+  WOLink({ wo }) – blue link to Proshop ERP work order page
+
+HELPER FUNCTIONS (defined in same file):
+  formatTime(isoStr) – ISO UTC → "6:30 AM" in Eastern Time
+  formatHours(hours) – number → "1.75" (2 decimal places)
+  formatDate(dateStr) – "2026-02-25" → "Tuesday, February 25, 2026"
+  getToday() – returns today's date as YYYY-MM-DD
+  addDays(dateStr, days) – date arithmetic
+
+
+================================================================================
+8. TYPESCRIPT TYPES
+================================================================================
+
+Defined in src/types/index.ts:
+
+  interface TimeTrackingEntry {
+    id: string;
+    category: string;           // "Programming", "Manufacturing Process", etc.
+    categoryCode: string;       // "PR", "MP", etc.
+    workOrderNumber: string | null;
+    operationNumber: string | null;
+    workCell: string | null;
+    timeIn: string | null;      // ISO UTC string
+    timeOut: string | null;     // ISO UTC string
+    percentLaborTime: number | null;
+    percentResourceTime: number | null;
+    pauseTime: number;          // minutes
+    laborTime: number | null;   // hours, 2 decimal places
+    spentDoing: string | null;
+    status: string | null;      // "loggedout", "active", etc.
+  }
+
+  interface TimeTrackingUser {
+    userId: string;             // Proshop user ID
+    firstName: string;
+    lastName: string;
+    displayName: string;        // "Alex Vincent"
+    entries: TimeTrackingEntry[];
+    totalEntries: number;
+    totalLaborTime: number;     // sum of all laborTime
+    error?: string;             // set if that user's query failed
+  }
+
+  interface TimeTrackingData {
+    date: string;               // YYYY-MM-DD
+    users: TimeTrackingUser[];
+  }
+
+
+================================================================================
+9. STYLING DETAILS
+================================================================================
+
+User color assignments (for timeline view):
+  Alex:   blue    – badge: bg-blue-500/20 text-blue-400 border-blue-500/30
+                    dot: bg-blue-500, card border-l: border-l-blue-500
+  Thad:   emerald – badge: bg-emerald-500/20 text-emerald-400
+                    dot: bg-emerald-500, card: border-l-emerald-500
+  Rob:    amber   – badge: bg-amber-500/20 text-amber-400
+                    dot: bg-amber-500, card: border-l-amber-500
+  Damien: rose    – badge: bg-rose-500/20 text-rose-400
+                    dot: bg-rose-500, card: border-l-rose-500
+
+Category color assignments (both views):
+  Programming:            bg-purple-500/20 text-purple-400
+  Engineering:            bg-blue-500/20 text-blue-400
+  Manufacturing Process:  bg-teal-500/20 text-teal-400
+  Setup:                  bg-yellow-500/20 text-yellow-400
+  Run:                    bg-green-500/20 text-green-400
+  Inspection:             bg-cyan-500/20 text-cyan-400
+  Meeting:                bg-orange-500/20 text-orange-400
+  Training:               bg-indigo-500/20 text-indigo-400
+  Default/Other:          bg-zinc-500/20 text-zinc-400
+
+Timeline spine: w-0.5 bg-white/10
+Timeline dot: w-[11px] h-[11px] rounded-full ring-2 ring-zinc-950
+Card: bg-zinc-900/60 border border-white/[0.07] rounded-lg border-l-[3px]
+Card footer: bg-white/[0.02] border-t border-white/5
+
+
+================================================================================
+10. ACCESS CONTROL
+================================================================================
+
+WHO CAN ACCESS:
+  isAdmin() check in src/lib/utils.ts:
+    return user?.username === 'admin' || user?.username === 'brad';
+
+FRONTEND GUARDS:
+  App.tsx route:
+    <Route path="/time-tracking"
+           element={isAdmin(user) ? <TimeTracking /> : <Navigate to="/" />} />
+
+  Layout.tsx nav item:
+    ...(admin ? [{ path: '/time-tracking', label: 'Time Tracking',
+                   icon: Clock }] : []),
+
+BACKEND GUARD:
+  server/index.js:
+    app.use('/api/proshop/time-tracking', requireAuth, timeTrackingRoutes);
+
+  requireAuth checks for valid session token but does NOT check admin role.
+  This means any authenticated user could call the API directly, but only
+  admin/brad can navigate to the page in the UI.
+
+
+================================================================================
+11. HOW TO MODIFY
+================================================================================
+
+ADD A NEW TRACKED USER:
+  1. Find their Proshop user ID (query the Proshop users endpoint or
+     check the Proshop admin panel)
+  2. Add to TRACKED_USERS in server/routes/timeTracking.js:
+       { proshopId: 'XXX', firstName: 'Name', lastName: 'Last' }
+  3. Add to USER_STYLE in src/pages/TimeTracking.tsx with chosen color:
+       'Name': { badge: '...', dot: '...', line: '...', card: '...' }
+
+ADD A NEW CATEGORY LABEL:
+  1. Add to CATEGORY_LABELS in server/routes/timeTracking.js:
+       'XX': 'Category Name'
+  2. Optionally add to CATEGORY_COLORS in src/pages/TimeTracking.tsx:
+       'Category Name': 'bg-color-500/20 text-color-400'
+
+CHANGE THE DEFAULT DATE BEHAVIOR:
+  The latest-date endpoint scans back 7 days. To change the lookback window,
+  modify the loop bound in the /latest-date route handler:
+    for (let daysBack = 0; daysBack < 7; daysBack++)
+
+CHANGE TIMEZONE:
+  Backend: Update toESTRange() and getESTDate() in server/routes/timeTracking.js
+  Frontend: Update the timeZone value in formatTime() in TimeTracking.tsx
+  Both must match. Current value: 'America/New_York'
+
+
+================================================================================
+12. KNOWN GOTCHAS & EDGE CASES
+================================================================================
+
+1. PROSHOP TIME FORMAT: Times come back as "2026-02-25T113000Z" (no colons).
+   parseProshopTime() handles this. If Proshop ever changes their format,
+   this regex will need updating.
+
+2. TOKEN PER REQUEST: A new Proshop auth token is obtained for every API
+   call. This is simple but adds ~200ms latency per request. The /latest-date
+   endpoint calls getProshopToken() once and reuses it for up to 28 queries
+   (7 days × 4 users), which is efficient.
+
+3. NO BACKEND ADMIN CHECK: The API doesn't verify the caller is an admin.
+   Any authenticated user who knows the endpoint URL can call it. The frontend
+   handles access control via route guards and nav visibility.
+
+4. PAUSE TIME: The Proshop API returns totalTimePaused in minutes (integer).
+   parseDuration() subtracts it from the raw timeOut-timeIn difference.
+   If totalTimePaused is null/undefined, no subtraction occurs.
+
+5. ENTRIES WITHOUT timeOut: If an entry is still "active" (user hasn't
+   logged out), timeOut will be null. laborTime will also be null. The
+   timeline sorts these to the beginning (time 0). The By-User table
+   shows "—" for missing times.
+
+6. DST TRANSITIONS: toESTRange() uses a hardcoded UTC-5 offset. During
+   EDT (March–November), midnight EST is actually 04:00 UTC not 05:00 UTC.
+   This could cause entries logged between midnight and 1 AM EDT to appear
+   on the wrong day. A proper fix would use a timezone library.
+
+7. ENTRIES SPANNING MIDNIGHT: If a user checks in at 11 PM and out at 1 AM,
+   the entry's timeIn falls on one day and timeOut on the next. The filter
+   uses timeIn for date scoping, so the entry appears on the check-in day.
+
+
+================================================================================
+END OF TIME TRACKING BRAIN FILE
+================================================================================

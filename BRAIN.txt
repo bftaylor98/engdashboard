@@ -1,0 +1,997 @@
+================================================================================
+                    ENGINEERING SCHEDULE DASHBOARD - BRAIN FILE
+                              Version 4.3.0
+                         Last Updated: 2026-03-11
+================================================================================
+
+  For a new agent: read AGENTS.md first (run commands, reading order, file map).
+  This file is the deep reference (structure, schema, APIs, auth, SSE, routes).
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+
+This is an internal browser-based dashboard application for tracking engineering
+work orders, schedules, and project status in a manufacturing/machining shop
+environment. It is used to manage engineering programming tasks (CNC/machining
+work orders) across multiple customers and assignees.
+
+The app is called "Engineering Schedule" and serves as a centralized hub for:
+  - Viewing and managing engineering work orders
+  - Tracking part programming assignments (who is programming what)
+  - Monitoring material status (ordered, arrived, not ordered)
+  - Linking out to the EST/Adion Systems ERP (est.adionsystems.com/procnc)
+  - Kanban board for visual work order management
+  - Analytics with workload, assignee breakdown, and construction metrics
+  - Revision alert tracking (parts needing rev updates)
+  - Excel import/export for bulk data management
+  - Calendar view of work orders by due date
+  - Real-time updates across all connected clients via SSE
+
+The system is designed for a small team of engineers/programmers:
+  - Rob, Damien, Thad, Alex, Phillip, Brad, Mike
+  - "Prog. Completed", "Prog. Que", "Review", "Eng Comp" are special
+    pseudo-assignees indicating various completion/queue states
+
+Customers include: EST, SSP, PFI, ICI, AICHI, MERITOR, AAM (and others can
+be added via import)
+
+
+================================================================================
+2. TECHNOLOGY STACK
+================================================================================
+
+FRONTEND:
+  - React 18.2 (with TypeScript)
+  - Vite 5.0.12 (dev server & build tool)
+  - React Router DOM 6.22.0 (client-side routing)
+  - Tailwind CSS 3.4.1 (utility-first styling)
+  - Lucide React 0.469.0 (icon library)
+  - date-fns 2.30.0 (date utilities)
+  - Recharts 2.15.0 (chart/graph library)
+  - Framer Motion 11.15.0 (animations)
+  - Sonner 1.7.0 (toast notifications)
+  - @radix-ui/* (accessible UI primitives: dialog, dropdown, popover, select,
+    tabs, tooltip, slot)
+  - @tanstack/react-table 8.20.0 (headless table utilities)
+  - @dnd-kit/* (drag-and-drop for Kanban board)
+  - class-variance-authority 0.7.1 + clsx 2.1.1 + tailwind-merge 2.6.0
+    (className utility helpers via cn() function)
+  - PostCSS + Autoprefixer (CSS processing)
+
+BACKEND:
+  - Node.js with Express 4.21.0
+  - better-sqlite3 11.7.0 (synchronous SQLite driver, WAL mode)
+  - bcryptjs 3.0.3 (password hashing for authentication)
+  - UUID 9.0.1 (unique ID generation)
+  - CORS 2.8.5 (cross-origin support)
+  - Multer 1.4.5-lts.1 (file upload handling for import)
+  - XLSX 0.18.5 (Excel file reading/writing for import/export)
+  - Zod 3.23.8 (schema validation, available but not yet widely used)
+
+DEV TOOLS:
+  - TypeScript 5.3.3
+  - Concurrently 8.2.2 (run frontend + backend simultaneously)
+  - @vitejs/plugin-react 4.2.1
+
+BUILD & RUN:
+  - "npm run dev"         -> Both Express API + Vite dev server via concurrently
+  - "npm run client:dev"  -> Vite dev server only on port 5173
+  - "npm run server:dev"  -> Express API on port 3001 with --watch (auto-restart)
+  - "npm run build"       -> Production build (vite build -> dist/)
+  - "npm run start"       -> Express in production mode (serves dist/ + API)
+  - Vite proxies /api/* requests to localhost:3001 in development
+  - Project uses ESM (type: "module" in package.json)
+
+
+================================================================================
+3. PROJECT STRUCTURE
+================================================================================
+
+Dashboard_4/
+|
+|-- package.json                  # Dependencies, scripts, project metadata
+|-- vite.config.ts                # Vite config: React plugin, path aliases,
+|                                 #   dev proxy to :3001, port 5173
+|-- tsconfig.json                 # TypeScript configuration
+|-- tsconfig.node.json            # TypeScript config for Node/Vite
+|-- tailwind.config.js            # Tailwind: accent/surface/hot colors, Inter
+|                                 #   font, custom animations (fade-in, slide-in,
+|                                 #   slide-up)
+|-- postcss.config.js             # PostCSS: Tailwind + Autoprefixer
+|-- index.html                    # HTML entry point (loads src/main.tsx)
+|-- BRAIN.txt                     # This file – project documentation
+|-- PROSHOP_API_BRAIN.txt         # Proshop auth, schema, query patterns, field gotchas
+|-- PROSHOP_QUERIES_BRAIN.txt     # Proshop routes + GraphQL queries (also .md)
+|-- ENGINEER_HANDOFF.txt          # Project overview & handoff for engineers
+|
+|-- src/                          # FRONTEND SOURCE
+|   |-- main.tsx                  # React entry: renders App inside BrowserRouter
+|   |-- App.tsx                   # AuthProvider wrapper + route definitions
+|   |-- index.css                 # Global styles: dark theme, glassmorphism, etc.
+|   |
+|   |-- types/
+|   |   |-- index.ts              # All TypeScript interfaces, types, constants
+|   |                             #   (WorkOrder, DashboardStats, ASSIGNEES,
+|   |                             #    CUSTOMERS, STATUS_OPTIONS, PRIORITY_COLORS,
+|   |                             #    PRIORITY_LABELS, etc.)
+|   |
+|   |-- contexts/
+|   |   |-- AuthContext.tsx        # Authentication context: login, logout, user
+|   |                             #   state, token management (localStorage)
+|   |
+|   |-- hooks/
+|   |   |-- useSSE.ts             # Server-Sent Events hook: real-time updates
+|   |                             #   with auto-reconnect on error
+|   |
+|   |-- lib/
+|   |   |-- utils.ts              # Shared utilities: cn() class merger,
+|   |                             #   formatDate, isOverdue, daysUntilDue,
+|   |                             #   statusColor, statusLabel, materialStatus*,
+|   |                             #   erpWorkOrderUrl, erpQuoteUrl
+|   |
+|   |-- services/
+|   |   |-- api.ts                # API service: fetchJSON with Bearer token,
+|   |                             #   401 auto-logout, all API call functions
+|   |
+|   |-- components/
+|   |   |-- Layout.tsx            # App shell: sidebar nav, top bar, user info
+|   |   |                         #   + logout, export download link
+|   |   |-- WorkOrderDrawer.tsx   # Slide-out drawer for viewing/editing a WO
+|   |
+|   |-- pages/
+|       |-- Login.tsx             # Login form (dark glassmorphism design)
+|       |-- Dashboard.tsx         # Stats cards + recent work orders (live DB)
+|       |-- Schedule.tsx          # Tabular work order list with filters & sort
+|       |-- Kanban.tsx            # Drag-and-drop Kanban board by status
+|       |-- Analytics.tsx         # Charts: workload, assignees, construction
+|       |-- Tools.tsx             # C-ID lookup and other tools
+|       |-- Machines.tsx          # ProShop work center load (VMX 84-1, 64-1, 64-2)
+|       |-- CostAnalysis.tsx      # Per-WO material cost + estimated minutes
+|       |-- RevisionAlerts.tsx    # Revision alert list with linked WOs
+|       |-- Import.tsx            # Excel upload, preview, confirm import
+|       |-- Calendar.tsx          # Calendar view of WOs by due date
+|       |-- NonConformances.tsx   # NCRs (recent, last24h, by-assignee)
+|       |-- TimeTracking.tsx      # Time tracking (ProShop)
+|       |-- MaterialTracking.tsx  # Material status (archived; now in Schedule)
+|       |-- Completed.tsx         # Admin: completed work orders
+|       |-- Versions.tsx          # Admin: version snapshots
+|       |-- Settings.tsx          # User preferences (theme, etc.)
+|
+|-- server/                       # BACKEND SOURCE
+|   |-- index.js                  # Express app setup, middleware, route mounting,
+|   |                             #   auth gating, static file serving
+|   |-- database/
+|   |   |-- init.js               # SQLite init: table creation, index creation,
+|   |                             #   default user seeding (bcrypt hashed)
+|   |-- lib/
+|   |   |-- eventBus.js           # Singleton EventEmitter for SSE broadcasting
+|   |-- middleware/
+|   |   |-- auth.js               # requireAuth middleware: Bearer token + query
+|   |                             #   string token validation against sessions table
+|   |-- routes/
+|       |-- auth.js               # POST /login, GET /me, POST /logout
+|       |-- workOrders.js         # CRUD for engineering_work_orders (GET, POST,
+|       |                         #   PATCH, DELETE) with SSE broadcast on mutate
+|       |-- import.js             # POST /upload (multer), POST /confirm (3-sheet
+|       |                         #   import: Schedule, Revisions, Construction)
+|       |-- export.js             # GET /xlsx, GET /csv (3-sheet export)
+|       |-- stats.js              # GET /dashboard, GET /workload, GET /assignees
+|       |-- revisionAlerts.js     # GET / (revision alerts with linked WOs)
+|       |-- constructionMetrics.js # GET / (construction metrics)
+|       |-- events.js             # GET / (SSE endpoint with heartbeat)
+|       |-- versions.js           # Version snapshots (create, list, restore, delete)
+|       |-- proshop.js            # GET/POST /api/proshop/* (material, tooling, POs, NCRs, cost-analysis, import)
+|       |-- machines.js           # GET /api/machines (ProShop work center load by machine)
+|       |-- timeTracking.js       # Time tracking (ProShop)
+|       |-- tv.js                 # TV dashboard (public)
+|       |-- calendar.js           # Calendar data
+|
+|-- database/
+|   |-- engineering_schedule.db   # SQLite database file (auto-created, WAL mode)
+|
+|-- uploads/                      # Temporary upload directory for import files
+|
+|-- dist/                         # Production build output
+    |-- index.html
+    |-- assets/
+
+
+================================================================================
+4. DATABASE SCHEMA
+================================================================================
+
+DATABASE: SQLite via better-sqlite3 (file: database/engineering_schedule.db)
+Auto-created on first server start if it doesn't exist.
+WAL journal mode enabled for better concurrent read performance.
+Foreign keys enabled.
+Default users are seeded if the users table is empty.
+
+TABLE: engineering_work_orders
+--------------------------------------------------------------
+  id                    TEXT PRIMARY KEY
+  wo_number             TEXT NOT NULL
+  priority              INTEGER NOT NULL DEFAULT 0 CHECK(0-11)
+  is_hot_job            INTEGER NOT NULL DEFAULT 0
+  due_date              TEXT (nullable)
+  part_number           TEXT NOT NULL
+  rev_alert             TEXT (nullable)
+  part_name             TEXT NOT NULL
+  project               TEXT (nullable)
+  qn                    TEXT (nullable)
+  customer              TEXT NOT NULL
+  est_programming_hours REAL (nullable)
+  est_engineering_hours  REAL (nullable)
+  price                 REAL (nullable)
+  material_status       TEXT DEFAULT 'not-ordered'
+  notes                 TEXT (nullable)
+  comments              TEXT DEFAULT '[]'   (JSON stringified array)
+  current_box           TEXT (nullable)     (assignee/box name)
+  machine_scheduled     TEXT (nullable)
+  current_status        TEXT NOT NULL DEFAULT 'assigned'
+  metadata              TEXT DEFAULT '{}'   (JSON – extra import columns)
+  version               INTEGER NOT NULL DEFAULT 1  (optimistic concurrency)
+  created_at            TEXT NOT NULL       (ISO 8601)
+  updated_at            TEXT NOT NULL       (ISO 8601)
+
+  Indexes: wo_number, priority, current_box, customer, current_status, due_date
+
+TABLE: revision_alerts
+--------------------------------------------------------------
+  id                INTEGER PRIMARY KEY AUTOINCREMENT
+  part_number       TEXT NOT NULL
+  part_name         TEXT (nullable)
+  revision_date     TEXT (nullable)
+  linked_wo_id      TEXT (nullable)
+  created_at        TEXT NOT NULL
+  updated_at        TEXT NOT NULL
+
+  Index: part_number
+
+TABLE: construction_metrics
+--------------------------------------------------------------
+  id                  INTEGER PRIMARY KEY AUTOINCREMENT
+  box_name            TEXT NOT NULL
+  percentage_of_jobs  REAL (nullable)
+  jobs_to_go          INTEGER (nullable)
+  jobs_scheduled      INTEGER (nullable)
+  total_jobs          INTEGER (nullable)
+  assignee_counts     TEXT DEFAULT '{}'  (JSON: { "Rob": 5, "Thad": 3, ... })
+  snapshot_date       TEXT NOT NULL
+  created_at          TEXT NOT NULL
+
+TABLE: import_history
+--------------------------------------------------------------
+  id              INTEGER PRIMARY KEY AUTOINCREMENT
+  filename        TEXT NOT NULL
+  rows_imported   INTEGER
+  rows_skipped    INTEGER
+  rows_errored    INTEGER
+  import_report   TEXT           (JSON – full import report)
+  imported_at     TEXT NOT NULL
+
+TABLE: users
+--------------------------------------------------------------
+  id              TEXT PRIMARY KEY       (e.g. "user-rob")
+  username        TEXT NOT NULL UNIQUE   (e.g. "rob")
+  display_name    TEXT NOT NULL          (e.g. "Rob")
+  password_hash   TEXT NOT NULL          (bcrypt hash)
+  created_at      TEXT NOT NULL
+
+  Default seeded users (password "changeme"):
+    rob, damien, thad, alex, phillip, brad, mike, admin
+
+TABLE: sessions
+--------------------------------------------------------------
+  token           TEXT PRIMARY KEY       (64 hex chars, crypto.randomBytes(48))
+  user_id         TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE
+  expires_at      TEXT NOT NULL          (7 days from creation)
+  created_at      TEXT NOT NULL
+
+  Indexes: user_id, expires_at
+
+
+================================================================================
+5. API ENDPOINTS
+================================================================================
+
+Base URL: http://localhost:3001/api
+(Proxied from Vite dev server at localhost:5173 via /api prefix)
+
+All endpoints except /api/auth/login and /api/health require a valid session
+token via "Authorization: Bearer <token>" header. The /api/events and
+/api/export endpoints also accept ?token=<token> for browser-native requests
+(EventSource, direct download links).
+
+AUTHENTICATION (/api/auth) – PUBLIC:
+  POST /api/auth/login    -> { success, data: { token, user: { id, username,
+                             displayName } } }
+                             Body: { username, password }
+                             Creates session token (7-day expiry)
+
+AUTHENTICATION (/api/auth) – REQUIRES AUTH:
+  GET  /api/auth/me       -> { success, data: { id, username, displayName } }
+  POST /api/auth/logout   -> { success }
+                             Deletes the session token
+
+HEALTH – PUBLIC:
+  GET  /api/health        -> { status, timestamp, workOrderCount }
+
+WORK ORDERS (/api/work-orders) – REQUIRES AUTH:
+  GET    /                -> Paginated list with filters:
+                             ?search=, ?priority=, ?customer=, ?currentBox=,
+                             ?currentStatus=, ?materialStatus=, ?isHotJob=,
+                             ?sortBy=, ?sortOrder=, ?page=, ?limit=
+                             Response: { success, data: [...], pagination: {
+                               page, limit, total, totalPages } }
+  GET    /:id             -> { success, data: WorkOrder }
+  POST   /                -> Create new work order
+                             Required: woNumber, partNumber, partName, customer
+                             Returns 201 + broadcasts work-order:created SSE
+  PATCH  /:id             -> Safe partial update with merge + optimistic
+                             concurrency (version check). Only provided fields
+                             are overwritten. Increments version.
+                             Broadcasts work-order:updated SSE
+  DELETE /:id             -> Delete work order
+                             Broadcasts work-order:deleted SSE
+
+  Sort fields: dueDate, priority, woNumber, customer, currentBox, createdAt,
+               partNumber, partName, project (also accepts snake_case variants)
+  Special: priority=0 always sorts to bottom
+
+  DB-to-API field mapping:
+    wo_number             -> woNumber
+    is_hot_job            -> isHotJob (boolean)
+    part_number           -> partNumber
+    rev_alert             -> revAlert
+    part_name             -> partName
+    due_date              -> dueDate
+    est_programming_hours -> estProgrammingHours
+    est_engineering_hours -> estEngineeringHours
+    material_status       -> materialStatus
+    current_box           -> currentBox
+    machine_scheduled     -> machineScheduled
+    current_status        -> currentStatus
+    metadata              -> metadata (parsed JSON object)
+    comments              -> comments (parsed JSON array)
+    created_at            -> createdAt
+    updated_at            -> updatedAt
+
+STATS (/api/stats) – REQUIRES AUTH:
+  GET /api/stats/dashboard   -> { success, data: { total, overdue, dueThisWeek,
+                                 hotJobs, completed, inProgress, assigned,
+                                 totalProgrammingHours, totalEngineeringHours,
+                                 materialNotOrdered } }
+                                 (All computed live from database)
+  GET /api/stats/workload    -> { success, data: [{ assignee, jobCount,
+                                 programmingHours, engineeringHours,
+                                 overdueCount }] }
+  GET /api/stats/assignees   -> { success, data: [{ assignee, total,
+                                 assigned, in-progress, ... }] }
+
+REVISION ALERTS (/api/revision-alerts) – REQUIRES AUTH:
+  GET /                      -> { success, data: [{ id, partNumber, partName,
+                                 revisionDate, linkedWorkOrders: [{ id,
+                                 woNumber, partName }], createdAt, updatedAt }] }
+
+CONSTRUCTION METRICS (/api/construction-metrics) – REQUIRES AUTH:
+  GET /                      -> { success, data: [{ id, boxName,
+                                 percentageOfJobs, jobsToGo, jobsScheduled,
+                                 totalJobs, assigneeCounts, snapshotDate,
+                                 createdAt }] }
+
+IMPORT (/api/import) – REQUIRES AUTH:
+  POST /api/import/upload    -> Upload Excel file (multer: field "file")
+                                Returns preview with sheets, headers, mappings,
+                                sample rows, and filePath for confirm step
+  POST /api/import/confirm   -> Confirm import
+                                Body: { filePath, mode: 'replace'|'append' }
+                                Imports 3 sheets:
+                                  - Schedule sheet -> engineering_work_orders
+                                  - Revisions sheet -> revision_alerts
+                                  - Construction sheet -> construction_metrics
+                                Auto-detects header rows and maps columns
+                                Broadcasts import:completed SSE
+
+EXPORT (/api/export) – REQUIRES AUTH (supports ?token= query string):
+  GET /api/export/xlsx       -> Download .xlsx with 3 sheets:
+                                Schedule, Needed Revisions, Construction
+  GET /api/export/csv        -> Download .csv (schedule data only)
+
+MACHINES (/api/machines) – REQUIRES AUTH:
+  GET /api/machines         -> { success, data: { "VMX 84-1": [...], "VMX 64-1": [...], "VMX 64-2": [...] } }
+                               Incomplete ops by work center with remaining hours (cache-only; ProShop-backed).
+
+PROSHOP (/api/proshop) – See PROSHOP_QUERIES_BRAIN.txt for full list. Includes:
+  GET /tooling-expenses, /material-status, /open-pos, /ncrs/recent, /ncrs/last24h, /ncrs/by-assignee;
+  GET /cost-analysis?woNumber=... (material cost + estimated minutes); POST /import-work-orders.
+
+SSE (/api/events) – AUTH VIA QUERY STRING:
+  GET /api/events?token=     -> Server-Sent Events stream
+                                Events: connected, work-order:created,
+                                work-order:updated, work-order:deleted,
+                                import:completed
+                                Heartbeat every 30 seconds (:heartbeat comment)
+
+
+================================================================================
+6. AUTHENTICATION SYSTEM
+================================================================================
+
+OVERVIEW:
+  The app uses session-token authentication. No JWT library is used; tokens are
+  random 48-byte hex strings stored in the sessions table. Passwords are hashed
+  with bcryptjs (cost factor 10).
+
+LOGIN FLOW:
+  1. User enters username + password on the Login page
+  2. Frontend POSTs to /api/auth/login
+  3. Backend validates credentials against users table (bcrypt.compareSync)
+  4. On success, generates 96-char hex token (crypto.randomBytes(48))
+  5. Stores token in sessions table with 7-day expiry
+  6. Returns { token, user } to frontend
+  7. Frontend stores token in localStorage (key: "auth_token")
+  8. AuthContext sets user state; App renders protected routes
+
+TOKEN VALIDATION:
+  - requireAuth middleware checks Authorization: Bearer <token> header
+  - Falls back to ?token= query string for export downloads and SSE
+  - Validates token exists in sessions table and hasn't expired
+  - Expired tokens are deleted on access
+  - Attaches { id, username, displayName } to req.user
+
+LOGOUT FLOW:
+  1. Frontend calls POST /api/auth/logout with Bearer token
+  2. Backend deletes session from sessions table
+  3. Frontend clears localStorage and resets AuthContext state
+
+AUTO-LOGOUT:
+  - api.ts fetchJSON intercepts 401 responses
+  - Clears localStorage token and reloads the page (shows login)
+
+FRONTEND AUTH STATE (AuthContext.tsx):
+  - AuthProvider wraps the entire app in App.tsx
+  - On mount, if a token exists in localStorage, validates it via GET /me
+  - Provides: user, token, loading, login(), logout()
+  - useAuth() hook for consuming components
+  - While loading=true, a spinner is shown; if no user, Login page is shown
+
+DEFAULT CREDENTIALS:
+  - Seeded users: rob, damien, thad, alex, phillip, brad, mike, admin
+  - Default password for all: "changeme"
+
+
+================================================================================
+7. REAL-TIME UPDATES (SSE)
+================================================================================
+
+OVERVIEW:
+  Server-Sent Events provide one-way real-time updates from server to all
+  connected clients. When any client creates, updates, or deletes a work order
+  (or completes an import), all other connected clients receive the event and
+  automatically refresh their data.
+
+BACKEND ARCHITECTURE:
+  - server/lib/eventBus.js: Singleton Node.js EventEmitter (max 100 listeners)
+  - server/routes/events.js: SSE endpoint at GET /api/events?token=
+    * Authenticates via query string token (EventSource can't set headers)
+    * Sets SSE headers (text/event-stream, no-cache, keep-alive)
+    * Sends initial "connected" event
+    * Sends :heartbeat comment every 30 seconds
+    * Listens on eventBus for 4 event types and forwards to client
+    * Properly cleans up named listeners on client disconnect
+  - workOrders.js: emits work-order:created, work-order:updated,
+    work-order:deleted after successful mutations
+  - import.js: emits import:completed after successful import
+
+FRONTEND ARCHITECTURE:
+  - src/hooks/useSSE.ts: Custom hook that:
+    * Opens EventSource with token from AuthContext
+    * Listens for all SSE event types
+    * Calls onEvent callback when events arrive
+    * Auto-reconnects after 3-second delay on error
+    * Cleans up on unmount or token change
+  - All data pages (Dashboard, Schedule, Kanban, Analytics, Calendar,
+    RevisionAlerts) use useSSE to trigger data refetch on relevant events
+
+EVENT TYPES:
+  - work-order:created  -> payload: full WorkOrder object
+  - work-order:updated  -> payload: full WorkOrder object
+  - work-order:deleted  -> payload: { id }
+  - import:completed    -> payload: import report
+  - connected           -> payload: {} (initial connection confirmation)
+
+
+================================================================================
+8. FRONTEND ARCHITECTURE
+================================================================================
+
+ROUTING (App.tsx):
+  All routes are protected – if no authenticated user, the Login page is shown.
+  /tv is public (no Layout). Routes are wrapped in AuthProvider and Layout (sidebar + top bar).
+
+  /                -> Dashboard (stats cards + recent work orders)
+  /schedule        -> Schedule (tabular WO list with filters, sort, pagination)
+  /tools           -> Tools (C-ID lookup, etc.)
+  /machines        -> Machines (ProShop work center load: VMX 84-1, 64-1, 64-2)
+  /calendar        -> Calendar (WOs plotted by due date)
+  /non-conformances -> NonConformances (NCRs)
+  /time-tracking   -> TimeTracking (ProShop)
+  /analytics       -> Analytics (workload, assignee, construction, tooling)
+  /cost-analysis   -> CostAnalysis (per-WO material cost + estimated minutes)
+  /kanban          -> Kanban (admin; drag-and-drop board)
+  /revisions       -> RevisionAlerts (admin; revision tracking)
+  /import          -> Import (admin; Excel upload, preview, confirm)
+  /knowledge       -> Knowledge (admin)
+  /projects        -> Projects (admin)
+  /versions        -> Versions (admin)
+  /completed       -> Completed (admin)
+  /settings        -> Settings (user preferences)
+  /tv              -> TV dashboard (public, no auth)
+
+LAYOUT (Layout.tsx):
+  - Collapsible left sidebar (w-56 expanded / w-16 collapsed)
+  - Mobile responsive with slide-out overlay
+  - Navigation: Dashboard, Schedule, Tools, Machines, Calendar, NCRs,
+    Time Tracking, Analytics, Cost Analysis; admin-only: Kanban, Revisions,
+    Import, Knowledge, Projects, Versions, Completed, TV
+  - Bottom section: Export XLSX download link + current user display + logout
+  - Top bar with search input placeholder
+  - All icons from lucide-react
+
+APP ENTRY (App.tsx):
+  - AuthProvider wraps everything
+  - Sonner Toaster for toast notifications (bottom-right, dark theme)
+  - AppRoutes component checks auth state:
+    * loading -> spinner
+    * no user -> Login page
+    * authenticated -> Layout with nested routes
+
+DASHBOARD PAGE (Dashboard.tsx):
+  - Hero stats cards (total, overdue, due this week, hot jobs, etc.)
+  - All stats computed live from /api/stats/dashboard
+  - Recent work orders from /api/work-orders (limited)
+  - Real-time updates via useSSE
+
+SCHEDULE PAGE (Schedule.tsx):
+  - Primary data page – tabular list of engineering work orders
+  - Server-side filtering, sorting, and pagination
+  - Filters: search, priority, customer, currentBox, status, material status
+  - Sort options: due date, priority, WO number, customer, etc.
+  - Pagination with configurable page sizes
+  - WorkOrderDrawer for viewing/editing individual WOs
+  - Real-time updates via useSSE
+
+KANBAN PAGE (Kanban.tsx):
+  - Columns by status: assigned, in-progress, approved, completed,
+    programming-completed
+  - Drag-and-drop cards between columns (via @dnd-kit)
+  - Updates status via PATCH on drop
+  - Real-time updates via useSSE
+
+ANALYTICS PAGE (Analytics.tsx):
+  - Workload breakdown: hours by assignee (from /api/stats/workload)
+  - Assignee stats: WOs per assignee by status (from /api/stats/assignees)
+  - Construction metrics: box breakdown (from /api/construction-metrics)
+  - Charts via Recharts
+  - Real-time updates via useSSE
+
+REVISION ALERTS PAGE (RevisionAlerts.tsx):
+  - List of parts needing revision updates
+  - Each alert shows linked work orders (matched by part number)
+  - Data from /api/revision-alerts
+  - Real-time updates via useSSE
+
+IMPORT PAGE (Import.tsx):
+  - Two-step process: upload Excel -> preview -> confirm
+  - Supports .xlsx, .xlsm, .xls, .csv files (up to 50MB)
+  - Auto-detects header rows and maps columns to DB fields
+  - Replace or append mode
+  - Imports 3 sheets: Schedule, Revisions, Construction
+  - Import history tracked in import_history table
+
+CALENDAR PAGE (Calendar.tsx):
+  - Calendar grid showing work orders plotted by due date
+  - Data from /api/work-orders
+  - Real-time updates via useSSE
+
+LOGIN PAGE (Login.tsx):
+  - Dark glassmorphism card centered on screen
+  - Username + password fields
+  - Uses useAuth().login() to authenticate
+  - Redirects to dashboard on success
+  - Error display for invalid credentials
+
+
+================================================================================
+9. COMPONENT DESIGN
+================================================================================
+
+Layout.tsx:
+  - Fixed sidebar with nav items (icon + label)
+  - Collapsible: hides labels when collapsed, shows icons only
+  - Mobile: full sidebar slides in as overlay with backdrop
+  - Bottom: Export XLSX link (uses getExportUrl with token as query param)
+  - Bottom: User avatar (blue circle + User icon) + display name + logout button
+  - Top bar: hamburger menu (mobile) + search input placeholder
+
+WorkOrderDrawer.tsx:
+  - Slide-out drawer from the right side
+  - Used by Schedule page for viewing/editing work order details
+  - Contains work order fields with inline editing
+
+SHARED UTILITIES (lib/utils.ts):
+  - cn(): Merges class names with clsx + tailwind-merge
+  - formatDate(): Formats ISO date strings to "MMM d, yyyy"
+  - isOverdue(): Checks if a date is past (and not today)
+  - daysUntilDue(): Returns days until due date
+  - materialStatusColor(): Returns Tailwind text color class
+  - materialStatusLabel(): Returns human-readable label
+  - statusColor(): Returns bg/text/border classes for WO status
+  - statusLabel(): Returns human-readable status label
+  - erpWorkOrderUrl(): Builds EST/Adion ERP WO link
+  - erpQuoteUrl(): Builds EST/Adion ERP quote link
+
+
+================================================================================
+10. STYLING & THEME
+================================================================================
+
+DESIGN SYSTEM: Dark theme with glassmorphism effects (zinc-950 base)
+
+Tailwind Config Extensions:
+  Colors:
+    - accent: { DEFAULT: #3b82f6, hover: #60a5fa, muted: #1d4ed8 }
+    - hot: #f97316 (orange for hot jobs)
+    - surface: { DEFAULT: #18181b, elevated: #27272a }
+  Border Colors:
+    - subtle: rgba(255,255,255,0.06)
+    - DEFAULT: rgba(255,255,255,0.10)
+  Animations:
+    - fade-in: opacity 0->1 (0.3s ease-out)
+    - slide-in: opacity + translateX 16->0 (0.3s ease-out)
+    - slide-up: opacity + translateY 8->0 (0.2s ease-out)
+  Font: Inter (with system-ui fallback)
+
+Status Colors:
+  - assigned:               blue-500/20 text, blue-400 text, blue-500/30 border
+  - in-progress:            purple-500/20 text, purple-400 text
+  - approved:               green-500/20 text, green-400 text
+  - completed:              emerald-500/20 text, emerald-400 text
+  - programming-completed:  indigo-500/20 text, indigo-400 text
+
+Material Status Colors:
+  - arrived: green-400
+  - ordered: yellow-400
+  - not-ordered: red-400
+
+Hot Job Styling:
+  - Uses the "hot" color (#f97316 orange)
+  - Fire emoji in priority badge
+
+Toast Notifications (Sonner):
+  - Position: bottom-right
+  - Theme: dark (#18181b background, white/6% border)
+
+
+================================================================================
+11. DATA FLOW & STATE MANAGEMENT
+================================================================================
+
+State Management: React useState + useEffect + useCallback (no external state
+library). Authentication state managed via React Context (AuthContext).
+
+Authentication Flow:
+  1. App mounts -> AuthProvider checks localStorage for token
+  2. If token exists, calls GET /api/auth/me to validate
+  3. If valid -> sets user, renders protected routes
+  4. If invalid -> clears token, shows Login page
+  5. All API calls include Bearer token via api.ts authHeaders()
+  6. 401 responses trigger auto-logout (clear token + page reload)
+
+Work Order Data Flow:
+  1. Page component mounts (e.g. Schedule)
+  2. useEffect triggers fetch via api.ts (includes auth headers)
+  3. Express route validates token via requireAuth middleware
+  4. Route queries SQLite, transforms snake_case -> camelCase
+  5. Response sent with data + pagination metadata
+  6. Component stores in local state, renders table/cards/etc.
+  7. Mutations (create/update/delete) send POST/PATCH/DELETE to API
+  8. API processes mutation, emits event to eventBus
+  9. All SSE-connected clients receive the event
+  10. useSSE hook triggers data refetch in each connected page
+
+Real-Time Update Flow:
+  1. Client A updates a work order (PATCH /api/work-orders/:id)
+  2. Server saves to DB, emits 'work-order:updated' on eventBus
+  3. SSE endpoint forwards event to all connected EventSource clients
+  4. Client B's useSSE hook fires, calling the loadData/fetchData callback
+  5. Client B re-fetches data from API and re-renders with latest state
+
+Optimistic Concurrency:
+  - Each work order has a `version` field (starts at 1)
+  - PATCH endpoint checks if submitted version matches DB version
+  - Returns 409 Conflict if versions don't match
+  - Version is incremented on every successful update
+
+
+================================================================================
+12. EXTERNAL INTEGRATIONS
+================================================================================
+
+EST/Adion Systems ERP (est.adionsystems.com/procnc):
+  - Work order numbers link to: /procnc/workorders/{woNumber}
+  - Quote numbers link to: /procnc/quotes/2025/{qn}
+  - These are external links that open in new tabs
+  - URL builders in src/lib/utils.ts: erpWorkOrderUrl(), erpQuoteUrl()
+
+Proshop API (est.adionsystems.com):
+  - Backend: server/routes/proshop.js, server/lib/proshopClient.js
+  - Used for: material status, tooling expenses, open POs, NCRs, work order import
+  - Brain files: PROSHOP_API_BRAIN.txt (auth, schema), PROSHOP_QUERIES_BRAIN.txt/.md (routes, GraphQL)
+
+
+================================================================================
+13. IMPORT/EXPORT SYSTEM
+================================================================================
+
+IMPORT:
+  - Accepts .xlsx, .xlsm, .xls, .csv files (max 50MB)
+  - Two-step process: upload (preview) -> confirm (commit)
+  - Auto-detects header row (scans first 5 rows, scores by known column names)
+  - Fuzzy column mapping via COLUMN_MAP dictionary (e.g. "WO#" -> wo_number,
+    "Part Number" -> part_number, "Current Box" -> current_box)
+  - Imports 3 sheets by name detection:
+    * Sheet containing "schedule" -> engineering_work_orders
+    * Sheet containing "revision" -> revision_alerts
+    * Sheet containing "construction" -> construction_metrics
+  - Replace mode: clears all existing data before import
+  - Append mode: adds to existing data
+  - Material status normalization: "yes"/"received" -> arrived, etc.
+  - Saves import history with report (rows imported/skipped/errored)
+  - Cleans up uploaded file after import
+  - Broadcasts import:completed SSE event
+
+EXPORT:
+  - XLSX export: 3-sheet workbook (Schedule, Needed Revisions, Construction)
+  - CSV export: schedule data only
+  - Timestamped filenames: Engineering_Schedule_YYYY-MM-DDTHH-MM-SS.*
+  - Auth via query string token (for direct <a href> download links)
+
+
+================================================================================
+14. ENGINEERING WORK ORDER PRIORITY SYSTEM
+================================================================================
+
+Priority is a number from 0 to 11:
+
+  0  = No Priority (gray/zinc)     - Sorts to bottom
+  1  = Highest Priority (red)      - Most urgent
+  2  = Priority 2 (orange)
+  3  = Priority 3 (yellow)
+  4  = Priority 4 (blue)
+  5  = Priority 5 (indigo)
+  6  = Priority 6 (purple)
+  7  = Priority 7 (pink)
+  8  = Priority 8 (green)
+  9  = Priority 9 (teal)
+  10 = Lowest Priority (cyan)
+  11 = HOT JOB (orange-600)        - Special flag, shown with fire emoji
+
+Hot jobs (priority 11 / is_hot_job=1) get special visual treatment:
+  - Orange background/borders
+  - Fire emoji in priority badge
+
+When sorting by priority:
+  - Priority 0 always sorts to the bottom
+  - Otherwise normal ascending/descending order
+
+Priority colors and labels are defined as constants in src/types/index.ts
+(PRIORITY_COLORS, PRIORITY_LABELS).
+
+
+================================================================================
+15. ENGINEERING WORK ORDER STATUS FLOW
+================================================================================
+
+  assigned -> in-progress -> approved -> completed
+                                     -> programming-completed
+
+Status Meanings:
+  - assigned:               Work order assigned to a programmer
+  - in-progress:            Programmer is actively working on it
+  - approved:               Design/programming approved
+  - completed:              Fully complete
+  - programming-completed:  Programming done, waiting for shop execution
+
+Status options and their labels are defined in src/types/index.ts
+(STATUS_OPTIONS constant).
+
+
+================================================================================
+16. MATERIAL STATUS TRACKING
+================================================================================
+
+Each engineering work order tracks material status:
+
+  not-ordered  (red text)    - Material has not been ordered yet
+  ordered      (yellow text) - Material has been ordered, awaiting delivery
+  arrived      (green text)  - Material is on-site and available
+
+Options defined in src/types/index.ts (MATERIAL_OPTIONS constant).
+Color helpers in src/lib/utils.ts (materialStatusColor, materialStatusLabel).
+
+
+================================================================================
+17. HOW TO RUN THE APPLICATION
+================================================================================
+
+DEVELOPMENT:
+  1. cd Dashboard_4
+  2. npm install             (install all dependencies)
+  3. npm run dev             (starts both Express API + Vite dev server)
+  4. Open http://localhost:5173 in browser
+  5. Log in with any seeded user (e.g. admin / changeme)
+
+  The Vite dev server on port 5173 proxies all /api/* requests to the Express
+  server on port 3001. The SQLite database is auto-created at
+  database/engineering_schedule.db and default users are seeded on first run.
+
+PRODUCTION:
+  1. npm run build           (bundles React app with Vite -> dist/)
+  2. npm run start           (starts Express, serves dist/ for frontend + API)
+  3. Open http://localhost:3001 in browser
+
+  In production mode, Express serves the built React app from dist/ for all
+  non-API routes (catch-all route sends dist/index.html).
+
+
+================================================================================
+18. KEY DESIGN DECISIONS
+================================================================================
+
+1. BETTER-SQLITE3 OVER SQLITE3: Synchronous driver chosen for simpler code
+   (no callback/promise overhead). WAL mode enables concurrent reads while
+   one writer operates.
+
+2. SESSION TOKENS OVER JWT: Simple random hex tokens stored in DB. Easy to
+   invalidate (just delete the row). No JWT secret management needed. 7-day
+   expiry provides reasonable session duration.
+
+3. SSE OVER WEBSOCKETS: Server-Sent Events chosen for simplicity – one-way
+   server-to-client push is sufficient for data refresh notifications. No
+   WebSocket library needed; uses native EventSource API in browser.
+
+4. IN-MEMORY EVENT BUS: Node.js EventEmitter used to decouple mutation
+   handlers from SSE broadcasting. Simple and sufficient for single-process
+   deployment.
+
+5. OPTIMISTIC CONCURRENCY: Version field on work orders prevents lost updates
+   when multiple users edit the same record. PATCH (not PUT) for safe partial
+   updates – only provided fields are overwritten.
+
+6. DARK GLASSMORPHISM THEME: Entire UI uses a dark zinc-950 base with
+   translucent elements and backdrop blur. Designed for the shop floor
+   environment with minimal eye strain.
+
+7. QUERY STRING AUTH FOR SSE & EXPORTS: EventSource API doesn't support
+   custom headers, so SSE authentication uses ?token= query parameter. Same
+   approach used for export download links (<a href> can't set headers).
+
+8. THREE-SHEET IMPORT/EXPORT: Excel files contain Schedule, Revisions, and
+   Construction data in separate sheets. Import auto-detects sheet names and
+   maps columns fuzzy-match style.
+
+9. SINGLE TABLE FOR WORK ORDERS: v4.0.0 uses only engineering_work_orders
+   (no separate general work_orders table). The "current_box" field serves
+   as the assignee (maps from the Excel "Current Box" column).
+
+10. ESM MODULES: The project uses ES modules throughout (type: "module" in
+    package.json). Server files use import/export syntax.
+
+
+================================================================================
+19. KNOWN ISSUES & REMAINING WORK
+================================================================================
+
+1. NO ROLE-BASED ACCESS CONTROL: All authenticated users have equal access.
+   There is no admin/viewer distinction.
+
+2. SEARCH NOT FUNCTIONAL: The top bar search input in Layout.tsx is a
+   placeholder – it doesn't filter or navigate anywhere yet.
+
+3. NO PASSWORD CHANGE UI: Users cannot change their passwords through the
+   app. Password changes require direct database modification.
+
+4. SESSION CLEANUP: Expired sessions are only cleaned up when accessed.
+   There is no background job to purge old sessions.
+
+5. NO FILE ATTACHMENT SUPPORT: While the original design had an attachments
+   concept, there is no attachment/file upload per work order.
+
+6. CONSTRUCTION METRICS READ-ONLY: Construction metrics are imported via
+   Excel but cannot be edited through the UI.
+
+7. REVISION ALERTS READ-ONLY: Revision alerts are imported via Excel but
+   cannot be created/edited/deleted through the UI.
+
+8. ERP QUOTE URL YEAR: The erpQuoteUrl() function in utils.ts hardcodes
+   "2025" in the URL path. This should be dynamic or configurable.
+
+
+================================================================================
+20. VERSION HISTORY
+================================================================================
+
+Version 4.3.0 - Material "Requested", Proshop Brain, Machines, Cost Analysis
+Date: 2026-03-11
+
+- Material "Requested" status in Schedule/Material Tracking (ProShop psPONumberPlainText / released).
+- Proshop brain files: PROSHOP_API_BRAIN.txt, PROSHOP_QUERIES_BRAIN.txt/.md.
+- Machines page (/machines): ProShop work center load (VMX 84-1, VMX 64-1, VMX 64-2), GET /api/machines.
+- Cost Analysis page (/cost-analysis): GET /api/proshop/cost-analysis?woNumber=... (material cost + estimated minutes).
+- Routes: machines.js, proshop cost-analysis; cache warming includes machines.
+
+Version 4.1.0 - Dashboard Enhancements & User Experience Improvements
+Date: 2026-02-17
+
+NEW FEATURES:
+- Light/Dark Mode: User preferences stored in database, accessible via Settings page
+- My Assignments View: Non-admin users see only their assigned work orders on Dashboard
+- Role-Based Navigation: Versions tab (admin-only), Import tab (admin + Rob only), Kanban (admin-only)
+- Dashboard Enhancements:
+  * Editable assignee field directly from dashboard table
+  * Material status column with inline editing
+  * Sort controls (Priority default, Work Order # option)
+  * Material status filter
+  * Default sort by priority (descending - highest first)
+- Kanban Improvements:
+  * Shift-click multi-select for bulk card operations
+  * View switching between Status and Assignment views
+  * Assignment view allows changing assignee via drag-and-drop
+- Schedule Page Improvements:
+  * Removed "LATE" tag (red text sufficient for overdue items)
+  * Continuous scroll (no pagination)
+  * "Mark Completed" button for admins when rows are selected
+  * Unassigned filter option
+  * Status sorting option
+  * Natural sorting for work order numbers (26-0222 before 26-1222)
+- Auto-Assignment Logic: Jobs assigned to Rob automatically get "Engineering" status
+
+TECHNICAL CHANGES:
+- Added preferences column to users table (JSON format)
+- Added user preferences API endpoints (GET/PATCH /api/auth/preferences)
+- Created ThemeContext for centralized theme management
+- Added Settings page (/settings) accessible via account name click
+- Updated Dashboard to filter by assignee for non-admins
+- Enhanced Kanban with multi-select state management
+- Improved work order number sorting with natural numeric comparison
+- Added "Damien" to assignees list
+
+FILES ADDED:
+- src/contexts/ThemeContext.tsx
+- src/pages/Settings.tsx
+
+FILES MODIFIED:
+- server/database/init.js (added preferences column)
+- server/routes/auth.js (added preferences endpoints)
+- server/routes/workOrders.js (Rob auto-status logic, natural WO sorting, unassigned filter)
+- server/routes/stats.js (assignee filtering for non-admins)
+- src/App.tsx (ThemeProvider, Settings route)
+- src/components/Layout.tsx (Settings link, role-based nav)
+- src/pages/Dashboard.tsx (assignee editing, material status, sorting, filtering)
+- src/pages/Schedule.tsx (removed LATE tag, continuous scroll, mark completed, filters)
+- src/pages/Kanban.tsx (multi-select, view switching)
+- src/pages/Settings.tsx (new file)
+- src/services/api.ts (preferences functions, assignee parameter for stats)
+- src/types/index.ts (added Damien to ASSIGNEES)
+- src/index.css (comprehensive light mode styling)
+
+KNOWN ISSUES:
+- Light mode may need further refinement based on user feedback
+- Completed work orders excluded from non-admin dashboards
+- Kanban view switching clears selection
+
+================================================================================
+END OF BRAIN FILE
+================================================================================

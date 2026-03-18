@@ -1,0 +1,5 @@
+2026-02-16 11:01:09,655 - INFO - Starting NCR fetch...
+2026-02-16 11:01:09,668 - INFO - Using last 7 days window: 2026-02-09 11:01:09.668170-05:00 to 2026-02-16 11:01:09.668170-05:00 (Eastern Time)
+2026-02-16 11:01:20,178 - INFO - Fetched 592 NCRs in 3 pages
+2026-02-16 11:01:20,183 - INFO - Filtered 10 NCRs from 592 total (skipped 582)
+2026-02-16 11:01:27,592 - INFO - Successfully sent 10 NCRs to Power Automate

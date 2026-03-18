@@ -1,0 +1,282 @@
+ObjId,ObjType,ObjTxt,DescrTxt,EntryDate,OrderNo,Norm,Supplier,StorageLocation
+3029,11,C-1,"1/4"" Square Endmill -  2.5"" Overall Length",2024-12-17 03:00:00,GARR-13157,Garr Tool,Rocket Supply,ZTO_1
+3031,11,C-10,"3/8""-16 UNC OSG EXOTAP Cut Tap",2024-12-17 03:00:00,OSG-1753001,OSG,Rocket Supply,ZTO_1
+3033,11,C-11,"5/8""-11 UNC OSG EXOTAP Cut Tap",2024-12-17 03:00:00,OSG-1753601,OSG,Rocket Supply,ZTO_1
+3035,11,C-12,M12x1.75 ISO OSG HY-PRO Cut Tap,2024-12-17 03:00:00,OSG-2992301,OSG,Rocket Supply,ZTO_1
+3037,11,C-13,"5/8""-18 UNF OSG Cut Tap",2024-12-17 03:00:00,OSG-2013000,OSG,Rocket Supply,ZTO_1
+3039,11,C-14,"5/16""-18 UNC OSG Cut Tap",2024-12-17 03:00:00,OSG-1231000,OSG,Rocket Supply,ZTO_1
+3041,11,C-15,"3/4""-10 UNC OSG HY-PRO Cut Tap",2024-12-17 03:00:00,OSG-2233601,OSG,Rocket Supply,ZTO_1
+3043,11,C-16,"5/8""-11 UNC OSG A-Brand Threadmill",2024-12-17 03:00:00,OSG-1662501817,OSG,Rocket Supply,ZTO_1
+3045,11,C-17,"1/2""-13 UNC OSG A-Brand Threadmill",2024-12-17 03:00:00,OSG-1662501217,OSG,Rocket Supply,ZTO_1
+3047,11,C-18,"3/16"" OSG Ball Endmill - 2.25"" OAL",2024-12-17 03:00:00,OSG-VG441-1875-BN,OSG,Rocket Supply,ZTO_1
+3049,11,C-19,"1/2""-13 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625012138,OSG,Rocket Supply,ZTO_1
+3051,11,C-2,"3/8""-18 NPT OSG HY-PRO Cut Tap",2024-12-17 03:00:00,OSG-1205300408,OSG,Rocket Supply,ZTO_1
+3053,11,C-20,"5/16"" OSG Bull Endmill w/ .03r - 2.5"" OAL",2024-12-17 03:00:00,OSG-VG434-3126,OSG,Rocket Supply,ZTO_1
+3055,11,C-21,#10-32 UNF OSG Form Tap,2024-12-17 03:00:00,OSG-1625010326,OSG,Rocket Supply,ZTO_1
+3057,11,C-22,"3/32"" OSG WXL Ball Endmill - 2.5"" OAL",2024-12-17 03:00:00,OSG-36900911,OSG,Rocket Supply,ZTO_1
+3059,11,C-23,"7/16""-14 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625076148,OSG,Rocket Supply,ZTO_1
+3061,11,C-24,"0.590"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP0-15.00,Allied,Rocket Supply,ZTO_1
+3063,11,C-25,M5x0.8 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635005087,OSG,Rocket Supply,ZTO_1
+3065,11,C-26,"0.787"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP1-20.00,Allied,Rocket Supply,ZTO_1
+3067,11,C-27,M6x1.0 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635006018,OSG,Rocket Supply,ZTO_1
+3069,11,C-28,"9/16"" IC Insert for Allied APX Drill - AM300 Coating",2024-12-17 03:00:00,ALLI-OP-090608-PW,Allied,Rocket Supply,ZTO_1
+3071,11,C-29,M12x1.75 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635012751,OSG,Rocket Supply,ZTO_1
+3073,11,C-3,"1/2""-13 UNC OSG EXTOTAP Cut Tap",2024-12-17 03:00:00,OSG-1753401,OSG,Rocket Supply,ZTO_1
+3075,11,C-30,M4x0.7 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635004076,OSG,Rocket Supply,ZTO_1
+3077,11,C-31,M16x2.0 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635016202,OSG,Rocket Supply,ZTO_1
+3079,11,C-32,"0.020"" Harvey Tool Bull Endmill - w/ .005r - 0.100"" Flute - 2.5"" OAL",2024-12-17 03:00:00,HARV-959620-C3,Harvey Tool,Rocket Supply,ZTO_1
+3081,11,C-33,3.2mm OSG A-Brand 30D Taper Length Carbide Drill,2024-12-17 03:00:00,OSG-8708320,OSG,Rocket Supply,ZTO_1
+3083,11,C-34,"0.020"" Harvey Tool Square Endmill - 0.03"" Flute - 1.5"" OAL",2024-12-17 03:00:00,HARV-14020-C3,Harvey Tool,Rocket Supply,ZTO_1
+3085,11,C-35,3.2mm OSG A-Brand 3D Stub Length Carbide Drill,2024-12-17 03:00:00,OSG-HP243-1260,OSG,Rocket Supply,ZTO_1
+3087,11,C-4,"1/2""-14 NPT OSG HY-PRO Cut Tap",2024-12-17 03:00:00,OSG-1205300508,OSG,Rocket Supply,ZTO_1
+3089,11,C-5,"1/8""-27 NPT OSG EXPOTAP Cut Tap",2024-12-17 03:00:00,OSG-1735101,OSG,Rocket Supply,ZTO_1
+3091,11,C-6,"3/4""-10 UNC OSG EXOTAP Cut Tap",2024-12-17 03:00:00,OSG-1753801,OSG,Rocket Supply,ZTO_1
+3093,11,C-7,"1.531"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP3-38.89,Allied,Rocket Supply,ZTO_1
+3095,11,C-8,"7/8""-9 UNC OSG EXOCARB Threadmill",2024-12-17 03:00:00,OSG-4100004811,OSG,Rocket Supply,ZTO_1
+3097,11,C-9,M20x2.5 ISO OSG HY-PRO Cut Tap,2024-12-17 03:00:00,OSG-1311700101,OSG,Rocket Supply,ZTO_1
+3100,11,C-36,M20x2.5 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635020252,OSG,Rocket Supply,ZTO_1
+3102,11,C-37,"1/4""-18 NPT OSG HY-PRO Cut Tap",2024-12-17 03:00:00,OSG-1205300308,OSG,Rocket Supply,ZTO_1
+3104,11,C-38,"1.375"" Allied TA HSS Cobalt Insert - Tiny Chip",2024-12-17 03:00:00,ALLI-1C12H-0112-TC,Allied,Rocket Supply,ZTO_1
+3192,11,C-39,M24x3.0 ISO OSG Cut Tap,2024-12-17 03:00:00,OSG-1311600401,OSG,Rocket Supply,ZTO_1
+3194,11,C-40,"T8 Insert Screw for 3/8"" OSG PFB and PFR",2024-12-17 03:00:00,OSG-7808117,OSG,Rocket Supply,ZTO_1
+3196,11,C-41,"1/4""-20 UNC OSG EXOTAP Cut Tap",2024-12-17 03:00:00,OSG-1752601,OSG,Rocket Supply,ZTO_1
+3198,11,C-42,M10x1.5 ISO OSG EXOTAP Cut Tap,2024-12-17 03:00:00,OSG-1706101,OSG,Rocket Supply,ZTO_1
+3200,11,C-43,"1/4""- 60 Degree Harvey Tool Engraving Tool - 2.5""",2024-12-17 03:00:00,HARV-877316-C6,Harvey Tool,Rocket Supply,ZTO_1
+3202,11,C-44,"0.025"" Harvey Tool Ball Endmill - .037"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,HARV-24625-C3,Harvey Tool,Rocket Supply,ZTO_1
+3204,11,C-45,"0.047"" Harvey Tool Ball Endmill - 0.500"" Neck Length - 2.5"" OAL",2024-12-17 03:00:00,HARV-13847,Harvey Tool,Rocket Supply,ZTO_1
+3206,11,C-46,"0.811"" Insert for Ingersoll Gold Twist Drills",2024-12-17 03:00:00,INGE-5101246,Ingersoll,,ZTO_1
+3208,11,C-47,M24x3.0 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635024325,OSG,Rocket Supply,ZTO_1
+3210,11,C-48,"0.080"" Harvey Tool Square Endmill - 0.240"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,HARV-72080-C4,Harvey Tool,Rocket Supply,ZTO_1
+3212,11,C-49,"0.047"" Harvey Tool Long Reach Square Endmill - 0.500"" Neck Length - 2.5"" OAL",2024-12-17 03:00:00,HARV-13647,Harvey Tool,Rocket Supply,ZTO_1
+3214,11,C-50,"0.047"" Garr Square Endmill - 0.125"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,GARR-13027,Garr Tool,,ZTO_1
+3216,11,C-51,"0.093"" Harvey Tool Long Reach Ball Endmill - 2.312"" Neck Length - 4.0"" OAL",2024-12-17 03:00:00,HARV-40193-C3,Harvey Tool,Rocket Supply,ZTO_1
+3218,11,C-52,0.8mm Horn Ball Endmill - 1.6mm Flute Length - 50mm OAL,2024-12-17 03:00:00,HORN-DSKM.2.08.00.30 TS3K,Horn,Rocket Supply,ZTO_1
+3220,11,C-53,".032"" Garr Ball Endmill - .098"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,GARR-18017,Garr Tool,,ZTO_1
+3222,11,C-54,"T20 Insert Screw for 1"" OSG PFB and PFR",2024-12-17 03:00:00,OSG-7808121,OSG,Rocket Supply,ZTO_1
+3224,11,C-55,"1/2""-14 NPT Morse Tools Pipe Tap",2024-12-17 03:00:00,MT4036126,Morse Cutting Tools,Rocket Supply,ZTO_1
+3226,11,C-56,"0.078"" Harvey Tool Long Reach Ball Endmill - 1.95"" Neck - 3.0"" OAL",2024-12-17 03:00:00,HARV-40178-C3,Harvey Tool,Rocket Supply,ZTO_1
+3228,11,C-57,"T15 Insert Screw for 2"" Ingersoll IsoPlus Feedmill",2024-12-17 03:00:00,INGE-7019041,Ingersoll,,ZTO_1
+3230,11,C-58,"0.709"" Insert for Iscar SumoCham Drills",2024-12-17 03:00:00,ISCA-05506640,Iscar,,ZTO_1
+3232,11,C-59,"3/8"" 6-Flute IMCO OMEGA-6 Bull Endmill - 2.0"" Flute Length - 4.0"" OAL",2024-12-17 03:00:00,IMCO-69078,IMCO,,ZTO_1
+3234,11,C-60,"1.0012"" Allied Carbide ALVAN Reamer Head",2024-12-17 03:00:00,ALLI-I7700-KAM-10012,Allied,,ZTO_1
+3236,11,C-61,"7/8""-9 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625078901,OSG,,ZTO_1
+3238,11,C-62,"3/8"" Garr Bull Endmill - .02r - 0.375"" Flute Length - 4.0"" OAL",2024-12-17 03:00:00,GARR-63190,Garr Tool,Rocket Supply,ZTO_1
+3240,11,C-63,"7/8""-9 UNC Morse Tools Cut Tap",2024-12-17 03:00:00,MT3732475,Morse Cutting Tools,Rocket Supply,ZTO_1
+3242,11,C-64,#8-32 UNC OSG Form Tap,2024-12-17 03:00:00,OSG-1625008323,OSG,,ZTO_1
+3244,11,C-65,3mm OSG PHX Ball Endmill w/ 20mm Neck Length,2024-12-17 03:00:00,OSG-3095341,OSG,,ZTO_1
+3246,11,C-66,"0.970"" Allied Carbide ALVAN Reamer Head",2024-12-17 03:00:00,ALLI-I7700-SVM-09700,Allied,,ZTO_1
+3248,11,C-67,M10x1.5 ISO Scientific Cutting Tools Carbide Threadmill,2024-12-17 03:00:00,,Scientific,,ZTO_1
+3250,11,C-68,"1.005"" Allied Carbide ALVAN Reamer Head",2024-12-17 03:00:00,ALLI-I7700-KAM-10015,Allied,,ZTO_1
+3252,11,C-69,"0.093"" Harvey Tool Long Reach Ball Endmill - 1.250"" Neck Length - 2.5"" OAL",2024-12-17 03:00:00,HARV-35693-C3,Harvey Tool,Rocket Supply,ZTO_1
+3254,11,C-70,"5/16""-18 UNC OSG EXOTAP Cut Tap",2024-12-17 03:00:00,OSG-1752801,OSG,,ZTO_1
+3256,11,C-71,"1/8"" OSG WXL Bull Endmill w/ .03r - 1.5"" OAL",2024-12-17 03:00:00,OSG-36700711,OSG,,ZTO_1
+3258,11,C-72,"3/4""-10 Allied Threadmills USA Solid Threadmill",2024-12-17 03:00:00,ALLI-TM75010-XL,Allied,,ZTO_1
+3260,11,C-73,M8x1.25 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635008259,OSG,,ZTO_1
+3262,11,C-74,M10x1.5 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635010150,OSG,,ZTO_1
+3264,11,C-75,3mm OSG PHX Ball Endmill w/ 40mm Neck Length,2024-12-17 03:00:00,OSG-3095344,OSG,,ZTO_1
+3266,11,C-76,"0.062"" Harvey Tool Long Reach Ball Endmill - 0.500"" Neck Length - 2.5"" OAL",2024-12-17 03:00:00,HARV-34262-C3,Harvey Tool,Rocket Supply,ZTO_1
+3268,11,C-77,"T20 Insert Screw for 3/4"" OSG PFB and PFR",2024-12-17 03:00:00,OSG-7808120,OSG,Rocket Supply,ZTO_1
+3270,11,C-78,"1/16"" Garr Ball Endmill - 0.250"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,GARR-18037,Garr Tool,Rocket Supply,ZTO_1
+3272,11,C-79,"3/8"" T06 Ingersoll Chip Surfer Bull Endmill Tip w/ .06r",2024-12-17 03:00:00,INGE-5809780,Ingersoll,Rocket Supply,ZTO_1
+3274,11,C-80,"3/8"" T06 Ingersoll Chip Surfer Ball Endmill Tip",2024-12-17 03:00:00,INGE-5812312,Ingersoll,Rocket Supply,ZTO_1
+3276,11,C-81,10mm Insert for Moldino SRF Ballmill,2024-12-17 03:00:00,SRFT10 EP6120 EV0547ZCJ00CX,Mitsubishi,Rocket Supply,ZTO_2
+3278,11,C-82,"Insert Screw for 3"" SECO T-Slot Cutter",2024-12-17 03:00:00,SECO-36928,SECO,Rocket Supply,ZTO_2
+3280,11,C-83,5 TPI Insert for Carmex Helical Indexable Threadmill - 32mm Insert Length,2024-12-17 03:00:00,CARM-50900034,Carmex,Rocket Supply,ZTO_2
+3282,11,C-84,3.5 ISO Insert for Carmex Indexable Threadmill - 21mm Insert Length,2024-12-17 03:00:00,CARM-50500056,Carmex,Rocket Supply,ZTO_2
+3284,11,C-85,"5/16"" T05 Ingersoll Chip Surfer Ball Endmill Tip",2024-12-17 03:00:00,INGE-5812311,Ingersoll,Rocket Supply,ZTO_2
+3286,11,C-86,"3/8""-16 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625038167,OSG,Rocket Supply,ZTO_2
+3288,11,C-87,"3/8"" Millstar Quad-Force High Feed Endmill - 1.0"" Flute Length - 2.5"" OAL",2024-12-17 03:00:00,MILL-QFM-0375-HSN,Millstar,Rocket Supply,ZTO_2
+3290,11,C-88,9 TPI to 16 TPI - Size #13 Insert for Emuge Idexable Single Point Threadmill,2024-12-17 03:00:00,EMUG-GF643307.9514,Emuge-Franken,Rocket Supply,ZTO_2
+3292,11,C-89,4.0 ISO Insert for Carmex Indexable Theadmill - 30mm Insert Length,2024-12-17 03:00:00,CARM-50600037,Carmex,Rocket Supply,ZTO_2
+3294,11,C-90,M20x2.5 ISO OSG A-Brand Threadmill,2024-12-17 03:00:00,OSG-8331022,OSG,Rocket Supply,ZTO_2
+3296,11,C-91,2.5 ISO Insert for Emuge Indexable Threadmill - 15mm Insert Length,2024-12-17 03:00:00,EMUG-GF603117.9517,Emuge-Franken,Rocket Supply,ZTO_2
+3298,11,C-92,"5/16""-18 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625056187,OSG,Rocket Supply,ZTO_2
+3300,11,C-93,"0.531"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-U101332,Sumitomo,Rocket Supply,ZTO_2
+3302,11,C-94,"0.656"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT06562MTL,Sumitomo,Rocket Supply,ZTO_2
+3304,11,C-95,1.5mm Moldino Long Reach Ball Endmill - 20mm Neck Length - 60mm OAL,2024-12-17 03:00:00,HITA-EPDBEH2015-20-TH3,Moldino,Rocket Supply,ZTO_2
+3306,11,C-96,"0.590"" Insert for Ingersoll Gold Twist Drill",2024-12-17 03:00:00,INGE-6164926,Ingersoll,Rocket Supply,ZTO_2
+3308,11,C-97,10mm T06 90 Degree Ingersoll Chip Surfer Chamfer and Spotting Tip,2024-12-17 03:00:00,INGE-2923411,Ingersoll,Rocket Supply,ZTO_2
+3310,11,C-98,"0.758"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SMDT19250MTL,Sumitomo,Rocket Supply,ZTO_2
+3312,11,C-99,"1"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-U101376,Sumitomo,Rocket Supply,ZTO_2
+3314,11,C-100,"3/8""-18 NPT Emuge Solid Threadmill",2024-12-17 03:00:00,EMUG-1573677/3,Emuge-Franken,Rocket Supply,ZTO_2
+3316,11,C-101,"1.063"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT2700MTL,Sumitomo,Rocket Supply,ZTO_2
+3318,11,C-102,1.5mm Moldino Long Reach Ball Endmill - 10mm Neck Length - 50mm OAL,2024-12-17 03:00:00,HITA-EDBEH2015-10-TH3,Moldino,Rocket Supply,ZTO_2
+3320,11,C-103,7 IPT Insert for Carmex Indexable Threadmill - 21mm Insert Length,2024-12-17 03:00:00,CARM-21I7UNMT7,Carmex,Rocket Supply,ZTO_2
+3325,11,C-105,6 TPI Ingersoll RapidThread Threadmill Insert - 30mm Insert Length,2024-12-17 03:00:00,INGE-6198535,Ingersoll,Rocket Supply,ZTO_2
+3327,11,C-106,3 ISO Insert for Carmex Indexable Threadmill - 21mm Insert Length,2024-12-17 03:00:00,CARM-21I30ISOMT7,Carmex,Rocket Supply,ZTO_2
+3329,11,C-107,"5/16"" T06 Ingersoll Chip Surfer Bull Endmill Tip w/ .03r",2024-12-17 03:00:00,INGE-5840004,Ingersoll,Rocket Supply,ZTO_2
+3331,11,C-108,"5/16"" T05 Ingersoll Chip Surfer Bull Endmill Tip w/ .06r",2024-12-17 03:00:00,INGE-2928001,Ingersoll,Rocket Supply,ZTO_2
+3333,11,C-109,"1.015"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP2-25.78,Allied,Rocket Supply,ZTO_2
+3335,11,C-110,"Insert Screw for 3"" Mitsubishi WJX Feedmill",2024-12-17 03:00:00,MITS-10596043,Mitsubishi,Rocket Supply,ZTO_2
+3337,11,C-111,12 TPI Insert for Carmex Indexable Thraedmill - 21mm Insert Length,2024-12-17 03:00:00,CARM-21I12UNMT7,Carmex,Rocket Supply,ZTO_2
+3339,11,C-112,"0.093"" Harvey Tool Long Reach Ball Endmill - 0.500"" Neck Length - 2.5"" OAL",2024-12-17 03:00:00,HARV-33493-C3,Harvey Tool,Rocket Supply,ZTO_2
+3341,11,C-113,16 TPI Insert for Carmex Helical Indexable Threadmill,2024-12-17 03:00:00,CARM-H32I16UNMT7,Carmex,Rocket Supply,ZTO_2
+3343,11,C-114,"1"" Flat Tip Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT1000MFS,Sumitomo,Rocket Supply,ZTO_2
+3345,11,C-115,4 TPI to 9 TPI - Size #13 Insert for Emuge Idexable Single Point Threadmill,2024-12-17 03:00:00,EMUG-GF643307.9518,Emuge-Franken,Rocket Supply,ZTO_2
+3347,11,C-116,"1/4""-20 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625014204,OSG,Rocket Supply,ZTO_2
+3379,11,C-117,"0.9844"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT09844MTL,Sumitomo,,ZTO_2
+3381,11,C-118,"1.339"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT3400MTL,Sumitomo,,ZTO_2
+3383,11,C-119,"1/2"" Garr Bull Endmill - .03r - 2"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-20797,Garr Tool,,ZTO_2
+3385,11,C-120,"0.878"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT2230MTL,Sumitomo,,ZTO_2
+3387,11,C-121,"1.004"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT2550MTL,Sumitomo,,ZTO_2
+3389,11,C-123,"1.004"" MEL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT1000MEL,Sumitomo,,ZTO_2
+3391,11,C-124,"1.1094"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT11094MTL,Sumitomo,,ZTO_2
+3393,11,C-125,".886"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT2250MTL,Sumitomo,,ZTO_2
+3395,11,C-126,"1.456"" MTL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT3700MTL,Sumitomo,,ZTO_2
+3397,11,C-127,"1 1/2""-6 UNC OSG HY-PRO Cut Tap",2024-12-17 03:00:00,OSG-130144801,OSG,,ZTO_2
+3399,11,C-128,"1 1/2""-6 UNC OSG A-Brand Form Tap",2024-12-17 03:00:00,OSG-1625011288,OSG,,ZTO_2
+3401,11,C-129,"0.94"" Carmex Single Flute Indexable Threadmill - 5"" OAL - 21mm Insert Length",2024-12-17 03:00:00,CARM-SR0940K21,Carmex,,ZTO_2
+3403,11,C-130,"0.82"" Carmex Single Flute Carbide Indexable Threadmill - 8"" OAL - 21mm Insert Length",2024-12-17 03:00:00,CARM-SR0820M21C,Carmex,,ZTO_2
+3405,11,C-131,"1 1/4""-7 OSG A-Brand Form Tap",2024-12-17 03:00:00,OSG-1625012578,OSG,,ZTO_2
+3407,11,C-132,"3/4"" Garr Bull Endmill - .03r - 2"" Flute - 5"" OAL",2024-12-17 03:00:00,GARR-63310,Garr Tool,,ZTO_2
+3409,11,C-133,M16x2.0 ISO OSG Cut Tap,2024-12-17 03:00:00,OSG-1650002108,OSG,,ZTO_2
+3411,11,C-134,"3/4"" Garr Bull Endmill - .06r - 3"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-21037,Garr Tool,,ZTO_2
+3413,11,C-135,"1""-8 UNC OSG A-Brand Form Tap",2024-12-17 03:00:00,OSG-1625001088,OSG,,ZTO_2
+3415,11,C-136,"3/4""-10 UNC OSG A-Brand Form Tap",2024-12-17 03:00:00,OSG-16250341001,OSG,,ZTO_2
+3417,11,C-137,8mm Moldino Turbo Ball Endmill - 120mm Neck Length,2024-12-17 03:00:00,MOLD-EMBPE3080-120-09-ATH,Moldino,,ZTO_1
+3419,11,C-138,"0.031"" Garr Square Endmill - .093"" Flute - 1.5"" OAL",2024-12-17 03:00:00,GARR-13017,Garr Tool,,ZTO_2
+3421,11,C-139,3.5 ISO Insert for Ingersoll RapidThread Indexable Threadmill,2024-12-17 03:00:00,INGE-6198470,Ingersoll,,ZTO_2
+3423,11,C-140,M16x2.0 ISO OSG A-Brand Solid Carbide Threadmill,2024-12-17 03:00:00,OSG-8331019,OSG,,ZTO_2
+3425,11,C-141,"3/8""-16 UNC OSG A-Brand Solid Carbide Threadmill",2024-12-17 03:00:00,OSG-1662500617,OSG,,ZTO_2
+3427,11,C-142,"1.5625"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP3-39.69,Allied,,ZTO_2
+3429,11,C-143,"0.045"" Harvey Tool Ball Diameter - .135"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,HARV-74345-C3,Harvey Tool,,ZTO_2
+3431,11,C-144,"0.093"" Garr Square Endmill - 0.375"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,GARR-13057,Garr Tool,,ZTO_2
+3433,11,C-145,"3/8"" Garr Square Endmill - 0.875"" Flute Length - 2.5"" OAL",2024-12-17 03:00:00,GARR-13237,Garr Tool,,ZTO_2
+3435,11,C-146,"0.025"" Richards Micro Tool Square Endmill - .038"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,RICH-879-C-.025,Richards Micro Tool,,ZTO_2
+3437,11,C-147,"1/8"" Garr Bull Endmill - 0.01r - 1"" Flute Length - 3"" OAL",2024-12-17 03:00:00,GARR-20107,Garr Tool,,ZTO_2
+3439,11,C-148,"0.059"" Horn Ball Endmill - 0.089"" Flute Length - 1.969"" OAL",2024-12-17 03:00:00,HORN-DSKMH.150.015 TS3E,Horn,,ZTO_2
+3441,11,C-149,"1/8"" Garr Ball Endmill - 1/2"" Flute - 1.5"" OAL",2024-12-17 03:00:00,GARR-18077,Garr Tool,,ZTO_2
+3443,11,C-150,"0.093"" Harvey Tool Square Endmill - 0.139"" Flute Length - 0.375"" Neck Length - 2.5"" OAL",2024-12-17 03:00:00,HARV-945593-C3,Harvey Tool,,ZTO_2
+3445,11,C-151,"0.062"" Harvey Tool Bull Endmill - .003r - 0.312"" Neck Length - 2.5"" OAL",2024-12-17 03:00:00,HARV-968262-C3,Harvey Tool,,ZTO_2
+3447,11,C-152,"0.705"" Insert for Iscar Sumocham Drill",2024-12-17 03:00:00,ISCA-5508580,Iscar,,ZTO_2
+3449,11,C-153,"1/2"" Square Endmill - 1"" Flute Length - 3"" OAL",2024-12-17 03:00:00,GARR-13317,Garr Tool,,ZTO_2
+3451,11,C-154,"0.045"" Harvey Tool Square Endmill - 0.135"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,HARV-73045-C3,Harvey Tool,,ZTO_2
+3453,11,C-155,"1.102"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP2-28.00,Allied,,ZTO_2
+3455,11,C-156,"0.059"" Horn Bull Endmill - .008r - 0.089"" Flute Length - 1.969"" OAL",2024-12-17 03:00:00,HORN-DSTMH.150.020.015 TS3E,Horn,,ZTO_2
+3457,11,C-157,".02"" Harvey Tool Square Diamond Coated Endmill - .06"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,HARV-73020-C4,Harvey Tool,,ZTO_2
+3459,11,C-158,"0.229"" OSG HY-PRO Carbide Drill - 5D",2024-12-17 03:00:00,OSG-HP245-2283,OSG,,ZTO_2
+3461,11,C-159,6 TPI Insert for Carmex Indexable Threadmill - 30mm Insert Length,2024-12-17 03:00:00,CARM-30I6UNM17,Carmex,,ZTO_2
+3463,11,C-160,"1/8"" Garr Ball Endmill - 1"" Flute Length - 3"" OAL",2024-12-17 03:00:00,GARR-44037,Garr Tool,,ZTO_2
+3465,11,C-161,"1/2"" Garr Ball Endmill - 1/2"" Flute Length - 4"" OAL",2024-12-17 03:00:00,GARR-44247,Garr Tool,,ZTO_2
+3467,11,C-162,15.8mm Insert for OSG Pheonix Drill,2024-12-17 03:00:00,OSG-7823073,OSG,,ZTO_2
+3469,11,C-163,"3/16"" Garr Ball Endmill - 1"" Flute Length - 3"" OAL",2024-12-17 03:00:00,GARR-44047,Garr Tool,,ZTO_2
+3471,11,C-164,8.36mm Insert for OSG Pheonix Drill,2024-12-17 03:00:00,OSG-7283068,OSG,,ZTO_2
+3473,11,C-165,"0.790"" Carmex Single Flute Indexable Threadmill - 1.57"" Neck Length - 3.7"" OAL - 21mm Insert Length",2024-12-17 03:00:00,CARM-SR0790H21,Carmex,,ZTO_2
+3475,11,C-166,"0.875"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP1-22.23,Allied,,ZTO_2
+3477,11,C-167,6mm ATH80D Insert for Moldino IABPFN Ballmill,2024-12-17 03:00:00,MOLD-ZDFG06N-ST,Moldino,,ZTO_2
+3479,11,C-168,"1.312"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP2-33.34,Allied,,ZTO_2
+3481,11,C-169,Nine9 Spot Drill Body,2024-12-17 03:00:00,EVER-9916-14-5/8,Nine9,,ZTO_2
+3483,11,C-170,4 TPI Insert for Ingersoll RapidThread Threadmills - 40mm Insert Length,2024-12-17 03:00:00,INGE-6198544,Ingersoll,,ZTO_2
+3485,11,C-171,"0.992"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP2-25.20,Allied,,ZTO_2
+3487,11,C-172,"0.750"" Harvey Tool Lolipop Cutter - 1.5"" Neck Length - 4"" OAL",2024-12-17 03:00:00,HARV-23248-C3,Harvey Tool,,ZTO_2
+3489,11,C-173,"3/8"" Ingersoll HiposFeedV Feedmill",2024-12-17 03:00:00,INGE-6342978,Ingersoll,,ZTO_2
+3491,11,C-174,"1""-8 UNC Emuge Solid Carbide Threadmill",2024-12-17 03:00:00,EMUG-GFR15106.5018,Emuge-Franken,,ZTO_2
+3493,11,C-175,"3/8"" OSG HY-PRO CARB VGM5 Bull Endmill - .03r - 1.5"" Flute Length - 4"" OAL - 5 Flutes",2024-12-17 03:00:00,OSG-VGM5-0118,OSG,,ZTO_2
+3495,11,C-176,8mm T05 Ingersoll Chip Surfer 60 Degree Engraving Tip,2024-12-17 03:00:00,INGE-2928034,Ingersoll,,ZTO_2
+3497,11,C-177,"1.26"" Carmex Helical Indexable Threadmill - 7"" OAL",2024-12-17 03:00:00,SR126H32P-6,Carmex,,ZTO_2
+3499,11,C-178,"0.093"" Garr Ball Endmill - .375"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,GARR-18057,Garr Tool,,ZTO_2
+3501,11,C-179,"3/16"" OSG HY-PRO CARB Bull Endmill - .03r - .438"" Flute Length - 2"" OAL",2024-12-17 03:00:00,OSG-VG434-1876,OSG,,ZTO_2
+3503,11,C-180,"1/4"" Garr Ball Endmill - 1/2"" Flute Length - 2"" OAL",2024-12-17 03:00:00,GARR-04097,Garr Tool,,ZTO_2
+3505,11,C-181,"3/8"" Insert for Moldino IAPRF Bullmill - .06r",2024-12-17 03:00:00,MOLD-IZCFW060-R1.6,Moldino,,ZTO_2
+3507,11,C-182,"3/16"" Garr Square Endmill - 1"" Flute Length - 3"" OAL",2024-12-17 03:00:00,GARR-42047,Garr Tool,,ZTO_2
+3509,11,C-183,"0.984"" MEL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT09844MEL,Sumitomo,,ZTO_2
+3511,11,C-184,"0.018"" Harvey Toll Square Endmill - .054"" Flute Length - 1.5"" OAL",2024-12-17 03:00:00,HARV-73018-C3,Harvey Tool,,ZTO_2
+3513,11,C-104,"1/2"" Insert for Moldino IABPFN Ballmill",2024-12-17 03:00:00,MOLD-IZDFG120N-ST ATH80D,Moldino,,ZTO_2
+3515,11,C-185,"3/4"" Insert for Moldino IABPFN Ballmill",2024-12-17 03:00:00,MOLD-IZDFG120N-ST ATH80D,Moldino,,ZTO_4
+3520,11,C-186,6mm Garr Ball Endmill - 38mm Flute - 150mm OAL,2024-12-17 03:00:00,GARR-99137,Garr Tool,,ZTO_4
+3522,11,C-187,"0.910"" T08 Ingersoll Chip Surfer Convex Cutter Tip",2024-12-17 03:00:00,INGE-2929510,Ingersoll,,ZTO_4
+3524,11,C-188,"1/4"" Garr Square Endmill - 1"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-42097,Garr Tool,,ZTO_4
+3526,11,C-189,"5/16"" Garr Ball Endmill - 1.625"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-44137,Garr Tool,,ZTO_4
+3528,11,C-191,"3/8"" Garr Bull Endmill - .03r - 2"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-20587,Garr Tool,,ZTO_4
+3530,11,C-192,"1/4"" Garr Ball Endmill - 1.5"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-44107,Garr Tool,,ZTO_4
+3532,11,C-193,"1/2"" Garr Bull Endmill - .06r - 2"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-20817,Garr Tool,,ZTO_4
+3534,11,C-194,"5/16"" Garr Ball Endmill - 1.5"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-44147,Garr Tool,,ZTO_4
+3536,11,C-195,"3/16"" Garr Bull Endmill - .03r - 1"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-20247,Garr Tool,,ZTO_4
+3538,11,C-196,"6mm Millstar Ball Endmill - 6"" OAL",2024-12-17 03:00:00,MILL-BM-6.0-LL-HSN,Millstar,,ZTO_1
+3540,11,C-197,"5/16"" Garr Bull Endmill - .03r - 1"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-20447,Garr Tool,,ZTO_4
+3542,11,C-198,"3/8"" Garr Bull Endmill",2024-12-17 03:00:00,GARR-20677,Garr Tool,,ZTO_4
+3544,11,C-199,"0.405"" OSG HY-PRO Carbide Drill - 5D",2024-12-17 03:00:00,OSG-HP245-2055,OSG,,ZTO_4
+3546,11,C-200,M14x2.0 OSG A-Brand Form Tap,2024-12-17 03:00:00,OSG-1635014022,OSG,,ZTO_4
+3548,11,C-201,"1/4"" Garr Bull Endmill - .06r - 1"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-20417,Garr Tool,,ZTO_4
+3550,11,C-202,"0.579"" OSG HY-PRO Carbide Drill - 5D",2024-12-17 03:00:00,OSG-HP245-5787,OSG,,ZTO_4
+3552,11,C-203,"0.464"" OSG HY-PRO Carbide Drill - 5D",2024-12-17 03:00:00,OSG-HP245-4646,OSG,,ZTO_4
+3554,11,C-204,"3/16"" Garr Ball Endmill - 1"" Flute Length - 4"" OAL",2024-12-17 03:00:00,GARR-44067,Garr Tool,,ZTO_4
+3556,11,C-205,"1/2"" Uncoated Garr Square Endmill - 3"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-42270,Garr Tool,,ZTO_4
+3558,11,C-206,"1/2"" Garr Ball Endmill - 3"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-44277,Garr Tool,,ZTO_4
+3562,11,C-208,"3/8"" Garr Ball Endmill - 1.5"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-44187,Garr Tool,,ZTO_4
+3564,11,C-209,"3/8"" Garr Ball Endmill - 3"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-44197,Garr Tool,,ZTO_4
+3566,11,C-210,"1/2"" Garr Ball Endmill - 1/5"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-44267,Garr Tool,,ZTO_4
+3568,11,C-211,8mm Moldino Turbo Bull Endmill - 2mm Rad. - 90mm Neck Length,2024-12-17 03:00:00,MOLD-ETMP4080-90-20-TH,Moldino,,ZTO_1
+3570,11,C-212,8mm Moldino Turbo Ball Endmill - 80mm Neck Length,2024-12-17 03:00:00,,Moldino,,ZTO_1
+3572,11,C-213,10mm Moldino Turbo Bull Endmill - 2mm Rad. - 95mm Neck Length,2024-12-17 03:00:00,MOLD-ETMP4100-95-20-TH,Moldino,,ZTO_1
+3574,11,C-214,6mm Moldino Turbo Ball Endmill - 80mm Neck Length,2024-12-17 03:00:00,MOLD-EMBPE3060-80-09-ATH,Moldino,,ZTO_1
+3576,11,C-215,5mm Moldino Turbo Ball Endmill - 80mm Neck Length,2024-12-17 03:00:00,MOLD-EMBPE3050-80-09-ATH,Moldino,,ZTO_1
+3578,11,C-216,6mm Moldino Turbo Ball Endmill - 40mm Neck Length,2024-12-17 03:00:00,MOLD-EMBPE3060-40-09-ATH,Moldino,,ZTO_1
+3580,11,C-217,4mm Moldino Turbo Ball Endmill - 80mm Neck Length,2024-12-17 03:00:00,MOLD-EMBPE3040-80-09-ATH,Moldino,,ZTO_4
+3582,11,C-218,6mm Moldino Turbo Bull Endmill - 1.5mm Rad. - 67mm Neck,2024-12-17 03:00:00,MOLD-ETMP4060-67-15-TH,Moldino,,ZTO_4
+3584,11,C-219,"1/2"" OSG HY-PRO CARB VGM5 Bull Endmill - .03r - 2.5"" Flute - 5"" OAL",2024-12-17 03:00:00,OSG-VGM5-0162,OSG,,ZTO_4
+3586,11,C-220,"1"" OSG HY-PRO CARB VGM5 Bull Endmill - .03r - 4.5"" Flute - 7"" OAL",2024-12-17 03:00:00,OSG-VGM5-0271,OSG,,ZTO_4
+3588,11,C-221,"3/4"" OSG HY-PRO CARB VGM5 Bull Endmill - .03r - 3.75"" Flute - 6.5"" OAL",2024-12-17 03:00:00,OSG-VGM5-0243,OSG,,ZTO_4
+3590,11,C-222,2.0 ISO Insert for Carmex Indexable Threadmill - 21mm Insert Length,2024-12-17 03:00:00,CARM-21I2.0ISOMT7,Carmex,,ZTO_4
+3592,11,C-223,"3/4"" Garr Ball Endmill - 3"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-44337,Garr Tool,,ZTO_4
+3594,11,C-224,"3/4"" Garr Square Endmill - 3"" Flute - 6"" OAL",2024-12-17 03:00:00,GARR-42337,Garr Tool,,ZTO_4
+3596,11,C-225,"Insert for 1"" Mitsubishi AXD Feedmill",2024-12-17 03:00:00,MITS-XDGX227020PDFR-GL TF15,Mitsubishi,,ZTO_4
+3598,11,C-207,"1/2"" Prec. Cutting Tools Bull Endmill - .06r - 3"" Flute - 6"" OAL",2024-12-17 03:00:00,PREC-9584853,Prec. Cutting Tools,,ZTO_4
+3600,11,C-226,"1/4"" Garr Bull Endmill - .06r - 1"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-20367,Garr Tool,,ZTO_4
+3602,11,C-227,M42x4.5 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635042451,OSG,Rocket Supply,ZTO_2
+3604,11,C-228,"5/8"" T10 Ingersoll Chip Surfer Necked Steel Shank - 0.800"" Neck - 4"" OAL",2024-12-17 03:00:00,INGE-4542796,Ingersoll,,ZTO_4
+3606,11,C-229,"0.472"" T08 Ingersoll Chip Surfer Necked Steel Shank - 1.57"" Neck - 3.5"" OAL",2024-12-17 03:00:00,INGE-4558792,Ingersoll,Rocket Supply,ZTO_4
+3608,11,C-230,"3/4"" Garr Square Endmill - 1.5"" Flute - 4"" OAL",2024-12-17 03:00:00,GARR-13357,Garr Tool,Rocket Supply,ZTO_4
+3610,11,C-231,"5/8"" Mitsubishi ASR Feedmill - 2"" Neck - 6"" OAL",2024-12-17 03:00:00,MOLD-IASRL2010R-2,Moldino,Rocket Supply,ZTO_4
+3612,11,C-232,"0.375"" Moldino ARPF Indexable Bullmill - 1.375"" Neck - 7.087"" OAL",2024-12-17 03:00:00,MOLD-IARPF06S06WL,Moldino,Rocket Supply,ZTO_4
+3614,11,C-233,"3/4"" Mitsubishi AJX Feedmill - 2"" Neck - 4.75"" OAL",2024-12-17 03:00:00,MITS-AJXU08R122WA12S,Mitsubishi,Rocket Supply,ZTO_4
+3616,11,C-234,"1""-8 UNC Gurhing Cut Tap - Red Ring",2024-12-17 03:00:00,GUHR-9041240254000,Guhring,Rocket Supply,ZTO_4
+3618,11,C-235,"2"" Moldino IASR Feedmill",2024-12-17 03:00:00,MOLD-IASR2032R-7 VFHL320,Moldino,Rocket Supply,ZTO_4
+3620,11,C-236,"1.091"" T10 Ingersoll Chip Surfer T-Slot Cutter",2024-12-17 03:00:00,INGE-2931997,Ingersoll,Rocket Supply,ZTO_4
+3622,11,C-237,"0.364"" T06 Ingersoll Chip Surfer Carbide Tapered Shank - 3.3"" Neck - 6.5"" OAL",2024-12-17 03:00:00,INGE-2928072,Ingersoll,Rocket Supply,ZTO_4
+3624,11,C-238,"0.300"" T05 Ingersoll Carbide Tapered Shank - 3.67"" Neck - 6"" OAL",2024-12-17 03:00:00,INGE-4542800,Ingersoll,Rocket Supply,ZTO_4
+3626,11,C-239,10mm Mitsubishi SRF Carbide Shank Ballmill - 60mm Neck - 150mm OAL,2024-12-17 03:00:00,MITS-SRFH10S10LW,Mitsubishi,Rocket Supply,ZTO_4
+3628,11,C-240,"16mm Mitsubishi ASR Feedmill on 5/8"" Modular Shank - 4"" Neck - 7"" OAL",2024-12-17 03:00:00,ASRM2016R-2 / IASC0.625-M8-6-3,Moldino,Rocket Supply,ZTO_4
+3630,11,C-241,M12x1.75 ISO Form Tap - Pulley Length,2024-12-17 03:00:00,OSG-1635512721,OSG,Rocket Supply,ZTO_3
+3632,11,C-242,"3/16"" OSG HY-PRO Stub Length Carbide Drill - 3D",2024-12-17 03:00:00,OSG-HP243-1874,OSG,Rocket Supply,ZTO_3
+3634,11,C-243,"0.734"" Allied TA Pro Cobalt Insert",2024-12-17 03:00:00,ALLI-TAX1-18.65,Allied,Rocket Supply,ZTO_3
+3636,11,C-244,"1 3/8""-12 UNF OSG Form Tap",2024-12-17 03:00:00,OSG-1625013126,OSG,Rocket Supply,ZTO_3
+3638,11,C-245,M36x4.0 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-1635036411,OSG,Rocket Supply,ZTO_3
+3640,11,C-246,"5/16""-18 UNC OSG Form Tap - Pulley Length",2024-12-17 03:00:00,OSG-1625556127,OSG,Rocket Supply,ZTO_3
+3642,11,C-247,"0.375"" OSG HY-PRO Carbide Drill - 5D",2024-12-17 03:00:00,OSG-HP255-3748,OSG,Rocket Supply,ZTO_3
+3644,11,C-248,"1/4"" BSPP OSG A-Brand Cut Tap",2024-12-17 03:00:00,OSG-1658002008,OSG,Rocket Supply,ZTO_3
+3646,11,C-249,"1 1/8""-7 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625011878,OSG,Rocket Supply,ZTO_3
+3648,11,C-250,"1.248"" Ingersoll Multi-Surfer T-Slot Cutter Tip",2024-12-17 03:00:00,INGE-06311133,Ingersoll,Rocket Supply,ZTO_3
+3650,11,C-251,M30x3.5 ISO OSG Form Tap,2024-12-17 03:00:00,OSG-163503050,OSG,Rocket Supply,ZTO_3
+3652,11,C-252,"3/4""-10 UNC Form Tap - Pulley Length",2024-12-17 03:00:00,OSG-1625543127,OSG,Rocket Supply,ZTO_3
+3654,11,C-253,"0.578"" OSG HY-PRO Carbide Drill - 5D",2024-12-17 03:00:00,OSG-HP-245-5787,OSG,Rocket Supply,ZTO_3
+3656,11,C-254,"0.625"" T06 Ingersoll Chip Surfer T-Slot Cutter Tip",2024-12-17 03:00:00,INGE-2931919,Ingersoll,Rocket Supply,ZTO_3
+3658,11,C-255,"3/16"" OSG A-Brand Taper Length Carbide Drill - 20D",2024-12-17 03:00:00,OSG-654018712,OSG,Rocket Supply,ZTO_3
+3660,11,C-256,"1.250"" Ingersoll RapidThread Indexable Threadmill - 6"" OAL - 30mm Insert Length",2024-12-17 03:00:00,INGE-2945172,Ingersoll,Rocket Supply,ZTO_3
+3662,11,C-257,"0.205"" OSG A-Brand Carbide Drill - 5D",2024-12-17 03:00:00,OSG-8692520,OSG,Rocket Supply,ZTO_3
+3664,11,C-258,M6x1.0 ISO OSG A-Brand AT-1 Threadmill,2024-12-17 03:00:00,OSG-8331001,OSG,Rocket Supply,ZTO_3
+3666,11,C-259,6mm OSG A-Brand Ball Endmill - 50mm Neck - 120mm OAL,2024-12-17 03:00:00,OSG-3056359,OSG,Rocket Supply,ZTO_3
+3668,11,C-260,"3/8"" Insert for Millstar Bullmill - .015r",2024-12-17 03:00:00,MILL-BD-0375-N-.015,Millstar,Rocket Supply,ZTO_3
+3670,11,C-261,M20x2.5 ISO Form Tap - Pulley Length,2024-12-17 03:00:00,OSG-1635520222,OSG,Rocket Supply,ZTO_3
+3672,11,C-262,"3/8""-16 UNC Form Tap - Pulley Length",2024-12-17 03:00:00,OSG-1625538627,OSG,Rocket Supply,ZTO_3
+3674,11,C-263,"5/8""-11 UNC OSG Form Tap",2024-12-17 03:00:00,OSG-1625058117,OSG,Rocket Supply,ZTO_3
+3676,11,C-264,"0.578"" Allied TA Pro Cobalt Insert",2024-12-17 03:00:00,ALLI-150H-.578,Allied,Rocket Supply,ZTO_3
+3678,11,C-265,"0.858"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP1-21.80,Allied,Rocket Supply,ZTO_3
+3680,11,C-266,"1.250"" Allied TA Pro Cobalt Insert",2024-12-17 03:00:00,ALLI-152T-0108,Allied,Rocket Supply,ZTO_3
+3682,11,C-267,"1/4"" OSG A-Brand Stub Length Carbide Drill - 3D",2024-12-17 03:00:00,OSG-6550025011,OSG,Rocket Supply,ZTO_3
+3684,11,C-268,"1 3/4""-5 UNC OSG A-Brand Cut Tap",2024-12-17 03:00:00,OSG-1650508408,OSG,Rocket Supply,ZTO_2
+3686,11,C-269,"0.694"" - 0.957"" Allied Series 1D TA Pro Inserted Spade Drill - 10D",2024-12-17 03:00:00,ALLI-HTA1D10-100F,Allied,Rocket Supply,ZTO_2
+3688,11,C-270,"0.728"" - 0.767"" Sumitomo SMD Inserted Drill - 5D",2024-12-17 03:00:00,SUMI-SMDH075L,Sumitomo,Rocket Supply,ZTO_2
+3690,11,C-271,"0.531"" - 0.570"" Sumitomo SMD Inserted Drill - 8D",2024-12-17 03:00:00,SUMI-SMDH0550,Sumitomo,Rocket Supply,ZTO_2
+3692,11,C-272,"1.055"" - 1.094"" Sumitomo SMD Inserted Drill - 3D",2024-12-17 03:00:00,SUMI-SMDH107M,Sumitomo,Rocket Supply,ZTO_2
+3694,11,C-273,"0.961"" - 1.380"" Allied Series 2 TA Inserted Spade Drill - 3D",2024-12-17 03:00:00,ALLI-22020S-125L,Allied,Rocket Supply,ZTO_2
+3696,11,C-274,"1.055"" - 1.094"" Sumitomo SMD Inserted Drill - 8D",2024-12-17 03:00:00,SUMI-SMDH107D,Sumitomo,Rocket Supply,ZTO_2
+3698,11,C-275,"0.977"" - 1.016"" Sumitomo SMD Inserted Drill - 5D",2024-12-17 03:00:00,SUMI-SMDH100L,Sumitomo,Rocket Supply,ZTO_2
+3700,11,C-276,"0.499"" - 0.964"" Allied Series 0C TA Pro Inserted Spade Drill - 10D",2024-12-17 03:00:00,ALLI-HTA0C10-075F,Allied,Rocket Supply,ZTO_2
+3702,11,C-277,"0.984"" Allied TA Pro Carbide Insert",2024-12-17 03:00:00,ALLI-TAP2-25.00,Allied,Rocket Supply,ZTO_2
+3704,11,C-278,"0.690"" - 0.960"" Allied Series 1 TA Inserted Spade Drill - 12D",2024-12-17 03:00:00,ALLI-25010S-100F,Allied,Rocket Supply,ZTO_2
+3706,11,C-279,"0.847"" - 0.898"" Sumitomo SMD Inserted Drill - 5D",2024-12-17 03:00:00,SUMI-SMDH087L,Sumitomo,Rocket Supply,ZTO_2
+3708,11,C-280,"0.959"" - 1.380"" Allied Series 2B TA Pro Inserted Spade Drill - 10D",2024-12-17 03:00:00,ALLI-HTA2B10-125F,Allied,Rocket Supply,ZTO_2
+3710,11,C-281,"0.790"" Carmex Single Flute Indexable Threadmill - 2.25"" Neck Length - 5"" OAL - 21mm Insert Length",2024-12-17 03:00:00,CARM-SRF0790K21,Carmex,Rocket Supply,ZTO_2
+3712,11,C-282,"0.884"" MEL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT2245MEL,Sumitomo,Rocket Supply,ZTO_4
+3714,11,C-283,"1.004"" MEL Insert for Sumitomo SMD Drill",2024-12-17 03:00:00,SUMI-SMDT2550MEL,Sumitomo,Rocket Supply,ZTO_4

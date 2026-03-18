@@ -1,0 +1,81 @@
+========================================
+SQL PROBE - SERVER DEPLOYMENT CHECKLIST
+========================================
+
+PRE-DEPLOYMENT
+--------------
+[ ] Server has Windows Server 2016+ or Windows 10/11
+[ ] Server has network access to ESTSS01\ZOLLERSQLEXPRESS
+[ ] Server has appropriate Windows authentication permissions
+
+FILE TRANSFER
+-------------
+[ ] Entire SQL_Probe directory copied to server
+[ ] Directory structure preserved (daily_trans, templates, docs, utils, tests)
+[ ] All Python files (.py) transferred
+[ ] All documentation files (.md) transferred
+[ ] logo.png file transferred (daily_trans\logo.png)
+[ ] requirements.txt files transferred (root and daily_trans)
+
+PYTHON INSTALLATION
+-------------------
+[ ] Python 3.7+ installed on server
+[ ] Python added to PATH
+[ ] pip installed and working
+[ ] Verify: python --version
+[ ] Verify: pip --version
+
+ODBC DRIVER
+-----------
+[ ] ODBC Driver 17 for SQL Server downloaded
+[ ] ODBC Driver 17 for SQL Server installed
+[ ] Verify: python -c "import pyodbc; print(pyodbc.drivers())"
+[ ] Should see: 'ODBC Driver 17 for SQL Server'
+
+DEPENDENCY INSTALLATION
+-----------------------
+[ ] Navigated to SQL_Probe directory
+[ ] Ran: install_dependencies.bat
+[ ] OR manually ran: pip install -r requirements.txt
+[ ] Verify: pip list shows pyodbc
+[ ] Verify: pip list shows requests
+
+CONFIGURATION
+-------------
+[ ] Opened sql_probe.py
+[ ] Verified SERVER = r"ESTSS01\ZOLLERSQLEXPRESS"
+[ ] Verified DATABASE = "ZOLLERDB3" (or correct database name)
+[ ] Saved sql_probe.py
+
+TESTING
+-------
+[ ] Test database connection: python sql_probe.py
+[ ] Test today's report: python generate_today_report.py
+[ ] Test master report (daily): python generate_master_transaction_report.py --type daily
+[ ] Test master report (monthly): python generate_master_transaction_report.py --type monthly
+[ ] Check generated HTML files exist and open correctly
+
+OPTIONAL SETUP
+--------------
+[ ] Scheduled tasks configured (if needed)
+[ ] Power Automate URL updated (if used)
+[ ] File permissions set for report generation
+[ ] Firewall rules configured (if needed)
+
+FINAL VERIFICATION
+------------------
+[ ] All scripts run without errors
+[ ] Reports generate successfully
+[ ] HTML reports open in browser
+[ ] Database queries return expected results
+[ ] No permission errors
+
+========================================
+DEPLOYMENT COMPLETE
+========================================
+
+Deployment Date: _______________
+Deployed By: _______________
+Server Location: _______________
+Notes: _______________
+

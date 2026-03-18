@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Location Grid - EST100</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .header .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .summary {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .summary-item {
+            text-align: center;
+        }
+        .summary-item .label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .summary-item .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #495057;
+        }
+        .summary-item .value.highlight {
+            color: #dc3545;
+        }
+        .grid-container {
+            padding: 30px;
+        }
+        .grid-header {
+            display: grid;
+            grid-template-columns: 80px repeat(10, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .grid-header-cell {
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            font-size: 14px;
+            padding: 8px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 80px repeat(10, 1fr);
+            gap: 8px;
+        }
+        .row-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #495057;
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .pocket {
+            aspect-ratio: 1;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            padding: 8px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s;
+            min-height: 120px;
+        }
+        .pocket:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+            position: relative;
+        }
+        .pocket.empty {
+            background: #f8f9fa;
+            border-color: #e9ecef;
+        }
+        .pocket.has-stock {
+            background: #e7f5e7;
+            border-color: #28a745;
+        }
+        .pocket.low-stock {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        .pocket.below-minimum {
+            background: #f8d7da;
+            border-color: #dc3545;
+            border-width: 3px;
+        }
+        .pocket.no-stock {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        .pocket-code {
+            font-size: 10px;
+            color: #6c757d;
+            text-align: right;
+            margin-bottom: 4px;
+        }
+        .pocket-item {
+            font-size: 11px;
+            font-weight: 600;
+            color: #212529;
+            word-break: break-word;
+            line-height: 1.3;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        .pocket.no-stock .pocket-item {
+            color: #212529;
+            font-weight: 600;
+        }
+        .pocket-qty {
+            font-size: 18px;
+            font-weight: bold;
+            color: #495057;
+            text-align: center;
+            margin-top: 4px;
+        }
+        .pocket-qty.zero {
+            color: #dc3545;
+        }
+        .pocket-min {
+            font-size: 9px;
+            color: #6c757d;
+            text-align: center;
+            margin-top: 2px;
+        }
+        .below-minimum-section {
+            padding: 20px 30px;
+            background: #fff3cd;
+            border-top: 2px solid #ffc107;
+        }
+        .below-minimum-section h2 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .below-minimum-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .below-minimum-table thead {
+            background: #dc3545;
+            color: white;
+        }
+        .below-minimum-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .below-minimum-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 13px;
+        }
+        .below-minimum-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        .below-minimum-table .item-code {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+        .below-minimum-table .qty {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+        .below-minimum-table .shortage {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .below-minimum-table .usage {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+        }
+        .unmapped-section {
+            padding: 20px 30px;
+            background: #fff3cd;
+            border-top: 2px solid #ffc107;
+        }
+        .unmapped-section h2 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .unmapped-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+        }
+        .unmapped-item {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ffc107;
+            font-size: 12px;
+        }
+        .unmapped-item code {
+            font-weight: 600;
+            color: #495057;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+            border-top: 1px solid #e9ecef;
+        }
+        @media print {
+            @page {
+                size: 11in 17in landscape;
+                margin: 0.3in;
+            }
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .header {
+                padding: 15px 20px;
+                page-break-after: avoid;
+            }
+            .header h1 {
+                font-size: 20px;
+                margin-bottom: 5px;
+            }
+            .header .subtitle {
+                font-size: 12px;
+            }
+            .summary {
+                padding: 10px 20px;
+                page-break-after: avoid;
+            }
+            .summary-item .value {
+                font-size: 18px;
+            }
+            .grid-container {
+                padding: 10px 20px;
+            }
+            .grid-header {
+                gap: 4px;
+                margin-bottom: 4px;
+            }
+            .grid-header-cell {
+                font-size: 10px;
+                padding: 4px;
+            }
+            .grid {
+                gap: 4px;
+            }
+            .row-label {
+                font-size: 12px;
+                padding: 4px;
+            }
+            .pocket {
+                min-height: 0;
+                aspect-ratio: 1;
+                padding: 4px;
+                border-width: 1px;
+                page-break-inside: avoid;
+            }
+            .pocket:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            .pocket-code {
+                font-size: 8px;
+                margin-bottom: 2px;
+            }
+            .pocket-item {
+                font-size: 9px;
+                line-height: 1.2;
+                overflow: visible;
+            }
+            .pocket-qty {
+                font-size: 14px;
+                margin-top: 2px;
+            }
+            .below-minimum-section {
+                page-break-before: always;
+                padding: 10px 20px;
+            }
+            .unmapped-section {
+                page-break-before: always;
+                padding: 10px 20px;
+            }
+            .footer {
+                padding: 8px 20px;
+                font-size: 10px;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Stock Location Grid</h1>
+            <div class="subtitle">EST100 Inventory Database - 8 Rows × 10 Pockets</div>
+        </div>
+        <div class="summary">
+            <div class="summary-item">
+                <div class="label">Total Items</div>
+                <div class="value">78</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">Total Quantity</div>
+                <div class="value">511 units</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">Items Below Minimum</div>
+                <div class="value highlight">3</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">Report Generated</div>
+                <div class="value">2026-02-16 14:26:23</div>
+            </div>
+        </div>
+        <div class="grid-container">
+            <div class="grid-header">
+                <div class="grid-header-cell"></div>
+                <div class="grid-header-cell">Pocket 1</div>
+                <div class="grid-header-cell">Pocket 2</div>
+                <div class="grid-header-cell">Pocket 3</div>
+                <div class="grid-header-cell">Pocket 4</div>
+                <div class="grid-header-cell">Pocket 5</div>
+                <div class="grid-header-cell">Pocket 6</div>
+                <div class="grid-header-cell">Pocket 7</div>
+                <div class="grid-header-cell">Pocket 8</div>
+                <div class="grid-header-cell">Pocket 9</div>
+                <div class="grid-header-cell">Pocket 10</div>
+            </div>
+            <div class="grid">
+                <div class="row-label">Row 1</div>
+                <div class="pocket low-stock" title="JOMW06T215ZZSR-FT MP6120 - 5/8” MITS FEED MILL MP6120 GRADE - TP-01-01-01">
+                    <div class="pocket-code">01-01</div>
+                    <div class="pocket-item">5/8” MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty ">6</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JOMW06T215ZZSR-FT MP6120 - 5/8” MITS FEED MILL MP6120 GRADE - TP-01-01-02">
+                    <div class="pocket-code">01-02</div>
+                    <div class="pocket-item">5/8” MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="JOMW06T215ZZSR-FT VP15TF - 5/8” MITS FEED MILL VP15TF GRADE - TP-01-01-03">
+                    <div class="pocket-code">01-03</div>
+                    <div class="pocket-item">5/8” MITS FEED MILL VP15TF GRADE</div>
+                    <div class="pocket-qty ">16</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JOMW06T215ZZSR-FT VP15TF - 5/8” MITS FEED MILL VP15TF GRADE - TP-01-01-04">
+                    <div class="pocket-code">01-04</div>
+                    <div class="pocket-item">5/8” MITS FEED MILL VP15TF GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="JOMW080320ZZSR-FT MP6120 - 3/4” MITS FEED MILL MP6120 GRADE - TP-01-01-05">
+                    <div class="pocket-code">01-05</div>
+                    <div class="pocket-item">3/4” MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty ">3</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JOMW080320ZZSR-FT MP6120 - 3/4” MITS FEED MILL MP6120 GRADE - TP-01-01-06">
+                    <div class="pocket-code">01-06</div>
+                    <div class="pocket-item">3/4” MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JOMW080320ZZSR-FT MP6120 - 3/4” MITS FEED MILL MP6120 GRADE - TP-01-01-07">
+                    <div class="pocket-code">01-07</div>
+                    <div class="pocket-item">3/4” MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="JOMW080320ZZSR-FT VP15TF - 3/4” MITS FEED MILL VP15TF GRADE - TP-01-01-08">
+                    <div class="pocket-code">01-08</div>
+                    <div class="pocket-item">3/4” MITS FEED MILL VP15TF GRADE</div>
+                    <div class="pocket-qty ">14</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JOMW080320ZZSR-FT VP15TF - 3/4” MITS FEED MILL VP15TF GRADE - TP-01-01-09">
+                    <div class="pocket-code">01-09</div>
+                    <div class="pocket-item">3/4” MITS FEED MILL VP15TF GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="JDMW09T320ZDSR-FT MP6120 - 1" MITS FEED MILL MP6120 GRADE - TP-01-01-10">
+                    <div class="pocket-code">01-10</div>
+                    <div class="pocket-item">1" MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty ">7</div>
+                    
+                </div>
+                <div class="row-label">Row 2</div>
+                <div class="pocket no-stock" title="JDMW09T320ZDSR-FT MP6120 - 1" MITS FEED MILL MP6120 GRADE - TP-01-02-01">
+                    <div class="pocket-code">02-01</div>
+                    <div class="pocket-item">1" MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JDMW09T320ZDSR-FT MP6120 - 1" MITS FEED MILL MP6120 GRADE - TP-01-02-02">
+                    <div class="pocket-code">02-02</div>
+                    <div class="pocket-item">1" MITS FEED MILL MP6120 GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="JDMW09T320ZDSR-FT VP15TF - 1"MITS FEED MILL VP15TF GRADE - TP-01-02-03">
+                    <div class="pocket-code">02-03</div>
+                    <div class="pocket-item">1"MITS FEED MILL VP15TF GRADE</div>
+                    <div class="pocket-qty ">10</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JDMW09T320ZDSR-FT VP15TF - 1"MITS FEED MILL VP15TF GRADE - TP-01-02-04">
+                    <div class="pocket-code">02-04</div>
+                    <div class="pocket-item">1"MITS FEED MILL VP15TF GRADE</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JDMW120420ZDSR-FTMP6120 - 1 1/4” & 2” MITS FEED MILL MP6120 - TP-01-02-05">
+                    <div class="pocket-code">02-05</div>
+                    <div class="pocket-item">1 1/4” & 2” MITS FEED MILL MP6120</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JDMW120420ZDSR-FTMP6120 - 1 1/4” & 2” MITS FEED MILL MP6120 - TP-01-02-06">
+                    <div class="pocket-code">02-06</div>
+                    <div class="pocket-item">1 1/4” & 2” MITS FEED MILL MP6120</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JDMW120420ZDSR-FTMP6120 - 1 1/4” & 2” MITS FEED MILL MP6120 - TP-01-02-07">
+                    <div class="pocket-code">02-07</div>
+                    <div class="pocket-item">1 1/4” & 2” MITS FEED MILL MP6120</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="JDMW120420ZDSR-FT VP15TF - 1 1/4” & 2” MITS FEED MILL VP15TF - TP-01-02-08">
+                    <div class="pocket-code">02-08</div>
+                    <div class="pocket-item">1 1/4” & 2” MITS FEED MILL VP15TF</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="JDMW120420ZDSR-FT VP15TF - 1 1/4” & 2” MITS FEED MILL VP15TF - TP-01-02-09">
+                    <div class="pocket-code">02-09</div>
+                    <div class="pocket-item">1 1/4” & 2” MITS FEED MILL VP15TF</div>
+                    <div class="pocket-qty ">10</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="JDMW120420ZDSR-FT VP15TF - 1 1/4” & 2” MITS FEED MILL VP15TF - TP-01-02-10">
+                    <div class="pocket-code">02-10</div>
+                    <div class="pocket-item">1 1/4” & 2” MITS FEED MILL VP15TF</div>
+                    <div class="pocket-qty ">20</div>
+                    
+                </div>
+                <div class="row-label">Row 3</div>
+                <div class="pocket has-stock" title="JOMU1407 15ZZER-M/MP6120 - 3'' MITS WJX CUTTER MP6120 - TP-01-03-01">
+                    <div class="pocket-code">03-01</div>
+                    <div class="pocket-item">3'' MITS WJX CUTTER MP6120</div>
+                    <div class="pocket-qty ">20</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="JOMU1407 15ZZER-M/MP6120 - 3'' MITS WJX CUTTER MP6120 - TP-01-03-02">
+                    <div class="pocket-code">03-02</div>
+                    <div class="pocket-item">3'' MITS WJX CUTTER MP6120</div>
+                    <div class="pocket-qty ">20</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="SDNW120520TR-P JP4120 - 2'' HITACHI HARD MILLING INSERT JP4120 - TP-01-03-03">
+                    <div class="pocket-code">03-03</div>
+                    <div class="pocket-item">2'' HITACHI HARD MILLING INSERT JP4120</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="SDNW120520TR-P JP4120 - 2'' HITACHI HARD MILLING INSERT JP4120 - TP-01-03-04">
+                    <div class="pocket-code">03-04</div>
+                    <div class="pocket-item">2'' HITACHI HARD MILLING INSERT JP4120</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="EPNW0603TN-8 JP4020 - 1" HITACHI IASR Insert JP4020 GRADE - TP-01-03-05">
+                    <div class="pocket-code">03-05</div>
+                    <div class="pocket-item">1" HITACHI IASR Insert JP4020 GRADE</div>
+                    <div class="pocket-qty ">15</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="SDMW1406ZDTR-ACP200 - 3" SUMI MILL INSERT ACP200 - TP-01-03-06">
+                    <div class="pocket-code">03-06</div>
+                    <div class="pocket-item">3" SUMI MILL INSERT ACP200</div>
+                    <div class="pocket-qty ">11</div>
+                    
+                </div>
+                <div class="pocket below-minimum" title="WDMT0804ZDTR-ACP200 - 1" SUMI FEEDMILL INSERT - TP-01-03-07">
+                    <div class="pocket-code">03-07</div>
+                    <div class="pocket-item">1" SUMI FEEDMILL INSERT</div>
+                    <div class="pocket-qty ">4</div>
+                    <div class="pocket-min">Min: 10</div>
+                </div>
+                <div class="pocket has-stock" title="WDMT1205ZDTR-ACP200 - 1 1/4" SUMI FEEDMILL INSERT ACP200 - TP-01-03-08">
+                    <div class="pocket-code">03-08</div>
+                    <div class="pocket-item">1 1/4" SUMI FEEDMILL INSERT ACP200</div>
+                    <div class="pocket-qty ">10</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="N9MT11T3CTNC40 - NINE 9 SPOT DRILL INSERT - TP-01-03-09">
+                    <div class="pocket-code">03-09</div>
+                    <div class="pocket-item">NINE 9 SPOT DRILL INSERT</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="SPMW421 NX4545 - MITS CHAMFER INSERT SPMW120304 NX4545  - TP-01-03-10">
+                    <div class="pocket-code">03-10</div>
+                    <div class="pocket-item">MITS CHAMFER INSERT SPMW120304 NX4545 </div>
+                    <div class="pocket-qty ">20</div>
+                    
+                </div>
+                <div class="row-label">Row 4</div>
+                <div class="pocket has-stock" title="2" Iscar - 2" Iscar - TP-01-04-01">
+                    <div class="pocket-code">04-01</div>
+                    <div class="pocket-item">2" Iscar</div>
+                    <div class="pocket-qty ">20</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="3" Iscar - 3" Iscar - TP-01-04-02">
+                    <div class="pocket-code">04-02</div>
+                    <div class="pocket-item">3" Iscar</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="3" Iscar - 3" Iscar - TP-01-04-03">
+                    <div class="pocket-code">04-03</div>
+                    <div class="pocket-item">3" Iscar</div>
+                    <div class="pocket-qty ">4</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="3" Iscar - 3" Iscar - TP-01-04-04">
+                    <div class="pocket-code">04-04</div>
+                    <div class="pocket-item">3" Iscar</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="5/8" Slot Insert - 5/8" MITS SLOT MILL VP15TF - TP-01-04-05">
+                    <div class="pocket-code">04-05</div>
+                    <div class="pocket-item">5/8" MITS SLOT MILL VP15TF</div>
+                    <div class="pocket-qty ">4</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="1" Slot Insert - 1" MITS SLOT MILL VP15TF - TP-01-04-06">
+                    <div class="pocket-code">04-06</div>
+                    <div class="pocket-item">1" MITS SLOT MILL VP15TF</div>
+                    <div class="pocket-qty ">3</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="1 1/4" Slot Insert - 1  1/4" MITS SLOT MILL  VP15TF - TP-01-04-07">
+                    <div class="pocket-code">04-07</div>
+                    <div class="pocket-item">1  1/4" MITS SLOT MILL  VP15TF</div>
+                    <div class="pocket-qty ">8</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="INGE-5856675 - INGERSOLL ISOPLUS INSERTS - TP-01-04-08">
+                    <div class="pocket-code">04-08</div>
+                    <div class="pocket-item">INGERSOLL ISOPLUS INSERTS</div>
+                    <div class="pocket-qty ">15</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="INGE-5856675 - INGERSOLL ISOPLUS INSERTS - TP-01-04-09">
+                    <div class="pocket-code">04-09</div>
+                    <div class="pocket-item">INGERSOLL ISOPLUS INSERTS</div>
+                    <div class="pocket-qty ">20</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="LNEX130608PNER-G - 2'' SUMI TSX CUTTER .030" RADIUS LNEX - TP-01-04-10">
+                    <div class="pocket-code">04-10</div>
+                    <div class="pocket-item">2'' SUMI TSX CUTTER .030" RADIUS LNEX</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="row-label">Row 5</div>
+                <div class="pocket low-stock" title="LNEX130616PNER-G - 2'' SUMI TSX CUTTER .060" RADIUS LNEX - TP-01-05-01">
+                    <div class="pocket-code">05-01</div>
+                    <div class="pocket-item">2'' SUMI TSX CUTTER .060" RADIUS LNEX</div>
+                    <div class="pocket-qty ">7</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="JDMW140520ZDSR-FT VP15TF - 3" MITS CUTTER INSERT VP15TF - TP-01-05-02">
+                    <div class="pocket-code">05-02</div>
+                    <div class="pocket-item">3" MITS CUTTER INSERT VP15TF</div>
+                    <div class="pocket-qty ">20</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="KYOC-TPC01725 - MFPN-45 Kyocera Shim Cutter - TP-01-05-03">
+                    <div class="pocket-code">05-03</div>
+                    <div class="pocket-item">MFPN-45 Kyocera Shim Cutter</div>
+                    <div class="pocket-qty ">19</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFB0375-SP XP3225 - 3/8" OSG BALLNOSE INSERT - TP-01-05-04">
+                    <div class="pocket-code">05-04</div>
+                    <div class="pocket-item">3/8" OSG BALLNOSE INSERT</div>
+                    <div class="pocket-qty ">2</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="PFR0375R060A-ST XP3225 - 3/8" OSG .060" RADIUS INSERT - TP-01-05-05">
+                    <div class="pocket-code">05-05</div>
+                    <div class="pocket-item">3/8" OSG .060" RADIUS INSERT</div>
+                    <div class="pocket-qty ">10</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFR0500R030-ST XP3225 - 1/2" OSG .030 Radius - TP-01-05-06">
+                    <div class="pocket-code">05-06</div>
+                    <div class="pocket-item">1/2" OSG .030 Radius</div>
+                    <div class="pocket-qty ">1</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFR0500R060-ST XP3225 - 1/2" OSG .060" RADIUS INSERT - TP-01-05-07">
+                    <div class="pocket-code">05-07</div>
+                    <div class="pocket-item">1/2" OSG .060" RADIUS INSERT</div>
+                    <div class="pocket-qty ">4</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFB0750-SP XP3225 - 3/4" OSG BALLNOSE INSERT - TP-01-05-08">
+                    <div class="pocket-code">05-08</div>
+                    <div class="pocket-item">3/4" OSG BALLNOSE INSERT</div>
+                    <div class="pocket-qty ">6</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFR0750R030A-ST XP3225 - 3/4" OSG .030 Radius - TP-01-05-09">
+                    <div class="pocket-code">05-09</div>
+                    <div class="pocket-item">3/4" OSG .030 Radius</div>
+                    <div class="pocket-qty ">7</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFR0750R060-ST XP3225 - 3/4 OSG .060" RADIUS INSERT - TP-01-05-10">
+                    <div class="pocket-code">05-10</div>
+                    <div class="pocket-item">3/4 OSG .060" RADIUS INSERT</div>
+                    <div class="pocket-qty ">8</div>
+                    
+                </div>
+                <div class="row-label">Row 6</div>
+                <div class="pocket has-stock" title="BDS-0375N-04-HSN - 3/8" MILLSTAR .062" RADIUS INSERT - TP-01-06-01">
+                    <div class="pocket-code">06-01</div>
+                    <div class="pocket-item">3/8" MILLSTAR .062" RADIUS INSERT</div>
+                    <div class="pocket-qty ">19</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="RB-0375-N-FS-HSN - 3/8" MILLSTAR BALLNOSE INSERT HSN - TP-01-06-02">
+                    <div class="pocket-code">06-02</div>
+                    <div class="pocket-item">3/8" MILLSTAR BALLNOSE INSERT HSN</div>
+                    <div class="pocket-qty ">9</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="BDS-0500N-.015-HSN - 1/2" MILLSTAR .015" RADIUS INSERT - TP-01-06-03">
+                    <div class="pocket-code">06-03</div>
+                    <div class="pocket-item">1/2" MILLSTAR .015" RADIUS INSERT</div>
+                    <div class="pocket-qty ">5</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="BDS-0500N-.015-HSN - 1/2" MILLSTAR .015" RADIUS INSERT - TP-01-06-04">
+                    <div class="pocket-code">06-04</div>
+                    <div class="pocket-item">1/2" MILLSTAR .015" RADIUS INSERT</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="BDS-0500N-04-HSN - 1/2" MILLSTAR .062" RADIUS INSERT - TP-01-06-05">
+                    <div class="pocket-code">06-05</div>
+                    <div class="pocket-item">1/2" MILLSTAR .062" RADIUS INSERT</div>
+                    <div class="pocket-qty ">3</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="RB-0500N-FS-HSN - 1/2" MILLSTAR BALLNOSE INSERT HSN - TP-01-06-06">
+                    <div class="pocket-code">06-06</div>
+                    <div class="pocket-item">1/2" MILLSTAR BALLNOSE INSERT HSN</div>
+                    <div class="pocket-qty ">7</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="BDS-0750N-.015-HSN - 3/4" MILLSTAR .015" RADIUS INSERT HSN - TP-01-06-07">
+                    <div class="pocket-code">06-07</div>
+                    <div class="pocket-item">3/4" MILLSTAR .015" RADIUS INSERT HSN</div>
+                    <div class="pocket-qty ">8</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="BDS-0750N-04-HSN - 3/4" MILLSTAR .062" RADIUS INSERT HSN - TP-01-06-08">
+                    <div class="pocket-code">06-08</div>
+                    <div class="pocket-item">3/4" MILLSTAR .062" RADIUS INSERT HSN</div>
+                    <div class="pocket-qty ">13</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="RB-0750N-FS-HSN - 3/4" MILLSTAR BALLNOSE INSERT HSN - TP-01-06-09">
+                    <div class="pocket-code">06-09</div>
+                    <div class="pocket-item">3/4" MILLSTAR BALLNOSE INSERT HSN</div>
+                    <div class="pocket-qty ">8</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="BDS-1000N-.015-HSN - 1" MILLSTAR .015" RADIUS INSERT - TP-01-06-10">
+                    <div class="pocket-code">06-10</div>
+                    <div class="pocket-item">1" MILLSTAR .015" RADIUS INSERT</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="row-label">Row 7</div>
+                <div class="pocket low-stock" title="BDS-1000N-04-HSN - 1" MILLSTAR .062" RADIUS INSERT HSN - TP-01-07-01">
+                    <div class="pocket-code">07-01</div>
+                    <div class="pocket-item">1" MILLSTAR .062" RADIUS INSERT HSN</div>
+                    <div class="pocket-qty ">9</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="FFQ4 SOMT1706RM-T IC808 - 6" ISCAR ROUGHING INSERTS - TP-01-07-02">
+                    <div class="pocket-code">07-02</div>
+                    <div class="pocket-item">6" ISCAR ROUGHING INSERTS</div>
+                    <div class="pocket-qty ">10</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="FFQ4 SOMT1706RM-T IC808 - 6" ISCAR ROUGHING INSERTS - TP-01-07-03">
+                    <div class="pocket-code">07-03</div>
+                    <div class="pocket-item">6" ISCAR ROUGHING INSERTS</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="T490 LNHT 1306 PNTR IC808 - 6" ISCAR FINISH CUTTER INSERTS - TP-01-07-04">
+                    <div class="pocket-code">07-04</div>
+                    <div class="pocket-item">6" ISCAR FINISH CUTTER INSERTS</div>
+                    <div class="pocket-qty ">13</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="T490 LNHT 1306 PNTR IC808 - 6" ISCAR FINISH CUTTER INSERTS - TP-01-07-05">
+                    <div class="pocket-code">07-05</div>
+                    <div class="pocket-item">6" ISCAR FINISH CUTTER INSERTS</div>
+                    <div class="pocket-qty ">2</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFB0500-SP XP3225 - 1/2 OSG BALLNOSE INSERT - TP-01-07-06">
+                    <div class="pocket-code">07-06</div>
+                    <div class="pocket-item">1/2 OSG BALLNOSE INSERT</div>
+                    <div class="pocket-qty ">6</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="PFR0500R015A-ST XP3225 - 1/2 OSG .015" RADIUS INSERT - TP-01-07-07">
+                    <div class="pocket-code">07-07</div>
+                    <div class="pocket-item">1/2 OSG .015" RADIUS INSERT</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFR0375R015A-ST XP3225 - 3/8 OSG .015 RADIUS INSERT - TP-01-07-08">
+                    <div class="pocket-code">07-08</div>
+                    <div class="pocket-item">3/8 OSG .015 RADIUS INSERT</div>
+                    <div class="pocket-qty ">6</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="PFR0750R015A-ST XP3225 - 3/4" OSG .015" RADIUS INSERT - TP-01-07-09">
+                    <div class="pocket-code">07-09</div>
+                    <div class="pocket-item">3/4" OSG .015" RADIUS INSERT</div>
+                    <div class="pocket-qty ">1</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="CCMT09T302 - Allied Small Boring Bar insert - TP-01-07-10">
+                    <div class="pocket-code">07-10</div>
+                    <div class="pocket-item">Allied Small Boring Bar insert</div>
+                    <div class="pocket-qty ">17</div>
+                    <div class="pocket-min">Min: 10</div>
+                </div>
+                <div class="row-label">Row 8</div>
+                <div class="pocket below-minimum" title="F10404MN158WH - Allied Big Boring Bar Insert - TP-01-08-01">
+                    <div class="pocket-code">08-01</div>
+                    <div class="pocket-item">Allied Big Boring Bar Insert</div>
+                    <div class="pocket-qty ">4</div>
+                    <div class="pocket-min">Min: 10</div>
+                </div>
+                <div class="pocket no-stock" title="ALLI-TAX1-18.65T-A PRO INSERT - 0.734 ALLIED DRILL TIP - TP-01-08-02">
+                    <div class="pocket-code">08-02</div>
+                    <div class="pocket-item">0.734 ALLIED DRILL TIP</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket low-stock" title="BDS-0750-N02-HSN - 3/4" MILLSTAR .030 RADIUS INSERT - TP-01-08-03">
+                    <div class="pocket-code">08-03</div>
+                    <div class="pocket-item">3/4" MILLSTAR .030 RADIUS INSERT</div>
+                    <div class="pocket-qty ">5</div>
+                    
+                </div>
+                <div class="pocket has-stock" title="INGE-6314082 - 3/8 High Feed Insert - TP-01-08-04">
+                    <div class="pocket-code">08-04</div>
+                    <div class="pocket-item">3/8 High Feed Insert</div>
+                    <div class="pocket-qty ">12</div>
+                    
+                </div>
+                <div class="pocket below-minimum" title="INGE-5110213 - INGERSOLL ENGRAVING TOOL - TP-01-08-05">
+                    <div class="pocket-code">08-05</div>
+                    <div class="pocket-item">INGERSOLL ENGRAVING TOOL</div>
+                    <div class="pocket-qty ">9</div>
+                    <div class="pocket-min">Min: 10</div>
+                </div>
+                <div class="pocket low-stock" title="PFR1000R015A-ST XP3225 - 1" OSG .015" RADIUS INSERT - TP-01-08-06">
+                    <div class="pocket-code">08-06</div>
+                    <div class="pocket-item">1" OSG .015" RADIUS INSERT</div>
+                    <div class="pocket-qty ">1</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="PFR1000R060A-ST XP3225 - 1" OSG .060" RADIUS INSERT - TP-01-08-07">
+                    <div class="pocket-code">08-07</div>
+                    <div class="pocket-item">1" OSG .060" RADIUS INSERT</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="XCMT145612ER-DM XP9020 - 2.086 OSG PHX Drill Inserts - TP-01-08-08">
+                    <div class="pocket-code">08-08</div>
+                    <div class="pocket-item">2.086 OSG PHX Drill Inserts</div>
+                    <div class="pocket-qty zero">0</div>
+                    
+                </div>
+                <div class="pocket no-stock" title="Empty - No item assigned - 08-09">
+                    <div class="pocket-code">08-09</div>
+                    <div class="pocket-item">(Empty)</div>
+                    <div class="pocket-qty zero">0</div>
+                </div>
+                <div class="pocket no-stock" title="Empty - No item assigned - 08-10">
+                    <div class="pocket-code">08-10</div>
+                    <div class="pocket-item">(Empty)</div>
+                    <div class="pocket-qty zero">0</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="below-minimum-section">
+            <h2>Items Below Minimum Stock (3 items, Total Shortage: 13 units)</h2>
+            <table class="below-minimum-table">
+                <thead>
+                    <tr>
+                        <th>Item Code</th>
+                        <th>Description</th>
+                        <th class="qty">Current Stock</th>
+                        <th class="qty">Minimum</th>
+                        <th class="qty">Shortage</th>
+                        <th class="usage">Avg Monthly Usage</th>
+                        <th class="usage">Total Usage (12mo)</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td class="item-code">WDMT0804ZDTR-ACP200</td>
+                        <td class="item-desc">1" SUMI FEEDMILL INSERT</td>
+                        <td class="qty">4</td>
+                        <td class="qty">10</td>
+                        <td class="qty shortage">6</td>
+                        <td class="usage">6/mo</td>
+                        <td class="usage">40</td>
+                        <td>TP / TP-01-03-07</td>
+                    </tr>
+                    <tr>
+                        <td class="item-code">F10404MN158WH</td>
+                        <td class="item-desc">Allied Big Boring Bar Insert</td>
+                        <td class="qty">4</td>
+                        <td class="qty">10</td>
+                        <td class="qty shortage">6</td>
+                        <td class="usage">3/mo</td>
+                        <td class="usage">16</td>
+                        <td>TP / TP-01-08-01</td>
+                    </tr>
+                    <tr>
+                        <td class="item-code">INGE-5110213</td>
+                        <td class="item-desc">INGERSOLL ENGRAVING TOOL</td>
+                        <td class="qty">9</td>
+                        <td class="qty">10</td>
+                        <td class="qty shortage">1</td>
+                        <td class="usage">5/mo</td>
+                        <td class="usage">52</td>
+                        <td>TP / TP-01-08-05</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            Grid shows stock locations in format Row-Pocket (e.g., 08-08 = Row 8, Pocket 8). Items below minimum are highlighted in red. Generated on 2026-02-16 14:26:23
+        </div>
+    </div>
+</body>
+</html>

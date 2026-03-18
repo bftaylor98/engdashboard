@@ -1,0 +1,906 @@
+2025-07-29 12:47:32,382 - INFO - Starting NCR fetch...
+2025-07-29 12:47:32,382 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 12:47:37,869 - INFO - Fetched 298 NCRs in 3 pages
+2025-07-29 12:47:37,869 - INFO - Filtered 21 NCRs from 298 total (skipped 277)
+2025-07-29 12:47:37,881 - INFO - Printed 21 NCRs to console
+2025-07-29 12:47:44,044 - INFO - Starting NCR fetch...
+2025-07-29 12:47:44,044 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 12:47:49,602 - INFO - Fetched 298 NCRs in 3 pages
+2025-07-29 12:47:49,606 - INFO - Filtered 21 NCRs from 298 total (skipped 277)
+2025-07-29 12:47:49,621 - INFO - Exported 21 NCRs to test_ncrs.csv
+2025-07-29 12:49:16,933 - INFO - Starting NCR fetch...
+2025-07-29 12:49:16,933 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 12:49:22,977 - INFO - Fetched 298 NCRs in 3 pages
+2025-07-29 12:49:22,978 - INFO - Filtered 21 NCRs from 298 total (skipped 277)
+2025-07-29 12:49:22,991 - INFO - Printed 21 NCRs to console
+2025-07-29 12:49:23,521 - INFO - Starting NCR fetch...
+2025-07-29 12:49:23,523 - INFO - Using custom time window: 2025-01-20 12:00:00+00:00 to 2025-01-27 12:00:00+00:00 (UTC)
+2025-07-29 12:49:29,130 - INFO - Fetched 298 NCRs in 3 pages
+2025-07-29 12:49:29,130 - INFO - Filtered 1 NCRs from 298 total (skipped 297)
+2025-07-29 12:49:29,134 - INFO - Printed 1 NCRs to console
+2025-07-29 12:49:29,605 - INFO - Starting NCR fetch...
+2025-07-29 12:49:29,605 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 12:49:35,460 - INFO - Fetched 298 NCRs in 3 pages
+2025-07-29 12:49:35,461 - INFO - Filtered 21 NCRs from 298 total (skipped 277)
+2025-07-29 12:49:35,469 - INFO - Exported 21 NCRs to my_ncrs.csv
+2025-07-29 14:10:39,106 - INFO - Starting NCR fetch...
+2025-07-29 14:10:39,106 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:10:42,164 - ERROR - Full API response (no 'data' key): {'errors': [{'message': 'Unexpected field operations in selection list for workOrder', 'type': 'INVALID_SELECTION'}]}
+2025-07-29 14:10:42,164 - INFO - Fetched 0 NCRs in 0 pages
+2025-07-29 14:10:42,165 - INFO - Filtered 0 NCRs from 0 total (skipped 0)
+2025-07-29 14:10:42,165 - INFO - No NCRs found in the specified time window.
+2025-07-29 14:10:42,165 - INFO - Printed 0 NCRs to console
+2025-07-29 14:11:25,389 - INFO - Starting NCR fetch...
+2025-07-29 14:11:25,389 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:11:28,248 - ERROR - Full API response (no 'data' key): {'errors': [{'message': 'Unexpected field operationNumber in selection list for ops', 'type': 'INVALID_SELECTION'}]}
+2025-07-29 14:11:28,248 - INFO - Fetched 0 NCRs in 0 pages
+2025-07-29 14:11:28,249 - INFO - Filtered 0 NCRs from 0 total (skipped 0)
+2025-07-29 14:11:28,249 - INFO - No NCRs found in the specified time window.
+2025-07-29 14:11:28,249 - INFO - Printed 0 NCRs to console
+2025-07-29 14:14:12,028 - INFO - Starting NCR fetch...
+2025-07-29 14:14:12,029 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:14:15,102 - ERROR - Full API response (no 'data' key): {'errors': [{'message': 'Unexpected field operationNumber in selection list for ops', 'type': 'INVALID_SELECTION'}]}
+2025-07-29 14:14:15,102 - INFO - Fetched 0 NCRs in 0 pages
+2025-07-29 14:14:15,102 - INFO - Filtered 0 NCRs from 0 total (skipped 0)
+2025-07-29 14:14:15,102 - INFO - No NCRs found in the specified time window.
+2025-07-29 14:14:15,102 - INFO - Printed 0 NCRs to console
+2025-07-29 14:15:02,101 - INFO - Starting NCR fetch...
+2025-07-29 14:15:02,102 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:15:05,084 - ERROR - Full API response (no 'data' key): {'errors': [{'message': 'Unexpected field operationNumber in selection list for ops', 'type': 'INVALID_SELECTION'}]}
+2025-07-29 14:15:05,085 - INFO - Fetched 0 NCRs in 0 pages
+2025-07-29 14:15:05,085 - INFO - Filtered 0 NCRs from 0 total (skipped 0)
+2025-07-29 14:15:05,085 - INFO - No NCRs found in the specified time window.
+2025-07-29 14:15:05,085 - INFO - Printed 0 NCRs to console
+2025-07-29 14:16:08,535 - INFO - Starting NCR fetch...
+2025-07-29 14:16:08,535 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:16:14,341 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 14:16:14,342 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 14:16:14,357 - INFO - Printed 21 NCRs to console
+2025-07-29 14:16:36,566 - INFO - Starting NCR fetch...
+2025-07-29 14:16:36,566 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:16:42,786 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 14:16:42,787 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 14:16:42,803 - INFO - Printed 21 NCRs to console
+2025-07-29 14:26:09,020 - INFO - Starting NCR fetch...
+2025-07-29 14:26:09,020 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:26:15,054 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 14:26:15,055 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 14:26:32,460 - INFO - Starting NCR fetch...
+2025-07-29 14:26:32,460 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:26:38,282 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 14:26:38,282 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 14:26:38,847 - WARNING - No data returned for work order 25-0748
+2025-07-29 14:26:39,385 - WARNING - No data returned for work order 25-0871
+2025-07-29 14:26:39,951 - WARNING - No data returned for work order 25-0905
+2025-07-29 14:26:40,495 - WARNING - No data returned for work order 25-0906
+2025-07-29 14:26:40,993 - WARNING - No data returned for work order 25-0960
+2025-07-29 14:26:41,518 - WARNING - No data returned for work order 25-0966
+2025-07-29 14:26:42,138 - WARNING - No data returned for work order 25-0966
+2025-07-29 14:26:42,638 - WARNING - No data returned for work order 25-0972
+2025-07-29 14:26:43,161 - WARNING - No data returned for work order 25-0972
+2025-07-29 14:26:43,745 - WARNING - No data returned for work order 25-0748
+2025-07-29 14:26:44,235 - WARNING - No data returned for work order 25-0871
+2025-07-29 14:26:44,805 - WARNING - No data returned for work order 25-0905
+2025-07-29 14:26:45,393 - WARNING - No data returned for work order 25-0906
+2025-07-29 14:26:45,953 - WARNING - No data returned for work order 25-0960
+2025-07-29 14:26:46,532 - WARNING - No data returned for work order 25-0966
+2025-07-29 14:26:47,059 - WARNING - No data returned for work order 25-0966
+2025-07-29 14:26:47,624 - WARNING - No data returned for work order 25-0972
+2025-07-29 14:26:48,199 - WARNING - No data returned for work order 25-0972
+2025-07-29 14:26:48,200 - INFO - Printed 21 NCRs to console
+2025-07-29 14:46:49,307 - INFO - Starting NCR fetch...
+2025-07-29 14:46:49,307 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:46:54,873 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 14:46:54,873 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 14:46:54,887 - INFO - Printed 21 NCRs to console
+2025-07-29 14:55:06,354 - INFO - Starting NCR fetch...
+2025-07-29 14:55:06,354 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 14:55:12,208 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 14:55:12,209 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 14:55:12,224 - INFO - Printed 21 NCRs to console
+2025-07-29 15:00:35,704 - INFO - Starting NCR fetch...
+2025-07-29 15:00:35,704 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:00:41,413 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 15:00:41,413 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 15:00:51,883 - INFO - Printed 21 NCRs to console
+2025-07-29 15:01:49,668 - INFO - Starting NCR fetch...
+2025-07-29 15:01:49,668 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:01:55,514 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 15:01:55,515 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 15:02:05,931 - INFO - Printed 21 NCRs to console
+2025-07-29 15:05:49,216 - INFO - Starting NCR fetch...
+2025-07-29 15:05:49,216 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:05:55,213 - INFO - Fetched 299 NCRs in 3 pages
+2025-07-29 15:05:55,214 - INFO - Filtered 21 NCRs from 299 total (skipped 278)
+2025-07-29 15:06:04,953 - INFO - Printed 21 NCRs to console
+2025-07-29 15:14:59,236 - INFO - Starting NCR fetch...
+2025-07-29 15:14:59,236 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:15:05,816 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 15:15:05,816 - INFO - Filtered 21 NCRs from 300 total (skipped 279)
+2025-07-29 15:15:15,588 - INFO - Printed 21 NCRs to console
+2025-07-29 15:48:13,369 - INFO - Starting NCR fetch...
+2025-07-29 15:48:13,370 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:48:13,371 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:15,875 - DEBUG - https://est.adionsystems.com:443 "POST /api/beginsession HTTP/1.1" 200 504
+2025-07-29 15:48:15,876 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:17,172 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 46581
+2025-07-29 15:48:17,393 - DEBUG - Fetched page 1 with 100 records
+2025-07-29 15:48:17,395 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:18,627 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49124
+2025-07-29 15:48:18,821 - DEBUG - Fetched page 2 with 100 records
+2025-07-29 15:48:18,822 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:20,062 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 56055
+2025-07-29 15:48:20,162 - DEBUG - Fetched page 3 with 100 records
+2025-07-29 15:48:20,163 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:20,720 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49
+2025-07-29 15:48:20,721 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 15:48:20,721 - INFO - Filtered 21 NCRs from 300 total (skipped 279)
+2025-07-29 15:48:20,722 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:21,279 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 15:48:21,280 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:21,819 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 15:48:21,820 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:22,433 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 15:48:22,434 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:22,958 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 15:48:22,959 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:23,494 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:48:23,495 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:24,051 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:48:24,052 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:24,680 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:48:24,681 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:25,319 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:48:25,335 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:25,870 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 15:48:25,874 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:26,477 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 15:48:26,481 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:27,066 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 15:48:27,067 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:27,650 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 15:48:27,655 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:28,236 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:48:28,238 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:28,819 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:48:28,821 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:29,429 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:48:29,431 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:48:30,027 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:48:30,029 - INFO - Printed 21 NCRs to console
+2025-07-29 15:48:34,633 - INFO - Starting NCR fetch...
+2025-07-29 15:48:34,634 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:48:41,414 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 15:48:41,414 - INFO - Filtered 21 NCRs from 300 total (skipped 279)
+2025-07-29 15:48:50,997 - INFO - Exported 21 NCRs to test_new_fields.csv
+2025-07-29 15:51:33,141 - INFO - Starting NCR fetch...
+2025-07-29 15:51:33,141 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:51:39,995 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 15:51:39,995 - INFO - Filtered 21 NCRs from 300 total (skipped 279)
+2025-07-29 15:51:49,648 - INFO - Printed 21 NCRs to console
+2025-07-29 15:57:33,385 - INFO - Starting NCR fetch...
+2025-07-29 15:57:33,385 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:57:33,387 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:35,673 - DEBUG - https://est.adionsystems.com:443 "POST /api/beginsession HTTP/1.1" 200 504
+2025-07-29 15:57:35,674 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:36,776 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 46581
+2025-07-29 15:57:36,973 - DEBUG - Fetched page 1 with 100 records
+2025-07-29 15:57:36,974 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:38,031 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49124
+2025-07-29 15:57:38,238 - DEBUG - Fetched page 2 with 100 records
+2025-07-29 15:57:38,239 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:39,373 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 56055
+2025-07-29 15:57:39,471 - DEBUG - Fetched page 3 with 100 records
+2025-07-29 15:57:39,472 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:40,145 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49
+2025-07-29 15:57:40,145 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 15:57:40,146 - INFO - Filtered 21 NCRs from 300 total (skipped 279)
+2025-07-29 15:57:40,146 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:40,751 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 15:57:40,753 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:41,349 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 15:57:41,350 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:41,997 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 15:57:41,998 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:42,570 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 15:57:42,572 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:43,142 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:57:43,143 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:43,778 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:57:43,779 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:44,381 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:57:44,382 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:45,003 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:57:45,011 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:45,576 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 15:57:45,580 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:46,204 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 15:57:46,209 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:46,811 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 15:57:46,813 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:47,363 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 15:57:47,368 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:47,945 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:57:47,947 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:48,516 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 15:57:48,518 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:49,276 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:57:49,279 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 15:57:49,840 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 15:57:49,841 - INFO - Printed 21 NCRs to console
+2025-07-29 15:57:54,404 - INFO - Starting NCR fetch...
+2025-07-29 15:57:54,404 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 15:58:01,467 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 15:58:01,467 - INFO - Filtered 21 NCRs from 300 total (skipped 279)
+2025-07-29 15:58:11,011 - INFO - Exported 21 NCRs to test_new_fields.csv
+2025-07-29 16:03:02,690 - INFO - Starting NCR fetch...
+2025-07-29 16:03:02,691 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00+00:00 to 2025-07-28 12:00:00+00:00 (UTC)
+2025-07-29 16:03:10,469 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:03:10,470 - INFO - Filtered 21 NCRs from 300 total (skipped 279)
+2025-07-29 16:03:20,414 - INFO - Printed 21 NCRs to console
+2025-07-29 16:06:32,722 - INFO - Starting NCR fetch...
+2025-07-29 16:06:32,722 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:06:32,724 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:35,005 - DEBUG - https://est.adionsystems.com:443 "POST /api/beginsession HTTP/1.1" 200 504
+2025-07-29 16:06:35,006 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:36,166 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 46581
+2025-07-29 16:06:36,264 - DEBUG - Fetched page 1 with 100 records
+2025-07-29 16:06:36,265 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:37,502 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49124
+2025-07-29 16:06:37,603 - DEBUG - Fetched page 2 with 100 records
+2025-07-29 16:06:37,604 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:38,785 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 56055
+2025-07-29 16:06:38,886 - DEBUG - Fetched page 3 with 100 records
+2025-07-29 16:06:38,887 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:39,515 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49
+2025-07-29 16:06:39,516 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:06:39,517 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:06:39,518 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:40,130 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 16:06:40,131 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:40,726 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 16:06:40,728 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:41,351 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 16:06:41,352 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:41,908 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 16:06:41,910 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:42,514 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:06:42,515 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:43,141 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:06:43,142 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:43,830 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:06:43,832 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:44,395 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:06:44,404 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:44,966 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 16:06:44,970 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:45,576 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 16:06:45,581 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:46,128 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 16:06:46,130 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:46,688 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 16:06:46,699 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:47,333 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:06:47,335 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:47,954 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:06:47,956 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:48,482 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:06:48,484 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:06:49,054 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:06:49,056 - INFO - Printed 20 NCRs to console
+2025-07-29 16:06:53,594 - INFO - Starting NCR fetch...
+2025-07-29 16:06:53,594 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:07:00,710 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:07:00,711 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:07:10,784 - INFO - Exported 20 NCRs to test_eastern_time.csv
+2025-07-29 16:07:54,653 - INFO - Starting NCR fetch...
+2025-07-29 16:07:54,653 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:08:01,930 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:08:01,931 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:08:11,318 - INFO - Printed 20 NCRs to console
+2025-07-29 16:12:58,027 - INFO - Starting NCR fetch...
+2025-07-29 16:12:58,027 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:12:58,028 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:00,366 - DEBUG - https://est.adionsystems.com:443 "POST /api/beginsession HTTP/1.1" 200 504
+2025-07-29 16:13:00,367 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:01,697 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 46581
+2025-07-29 16:13:01,837 - DEBUG - Fetched page 1 with 100 records
+2025-07-29 16:13:01,838 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:03,075 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49124
+2025-07-29 16:13:03,194 - DEBUG - Fetched page 2 with 100 records
+2025-07-29 16:13:03,195 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:04,372 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 56055
+2025-07-29 16:13:04,470 - DEBUG - Fetched page 3 with 100 records
+2025-07-29 16:13:04,470 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:05,120 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49
+2025-07-29 16:13:05,120 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:13:05,121 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:13:05,122 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:05,703 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 16:13:05,704 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:06,323 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 16:13:06,324 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:06,909 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 16:13:06,910 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:07,512 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 16:13:07,513 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:08,074 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:13:08,075 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:08,612 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:13:08,613 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:09,192 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:13:09,193 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:09,792 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:13:09,799 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:10,313 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:10,315 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:10,867 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:10,869 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:11,491 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 16:13:11,493 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:11,995 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:11,997 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:12,671 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:12,673 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:13,215 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:13,216 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:13,792 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 16:13:13,795 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:14,347 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 84
+2025-07-29 16:13:14,349 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:14,891 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:14,893 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:15,407 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:15,410 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:15,948 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 84
+2025-07-29 16:13:15,949 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:16,547 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 16:13:16,548 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:17,111 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:17,113 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:17,714 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 16:13:17,716 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:18,344 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:18,346 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:18,963 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:18,966 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:19,827 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:19,830 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:20,375 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:20,377 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:20,969 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:20,971 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:21,703 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:13:21,705 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:22,215 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:22,217 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:22,801 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:13:22,803 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:23,330 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:23,332 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:23,875 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:13:23,876 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:24,414 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 85
+2025-07-29 16:13:24,416 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:24,967 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:13:24,968 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:25,520 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 85
+2025-07-29 16:13:25,522 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:13:26,060 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:13:26,061 - INFO - Printed 20 NCRs to console
+2025-07-29 16:13:30,496 - INFO - Starting NCR fetch...
+2025-07-29 16:13:30,496 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:13:37,415 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:13:37,416 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:13:58,506 - INFO - Exported 20 NCRs to test_user_names.csv
+2025-07-29 16:18:33,897 - INFO - Starting NCR fetch...
+2025-07-29 16:18:33,898 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:18:33,900 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:36,326 - DEBUG - https://est.adionsystems.com:443 "POST /api/beginsession HTTP/1.1" 200 504
+2025-07-29 16:18:36,327 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:37,440 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49492
+2025-07-29 16:18:37,657 - DEBUG - Fetched page 1 with 100 records
+2025-07-29 16:18:37,658 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:39,016 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 52095
+2025-07-29 16:18:39,132 - DEBUG - Fetched page 2 with 100 records
+2025-07-29 16:18:39,133 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:40,341 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 58855
+2025-07-29 16:18:40,444 - DEBUG - Fetched page 3 with 100 records
+2025-07-29 16:18:40,445 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:41,107 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 49
+2025-07-29 16:18:41,108 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:18:41,108 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:18:41,109 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:41,726 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 16:18:41,727 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:42,304 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 16:18:42,305 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:42,954 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 16:18:42,955 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:43,538 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 16:18:43,539 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:44,171 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:18:44,172 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:44,802 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:18:44,803 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:45,454 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:18:45,455 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:46,085 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:18:46,093 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:46,589 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:46,591 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:47,118 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:47,121 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:47,693 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:47,694 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:48,337 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:48,339 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:48,959 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 548
+2025-07-29 16:18:48,960 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:49,511 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:49,512 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:50,068 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:50,070 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:50,619 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:50,620 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:51,125 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:51,127 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:51,793 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:51,795 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:52,339 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:52,341 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:52,921 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 665
+2025-07-29 16:18:52,922 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:53,487 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 84
+2025-07-29 16:18:53,488 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:53,990 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:53,992 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:54,499 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:54,501 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:55,072 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:55,077 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:55,575 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:55,576 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:56,133 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:56,135 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:56,717 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 84
+2025-07-29 16:18:56,718 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:57,524 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:57,527 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:58,075 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 949
+2025-07-29 16:18:58,076 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:58,622 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:58,624 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:59,153 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:18:59,155 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:18:59,760 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 913
+2025-07-29 16:18:59,762 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:00,284 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:00,286 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:00,793 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:00,796 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:01,387 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:01,388 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:01,948 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:01,950 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:02,456 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:02,459 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:02,986 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:02,988 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:03,521 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:03,522 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:04,040 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:04,042 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:04,594 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:04,596 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:05,150 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:05,151 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:05,714 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:19:05,715 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:06,319 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:06,322 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:06,875 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:06,876 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:07,495 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 1012
+2025-07-29 16:19:07,497 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:08,072 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:08,073 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:08,651 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:08,653 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:09,260 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:19:09,263 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:09,808 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 85
+2025-07-29 16:19:09,809 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:10,300 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:10,302 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:10,914 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 783
+2025-07-29 16:19:10,915 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:11,443 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 85
+2025-07-29 16:19:11,444 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:11,964 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:11,966 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:12,480 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:12,481 - DEBUG - Starting new HTTPS connection (1): est.adionsystems.com:443
+2025-07-29 16:19:13,385 - DEBUG - https://est.adionsystems.com:443 "POST /api/graphql HTTP/1.1" 200 86
+2025-07-29 16:19:13,387 - INFO - Printed 20 NCRs to console
+2025-07-29 16:19:23,291 - INFO - Starting NCR fetch...
+2025-07-29 16:19:23,292 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:19:31,019 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:19:31,020 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:20:02,940 - INFO - Exported 20 NCRs to test_assigned_to.csv
+2025-07-29 16:26:13,228 - INFO - Starting NCR fetch...
+2025-07-29 16:26:13,228 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-29 16:26:20,689 - INFO - Fetched 300 NCRs in 3 pages
+2025-07-29 16:26:20,689 - INFO - Filtered 20 NCRs from 300 total (skipped 280)
+2025-07-29 16:26:51,739 - INFO - Printed 20 NCRs to console
+2025-07-30 13:37:09,654 - INFO - Starting NCR fetch...
+2025-07-30 13:37:09,654 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-30 13:37:17,816 - INFO - Fetched 307 NCRs in 4 pages
+2025-07-30 13:37:17,816 - INFO - Filtered 20 NCRs from 307 total (skipped 287)
+2025-07-30 13:37:42,467 - INFO - Starting NCR fetch...
+2025-07-30 13:37:42,468 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-30 13:37:48,550 - INFO - Printed 20 NCRs to console
+2025-07-30 13:37:50,159 - INFO - Fetched 307 NCRs in 4 pages
+2025-07-30 13:37:50,160 - INFO - Filtered 20 NCRs from 307 total (skipped 287)
+2025-07-30 13:38:21,349 - INFO - Printed 20 NCRs to console
+2025-07-30 13:43:51,108 - INFO - Starting NCR fetch...
+2025-07-30 13:43:51,110 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 13:43:58,353 - INFO - Fetched 307 NCRs in 4 pages
+2025-07-30 13:43:58,353 - INFO - Filtered 4 NCRs from 307 total (skipped 303)
+2025-07-30 13:44:07,473 - INFO - Printed 4 NCRs to console
+2025-07-30 13:44:18,004 - INFO - Starting NCR fetch...
+2025-07-30 13:44:18,006 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 13:44:25,257 - INFO - Fetched 307 NCRs in 4 pages
+2025-07-30 13:44:25,257 - INFO - Filtered 4 NCRs from 307 total (skipped 303)
+2025-07-30 13:44:34,312 - INFO - Printed 4 NCRs to console
+2025-07-30 13:54:07,250 - INFO - Starting NCR fetch...
+2025-07-30 13:54:07,252 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 13:54:14,693 - INFO - Fetched 307 NCRs in 4 pages
+2025-07-30 13:54:14,694 - INFO - Filtered 4 NCRs from 307 total (skipped 303)
+2025-07-30 13:54:23,592 - INFO - Printed 4 NCRs to console
+2025-07-30 13:56:57,574 - INFO - Starting NCR fetch...
+2025-07-30 13:56:57,574 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-30 13:57:04,844 - INFO - Fetched 307 NCRs in 4 pages
+2025-07-30 13:57:04,844 - INFO - Filtered 20 NCRs from 307 total (skipped 287)
+2025-07-30 13:57:35,875 - INFO - Printed 20 NCRs to console
+2025-07-30 14:07:02,632 - INFO - Starting NCR fetch...
+2025-07-30 14:07:02,634 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 14:07:09,747 - INFO - Fetched 308 NCRs in 4 pages
+2025-07-30 14:07:09,747 - INFO - Filtered 4 NCRs from 308 total (skipped 304)
+2025-07-30 14:07:16,566 - INFO - Printed 4 NCRs to console
+2025-07-30 14:07:30,981 - INFO - Starting NCR fetch...
+2025-07-30 14:07:30,982 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-07-30 14:07:38,135 - INFO - Fetched 308 NCRs in 4 pages
+2025-07-30 14:07:38,135 - INFO - Filtered 20 NCRs from 308 total (skipped 288)
+2025-07-30 14:07:46,248 - INFO - Starting NCR fetch...
+2025-07-30 14:07:46,250 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 14:07:53,464 - INFO - Fetched 308 NCRs in 4 pages
+2025-07-30 14:07:53,464 - INFO - Filtered 4 NCRs from 308 total (skipped 304)
+2025-07-30 14:07:57,951 - INFO - Printed 20 NCRs to console
+2025-07-30 14:08:00,264 - INFO - Exported 4 NCRs to test_output.csv
+2025-07-30 14:09:36,179 - INFO - Starting NCR fetch...
+2025-07-30 14:09:36,182 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 14:09:44,106 - INFO - Fetched 309 NCRs in 4 pages
+2025-07-30 14:09:44,107 - INFO - Filtered 4 NCRs from 309 total (skipped 305)
+2025-07-30 14:09:54,750 - ERROR - Failed to send to Power Automate. Status: 200, Response: {
+  "args": {}, 
+  "data": "{\"ncr_records\": [{\"ncrRefNumber\": \"25-0905.46.01\", \"workOrderNumber\": \"25-0905\", \"partDescription\": \"D-14850-S5 DET 2L FCA-SO Bottom Blocker Die\", \"lastModifiedBy\": \"Justin Barnes\", \"operationNumber\": \"46\", \"resource\": \"PART CHECK\", \"causeCode\": \"N/A\", \"dispositionNotes\": \"N/A\", \"perPartValue\": \"N/A\", \"improvementSuggestion\": \"\", \"status\": \"Outstanding\", \"notes\": \"program Dim says .787 and the blue print dim says .874. I measured dim, and it came out to blue print size .874\", \"timestamp\": \"2025-07-25 08:31 PM\"}, {\"ncrRefNumber\": \"25-0906.46.01\", \"workOrderNumber\": \"25-0906\", \"partDescription\": \"D-14850-S1 DET 3U FCA-SO Top Finisher Die\", \"lastModifiedBy\": \"Justin Barnes\", \"operationNumber\": \"46\", \"resource\": \"PART CHECK\", \"causeCode\": \"N/A\", \"dispositionNotes\": \"N/A\", \"perPartValue\": \"N/A\", \"improvementSuggestion\": \"will not effect function of part.\", \"status\": \"Complete\", \"notes\": \"Not sure why measuring low all the rest of the dimensions are within .003, But dim #12 is measuring .015 under nom.\", \"timestamp\": \"2025-07-25 02:46 AM\"}, {\"ncrRefNumber\": \"25-0972.46.01\", \"workOrderNumber\": \"25-0972\", \"partDescription\": \"4168 Trim Blade\", \"lastModifiedBy\": \"Justin Young\", \"operationNumber\": \"46\", \"resource\": \"INSPECT\", \"causeCode\": \"N/A\", \"dispositionNotes\": \"N/A\", \"perPartValue\": \"N/A\", \"improvementSuggestion\": \"\", \"status\": \"Outstanding\", \"notes\": \".003\", \"timestamp\": \"2025-07-25 11:27 PM\"}, {\"ncrRefNumber\": \"25-0972.46.02\", \"workOrderNumber\": \"25-0972\", \"partDescription\": \"4168 Trim Blade\", \"lastModifiedBy\": \"Justin Young\", \"operationNumber\": \"46\", \"resource\": \"INSPECT\", \"causeCode\": \"N/A\", \"dispositionNotes\": \"N/A\", \"perPartValue\": \"N/A\", \"improvementSuggestion\": \"\", \"status\": \"Outstanding\", \"notes\": \".0042\", \"timestamp\": \"2025-07-25 11:36 PM\"}], \"summary\": {\"total_ncrs\": 4, \"time_window_start\": \"2025-07-25 00:00\", \"time_window_end\": \"2025-07-26 00:00\", \"timezone\": \"Eastern Time\"}}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "1914", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.32.4", 
+    "X-Amzn-Trace-Id": "Root=1-688a5fef-0f4389071ef2088d2d8a2a7b"
+  }, 
+  "json": {
+    "ncr_records": [
+      {
+        "causeCode": "N/A", 
+        "dispositionNotes": "N/A", 
+        "improvementSuggestion": "", 
+        "lastModifiedBy": "Justin Barnes", 
+        "ncrRefNumber": "25-0905.46.01", 
+        "notes": "program Dim says .787 and the blue print dim says .874. I measured dim, and it came out to blue print size .874", 
+        "operationNumber": "46", 
+        "partDescription": "D-14850-S5 DET 2L FCA-SO Bottom Blocker Die", 
+        "perPartValue": "N/A", 
+        "resource": "PART CHECK", 
+        "status": "Outstanding", 
+        "timestamp": "2025-07-25 08:31 PM", 
+        "workOrderNumber": "25-0905"
+      }, 
+      {
+        "causeCode": "N/A", 
+        "dispositionNotes": "N/A", 
+        "improvementSuggestion": "will not effect function of part.", 
+        "lastModifiedBy": "Justin Barnes", 
+        "ncrRefNumber": "25-0906.46.01", 
+        "notes": "Not sure why measuring low all the rest of the dimensions are within .003, But dim #12 is measuring .015 under nom.", 
+        "operationNumber": "46", 
+        "partDescription": "D-14850-S1 DET 3U FCA-SO Top Finisher Die", 
+        "perPartValue": "N/A", 
+        "resource": "PART CHECK", 
+        "status": "Complete", 
+        "timestamp": "2025-07-25 02:46 AM", 
+        "workOrderNumber": "25-0906"
+      }, 
+      {
+        "causeCode": "N/A", 
+        "dispositionNotes": "N/A", 
+        "improvementSuggestion": "", 
+        "lastModifiedBy": "Justin Young", 
+        "ncrRefNumber": "25-0972.46.01", 
+        "notes": ".003", 
+        "operationNumber": "46", 
+        "partDescription": "4168 Trim Blade", 
+        "perPartValue": "N/A", 
+        "resource": "INSPECT", 
+        "status": "Outstanding", 
+        "timestamp": "2025-07-25 11:27 PM", 
+        "workOrderNumber": "25-0972"
+      }, 
+      {
+        "causeCode": "N/A", 
+        "dispositionNotes": "N/A", 
+        "improvementSuggestion": "", 
+        "lastModifiedBy": "Justin Young", 
+        "ncrRefNumber": "25-0972.46.02", 
+        "notes": ".0042", 
+        "operationNumber": "46", 
+        "partDescription": "4168 Trim Blade", 
+        "perPartValue": "N/A", 
+        "resource": "INSPECT", 
+        "status": "Outstanding", 
+        "timestamp": "2025-07-25 11:36 PM", 
+        "workOrderNumber": "25-0972"
+      }
+    ], 
+    "summary": {
+      "time_window_end": "2025-07-26 00:00", 
+      "time_window_start": "2025-07-25 00:00", 
+      "timezone": "Eastern Time", 
+      "total_ncrs": 4
+    }
+  }, 
+  "origin": "71.66.145.238", 
+  "url": "https://httpbin.org/post"
+}
+
+2025-07-30 14:10:44,650 - INFO - Starting NCR fetch...
+2025-07-30 14:10:44,652 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 14:10:52,083 - INFO - Fetched 309 NCRs in 4 pages
+2025-07-30 14:10:52,084 - INFO - Filtered 4 NCRs from 309 total (skipped 305)
+2025-07-30 14:11:00,443 - INFO - Successfully sent 4 NCRs to Power Automate
+2025-07-30 15:22:06,987 - INFO - Starting NCR fetch...
+2025-07-30 15:22:06,989 - INFO - Using custom time window: 2025-07-25 00:00:00-05:00 to 2025-07-26 00:00:00-05:00 (Eastern Time)
+2025-07-30 15:22:14,217 - INFO - Fetched 309 NCRs in 4 pages
+2025-07-30 15:22:14,218 - INFO - Filtered 4 NCRs from 309 total (skipped 305)
+2025-07-30 15:22:21,603 - ERROR - Failed to send to Power Automate. Status: 400, Response: {"error":{"code":"WorkflowTriggerIsNotEnabled","message":"Could not execute workflow '6b993984-d1cd-4e31-8196-d525065a9118' trigger 'manual' with state 'Disabled': trigger is not enabled."}}
+2025-08-01 07:49:36,365 - INFO - Starting NCR fetch...
+2025-08-01 07:49:36,365 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 07:49:44,160 - INFO - Fetched 317 NCRs in 4 pages
+2025-08-01 07:49:44,160 - INFO - Filtered 20 NCRs from 317 total (skipped 297)
+2025-08-01 07:50:05,554 - INFO - Printed 20 NCRs to console
+2025-08-01 07:52:16,559 - INFO - Starting NCR fetch...
+2025-08-01 07:52:16,559 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 07:52:23,828 - INFO - Fetched 317 NCRs in 4 pages
+2025-08-01 07:52:23,828 - INFO - Filtered 20 NCRs from 317 total (skipped 297)
+2025-08-01 07:52:38,972 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 07:54:20,895 - INFO - Starting NCR fetch...
+2025-08-01 07:54:20,896 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 07:54:27,771 - INFO - Fetched 317 NCRs in 4 pages
+2025-08-01 07:54:27,772 - INFO - Filtered 20 NCRs from 317 total (skipped 297)
+2025-08-01 07:54:42,650 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 08:02:50,014 - INFO - Starting NCR fetch...
+2025-08-01 08:02:50,014 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 08:02:55,890 - INFO - Fetched 317 NCRs in 2 pages
+2025-08-01 08:02:55,891 - INFO - Filtered 20 NCRs from 317 total (skipped 297)
+2025-08-01 08:03:08,237 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 08:39:10,997 - INFO - Starting NCR fetch...
+2025-08-01 08:39:10,998 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 08:39:16,773 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 08:39:16,774 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 08:39:21,560 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 08:46:06,123 - INFO - Starting NCR fetch...
+2025-08-01 08:46:06,123 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 08:46:11,826 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 08:46:11,827 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 08:46:16,291 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 08:58:05,437 - INFO - Starting NCR fetch...
+2025-08-01 08:58:05,437 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 08:58:11,416 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 08:58:11,416 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 08:58:16,173 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 09:01:45,184 - INFO - Starting NCR fetch...
+2025-08-01 09:01:45,185 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 09:01:50,874 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 09:01:50,875 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 09:01:55,320 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 09:03:53,395 - INFO - Starting NCR fetch...
+2025-08-01 09:03:53,395 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 09:03:58,932 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 09:03:58,933 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 09:04:06,843 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 09:05:47,158 - INFO - Starting NCR fetch...
+2025-08-01 09:05:47,158 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 09:05:54,215 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 09:05:54,216 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 09:05:58,783 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 11:41:35,788 - INFO - Starting NCR fetch...
+2025-08-01 11:41:35,832 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 11:41:41,972 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 11:41:41,976 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 11:41:46,937 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-01 11:51:26,721 - INFO - Starting NCR fetch...
+2025-08-01 11:51:26,721 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-01 11:51:32,629 - INFO - Fetched 319 NCRs in 2 pages
+2025-08-01 11:51:32,632 - INFO - Filtered 20 NCRs from 319 total (skipped 299)
+2025-08-01 11:51:37,171 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-08-04 11:00:03,408 - INFO - Starting NCR fetch...
+2025-08-04 11:00:03,432 - INFO - Using Monday-to-Monday window: 2025-07-21 12:00:00-05:00 to 2025-07-28 12:00:00-05:00 (Eastern Time)
+2025-08-04 11:00:09,311 - INFO - Fetched 318 NCRs in 2 pages
+2025-08-04 11:00:09,314 - INFO - Filtered 16 NCRs from 318 total (skipped 302)
+2025-08-04 11:00:13,484 - INFO - Successfully sent 16 NCRs to Power Automate
+2025-08-11 11:00:03,766 - INFO - Starting NCR fetch...
+2025-08-11 11:00:03,773 - INFO - Using last 7 days window: 2025-08-04 10:00:03.773319-05:00 to 2025-08-11 10:00:03.773319-05:00 (Eastern Time)
+2025-08-11 11:00:09,792 - INFO - Fetched 343 NCRs in 2 pages
+2025-08-11 11:00:09,795 - INFO - Filtered 30 NCRs from 343 total (skipped 313)
+2025-08-11 11:00:12,270 - INFO - Successfully sent 30 NCRs to Power Automate
+2025-08-18 11:00:19,734 - INFO - Starting NCR fetch...
+2025-08-18 11:00:19,743 - INFO - Using last 7 days window: 2025-08-11 10:00:19.743292-05:00 to 2025-08-18 10:00:19.743292-05:00 (Eastern Time)
+2025-08-18 11:00:25,990 - INFO - Fetched 357 NCRs in 2 pages
+2025-08-18 11:00:25,993 - INFO - Filtered 17 NCRs from 357 total (skipped 340)
+2025-08-18 11:00:29,746 - INFO - Successfully sent 17 NCRs to Power Automate
+2025-08-25 11:00:03,257 - INFO - Starting NCR fetch...
+2025-08-25 11:00:03,279 - INFO - Using last 7 days window: 2025-08-18 10:00:03.279775-05:00 to 2025-08-25 10:00:03.279775-05:00 (Eastern Time)
+2025-08-25 11:00:09,830 - INFO - Fetched 369 NCRs in 2 pages
+2025-08-25 11:00:09,833 - INFO - Filtered 21 NCRs from 369 total (skipped 348)
+2025-08-25 11:00:13,809 - INFO - Successfully sent 21 NCRs to Power Automate
+2025-09-01 11:00:04,584 - INFO - Starting NCR fetch...
+2025-09-01 11:00:04,593 - INFO - Using last 7 days window: 2025-08-25 10:00:04.593609-05:00 to 2025-09-01 10:00:04.593609-05:00 (Eastern Time)
+2025-09-01 11:00:11,252 - INFO - Fetched 388 NCRs in 2 pages
+2025-09-01 11:00:11,254 - INFO - Filtered 19 NCRs from 388 total (skipped 369)
+2025-09-01 11:00:14,285 - INFO - Successfully sent 19 NCRs to Power Automate
+2025-09-08 11:00:56,147 - INFO - Starting NCR fetch...
+2025-09-08 11:00:56,240 - INFO - Using last 7 days window: 2025-09-01 10:00:56.175883-05:00 to 2025-09-08 10:00:56.175883-05:00 (Eastern Time)
+2025-09-08 11:01:03,925 - INFO - Fetched 399 NCRs in 2 pages
+2025-09-08 11:01:03,928 - INFO - Filtered 13 NCRs from 399 total (skipped 386)
+2025-09-08 11:01:07,685 - INFO - Successfully sent 13 NCRs to Power Automate
+2025-09-15 11:00:03,159 - INFO - Starting NCR fetch...
+2025-09-15 11:00:03,219 - INFO - Using last 7 days window: 2025-09-08 10:00:03.219717-05:00 to 2025-09-15 10:00:03.219717-05:00 (Eastern Time)
+2025-09-15 11:00:10,724 - INFO - Fetched 423 NCRs in 3 pages
+2025-09-15 11:00:10,727 - INFO - Filtered 24 NCRs from 423 total (skipped 399)
+2025-09-15 11:00:16,192 - INFO - Successfully sent 24 NCRs to Power Automate
+2025-09-22 11:00:03,732 - INFO - Starting NCR fetch...
+2025-09-22 11:00:03,741 - INFO - Using last 7 days window: 2025-09-15 10:00:03.741431-05:00 to 2025-09-22 10:00:03.741431-05:00 (Eastern Time)
+2025-09-22 11:00:11,097 - INFO - Fetched 430 NCRs in 3 pages
+2025-09-22 11:00:11,101 - INFO - Filtered 17 NCRs from 430 total (skipped 413)
+2025-09-22 11:00:25,571 - INFO - Successfully sent 17 NCRs to Power Automate
+2025-09-29 11:00:05,443 - INFO - Starting NCR fetch...
+2025-09-29 11:00:05,456 - INFO - Using last 7 days window: 2025-09-22 10:00:05.455976-05:00 to 2025-09-29 10:00:05.455976-05:00 (Eastern Time)
+2025-09-29 11:00:13,745 - INFO - Fetched 453 NCRs in 3 pages
+2025-09-29 11:00:13,749 - INFO - Filtered 26 NCRs from 453 total (skipped 427)
+2025-09-29 11:00:16,259 - INFO - Successfully sent 26 NCRs to Power Automate
+2025-09-30 06:38:36,038 - INFO - Starting NCR fetch...
+2025-09-30 06:38:36,052 - INFO - Using last 7 days window: 2025-09-23 05:38:36.052562-05:00 to 2025-09-30 05:38:36.052562-05:00 (Eastern Time)
+2025-09-30 06:38:44,417 - INFO - Fetched 456 NCRs in 3 pages
+2025-09-30 06:38:44,420 - INFO - Filtered 26 NCRs from 456 total (skipped 430)
+2025-09-30 06:38:48,303 - INFO - Successfully sent 26 NCRs to Power Automate
+2025-10-06 11:00:05,766 - INFO - Starting NCR fetch...
+2025-10-06 11:00:05,779 - INFO - Using last 7 days window: 2025-09-29 10:00:05.779732-05:00 to 2025-10-06 10:00:05.779732-05:00 (Eastern Time)
+2025-10-06 11:00:13,700 - INFO - Fetched 474 NCRs in 3 pages
+2025-10-06 11:00:13,703 - INFO - Filtered 23 NCRs from 474 total (skipped 451)
+2025-10-06 11:00:15,736 - INFO - Successfully sent 23 NCRs to Power Automate
+2025-10-13 11:00:05,570 - INFO - Starting NCR fetch...
+2025-10-13 11:00:05,662 - INFO - Using last 7 days window: 2025-10-06 10:00:05.662367-05:00 to 2025-10-13 10:00:05.662367-05:00 (Eastern Time)
+2025-10-13 11:00:14,822 - INFO - Fetched 494 NCRs in 3 pages
+2025-10-13 11:00:14,826 - INFO - Filtered 20 NCRs from 494 total (skipped 474)
+2025-10-13 11:00:16,920 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-10-20 11:00:05,338 - INFO - Starting NCR fetch...
+2025-10-20 11:00:05,346 - INFO - Using last 7 days window: 2025-10-13 10:00:05.346098-05:00 to 2025-10-20 10:00:05.346098-05:00 (Eastern Time)
+2025-10-20 11:00:13,706 - INFO - Fetched 503 NCRs in 3 pages
+2025-10-20 11:00:13,710 - INFO - Filtered 10 NCRs from 503 total (skipped 493)
+2025-10-20 11:00:18,347 - INFO - Successfully sent 10 NCRs to Power Automate
+2025-10-27 11:00:04,526 - INFO - Starting NCR fetch...
+2025-10-27 11:00:04,535 - INFO - Using last 7 days window: 2025-10-20 10:00:04.535749-05:00 to 2025-10-27 10:00:04.535749-05:00 (Eastern Time)
+2025-10-27 11:00:12,472 - INFO - Fetched 530 NCRs in 3 pages
+2025-10-27 11:00:12,475 - INFO - Filtered 28 NCRs from 530 total (skipped 502)
+2025-10-27 11:00:14,954 - INFO - Successfully sent 28 NCRs to Power Automate
+2025-11-03 11:00:04,161 - INFO - Starting NCR fetch...
+2025-11-03 11:00:04,187 - INFO - Using last 7 days window: 2025-10-27 11:00:04.187554-05:00 to 2025-11-03 11:00:04.187554-05:00 (Eastern Time)
+2025-11-03 11:00:12,323 - INFO - Fetched 545 NCRs in 3 pages
+2025-11-03 11:00:12,326 - INFO - Filtered 17 NCRs from 545 total (skipped 528)
+2025-11-03 11:00:17,071 - INFO - Successfully sent 17 NCRs to Power Automate
+2025-11-10 11:00:02,608 - INFO - Starting NCR fetch...
+2025-11-10 11:00:02,614 - INFO - Using last 7 days window: 2025-11-03 11:00:02.614164-05:00 to 2025-11-10 11:00:02.614164-05:00 (Eastern Time)
+2025-11-10 11:00:10,810 - INFO - Fetched 555 NCRs in 3 pages
+2025-11-10 11:00:10,814 - INFO - Filtered 14 NCRs from 555 total (skipped 541)
+2025-11-10 11:00:15,789 - INFO - Successfully sent 14 NCRs to Power Automate
+2025-11-17 11:00:02,969 - INFO - Starting NCR fetch...
+2025-11-17 11:00:02,981 - INFO - Using last 7 days window: 2025-11-10 11:00:02.981662-05:00 to 2025-11-17 11:00:02.981662-05:00 (Eastern Time)
+2025-11-17 11:00:10,897 - INFO - Fetched 557 NCRs in 3 pages
+2025-11-17 11:00:10,899 - INFO - Filtered 5 NCRs from 557 total (skipped 552)
+2025-11-17 11:00:12,921 - INFO - Successfully sent 5 NCRs to Power Automate
+2025-11-24 11:00:03,949 - INFO - Starting NCR fetch...
+2025-11-24 11:00:03,961 - INFO - Using last 7 days window: 2025-11-17 11:00:03.961308-05:00 to 2025-11-24 11:00:03.961308-05:00 (Eastern Time)
+2025-11-24 11:00:12,455 - INFO - Fetched 567 NCRs in 3 pages
+2025-11-24 11:00:12,459 - INFO - Filtered 14 NCRs from 567 total (skipped 553)
+2025-11-24 11:00:15,330 - INFO - Successfully sent 14 NCRs to Power Automate
+2025-12-01 11:00:03,184 - INFO - Starting NCR fetch...
+2025-12-01 11:00:03,200 - INFO - Using last 7 days window: 2025-11-24 11:00:03.199969-05:00 to 2025-12-01 11:00:03.199969-05:00 (Eastern Time)
+2025-12-01 11:00:11,680 - INFO - Fetched 548 NCRs in 3 pages
+2025-12-01 11:00:11,684 - INFO - Filtered 7 NCRs from 548 total (skipped 541)
+2025-12-01 11:00:14,168 - INFO - Successfully sent 7 NCRs to Power Automate
+2025-12-08 11:00:05,155 - INFO - Starting NCR fetch...
+2025-12-08 11:00:05,166 - INFO - Using last 7 days window: 2025-12-01 11:00:05.166161-05:00 to 2025-12-08 11:00:05.166161-05:00 (Eastern Time)
+2025-12-08 11:00:13,412 - INFO - Fetched 567 NCRs in 3 pages
+2025-12-08 11:00:13,416 - INFO - Filtered 20 NCRs from 567 total (skipped 547)
+2025-12-08 11:00:17,424 - INFO - Successfully sent 20 NCRs to Power Automate
+2025-12-15 11:00:51,843 - INFO - Starting NCR fetch...
+2025-12-15 11:00:51,855 - INFO - Using last 7 days window: 2025-12-08 11:00:51.855411-05:00 to 2025-12-15 11:00:51.855411-05:00 (Eastern Time)
+2025-12-15 11:00:59,948 - INFO - Fetched 566 NCRs in 3 pages
+2025-12-15 11:00:59,952 - INFO - Filtered 11 NCRs from 566 total (skipped 555)
+2025-12-15 11:01:03,333 - INFO - Successfully sent 11 NCRs to Power Automate
+2025-12-22 11:00:28,732 - INFO - Starting NCR fetch...
+2025-12-22 11:00:28,808 - INFO - Using last 7 days window: 2025-12-15 11:00:28.781067-05:00 to 2025-12-22 11:00:28.781067-05:00 (Eastern Time)
+2025-12-22 11:00:38,403 - INFO - Fetched 572 NCRs in 3 pages
+2025-12-22 11:00:38,407 - INFO - Filtered 7 NCRs from 572 total (skipped 565)
+2025-12-22 11:00:39,067 - WARNING - Request failed (attempt 1/3): 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql. Retrying in 1 seconds...
+2025-12-22 11:00:40,584 - WARNING - Request failed (attempt 2/3): 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql. Retrying in 2 seconds...
+2025-12-22 11:00:43,118 - WARNING - Error batch fetching users: 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql
+2025-12-22 11:00:48,166 - INFO - Successfully sent 7 NCRs to Power Automate
+2025-12-29 11:00:04,022 - INFO - Starting NCR fetch...
+2025-12-29 11:00:04,064 - INFO - Using last 7 days window: 2025-12-22 11:00:04.064628-05:00 to 2025-12-29 11:00:04.064628-05:00 (Eastern Time)
+2025-12-29 11:00:14,036 - INFO - Fetched 576 NCRs in 3 pages
+2025-12-29 11:00:14,040 - INFO - Filtered 5 NCRs from 576 total (skipped 571)
+2025-12-29 11:00:14,539 - WARNING - Request failed (attempt 1/3): 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql. Retrying in 1 seconds...
+2025-12-29 11:00:16,060 - WARNING - Request failed (attempt 2/3): 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql. Retrying in 2 seconds...
+2025-12-29 11:00:18,844 - WARNING - Error batch fetching users: 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql
+2025-12-29 11:00:21,451 - INFO - Successfully sent 5 NCRs to Power Automate
+2026-01-05 11:00:05,649 - INFO - Starting NCR fetch...
+2026-01-05 11:00:05,655 - INFO - Using last 7 days window: 2025-12-29 11:00:05.655291-05:00 to 2026-01-05 11:00:05.655291-05:00 (Eastern Time)
+2026-01-05 11:00:14,423 - INFO - Fetched 574 NCRs in 3 pages
+2026-01-05 11:00:14,427 - INFO - Filtered 3 NCRs from 574 total (skipped 571)
+2026-01-05 11:00:14,930 - WARNING - Request failed (attempt 1/3): 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql. Retrying in 1 seconds...
+2026-01-05 11:00:16,461 - WARNING - Request failed (attempt 2/3): 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql. Retrying in 2 seconds...
+2026-01-05 11:00:18,948 - WARNING - Error batch fetching users: 401 Client Error: OK for url: https://est.adionsystems.com/api/graphql
+2026-01-05 11:00:21,311 - INFO - Successfully sent 3 NCRs to Power Automate
+2026-01-12 11:00:29,506 - INFO - Starting NCR fetch...
+2026-01-12 11:00:29,515 - INFO - Using last 7 days window: 2026-01-05 11:00:29.515507-05:00 to 2026-01-12 11:00:29.515507-05:00 (Eastern Time)
+2026-01-12 11:00:38,448 - INFO - Fetched 581 NCRs in 3 pages
+2026-01-12 11:00:38,452 - INFO - Filtered 8 NCRs from 581 total (skipped 573)
+2026-01-12 11:00:42,089 - INFO - Successfully sent 8 NCRs to Power Automate
+2026-01-19 11:00:26,404 - INFO - Starting NCR fetch...
+2026-01-19 11:00:26,418 - INFO - Using last 7 days window: 2026-01-12 11:00:26.417619-05:00 to 2026-01-19 11:00:26.417619-05:00 (Eastern Time)
+2026-01-19 11:00:35,972 - INFO - Fetched 592 NCRs in 3 pages
+2026-01-19 11:00:35,976 - INFO - Filtered 11 NCRs from 592 total (skipped 581)
+2026-01-19 11:00:38,131 - INFO - Successfully sent 11 NCRs to Power Automate
+2026-01-19 14:00:14,261 - INFO - Starting NCR fetch...
+2026-01-19 14:00:14,338 - INFO - Using last 7 days window: 2026-01-12 14:00:14.268667-05:00 to 2026-01-19 14:00:14.268667-05:00 (Eastern Time)
+2026-01-19 14:00:23,282 - INFO - Fetched 592 NCRs in 3 pages
+2026-01-19 14:00:23,286 - INFO - Filtered 11 NCRs from 592 total (skipped 581)
+2026-01-19 14:00:25,207 - INFO - Successfully sent 11 NCRs to Power Automate
+2026-01-26 11:00:03,193 - INFO - Starting NCR fetch...
+2026-01-26 11:00:03,201 - INFO - Using last 7 days window: 2026-01-19 11:00:03.201497-05:00 to 2026-01-26 11:00:03.201497-05:00 (Eastern Time)
+2026-01-26 11:00:12,420 - INFO - Fetched 604 NCRs in 4 pages
+2026-01-26 11:00:12,425 - INFO - Filtered 12 NCRs from 604 total (skipped 592)
+2026-01-26 11:00:14,543 - INFO - Successfully sent 12 NCRs to Power Automate
+2026-02-02 11:00:05,011 - INFO - Starting NCR fetch...
+2026-02-02 11:00:05,034 - INFO - Using last 7 days window: 2026-01-26 11:00:05.034287-05:00 to 2026-02-02 11:00:05.034287-05:00 (Eastern Time)
+2026-02-02 11:00:14,574 - INFO - Fetched 611 NCRs in 4 pages
+2026-02-02 11:00:14,578 - INFO - Filtered 7 NCRs from 611 total (skipped 604)
+2026-02-02 11:00:17,105 - INFO - Successfully sent 7 NCRs to Power Automate
+2026-02-09 11:01:06,367 - INFO - Starting NCR fetch...
+2026-02-09 11:01:06,400 - INFO - Using last 7 days window: 2026-02-02 11:01:06.400581-05:00 to 2026-02-09 11:01:06.400581-05:00 (Eastern Time)
+2026-02-09 11:01:16,737 - INFO - Fetched 613 NCRs in 4 pages
+2026-02-09 11:01:16,742 - INFO - Filtered 8 NCRs from 613 total (skipped 605)
+2026-02-09 11:01:19,138 - INFO - Successfully sent 8 NCRs to Power Automate
+2026-02-16 11:01:09,655 - INFO - Starting NCR fetch...
+2026-02-16 11:01:09,668 - INFO - Using last 7 days window: 2026-02-09 11:01:09.668170-05:00 to 2026-02-16 11:01:09.668170-05:00 (Eastern Time)
+2026-02-16 11:01:20,178 - INFO - Fetched 592 NCRs in 3 pages
+2026-02-16 11:01:20,183 - INFO - Filtered 10 NCRs from 592 total (skipped 582)
+2026-02-16 11:01:27,592 - INFO - Successfully sent 10 NCRs to Power Automate

@@ -1,0 +1,174 @@
+# Proshop Queries — Brain File for Agents
+
+**Last Updated:** 2026-03-11
+
+This document describes all backend routes and GraphQL queries used for the Proshop API in the Engineering Schedule Dashboard. Use it together with **PROSHOP_API_BRAIN.txt** (auth, schema, field gotchas). Code: `server/routes/proshop.js`, `server/lib/proshopClient.js`.
+
+---
+
+## 1. Route Summary
+
+**Base path:** `/api/proshop`
+
+All Proshop-backed data is either served from in-memory cache (no live call on request) or, for import/debug, calls Proshop on demand. Cache is warmed by background jobs (see `server/index.js` `runProshopWarmsSequentially`).
+
+### Public-facing (cache-only; route never calls Proshop)
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/tooling-expenses` | Rocket Supply tooling expense stats (current month, 30d, 6mo) |
+| GET | `/material-status` | Per-WO material status (partStockStatuses + BOM + PO details) |
+| GET | `/open-pos` | Open Rocket Supply POs with line items |
+| GET | `/ncrs/recent` | Recent NCRs (`?limit=10`, max 50) |
+| GET | `/ncrs/last24h` | NCRs created in last 24 hours |
+| GET | `/ncrs/by-assignee` | NCRs grouped by assignee (year/quarter/month/week counts) |
+
+### Live (calls Proshop on each request)
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| POST | `/import-work-orders` | Import active Engineering work orders from Proshop into DB |
+| GET | `/cost-analysis` | `?woNumber=26-0310` — material cost (DB) + estimated total minutes (Proshop ops totalCycleTime) |
+
+### Debug / dev (calls Proshop)
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/test-query` | Try `workOrders` query with optional `?fields=` |
+| GET | `/debug-work-orders` | Raw workOrders pages (for debugging) |
+| GET | `/export-work-orders-csv` | Export work orders from Proshop as CSV |
+
+When cache is cold or Proshop returns 429/400, tooling/material-status/open-pos and NCR routes return **200** with `success: true` and either `data: null` / `data: []` or `error: true`, `reason: 'rate_limited'`, `message: 'ProShop is temporarily unavailable...'`.
+
+---
+
+## 2. GraphQL Operations Used
+
+### 2.1 workOrders (list, paginated)
+
+- **Operation:** `workOrders(pageSize: Int!, pageStart: Int!, filter: WorkOrderFilter)`
+- **Returns:** `{ totalRecords, records: [ WorkOrder ] }`
+- **Used by:** material-status (filter by workOrderNumber), import-work-orders (filter status Active + ops workCenter ENGINEERING), debug-work-orders, export-work-orders-csv, cost-analysis (filter by workOrderNumber; ops with totalCycleTime for estimated minutes).
+
+**WorkOrderFilter examples:**
+
+- `filter: { workOrderNumber: ["26-0349", "26-0350"] }`
+- `filter: { status: ["Active"] }`
+
+**Nested:** `ops(filter: { workCenter: ["ENGINEERING"] }, pageSize: 50)` for import; `partStockStatuses(pageSize, pageStart)`, `ops.billOfMaterials` for material-status.
+
+### 2.2 workOrder (single)
+
+Not used in `proshop.js`; single WO can be fetched via `workOrders(filter: { workOrderNumber: [n] })`.
+
+### 2.3 purchaseOrders (list, paginated)
+
+- **Operation:** `purchaseOrders(pageSize: Int!, pageStart: Int!)`
+- **Returns:** `{ totalRecords, records: [ { id, cost, date, orderStatus, poType, supplier { name } } ] }`
+- **Used by:** tooling-expenses (all pages, then filter Rocket + date), open-pos (all pages, then filter Rocket + Outstanding/Partially Released).
+
+### 2.4 purchaseOrder(id: String!)
+
+- **Operation:** `purchaseOrder(id: String!)`
+- **Returns:** PO with `poItems(pageSize, pageStart) { records: [ line items ] }`
+- **Used by:** open-pos (one per filtered PO for line items), material-status (batch `purchaseOrder(id)` for each PO id from partStockStatuses/BOM).
+
+### 2.5 part(partNumber: String!)
+
+- **Operation:** `part(partNumber: String!)`
+- **Returns:** `{ partNumber, partDescription }`
+- **Used by:** import-work-orders (`fetchPartDescriptions` for unique part numbers after fetching WOs). Use **partDescription** (API rejects `"description"`).
+
+### 2.6 nonConformanceReports(pageSize: Int!)
+
+- **Operation:** `nonConformanceReports(pageSize: Int!)` — **no pageStart** in schema
+- **Returns:** `{ totalRecords?, records: [ NCR ] }`
+- **Used by:** NCR recent, last24h, by-assignee. One shared fetch (`fetchAllNcrs`) cached 5 min; then filtered/sliced in memory.
+
+**NCR fields requested:** `ncrRefNumber`, `createdTime`, `assignedToPlainText`, `lastModifiedByPlainText`, `notes`, `status`, `workOrderPlainText`, `workOrder { workOrderNumber, part { partNumber } }`.
+
+---
+
+## 3. Per-Route Query Details
+
+### 3.1 Tooling expenses (`buildToolingExpensesResponse`)
+
+- One token, then paginated `purchaseOrders(pageSize: 200, pageStart: 0)` up to 20 pages.
+- Filter in memory: `supplier.name` contains "rocket", date in last 6 months.
+- Compute: current month, rolling 30d, last month totals; sixMonthHistory; type breakdown (Inserts, Zoller Replenishment, Regrinds, General); verification by type.
+- **Cache:** `expensesCache`; `warmToolingExpensesCache()`. Route returns cache only.
+
+### 3.2 Material status (`buildMaterialStatusResponse`)
+
+- **Input:** `woNumbers` (from query param or DB non-completed `wo_number` list).
+- `workOrders(pageSize: 200, pageStart: 0, filter: { workOrderNumber: woNumbers })` with `partStockStatuses(20,0)`, `ops(100,0).billOfMaterials(50,0)`.
+- Collect PO ids from `partStockStatuses.psPONumberPlainText` (numeric) and `billOfMaterials.poNumber` (exclude status words like Complete/Received).
+- Batch `purchaseOrder(id)` for each PO (batch size 4, 400ms delay between batches).
+- Derive **materialStatus:** arrived / ordered / requested / not-ordered using `psPONumberPlainText` (numeric = PO id, date/keywords = requested).
+- **Cache:** `materialStatusCache`, keyed by sorted woNumbers. `warmMaterialStatusCache(db)`.
+
+### 3.3 Open POs (`buildOpenPOsResponse`)
+
+- `purchaseOrders(200, 0)` paginated up to 20 pages.
+- Filter: `supplier.name` contains "rocket", `orderStatus` in [Outstanding, Partially Released].
+- For each filtered PO: `purchaseOrder(id)` with `poItems(100, 0)`; map to line items.
+- Sort by date descending. **Cache:** `openPOsCache`; `warmOpenPOsCache()`.
+
+### 3.4 NCRs (`getSharedAllNcrs` → `fetchAllNcrs`)
+
+- `nonConformanceReports(pageSize: 621)` in batches (pageSize 500 or 621) until all.
+- Single shared cache (`allNcrsCache`) 5 min TTL. Then:
+  - **recent:** sort by createdTime desc, slice limit (default 10, max 50).
+  - **last24h:** filter createdTime >= now - 24h.
+  - **by-assignee:** match `assignedToPlainText` to NCR_ASSIGNEE_NAMES (Damien, Alex, Thad, Rob), aggregate by year/quarter/month/week; `allNcrsByAssignee` lists.
+- **Caches:** `recentNcrsCacheByLimit`, `last24hNcrsCache`, `byAssigneeCache`. `warmSharedNcrCache()`.
+
+### 3.5 Import work orders (POST `/import-work-orders`)
+
+- `workOrders(pageSize: 200, pageStart: 0, filter: { status: ["Active"] })` with `ops(filter: { workCenter: ["ENGINEERING"] }, pageSize: 50)`. Keep WOs that have at least one op (`ops.records.length > 0`). Paginate up to 50 pages.
+- For each WO: transform part number (`transformPartNumber`), strip HTML from notes.
+- `fetchPartDescriptions(unique part numbers)` via `part(partNumber) { partNumber, partDescription }`.
+- Upsert `engineering_work_orders` (match by `wo_number`); broadcast work-order events.
+
+### 3.6 Export work orders CSV (GET `/export-work-orders-csv`)
+
+- `workOrders(200, pageStart)` with filter status Active, ops workCenter ENGINEERING; same shape as import. Paginate, then stream CSV.
+
+### 3.7 Cost analysis (GET `/cost-analysis?woNumber=26-0310`)
+
+- Material cost and WO metadata from local DB (`engineering_work_orders`).
+- `workOrders(pageSize: 1, pageStart: 0, filter: { workOrderNumber: [woNumber] })` with `ops(pageSize: 100, pageStart) { totalRecords, records { totalCycleTime } }`.
+- Paginate ops up to 30 pages; sum `totalCycleTime` → `estimatedTotalMinutes`, `estimatedHours`. No cache; calls Proshop on each request.
+
+---
+
+## 4. Pagination & Limits
+
+| Operation | pageSize | Max pages / cap |
+|-----------|----------|------------------|
+| workOrders | 200 | 50 for import/export; material-status until no more; cost-analysis: pageSize 1, ops 100/page, max 30 ops pages |
+| purchaseOrders | 200 | 20 (4000 records) |
+| nonConformanceReports | 500/621 | Until totalRecords; NCR_FETCH_CAP |
+| purchaseOrder(id).poItems | 100 | — |
+| part(partNumber) | — | One per part; parallel via Promise.all |
+
+---
+
+## 5. Rate Limiting & Caching
+
+- **429/400** from Proshop: `proshopClient` retries 429 with 12s delay; routes that use cache return 200 with `error: true`, `reason: 'rate_limited'` when last warm failed with rate limit.
+- **Cache warming:** Staggered in `server/index.js` (`PROSHOP_WARM_DELAY_MS` 5s between tooling, open POs, NCR shared, material status, time-tracking). No Proshop calls from tooling-expenses, material-status, open-pos, ncrs/* route handlers.
+- **TV dashboard** (`server/routes/tv.js`): `getNcrCountLast30Days`, `getToolingExpensesCurrentMonth`, `getMaterialArrivedCount` are cache-only; called sequentially with 1.5s delay.
+
+---
+
+## 6. Files & Cross-References
+
+| File | Purpose |
+|------|---------|
+| `server/routes/proshop.js` | All routes and build* functions |
+| `server/lib/proshopClient.js` | getProshopToken(), executeGraphQLQuery(), isProshopRateLimitError() |
+| `server/index.js` | Mount /api/proshop, runProshopWarmsSequentially() |
+| **PROSHOP_API_BRAIN.txt** | Auth, schema location, query patterns, field table |
+| PROSHOP_GRAPHQL_REFERENCE.md / PS-API-Schema.gql | Schema details |
+| docs/PROSHOP_429_HANDOFF.md | 429 behavior and mitigation notes |

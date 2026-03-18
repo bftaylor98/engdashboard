@@ -1,0 +1,236 @@
+================================================================================
+ENGINEERING SCHEDULE DASHBOARD — PROJECT OVERVIEW & HANDOFF
+================================================================================
+For: Professional software engineers and AI agents
+Version: 4.3.0 (package.json)
+Last updated: 2026-03-11
+
+  New agent with no context? Start with AGENTS.md for run commands, reading
+  order, and where to find what. Then use this file for a short summary.
+
+================================================================================
+1. PROJECT SUMMARY
+================================================================================
+
+Name: engineering-schedule-dashboard
+Purpose: Local-first browser dashboard for a manufacturing/machining shop: work
+orders, schedules, material status, revision alerts, analytics, Kanban, calendar,
+import/export, and integration with ProShop ERP (EST/Adion) and optional
+time-tracking/stock/NCR data.
+
+Stack:
+  - Frontend: React 18, TypeScript, Vite 5, React Router 6, Tailwind, Radix UI,
+    Recharts, @dnd-kit, Framer Motion.
+  - Backend: Node.js, Express 4, better-sqlite3 (SQLite with WAL).
+  - Real-time: Server-Sent Events (SSE).
+  - Auth: Session-based (bcryptjs); default users (rob, damien, thad, alex,
+    phillip, brad, mike, admin) with password "changeme" — change in production.
+  - External: ProShop GraphQL API (auth via /api/beginsession), MSSQL for
+    time-tracking (if used), file uploads (Multer), XLSX/CSV import/export.
+
+Run:
+  npm install
+  npm run dev   → backend :3001, frontend :5173 (wait-on ensures API up first)
+  npm run build && npm start   → production
+
+================================================================================
+2. REPOSITORY LAYOUT (KEY DIRECTORIES)
+================================================================================
+
+  server/                 Backend (Node/Express)
+    database/init.js      Schema, migrations, seeds (users, KB categories/articles)
+    lib/                  eventBus.js (SSE), versionManager.js, proshopClient.js
+    middleware/auth.js    requireAuth (session token)
+    routes/               auth, workOrders, import, export, stats, revisionAlerts,
+                          constructionMetrics, events (SSE), versions, proshop,
+                          machines, timeTracking, stockGrid, projects, knowledge, tv, calendar
+
+  src/                    Frontend (React/TS)
+    components/          UI (Layout, WorkOrderDrawer, MaterialTrackingContent, etc.)
+    contexts/             Auth, Theme
+    hooks/                useSSE
+    pages/                Dashboard, Schedule, Kanban, Analytics, Completed,
+                          Versions, Import, Tools, Machines, CostAnalysis,
+                          NonConformances, MaterialTracking, TimeTracking,
+                          Settings, Knowledge, Projects, TV, Calendar, etc.
+    services/api.ts       Central API client (fetchJSON with timeout)
+    types/index.ts        Shared TypeScript interfaces and constants
+
+  database/               SQLite data (not in server folder)
+    engineering_schedule.db   Main DB (+ -shm, -wal in WAL mode)
+    versions/                Version snapshots (v1, v2, ...)
+
+  docs/                   MATERIAL_TRACKING_DOCUMENTATION.md, PROSHOP_429_HANDOFF.md
+  *.csv                   customer_abb.csv (customer abbreviations), example CSVs
+
+================================================================================
+3. DATA STRUCTURE
+================================================================================
+
+--- 3.1 Database (SQLite, server/database/init.js) ---
+
+  engineering_work_orders
+    id (TEXT PK), wo_number, priority (0–11), is_hot_job, due_date, part_number,
+    rev_alert, part_name, project, qn, customer, est_programming_hours,
+    est_engineering_hours, price, material_status (TEXT: not-ordered|ordered|arrived;
+    ProShop-backed UI also shows "requested"), notes, work_order_notes (ProShop
+    notes; table notes = engineering internal), comments (JSON array), current_box,
+    machine_scheduled, current_status (engineering|engineering-completed|
+    programming|programming-completed|hold|completed), metadata (JSON), version,
+    created_at, updated_at.
+    Indexes: wo_number, priority, current_box, customer, current_status, due_date.
+
+  revision_alerts
+    id, part_number, part_name, revision_date, linked_wo_id, created_at, updated_at.
+
+  construction_metrics
+    id, box_name, percentage_of_jobs, jobs_to_go, jobs_scheduled, total_jobs,
+    assignee_counts (JSON), snapshot_date, created_at.
+
+  import_history
+    id, filename, rows_imported, rows_skipped, rows_errored, import_report, imported_at.
+
+  users
+    id, username, display_name, password_hash, preferences (JSON, e.g. theme), created_at.
+
+  sessions
+    token (PK), user_id (FK users), expires_at, created_at.
+
+  versions
+    id, version_number, name, description, snapshot_path, customer_abb_path,
+    created_by, created_at, record_count, file_size.
+
+  side_projects
+    id, title, description, assignee, status (active|done), assigned_at, due_date,
+    created_at, updated_at.
+
+  kb_categories, kb_articles, kb_comments, kb_revisions
+    Knowledge base: categories (parent_id), articles (slug, category_id, tags,
+    body, status draft|reviewed|standard, owner_user_id, attachments, related_article_ids,
+    pinned), comments, revisions.
+
+Migrations in init.js: add preferences (users), work_order_notes (engineering_work_orders),
+assigned_at/due_date (side_projects) if missing.
+
+--- 3.2 Frontend types (src/types/index.ts) ---
+
+  WorkOrder: camelCase mirror of engineering_work_orders; materialStatus in type
+  is 'not-ordered'|'ordered'|'arrived' (DB is TEXT; "requested" appears in
+  ProShop material-status API and UI but is not yet in the WorkOrder type).
+
+  ProshopMaterialStatus / ProshopStockDetail / ProshopBomDetails: live ProShop
+  material status (not stored in dashboard DB); materialStatus includes
+  'requested', 'not-applicable', 'unknown'.
+
+  Other: PaginatedResponse, ApiResponse, CalendarEvent, TimeTracking*, DashboardStats,
+  WorkloadEntry, AssigneeStats, RevisionAlert, ConstructionMetric, Import*,
+  Version, SideProject, ComponentInfo, ToolingExpenses, OpenPurchaseOrder,
+  MatrixStock*, NCR*, Kb*.
+
+  Constants: ASSIGNEES, CUSTOMERS, STATUS_OPTIONS, MATERIAL_OPTIONS, PRIORITY_*.
+
+--- 3.3 ProShop API (server/lib/proshopClient.js, server/routes/proshop.js) ---
+
+  Auth: POST to ProShop /api/beginsession; token reused. Scopes include
+  nonconformancereports, workorders, parts, users, toolpots, purchaseorders, contacts.
+  Queries: GraphQL at /api/graphql. PO id = PO number; cost (not total); supplier.name
+  (needs contacts:r). Line items via purchaseOrder(id).poItems, not on collection.
+  Dates: multiple formats; parseProshopDate() used. Caches: tooling, open POs,
+  NCR (recent, last24h, by-assignee), material status, time-tracking — TTLs ~5 min;
+  cache warming on startup with staggered delay (see PROSHOP_429_HANDOFF).
+
+================================================================================
+4. API SURFACE (SUMMARY)
+================================================================================
+
+  Public:  GET /api/health, /api/auth/login, /api/tv/*
+  Auth:    Cookie or header session token for all other /api/* except /api/events
+           (SSE uses query token).
+
+  Core:    /api/work-orders (CRUD, list with filters), /api/stats, /api/events (SSE).
+  Data:    /api/import/upload, confirm; /api/export/xlsx, csv.
+  Features: /api/revision-alerts, /api/construction-metrics, /api/versions (create,
+            list, restore, delete), /api/calendar.
+  ProShop: /api/proshop/* (tooling-expenses, open-pos, material-status,
+            cost-analysis?woNumber=..., NCR, import-work-orders), /api/machines
+            (work center load VMX 84-1/64-1/64-2), /api/stock-grid, /api/knowledge.
+
+  Restore version: server restart required after restore (DB connection replaced).
+
+================================================================================
+5. OUTSTANDING ISSUES & KNOWN GAPS
+================================================================================
+
+  5.1 ProShop 429 rate limiting (critical for NCR and other ProShop-backed pages)
+      See docs/PROSHOP_429_HANDOFF.md.
+      - Symptom: NCR page (and others) spin or never load; server logs show 429
+        (and sometimes 400) from ProShop.
+      - Cause: Too many ProShop requests (startup cache warming, 5-min refresh,
+        and user traffic: NCR, material status, tooling, open POs, time-tracking).
+      - Done so far: Staggered cache warming (5s), TV route sequential with 1.5s
+        delay, 12s retry on 429 in proshopClient, 25s timeout and error display on
+        dashboard, reduced NCR log noise.
+      - Still needed: Reduce volume/burst (e.g. single shared NCR fetch + cache,
+        throttle/queue ProShop calls app-wide, fewer material-status calls); ensure
+        NCR (and similar) pages show clear error and stop spinning on 429/400;
+        backend must always return a proper response (e.g. 503 or 200 with error)
+        when ProShop fails so frontend can show "rate limited / try again".
+
+  5.2 Material status "requested"
+      - ProShop material-status API returns requested (e.g. when psPONumberPlainText
+        has a date or released-for-order keywords). Schedule and Material Tracking
+        UI show it.
+      - WorkOrder type in types/index.ts only has materialStatus: 'not-ordered'|
+        'ordered'|'arrived'. If the app ever persists or filters by "requested"
+        in the work_orders table, extend the type and any validation (e.g. import).
+
+  5.3 Version / README
+      - README and BRAIN.txt updated to 4.3.0 with Machines, Cost Analysis; Last
+        Updated 2026-03-11.
+
+  5.4 Default passwords and production
+      - Default users all use password "changeme". Must be changed in production.
+
+  5.5 Customer abbreviations
+      - customer_abb.csv is loaded at server startup; restart required after
+        editing.
+
+  5.6 Light mode / UX
+      - README notes light mode styling may need refinement; Kanban view switch
+        clears selection; server restart may be needed after DB schema changes.
+
+================================================================================
+6. USEFUL FILES FOR COMMON TASKS
+================================================================================
+
+  ProShop 429 / NCR / material: server/lib/proshopClient.js, server/routes/proshop.js,
+    server/index.js (cache warming), server/routes/tv.js, src/pages/NonConformances.tsx,
+    src/services/api.ts.
+
+  Work orders CRUD and filters: server/routes/workOrders.js, src/pages/Schedule.tsx,
+    src/types/index.ts (WorkOrder, WorkOrderFilters).
+
+  Import/Export: server/routes/import.js, server/routes/export.js; customer_abb.csv
+    and column mapping.
+
+  Auth: server/middleware/auth.js, server/routes/auth.js, src/contexts/AuthContext.
+
+  Versions: server/lib/versionManager.js, server/routes/versions.js, database/versions/.
+
+  Schema and migrations: server/database/init.js.
+
+================================================================================
+7. DOCUMENTATION REFERENCES
+================================================================================
+
+  AGENTS.md                         Start here for new agents: run commands, reading order, file map
+  docs/README.md                    Index of all documentation
+  README.md                         Full feature list, version history, run/install
+  CHANGELOG.md                      Recent version notes
+  docs/MATERIAL_TRACKING_DOCUMENTATION.md   Material feature (now in Schedule)
+  docs/PROSHOP_429_HANDOFF.md       ProShop rate-limiting handoff and next steps
+  PROSHOP_GRAPHQL_REFERENCE.md / PS-API-Schema.gql   ProShop GraphQL
+  PROSHOP_QUERIES_BRAIN.txt/.md     ProShop routes and GraphQL; PROSHOP_API_BRAIN.txt for auth/schema
+  *BRAIN.txt                        Domain/API notes (this file = full reference)
+
+================================================================================

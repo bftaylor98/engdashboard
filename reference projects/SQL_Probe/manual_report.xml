@@ -1,0 +1,2632 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TransactionReport>
+  <Metadata>
+    <GeneratedDate>2026-02-18 13:10:13</GeneratedDate>
+    <DailyTransactionCount>19</DailyTransactionCount>
+    <MonthlyTransactionCount>199</MonthlyTransactionCount>
+  </Metadata>
+  <DailyTransactions>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>10:59 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-163</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$25.35</Value>
+      <Part_No>GARR-44047</Part_No>
+      <Work_Order>0184</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>6:53 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-213</C_ID>
+      <Description>10mm Moldino Turbo Bull Endmill - 2mm Rad. - 95mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4100-95-20-TH</Part_No>
+      <Work_Order>26-0178</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>6:31 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-93</C_ID>
+      <Description>0.531" MTL Insert for Sumitomo SMD Drill</Description>
+      <QTY>1</QTY>
+      <Value>$65.26</Value>
+      <Part_No>SUMI-U101332</Part_No>
+      <Work_Order>26-0253</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>5:54 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-271</C_ID>
+      <Description>0.531" - 0.570" Sumitomo SMD Inserted Drill - 8D</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDH0550</Part_No>
+      <Work_Order>26-0253</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>5:00 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-279</C_ID>
+      <Description>0.847" - 0.898" Sumitomo SMD Inserted Drill - 5D</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDH087L</Part_No>
+      <Work_Order>26-0259</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>4:53 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-15</C_ID>
+      <Description>3/4"-10 UNC OSG HY-PRO Cut Tap</Description>
+      <QTY>1</QTY>
+      <Value>$99.88</Value>
+      <Part_No>OSG-2233601</Part_No>
+      <Work_Order>26-0186</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>4:52 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-136</C_ID>
+      <Description>3/4"-10 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-16250341001</Part_No>
+      <Work_Order>26-0186</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>3:17 PM</Time>
+      <User>BBallard</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:56 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-154</C_ID>
+      <Description>0.045" Harvey Tool Square Endmill - 0.135" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$24.10</Value>
+      <Part_No>HARV-73045-C3</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:55 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-323</C_ID>
+      <Description>.062" Garr Square Endmill - 1/4" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>GARR-13037</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:55 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-144</C_ID>
+      <Description>0.093" Garr Square Endmill - 0.375" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$9.89</Value>
+      <Part_No>GARR-13057</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:38 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-212</C_ID>
+      <Description>8mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$335.75</Value>
+      <Part_No>MOLD-EMBPE3080-80-09-ATH</Part_No>
+      <Work_Order>26-0178</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>1:23 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-359</C_ID>
+      <Description>1.5mm Moldino Epoch Deep Hard Ball Endmill - 10mm Neck - 50mm OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EPDBEH2015-10-TH3</Part_No>
+      <Work_Order>26-0078</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>11:47 AM</Time>
+      <User>BBallard</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>10:48 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-135</C_ID>
+      <Description>1"-8 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-1625001088</Part_No>
+      <Work_Order>26-0078</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>6:46 AM</Time>
+      <User>JYoung</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>5:45 AM</Time>
+      <User>JYoung</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>3:31 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0254  42-3</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>1:10 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-116</C_ID>
+      <Description>1/4"-20 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$42.65</Value>
+      <Part_No>OSG-1625014204</Part_No>
+      <Work_Order>26-0115</Work_Order>
+    </Transaction>
+  </DailyTransactions>
+  <MonthlyTransactions>
+    <Transaction>
+      <Date>02/18/2026</Date>
+      <Time>2:13 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0079</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/18/2026</Date>
+      <Time>11:56 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-204</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$27.59</Value>
+      <Part_No>GARR-44067</Part_No>
+      <Work_Order>26-0187</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/18/2026</Date>
+      <Time>11:47 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-215</C_ID>
+      <Description>5mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EMBPE3050-80-09-ATH</Part_No>
+      <Work_Order>26-0186</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/18/2026</Date>
+      <Time>10:51 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>10:59 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-163</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$25.35</Value>
+      <Part_No>GARR-44047</Part_No>
+      <Work_Order>0184</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>6:53 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-213</C_ID>
+      <Description>10mm Moldino Turbo Bull Endmill - 2mm Rad. - 95mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4100-95-20-TH</Part_No>
+      <Work_Order>26-0178</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>6:31 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-93</C_ID>
+      <Description>0.531" MTL Insert for Sumitomo SMD Drill</Description>
+      <QTY>1</QTY>
+      <Value>$65.26</Value>
+      <Part_No>SUMI-U101332</Part_No>
+      <Work_Order>26-0253</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>5:54 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-271</C_ID>
+      <Description>0.531" - 0.570" Sumitomo SMD Inserted Drill - 8D</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDH0550</Part_No>
+      <Work_Order>26-0253</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>5:00 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-279</C_ID>
+      <Description>0.847" - 0.898" Sumitomo SMD Inserted Drill - 5D</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDH087L</Part_No>
+      <Work_Order>26-0259</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>4:53 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-15</C_ID>
+      <Description>3/4"-10 UNC OSG HY-PRO Cut Tap</Description>
+      <QTY>1</QTY>
+      <Value>$99.88</Value>
+      <Part_No>OSG-2233601</Part_No>
+      <Work_Order>26-0186</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>4:52 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-136</C_ID>
+      <Description>3/4"-10 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-16250341001</Part_No>
+      <Work_Order>26-0186</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>3:17 PM</Time>
+      <User>BBallard</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:56 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-154</C_ID>
+      <Description>0.045" Harvey Tool Square Endmill - 0.135" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$24.10</Value>
+      <Part_No>HARV-73045-C3</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:55 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-323</C_ID>
+      <Description>.062" Garr Square Endmill - 1/4" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>GARR-13037</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:55 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-144</C_ID>
+      <Description>0.093" Garr Square Endmill - 0.375" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$9.89</Value>
+      <Part_No>GARR-13057</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>2:38 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-212</C_ID>
+      <Description>8mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$335.75</Value>
+      <Part_No>MOLD-EMBPE3080-80-09-ATH</Part_No>
+      <Work_Order>26-0178</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>1:23 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-359</C_ID>
+      <Description>1.5mm Moldino Epoch Deep Hard Ball Endmill - 10mm Neck - 50mm OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EPDBEH2015-10-TH3</Part_No>
+      <Work_Order>26-0078</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>11:47 AM</Time>
+      <User>BBallard</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>10:48 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-135</C_ID>
+      <Description>1"-8 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-1625001088</Part_No>
+      <Work_Order>26-0078</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>6:46 AM</Time>
+      <User>JYoung</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>5:45 AM</Time>
+      <User>JYoung</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>3:31 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0254  42-3</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/17/2026</Date>
+      <Time>1:10 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-116</C_ID>
+      <Description>1/4"-20 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$42.65</Value>
+      <Part_No>OSG-1625014204</Part_No>
+      <Work_Order>26-0115</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>10:21 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-163</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$25.35</Value>
+      <Part_No>GARR-44047</Part_No>
+      <Work_Order>26-0185</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>10:13 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-212</C_ID>
+      <Description>8mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$335.75</Value>
+      <Part_No>MOLD-EMBPE3080-80-09-ATH</Part_No>
+      <Work_Order>26-0180</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>8:57 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-117</C_ID>
+      <Description>0.9844" MTL Insert for Sumitomo SMD Drill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDT09844MTL</Part_No>
+      <Work_Order>26-0188</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>4:55 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-192</C_ID>
+      <Description>1/4" Garr Ball Endmill - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$42.24</Value>
+      <Part_No>GARR-44107</Part_No>
+      <Work_Order>26-0179</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>3:20 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>2:53 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-214</C_ID>
+      <Description>6mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EMBPE3060-80-09-ATH</Part_No>
+      <Work_Order>26-0181</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>11:20 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-240</C_ID>
+      <Description>16mm Mitsubishi ASR Feedmill on 5/8" Modular Shank - 4" Neck - 7" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>ASRM2016R-2 / IASC0.625-M8-6-3</Part_No>
+      <Work_Order>26-0179</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>11:02 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-214</C_ID>
+      <Description>6mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EMBPE3060-80-09-ATH</Part_No>
+      <Work_Order>26-0179</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>11:01 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-212</C_ID>
+      <Description>8mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$335.75</Value>
+      <Part_No>MOLD-EMBPE3080-80-09-ATH</Part_No>
+      <Work_Order>26-0179</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/16/2026</Date>
+      <Time>10:59 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-213</C_ID>
+      <Description>10mm Moldino Turbo Bull Endmill - 2mm Rad. - 95mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4100-95-20-TH</Part_No>
+      <Work_Order>26-0179</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>6:50 PM</Time>
+      <User>EPrusinski</User>
+      <Action>Checkout</Action>
+      <C_ID>C-148</C_ID>
+      <Description>0.059" Horn Ball Endmill - 0.089" Flute Length - 1.969" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$58.70</Value>
+      <Part_No>HORN-DSKMH.150.015 TS3E</Part_No>
+      <Work_Order>84-1</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>6:46 PM</Time>
+      <User>EPrusinski</User>
+      <Action>Checkout</Action>
+      <C_ID>C-343</C_ID>
+      <Description>0.06" Harvey Tool Square Endmill - .09" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HARV-14060-C3</Part_No>
+      <Work_Order>84-1</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>5:19 PM</Time>
+      <User>EPrusinski</User>
+      <Action>Checkout</Action>
+      <C_ID>C-148</C_ID>
+      <Description>0.059" Horn Ball Endmill - 0.089" Flute Length - 1.969" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$58.70</Value>
+      <Part_No>HORN-DSKMH.150.015 TS3E</Part_No>
+      <Work_Order>64-3</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>5:16 PM</Time>
+      <User>EPrusinski</User>
+      <Action>Checkout</Action>
+      <C_ID>C-343</C_ID>
+      <Description>0.06" Harvey Tool Square Endmill - .09" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HARV-14060-C3</Part_No>
+      <Work_Order>64-3</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>5:13 PM</Time>
+      <User>EPrusinski</User>
+      <Action>Checkout</Action>
+      <C_ID>C-336</C_ID>
+      <Description>0.062" Harvey Tool Square Endmill - 0.093" Flute - 0.750" Neck - 2.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HARV-801762-C3</Part_No>
+      <Work_Order>64-3</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>3:09 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0083</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>3:07 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-359</C_ID>
+      <Description>1.5mm Moldino Epoch Deep Hard Ball Endmill - 10mm Neck - 50mm OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EPDBEH2015-10-TH3</Part_No>
+      <Work_Order>26-0083</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>3:00 PM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-65</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 20mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$145.38</Value>
+      <Part_No>OSG-3095341</Part_No>
+      <Work_Order>26-0083</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>2:59 PM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-147</C_ID>
+      <Description>1/8" Garr Bull Endmill - 0.01r - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-20107</Part_No>
+      <Work_Order>26-0083</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>2:11 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-173</C_ID>
+      <Description>3/8" Ingersoll HiposFeedV Feedmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>INGE-6342978</Part_No>
+      <Work_Order>26-0187</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>2:05 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-217</C_ID>
+      <Description>4mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EMBPE3040-80-09-ATH</Part_No>
+      <Work_Order>26-0187</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>2:03 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0187</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>12:27 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-130</C_ID>
+      <Description>0.82" Carmex Single Flute Carbide Indexable Threadmill - 8" OAL - 21mm Insert Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>CARM-SR0820M21C</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>12:16 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-84</C_ID>
+      <Description>3.5 ISO Insert for Carmex Indexable Threadmill - 21mm Insert Length</Description>
+      <QTY>1</QTY>
+      <Value>$38.52</Value>
+      <Part_No>CARM-50500056</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>11:50 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-323</C_ID>
+      <Description>.062" Garr Square Endmill - 1/4" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>GARR-13037</Part_No>
+      <Work_Order>26-0207</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>11:48 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-78</C_ID>
+      <Description>.062" Garr Ball Endmill - 0.250" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$13.60</Value>
+      <Part_No>GARR-18037</Part_No>
+      <Work_Order>26-0207</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>9:46 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-195</C_ID>
+      <Description>3/16" Garr Bull Endmill - .03r - 1" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$27.59</Value>
+      <Part_No>GARR-20247</Part_No>
+      <Work_Order>26-0118</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>9:16 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-211</C_ID>
+      <Description>8mm Moldino Turbo Bull Endmill - 2mm Rad. - 90mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4080-90-20-TH</Part_No>
+      <Work_Order>26-0180</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>9:14 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-137</C_ID>
+      <Description>8mm Moldino Turbo Ball Endmill - 120mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EMBPE3080-120-09-ATH</Part_No>
+      <Work_Order>26-0180</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/13/2026</Date>
+      <Time>9:13 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-213</C_ID>
+      <Description>10mm Moldino Turbo Bull Endmill - 2mm Rad. - 95mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4100-95-20-TH</Part_No>
+      <Work_Order>26-0180</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>5:26 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-26</C_ID>
+      <Description>0.787" Allied TA Pro Carbide Insert</Description>
+      <QTY>1</QTY>
+      <Value>$79.94</Value>
+      <Part_No>ALLI-TAP1-20.00</Part_No>
+      <Work_Order>26-0150</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>5:24 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-31</C_ID>
+      <Description>M16x2.0 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$146.63</Value>
+      <Part_No>OSG-1635016202</Part_No>
+      <Work_Order>26-0150</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>3:43 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-31</C_ID>
+      <Description>M16x2.0 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$146.63</Value>
+      <Part_No>OSG-1635016202</Part_No>
+      <Work_Order>26-0154</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>3:05 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-143</C_ID>
+      <Description>0.045" Harvey Tool Ball Diameter - .135" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$30.90</Value>
+      <Part_No>HARV-74345-C3</Part_No>
+      <Work_Order>26-0115</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>2:08 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-36</C_ID>
+      <Description>M20x2.5 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$159.30</Value>
+      <Part_No>OSG-1635020252</Part_No>
+      <Work_Order>26-0168</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>2:07 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-27</C_ID>
+      <Description>M6x1.0 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$42.48</Value>
+      <Part_No>OSG-1635006018</Part_No>
+      <Work_Order>26-0168</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>12:12 PM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-78</C_ID>
+      <Description>.062" Garr Ball Endmill - 0.250" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$13.60</Value>
+      <Part_No>GARR-18037</Part_No>
+      <Work_Order>26-0120</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>12:07 PM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-65</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 20mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$145.38</Value>
+      <Part_No>OSG-3095341</Part_No>
+      <Work_Order>26-0120</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>12:06 PM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-192</C_ID>
+      <Description>1/4" Garr Ball Endmill - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$42.24</Value>
+      <Part_No>GARR-44107</Part_No>
+      <Work_Order>26-0120</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>11:39 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0200</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>9:30 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-324</C_ID>
+      <Description>0.045" Harvey Tool Bull Endmill - 0.01 Rad. - 0.068" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HARV-994545-C3</Part_No>
+      <Work_Order>26-0034</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/12/2026</Date>
+      <Time>9:14 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-169</C_ID>
+      <Description>Nine9 Spot Drill Body</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>EVER-9916-14-5/8</Part_No>
+      <Work_Order>84-2</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/11/2026</Date>
+      <Time>5:27 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-144</C_ID>
+      <Description>0.093" Garr Square Endmill - 0.375" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$9.89</Value>
+      <Part_No>GARR-13057</Part_No>
+      <Work_Order>26-0201</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/11/2026</Date>
+      <Time>5:27 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-343</C_ID>
+      <Description>0.06" Harvey Tool Square Endmill - .09" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HARV-14060-C3</Part_No>
+      <Work_Order>26-0201</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/11/2026</Date>
+      <Time>5:22 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-324</C_ID>
+      <Description>0.045" Harvey Tool Bull Endmill - 0.01 Rad. - 0.068" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HARV-994545-C3</Part_No>
+      <Work_Order>26-0201</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/11/2026</Date>
+      <Time>5:20 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-343</C_ID>
+      <Description>0.06" Harvey Tool Square Endmill - .09" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HARV-14060-C3</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/11/2026</Date>
+      <Time>5:18 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-144</C_ID>
+      <Description>0.093" Garr Square Endmill - 0.375" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$9.89</Value>
+      <Part_No>GARR-13057</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>5:17 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-214</C_ID>
+      <Description>6mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EMBPE3060-80-09-ATH</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>5:15 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-213</C_ID>
+      <Description>10mm Moldino Turbo Bull Endmill - 2mm Rad. - 95mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4100-95-20-TH</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>5:12 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-212</C_ID>
+      <Description>8mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$335.75</Value>
+      <Part_No>MOLD-EMBPE3080-80-09-ATH</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>5:09 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-213</C_ID>
+      <Description>10mm Moldino Turbo Bull Endmill - 2mm Rad. - 95mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4100-95-20-TH</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>1:13 PM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-86</C_ID>
+      <Description>3/8"-16 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$68.85</Value>
+      <Part_No>OSG-1625038167</Part_No>
+      <Work_Order>25-1720</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>10:37 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0151</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>8:13 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-120</C_ID>
+      <Description>0.878" MTL Insert for Sumitomo SMD Drill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDT2230MTL</Part_No>
+      <Work_Order>small side smd drill</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/10/2026</Date>
+      <Time>6:18 AM</Time>
+      <User>BBullock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-279</C_ID>
+      <Description>0.847" - 0.898" Sumitomo SMD Inserted Drill - 5D</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDH087L</Part_No>
+      <Work_Order>26-0169</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>10:09 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0152</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>5:29 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-145</C_ID>
+      <Description>3/8" Garr Square Endmill - 0.875" Flute Length - 2.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$28.85</Value>
+      <Part_No>GARR-13237</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>2:37 PM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-17</C_ID>
+      <Description>1/2"-13 UNC OSG A-Brand Threadmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-1662501217</Part_No>
+      <Work_Order>26-0108</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>11:33 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-65</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 20mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$145.38</Value>
+      <Part_No>OSG-3095341</Part_No>
+      <Work_Order>26-0121</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>11:32 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-307</C_ID>
+      <Description>3mm Moldino Epoch Deep Radius F Bull Endmill - 0.5mm Rad. - 20mm Neck - 70mm OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EPDRF4030-20-05-TH</Part_No>
+      <Work_Order>26-0121</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>11:31 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0121</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>11:30 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-240</C_ID>
+      <Description>16mm Mitsubishi ASR Feedmill on 5/8" Modular Shank - 4" Neck - 7" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>ASRM2016R-2 / IASC0.625-M8-6-3</Part_No>
+      <Work_Order>26-0121</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>11:02 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-53</C_ID>
+      <Description>.032" Garr Ball Endmill - .093" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$13.88</Value>
+      <Part_No>GARR-18017</Part_No>
+      <Work_Order>26-0130</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>9:17 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-218</C_ID>
+      <Description>6mm Moldino Turbo Bull Endmill - 1.5mm Rad. - 67mm Neck</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4060-67-15-TH</Part_No>
+      <Work_Order>26-0132</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>8:15 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-53</C_ID>
+      <Description>.032" Garr Ball Endmill - .093" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$13.88</Value>
+      <Part_No>GARR-18017</Part_No>
+      <Work_Order>26-0130</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>8:14 AM</Time>
+      <User>CCole</User>
+      <Action>Checkout</Action>
+      <C_ID>C-116</C_ID>
+      <Description>1/4"-20 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$42.65</Value>
+      <Part_No>OSG-1625014204</Part_No>
+      <Work_Order>26-0147</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>7:49 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-53</C_ID>
+      <Description>.032" Garr Ball Endmill - .093" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$13.88</Value>
+      <Part_No>GARR-18017</Part_No>
+      <Work_Order>26-0130</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/09/2026</Date>
+      <Time>7:38 AM</Time>
+      <User>AMcGraw</User>
+      <Action>Checkout</Action>
+      <C_ID>C-175</C_ID>
+      <Description>3/8" OSG HY-PRO CARB VGM5 Bull Endmill - .03r - 1.5" Flute Length - 4" OAL - 5 Flutes</Description>
+      <QTY>1</QTY>
+      <Value>$51.63</Value>
+      <Part_No>OSG-VGM5-0118</Part_No>
+      <Work_Order>26-0085</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/06/2026</Date>
+      <Time>3:08 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0015</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/06/2026</Date>
+      <Time>1:54 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-243</C_ID>
+      <Description>0.734" Allied TA Pro Cobalt Insert</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>ALLI-TAX1-18.65</Part_No>
+      <Work_Order>26-0121</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/06/2026</Date>
+      <Time>12:26 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-243</C_ID>
+      <Description>0.734" Allied TA Pro Cobalt Insert</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>ALLI-TAX1-18.65</Part_No>
+      <Work_Order>26-0121</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/06/2026</Date>
+      <Time>11:28 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-182</C_ID>
+      <Description>3/16" Garr Square Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.08</Value>
+      <Part_No>GARR-42047</Part_No>
+      <Work_Order>26-0081</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>4:31 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-65</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 20mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$145.38</Value>
+      <Part_No>OSG-3095341</Part_No>
+      <Work_Order>0130</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>3:18 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-218</C_ID>
+      <Description>6mm Moldino Turbo Bull Endmill - 1.5mm Rad. - 67mm Neck</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-ETMP4060-67-15-TH</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>1:27 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0014</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>12:11 PM</Time>
+      <User>DMcDaniel</User>
+      <Action>Checkout</Action>
+      <C_ID>C-250</C_ID>
+      <Description>1.248" Ingersoll Multi-Surfer T-Slot Cutter Tip</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>INGE-06311133</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>11:15 AM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-149</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1/2" Flute - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$11.78</Value>
+      <Part_No>GARR-18077</Part_No>
+      <Work_Order>26-0130</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>9:30 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-275</C_ID>
+      <Description>0.977" - 1.016" Sumitomo SMD Inserted Drill - 5D</Description>
+      <QTY>1</QTY>
+      <Value>$383.37</Value>
+      <Part_No>SUMI-SMDH100L</Part_No>
+      <Work_Order>Small side</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>9:25 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-182</C_ID>
+      <Description>3/16" Garr Square Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.08</Value>
+      <Part_No>GARR-42047</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/05/2026</Date>
+      <Time>7:50 AM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-169</C_ID>
+      <Description>Nine9 Spot Drill Body</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>EVER-9916-14-5/8</Part_No>
+      <Work_Order>27-0111</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/04/2026</Date>
+      <Time>12:52 PM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-233</C_ID>
+      <Description>3/4" Mitsubishi AJX Short Feedmill - 2" Neck - 4.75" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$259.50</Value>
+      <Part_No>MITS-AJXU08R122WA12S</Part_No>
+      <Work_Order>25-1735</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/04/2026</Date>
+      <Time>10:39 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-160</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-44037</Part_No>
+      <Work_Order>26-0077</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/04/2026</Date>
+      <Time>9:40 AM</Time>
+      <User>AVincent</User>
+      <Action>Checkout</Action>
+      <C_ID>C-51</C_ID>
+      <Description>0.093" Harvey Tool Long Reach Ball Endmill - 2.312" Neck Length - 4.0" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$78.00</Value>
+      <Part_No>HARV-40193-C3</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/04/2026</Date>
+      <Time>9:40 AM</Time>
+      <User>AVincent</User>
+      <Action>Checkout</Action>
+      <C_ID>C-56</C_ID>
+      <Description>0.078" Harvey Tool Long Reach Ball Endmill - 1.95" Neck - 3.0" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$83.70</Value>
+      <Part_No>HARV-40178-C3</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/04/2026</Date>
+      <Time>9:28 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-192</C_ID>
+      <Description>1/4" Garr Ball Endmill - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$42.24</Value>
+      <Part_No>GARR-44107</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>9:18 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0083</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>6:26 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>5:21 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-271</C_ID>
+      <Description>0.531" - 0.570" Sumitomo SMD Inserted Drill - 8D</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>SUMI-SMDH0550</Part_No>
+      <Work_Order>26-0115</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>2:52 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-71</C_ID>
+      <Description>1/8" OSG WXL Bull Endmill w/ .03r - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$27.61</Value>
+      <Part_No>OSG-36700711</Part_No>
+      <Work_Order>26-0083</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>2:12 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-160</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-44037</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>10:14 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-17</C_ID>
+      <Description>1/2"-13 UNC OSG A-Brand Threadmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-1662501217</Part_No>
+      <Work_Order>26-0109</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>9:07 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-135</C_ID>
+      <Description>1"-8 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-1625001088</Part_No>
+      <Work_Order>25-1874</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/03/2026</Date>
+      <Time>8:06 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-226</C_ID>
+      <Description>1/4" Garr Bull Endmill - .06r - 1" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$32.05</Value>
+      <Part_No>GARR-20367</Part_No>
+      <Work_Order>26-0069</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>11:29 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-195</C_ID>
+      <Description>3/16" Garr Bull Endmill - .03r - 1" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$27.59</Value>
+      <Part_No>GARR-20247</Part_No>
+      <Work_Order>0073</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>11:07 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-204</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$27.59</Value>
+      <Part_No>GARR-44067</Part_No>
+      <Work_Order>0073</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>8:24 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0076</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>7:08 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>6:51 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-152</C_ID>
+      <Description>0.705" Insert for Iscar Sumocham Drill</Description>
+      <QTY>1</QTY>
+      <Value>$109.63</Value>
+      <Part_No>ISCA-5508580</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>5:05 PM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-136</C_ID>
+      <Description>3/4"-10 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-16250341001</Part_No>
+      <Work_Order>26-0076</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>11:30 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-96</C_ID>
+      <Description>0.590" Insert for Ingersoll Gold Twist Drill</Description>
+      <QTY>1</QTY>
+      <Value>$96.80</Value>
+      <Part_No>INGE-6164926</Part_No>
+      <Work_Order>26-0073</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>9:39 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-188</C_ID>
+      <Description>1/4" Garr Square Endmill - 1.5" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$28.12</Value>
+      <Part_No>GARR-42097</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>9:26 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-47</C_ID>
+      <Description>M24x3.0 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$218.38</Value>
+      <Part_No>OSG-1635024325</Part_No>
+      <Work_Order>26-0054</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>8:47 AM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-142</C_ID>
+      <Description>1.5625" Allied TA Pro Carbide Insert</Description>
+      <QTY>1</QTY>
+      <Value>$125.58</Value>
+      <Part_No>ALLI-TAP3-39.69</Part_No>
+      <Work_Order>25-1578</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>7:30 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-65</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 20mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$145.38</Value>
+      <Part_No>OSG-3095341</Part_No>
+      <Work_Order>26-0080</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>02/02/2026</Date>
+      <Time>7:28 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-182</C_ID>
+      <Description>3/16" Garr Square Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.08</Value>
+      <Part_No>GARR-42047</Part_No>
+      <Work_Order>26-0080</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/31/2026</Date>
+      <Time>12:56 AM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-152</C_ID>
+      <Description>0.705" Insert for Iscar Sumocham Drill</Description>
+      <QTY>1</QTY>
+      <Value>$109.63</Value>
+      <Part_No>ISCA-5508580</Part_No>
+      <Work_Order>25-1741</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>10:47 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-65</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 20mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$145.38</Value>
+      <Part_No>OSG-3095341</Part_No>
+      <Work_Order>42-2</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>8:26 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-182</C_ID>
+      <Description>3/16" Garr Square Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.08</Value>
+      <Part_No>GARR-42047</Part_No>
+      <Work_Order>26-0080</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>5:33 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-209</C_ID>
+      <Description>3/8" Garr Ball Endmill - 3" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$63.05</Value>
+      <Part_No>GARR-44197</Part_No>
+      <Work_Order>26-0077</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>5:19 PM</Time>
+      <User>EPrusinski</User>
+      <Action>Checkout</Action>
+      <C_ID>C-152</C_ID>
+      <Description>0.705" Insert for Iscar Sumocham Drill</Description>
+      <QTY>1</QTY>
+      <Value>$109.63</Value>
+      <Part_No>ISCA-5508580</Part_No>
+      <Work_Order>26-0015</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>3:26 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>2:37 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-75</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 40mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$151.36</Value>
+      <Part_No>OSG-3095344</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>1:53 PM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-193</C_ID>
+      <Description>1/2" Garr Bull Endmill - .06r - 2" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$64.47</Value>
+      <Part_No>GARR-20817</Part_No>
+      <Work_Order>26-0100</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>6:59 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-95</C_ID>
+      <Description>1.5mm Moldino Long Reach Ball Endmill - 20mm Neck Length - 60mm OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HITA-EPDBEH2015-20-TH3</Part_No>
+      <Work_Order>26-0070</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/30/2026</Date>
+      <Time>6:57 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0070</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>11:23 PM</Time>
+      <User>JYoung</User>
+      <Action>Checkout</Action>
+      <C_ID>C-53</C_ID>
+      <Description>.032" Garr Ball Endmill - .093" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$13.88</Value>
+      <Part_No>GARR-18017</Part_No>
+      <Work_Order>26-0019</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>8:47 PM</Time>
+      <User>LMullins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-135</C_ID>
+      <Description>1"-8 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-1625001088</Part_No>
+      <Work_Order>26-0070</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>8:07 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-182</C_ID>
+      <Description>3/16" Garr Square Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.08</Value>
+      <Part_No>GARR-42047</Part_No>
+      <Work_Order>25-0029</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>7:38 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-182</C_ID>
+      <Description>3/16" Garr Square Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.08</Value>
+      <Part_No>GARR-42047</Part_No>
+      <Work_Order>42-2</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>5:09 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-160</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-44037</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>3:40 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-160</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-44037</Part_No>
+      <Work_Order>26-0019</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>12:08 PM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-65</C_ID>
+      <Description>3mm OSG PHX Ball Endmill w/ 20mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value>$145.38</Value>
+      <Part_No>OSG-3095341</Part_No>
+      <Work_Order>26-0068</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>10:12 AM</Time>
+      <User>CCole</User>
+      <Action>Checkout</Action>
+      <C_ID>C-41</C_ID>
+      <Description>1/4"-20 UNC OSG EXOTAP Cut Tap</Description>
+      <QTY>1</QTY>
+      <Value>$28.44</Value>
+      <Part_No>OSG-1752601</Part_No>
+      <Work_Order>indicator arm</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>9:33 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-102</C_ID>
+      <Description>1.5mm Moldino Long Reach Ball Endmill - 10mm Neck Length - 50mm OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HITA-EDBEH2015-10-TH3</Part_No>
+      <Work_Order>26-0066</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>9:29 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0066</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>9:26 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-284</C_ID>
+      <Description>3/8" Garr Ball Endmill - 1" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>GARR-44167</Part_No>
+      <Work_Order>26-0066</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>4:00 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-95</C_ID>
+      <Description>1.5mm Moldino Long Reach Ball Endmill - 20mm Neck Length - 60mm OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>HITA-EPDBEH2015-20-TH3</Part_No>
+      <Work_Order>26-0067</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>3:41 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-208</C_ID>
+      <Description>3/8" Garr Ball Endmill - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$65.57</Value>
+      <Part_No>GARR-44187</Part_No>
+      <Work_Order>26-0067</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/29/2026</Date>
+      <Time>3:40 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-178</C_ID>
+      <Description>0.093" Garr Ball Endmill - .375" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$12.76</Value>
+      <Part_No>GARR-18057</Part_No>
+      <Work_Order>26-0067</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>10:07 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-31</C_ID>
+      <Description>M16x2.0 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$146.63</Value>
+      <Part_No>OSG-1635016202</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>9:39 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>7:02 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-136</C_ID>
+      <Description>3/4"-10 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-16250341001</Part_No>
+      <Work_Order>25-0069</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>4:17 PM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-163</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$25.35</Value>
+      <Part_No>GARR-44047</Part_No>
+      <Work_Order>26-0069</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>3:35 PM</Time>
+      <User>Brad Taylor</User>
+      <Action>Checkout</Action>
+      <C_ID>C-250</C_ID>
+      <Description>1.248" Ingersoll Multi-Surfer T-Slot Cutter Tip</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>INGE-06311133</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>2:32 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-263</C_ID>
+      <Description>5/8"-11 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$133.94</Value>
+      <Part_No>OSG-1625058117</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>2:23 PM</Time>
+      <User>CCole</User>
+      <Action>Checkout</Action>
+      <C_ID>C-92</C_ID>
+      <Description>5/16"-18 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$52.28</Value>
+      <Part_No>OSG-1625056187</Part_No>
+      <Work_Order>machine 24-1</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>1:11 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-189</C_ID>
+      <Description>5/16" Garr Ball Endmill - 1.625" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$43.83</Value>
+      <Part_No>GARR-44137</Part_No>
+      <Work_Order>26-0054</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>12:46 PM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-273</C_ID>
+      <Description>0.961" - 1.380" Allied Series 2 TA Inserted Spade Drill - 3D</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>ALLI-22020S-125L</Part_No>
+      <Work_Order>25-1735</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>12:10 PM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-188</C_ID>
+      <Description>1/4" Garr Square Endmill - 1.5" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$28.12</Value>
+      <Part_No>GARR-42097</Part_No>
+      <Work_Order>25-1756</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>10:34 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-36</C_ID>
+      <Description>M20x2.5 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$159.30</Value>
+      <Part_No>OSG-1635020252</Part_No>
+      <Work_Order>26-0039</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>10:13 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-27</C_ID>
+      <Description>M6x1.0 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$42.48</Value>
+      <Part_No>OSG-1635006018</Part_No>
+      <Work_Order>26-0039</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>9:41 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-29</C_ID>
+      <Description>M12x1.75 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$86.38</Value>
+      <Part_No>OSG-1635012751</Part_No>
+      <Work_Order>26-0039</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/28/2026</Date>
+      <Time>9:37 AM</Time>
+      <User>CCole</User>
+      <Action>Checkout</Action>
+      <C_ID>C-116</C_ID>
+      <Description>1/4"-20 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$42.65</Value>
+      <Part_No>OSG-1625014204</Part_No>
+      <Work_Order>no job #, indicator arm holder</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/27/2026</Date>
+      <Time>12:28 PM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-215</C_ID>
+      <Description>5mm Moldino Turbo Ball Endmill - 80mm Neck Length</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-EMBPE3050-80-09-ATH</Part_No>
+      <Work_Order>26-0024</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/27/2026</Date>
+      <Time>12:03 PM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-266</C_ID>
+      <Description>1.250" Allied TA Pro Cobalt Insert</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>ALLI-152T-0108</Part_No>
+      <Work_Order>25-1578</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/27/2026</Date>
+      <Time>10:08 AM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-96</C_ID>
+      <Description>0.590" Insert for Ingersoll Gold Twist Drill</Description>
+      <QTY>1</QTY>
+      <Value>$96.80</Value>
+      <Part_No>INGE-6164926</Part_No>
+      <Work_Order>25-1735</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/27/2026</Date>
+      <Time>9:23 AM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-154</C_ID>
+      <Description>0.045" Harvey Tool Square Endmill - 0.135" Flute Length - 1.5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$24.10</Value>
+      <Part_No>HARV-73045-C3</Part_No>
+      <Work_Order>26-0093</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/27/2026</Date>
+      <Time>9:20 AM</Time>
+      <User>MWardlow</User>
+      <Action>Checkout</Action>
+      <C_ID>C-263</C_ID>
+      <Description>5/8"-11 UNC OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$133.94</Value>
+      <Part_No>OSG-1625058117</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/27/2026</Date>
+      <Time>7:55 AM</Time>
+      <User>AShafer</User>
+      <Action>Checkout</Action>
+      <C_ID>C-185</C_ID>
+      <Description>3/4" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0019</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/23/2026</Date>
+      <Time>5:36 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-201</C_ID>
+      <Description>1/4" Garr Bull Endmill - .06r - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$42.24</Value>
+      <Part_No>GARR-20417</Part_No>
+      <Work_Order>0024</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/23/2026</Date>
+      <Time>5:34 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-193</C_ID>
+      <Description>1/2" Garr Bull Endmill - .06r - 2" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$64.47</Value>
+      <Part_No>GARR-20817</Part_No>
+      <Work_Order>0024</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/23/2026</Date>
+      <Time>12:10 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-136</C_ID>
+      <Description>3/4"-10 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-16250341001</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/22/2026</Date>
+      <Time>11:55 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-160</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-44037</Part_No>
+      <Work_Order>26-0020</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/22/2026</Date>
+      <Time>11:54 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-163</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$25.35</Value>
+      <Part_No>GARR-44047</Part_No>
+      <Work_Order>26-0020</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/22/2026</Date>
+      <Time>11:18 AM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>25-1835</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/22/2026</Date>
+      <Time>9:58 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-160</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-44037</Part_No>
+      <Work_Order>26-0023</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/22/2026</Date>
+      <Time>7:36 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-104</C_ID>
+      <Description>1/2" Insert for Moldino IABPFN Ballmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MOLD-IZDFG120N-ST ATH80D</Part_No>
+      <Work_Order>26-0066</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/22/2026</Date>
+      <Time>7:34 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-192</C_ID>
+      <Description>1/4" Garr Ball Endmill - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$42.24</Value>
+      <Part_No>GARR-44107</Part_No>
+      <Work_Order>26-0066</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/22/2026</Date>
+      <Time>7:30 AM</Time>
+      <User>BDick</User>
+      <Action>Checkout</Action>
+      <C_ID>C-206</C_ID>
+      <Description>1/2" Garr Ball Endmill - 3" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>GARR-44277</Part_No>
+      <Work_Order>26-0022</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>6:02 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-160</C_ID>
+      <Description>1/8" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$22.57</Value>
+      <Part_No>GARR-44037</Part_No>
+      <Work_Order>26-0020</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>5:52 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-163</C_ID>
+      <Description>3/16" Garr Ball Endmill - 1" Flute Length - 3" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$25.35</Value>
+      <Part_No>GARR-44047</Part_No>
+      <Work_Order>26-0020</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>5:47 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0020</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>3:20 PM</Time>
+      <User>AVincent</User>
+      <Action>Checkout</Action>
+      <C_ID>C-134</C_ID>
+      <Description>3/4" Garr Bull Endmill - .06r - 3" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$205.20</Value>
+      <Part_No>GARR-21037</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>2:33 PM</Time>
+      <User>JDameron</User>
+      <Action>Checkout</Action>
+      <C_ID>C-31</C_ID>
+      <Description>M16x2.0 ISO OSG Form Tap</Description>
+      <QTY>1</QTY>
+      <Value>$146.63</Value>
+      <Part_No>OSG-1635016202</Part_No>
+      <Work_Order>26-0050</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>10:28 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-192</C_ID>
+      <Description>1/4" Garr Ball Endmill - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$42.24</Value>
+      <Part_No>GARR-44107</Part_No>
+      <Work_Order>26-0023</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>10:27 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-191</C_ID>
+      <Description>3/8" Garr Bull Endmill - .03r - 2" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$47.57</Value>
+      <Part_No>GARR-20587</Part_No>
+      <Work_Order>26-0023</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>9:39 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-173</C_ID>
+      <Description>3/8" Ingersoll HiposFeedV Feedmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>INGE-6342978</Part_No>
+      <Work_Order>26-0020</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/21/2026</Date>
+      <Time>3:55 AM</Time>
+      <User>MGarwood</User>
+      <Action>Checkout</Action>
+      <C_ID>C-136</C_ID>
+      <Description>3/4"-10 UNC OSG A-Brand Form Tap</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>OSG-16250341001</Part_No>
+      <Work_Order>25-0023</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/20/2026</Date>
+      <Time>11:29 PM</Time>
+      <User>GRenner</User>
+      <Action>Checkout</Action>
+      <C_ID>C-132</C_ID>
+      <Description>3/4" Garr Bull Endmill - .03r - 2" Flute - 5" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$166.11</Value>
+      <Part_No>GARR-63310</Part_No>
+      <Work_Order>26-0091</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/20/2026</Date>
+      <Time>6:16 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0094</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/20/2026</Date>
+      <Time>5:18 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-196</C_ID>
+      <Description>6mm Millstar Ball Endmill - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>MILL-BM-6.0-LL-HSN</Part_No>
+      <Work_Order>26-0093</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/20/2026</Date>
+      <Time>2:54 PM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-68</C_ID>
+      <Description>1.005" Allied Carbide ALVAN Reamer Head</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>ALLI-I7700-KAM-10015</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/20/2026</Date>
+      <Time>2:23 PM</Time>
+      <User>CJordan</User>
+      <Action>Checkout</Action>
+      <C_ID>C-173</C_ID>
+      <Description>3/8" Ingersoll HiposFeedV Feedmill</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>INGE-6342978</Part_No>
+      <Work_Order>25-0019</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/20/2026</Date>
+      <Time>9:51 AM</Time>
+      <User>CHebrock</User>
+      <Action>Checkout</Action>
+      <C_ID>C-284</C_ID>
+      <Description>3/8" Garr Ball Endmill - 1" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value />
+      <Part_No>GARR-44167</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/20/2026</Date>
+      <Time>8:51 AM</Time>
+      <User>AVincent</User>
+      <Action>Checkout</Action>
+      <C_ID>C-201</C_ID>
+      <Description>1/4" Garr Bull Endmill - .06r - 1.5" Flute - 6" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$42.24</Value>
+      <Part_No>GARR-20417</Part_No>
+      <Work_Order>None Specified</Work_Order>
+    </Transaction>
+    <Transaction>
+      <Date>01/19/2026</Date>
+      <Time>7:34 AM</Time>
+      <User>EWatkins</User>
+      <Action>Checkout</Action>
+      <C_ID>C-197</C_ID>
+      <Description>5/16" Garr Bull Endmill - .03r - 1" Flute - 4" OAL</Description>
+      <QTY>1</QTY>
+      <Value>$43.65</Value>
+      <Part_No>GARR-20447</Part_No>
+      <Work_Order>26-0020</Work_Order>
+    </Transaction>
+  </MonthlyTransactions>
+  <Totals>
+    <DailyTotal>602.88</DailyTotal>
+    <MonthlyTotal>8228.06</MonthlyTotal>
+  </Totals>
+</TransactionReport>

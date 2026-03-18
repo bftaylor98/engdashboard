@@ -1,0 +1,74 @@
+========================================
+SQL PROBE - DEPLOYMENT FILES SUMMARY
+========================================
+
+NEW FILES CREATED FOR DEPLOYMENT:
+----------------------------------
+1. install_dependencies.bat
+   - Automated batch script to install all Python dependencies
+   - Checks Python and pip availability
+   - Installs from both root and daily_trans requirements.txt
+   - Usage: Double-click or run from command prompt
+
+2. DEPLOYMENT_GUIDE.md
+   - Complete deployment documentation
+   - Step-by-step instructions
+   - Troubleshooting guide
+   - Configuration details
+
+3. DEPLOYMENT_CHECKLIST.txt
+   - Printable checklist for deployment process
+   - Verification steps
+   - Quick reference
+
+4. QUICK_START_SERVER.md
+   - Fast 5-step deployment guide
+   - Common issues and solutions
+   - Quick reference
+
+FILES TO TRANSFER TO SERVER:
+-----------------------------
+Copy the ENTIRE SQL_Probe directory structure:
+
+Core Files:
+- sql_probe.py
+- queries.sql
+- requirements.txt
+- generate_master_transaction_report.py
+- generate_today_report.py
+- install_dependencies.bat (NEW)
+- DEPLOYMENT_GUIDE.md (NEW)
+- DEPLOYMENT_CHECKLIST.txt (NEW)
+- QUICK_START_SERVER.md (NEW)
+- README.md
+- PROJECT_GUIDE.md
+- master_transaction_report.html (if exists)
+- master_transaction_report.xml (if exists)
+
+Directories:
+- daily_trans/ (all files including logo.png)
+- templates/ (all files)
+- docs/ (all files)
+- utils/ (all files)
+- tests/ (all files)
+- __pycache__/ (optional, can be regenerated)
+
+MINIMUM REQUIREMENTS:
+---------------------
+- Python 3.7+
+- ODBC Driver 17 for SQL Server
+- Windows Server 2016+ or Windows 10/11
+- Network access to ESTSS01\ZOLLERSQLEXPRESS
+
+DEPENDENCIES INSTALLED:
+-----------------------
+- pyodbc (SQL Server connection)
+- requests>=4.0.39 (HTTP requests for Power Automate)
+
+INSTALLATION COMMAND:
+---------------------
+Run: install_dependencies.bat
+OR: pip install -r requirements.txt
+
+========================================
+

@@ -1,0 +1,1 @@
+"Before touching any app files, write a scratch test script, run it in the terminal, and show me the output. Only proceed to edit the app after we've confirmed the data looks correct. Read the api rules in agents.md"

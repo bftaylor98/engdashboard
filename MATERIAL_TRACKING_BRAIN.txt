@@ -1,0 +1,604 @@
+================================================================================
+            MATERIAL TRACKING PAGE – STANDALONE BRAIN FILE
+                         Last Updated: 2026-02-25
+================================================================================
+
+
+================================================================================
+1. WHAT THIS PAGE DOES
+================================================================================
+
+A dashboard page that shows the material status for work orders on the
+engineering schedule. It answers the question: "Has the raw material for
+this job been ordered, and when will it arrive?"
+
+Data comes from the Proshop ERP system (est.adionsystems.com) via its
+GraphQL API. The page does NOT store material status locally — it queries
+Proshop in real time on every page load.
+
+For each work order on the local schedule, the page shows:
+  - Material status (Not Ordered / Ordered / Arrived)
+  - The Purchase Order number the material was ordered on
+  - The "Due at Dock" date (when the supplier said material would arrive)
+  - Material type and grade (e.g., Steel 4140PH)
+  - Whether the material has been received (and when)
+
+The page is accessible to all authenticated users at route /material-tracking.
+
+
+================================================================================
+2. DATA FLOW — HOW IT ALL CONNECTS
+================================================================================
+
+There are THREE separate data sources that get combined:
+
+  1. LOCAL DATABASE (SQLite)
+     Table: engineering_work_orders
+     Used ONLY to get the list of WO numbers currently on the schedule.
+     Query: SELECT DISTINCT wo_number WHERE current_status != 'completed'
+
+  2. PROSHOP WORK ORDER API (GraphQL)
+     Query: workOrders(filter: { workOrderNumber: [...] })
+     Returns: work order details + partStockStatuses sub-table
+     The partStockStatuses sub-table contains:
+       - What material is needed (material type, grade, dimensions)
+       - What PO it was ordered on (psPONumberPlainText)
+       - Basic stock info (size, supplier, quantity)
+
+  3. PROSHOP PURCHASE ORDER API (GraphQL)
+     Query: purchaseOrder(id: "PO_NUMBER")
+     Returns: PO line items with:
+       - estimatedArrival = "Due at Dock" date (when supplier said it arrives)
+       - receivedDate = when it was actually received (null if not yet)
+       - receivedQty = how many were received
+
+THE TWO-STEP FETCH PROCESS:
+
+  Step 1: Get WO numbers from local DB
+          ↓
+  Step 2: Query Proshop workOrders API with those WO numbers
+          → Get partStockStatuses for each WO
+          → Collect all PO numbers from the stock lines
+          ↓
+  Step 3: Query Proshop purchaseOrder API for each unique PO number
+          → Get line items with estimatedArrival (Due at Dock) and receivedDate
+          ↓
+  Step 4: Merge PO line item data into stock details
+          → Match PO line items to stock lines by material description
+          ↓
+  Step 5: Derive material status using the decision tree (Section 4)
+          ↓
+  Step 6: Return combined result to frontend
+
+
+================================================================================
+3. PROSHOP API DETAILS
+================================================================================
+
+AUTHENTICATION:
+  POST https://est.adionsystems.com/api/beginsession
+  Headers: Accept: application/json, Content-Type: application/json
+  Body: {
+    "username": "admin@esttool.com",
+    "password": "EstAdmin4626!!",
+    "scope": "nonconformancereports:r workorders:r parts:r users:r
+              toolpots:r purchaseorders:r contacts:r"
+  }
+  Response: { "authorizationResult": { "token": "..." } }
+
+  The token is used as: Authorization: Bearer <token>
+  A new token is obtained per request (no caching).
+
+GRAPHQL ENDPOINT:
+  POST https://est.adionsystems.com/api/graphql
+  Headers: Authorization: Bearer <token>,
+           Accept: application/json,
+           Content-Type: application/json
+  Body: { "query": "...", "variables": {...} }
+
+────────────────────────────────────────────────────────────────────────────────
+QUERY 1: Work Orders with Part Stock Statuses
+────────────────────────────────────────────────────────────────────────────────
+
+  query GetWorkOrders(
+    $pageSize: Int!,
+    $pageStart: Int!,
+    $filter: WorkOrderFilter
+  ) {
+    workOrders(
+      pageSize: $pageSize,
+      pageStart: $pageStart,
+      filter: $filter
+    ) {
+      totalRecords
+      records {
+        workOrderNumber          # e.g. "26-0341"
+        status                   # e.g. "Active", "Invoiced", "Shipped"
+        dueDate                  # WO due date (NOT material due date)
+        partstockNote            # free-text note about stock, e.g. "QN: 610492"
+        part { partNumber }      # e.g. "SSP-0004326-0500_NEW"
+        customer { name }        # e.g. "SSP"
+        partStockStatuses(pageSize: 20, pageStart: 0) {
+          totalRecords
+          records {
+            material             # e.g. "Steel", "/na"
+            materialGrade        # e.g. "4140PH", "FX2"
+            partStockType        # e.g. "Rectangular Bar"
+            psPONumberPlainText  # PO number string, e.g. "263174"
+            psETA                # ETA field on stock line (usually null)
+            psActualETA          # Actual arrival date (usually null)
+            psActualQuantity     # Actual quantity received
+            psQuantityQrdered    # Quantity ordered (note: typo is in API)
+            psSizeOrdered        # Size ordered string
+            psSupplierPlainText  # Supplier name
+            roughStockHeight     # e.g. ".5\""
+            roughStockLength     # e.g. "44.25\""
+            roughStockWidth      # e.g. "23.25\""
+            stockRelatedOps      # Related operations note
+          }
+        }
+      }
+    }
+  }
+
+  Variables: {
+    pageSize: 200,
+    pageStart: 0,
+    filter: {
+      workOrderNumber: ["26-0341", "25-1784", ...]  // from local DB
+    }
+  }
+
+  IMPORTANT NOTES:
+  - The filter uses workOrderNumber (array of strings) to scope to local WOs
+  - partStockStatuses is a sub-table — a WO can have 0, 1, or multiple
+    stock lines (one per material needed)
+  - psPONumberPlainText is the link to the Purchase Order. If null, material
+    hasn't been ordered. If set, material was ordered on that PO.
+  - The psETA and psActualETA fields on stock lines are USUALLY NULL.
+    The actual "Due at Dock" date lives on the PO line item, not here.
+  - material can be "/na" meaning no material required for this part
+  - Pagination: use pageSize 200, loop with pageStart += 200 until
+    records.length < pageSize
+
+────────────────────────────────────────────────────────────────────────────────
+QUERY 2: Purchase Order Line Items (for Due-at-Dock dates)
+────────────────────────────────────────────────────────────────────────────────
+
+  query GetPO($id: String!) {
+    purchaseOrder(id: $id) {
+      id
+      orderStatus               # e.g. "Outstanding", "Partially Released"
+      poItems(pageSize: 50, pageStart: 0) {
+        records {
+          itemNumber             # e.g. "1", "a"
+          description            # e.g. "4140PH Rectangular Bar"
+          quantity               # e.g. "4"
+          costPer                # e.g. 673
+          estimatedArrival       # "Due at Dock" — e.g. "3/27/2026"
+          receivedDate           # when received — e.g. "12/05/2025; 08:33 AM"
+          receivedQty            # how many received
+          releasedDate           # when released from receiving
+          releasedQty            # how many released
+        }
+      }
+    }
+  }
+
+  Variables: { id: "263174" }  // the PO number from psPONumberPlainText
+
+  CRITICAL FIELDS:
+  - estimatedArrival: This is the "Due at Dock" date. It's the date the
+    supplier stated the items would arrive. Format: "M/D/YYYY" e.g. "3/27/2026"
+    THIS IS THE DATE TO SHOW AS THE MATERIAL ETA.
+  - receivedDate: When the material was actually received. If non-null,
+    the material has arrived. Format includes time: "12/05/2025; 08:33:53 AM"
+  - A PO can have multiple line items. Empty items (no description) should
+    be filtered out.
+
+  MATCHING PO LINE ITEMS TO STOCK LINES:
+  When a WO stock line references PO "263174", we fetch that PO and need
+  to find the matching line item. The matching logic:
+    1. Try to match by material description similarity (check if the PO
+       line description contains the stock material name or grade)
+    2. Fall back to the first line item with a description if no match
+
+  This is a heuristic — in practice most POs referenced by a single stock
+  line have a clear matching line item.
+
+
+================================================================================
+4. MATERIAL STATUS DERIVATION LOGIC
+================================================================================
+
+The material status is derived (not stored) from a combination of the WO
+status, stock line data, and PO line item data.
+
+DECISION TREE (evaluated in order, first match wins):
+
+  1. Is the WO status one of: Invoiced, Shipped, Complete, Completed, Closed?
+     → STATUS = "arrived"
+     (If the job is done, material must have arrived and been used)
+
+  2. Does ANY stock line have a receivedDate (from PO line item lookup)?
+     → STATUS = "arrived"
+     (PO receiving shows material was checked in)
+
+  3. Does ANY stock line have a psActualETA (actual arrival date on stock)?
+     → STATUS = "arrived"
+     (Explicit arrival date recorded on the stock line)
+
+  4. Does ANY stock line have a psPONumberPlainText (PO number)?
+     → STATUS = "ordered"
+     (Material has been ordered but not yet received)
+
+  5. Are there stock lines but none match the above?
+     → STATUS = "not-ordered"
+     (Material requirements exist but haven't been ordered)
+
+  6. Are there NO stock lines at all?
+     → STATUS = "unknown"
+     (No stock information available for this WO)
+
+POSSIBLE STATUS VALUES:
+  "arrived"     - Material has been received or WO is complete
+  "ordered"     - Material ordered on a PO, waiting for delivery
+  "not-ordered" - Material not yet ordered
+  "unknown"     - No stock information found for this WO
+
+
+================================================================================
+5. BACKEND API ENDPOINT
+================================================================================
+
+GET /api/proshop/material-status
+
+  Authentication: Requires valid session token (Bearer header)
+
+  Query params:
+    woNumbers  (optional) - Comma-separated WO numbers to look up.
+               If omitted, defaults to all non-completed WO numbers in the
+               local engineering_work_orders table.
+
+  Response:
+    {
+      "success": true,
+      "data": [
+        {
+          "workOrderNumber": "26-0341",
+          "status": "Active",             // Proshop WO status
+          "dueDate": "4/3/2026",          // WO due date (customer due)
+          "partNumber": "SSP-0004326-0500_NEW",
+          "customer": "SSP",
+          "partstockNote": "QN: 610492\nLine 1",
+          "materialStatus": "ordered",    // derived status (see Section 4)
+          "stockDetails": [
+            {
+              "material": "Steel",
+              "materialGrade": "4140PH",
+              "stockType": "Rectangular Bar",
+              "poNumber": "263174",
+              "dueAtDock": "3/27/2026",     // from PO line estimatedArrival
+              "eta": null,                  // from stock line psETA
+              "actualArrived": null,        // from stock line psActualETA
+              "receivedDate": null,         // from PO line receivedDate
+              "receivedQty": null,          // from PO line receivedQty
+              "quantityOrdered": null,      // from stock line psQuantityQrdered
+              "sizeOrdered": null,
+              "supplier": null,
+              "dimensions": "44.25\" × 23.25\" × .5\""
+            }
+          ]
+        },
+        ...
+      ]
+    }
+
+  KEY DISTINCTIONS IN THE RESPONSE:
+  - dueDate: The WORK ORDER due date (customer due). NOT the material date.
+  - dueAtDock: The MATERIAL due date from the PO line item. This is the
+    date the supplier said the material would arrive.
+  - receivedDate: When the material was actually received at the dock.
+    Null if not yet received.
+
+  IMPLEMENTATION STEPS:
+  1. Get WO numbers from local DB (or from query param)
+  2. Authenticate with Proshop API
+  3. Fetch work orders + partStockStatuses from Proshop (paginated)
+  4. Collect all unique PO numbers from stock lines
+  5. Fetch PO details for each PO (in parallel)
+  6. For each stock line, look up its PO's line items to get dueAtDock
+     and receivedDate
+  7. Derive materialStatus using the decision tree
+  8. Return combined results
+
+
+================================================================================
+6. FRONTEND PAGE ARCHITECTURE
+================================================================================
+
+File: src/pages/MaterialTracking.tsx
+Route: /material-tracking (accessible to all authenticated users)
+Nav: "Material" with Package icon, between Calendar and Tools
+
+PAGE LAYOUT:
+  ┌─────────────────────────────────────────────────────────────┐
+  │  Package icon  "Material Tracking"           [Refresh] btn  │
+  │  "Material status from Proshop ERP for scheduled work orders│
+  ├─────────────────────────────────────────────────────────────┤
+  │  [Total] [Not Ordered] [Ordered] [Arrived]  ← clickable    │
+  │   cards   (red count)  (yellow)  (green)    ← filter cards  │
+  ├─────────────────────────────────────────────────────────────┤
+  │  [🔍 Search WO, part, customer...]  [Clear All]            │
+  │  Showing X of Y work orders                                │
+  ├─────────────────────────────────────────────────────────────┤
+  │  Material Status | WO# | Part# | Customer | Due@Dock |     │
+  │                  |     |       |          |          |     │
+  │  Material  | PO# | ▸                                       │
+  │  ──────────────────────────────────────────────────────    │
+  │  [Badge]  26-0341↗  SSP-...  SSP  3/27/2026               │
+  │           Steel 4140PH  263174↗  ▸                         │
+  │    ├─ expanded: Material: Steel 4140PH  Type: Rect. Bar    │
+  │    │  PO: 263174↗  Due at Dock: 3/27/2026  Size: 44x23x.5 │
+  │    │  Note: QN: 610492 Line 1                              │
+  └─────────────────────────────────────────────────────────────┘
+
+SUMMARY CARDS:
+  Four clickable cards that show counts and also act as toggle filters.
+  Clicking a card filters the table to that status. Clicking again removes
+  the filter.
+
+  - Total Active (no icon, blue border when selected)
+  - Not Ordered (AlertCircle icon, red count, red border when selected)
+  - Ordered (Truck icon, yellow count, yellow border when selected)
+  - Arrived (CheckCircle2 icon, green count, green border when selected)
+
+TABLE COLUMNS:
+  1. Material Status - colored badge: "Not Ordered" (red), "Ordered" (yellow),
+     "Arrived" (green), "Unknown" (gray)
+  2. WO # - hyperlink to Proshop WO page:
+     https://est.adionsystems.com/procnc/workorders/{WO_NUMBER}
+  3. Part # - from Proshop (partNumber)
+  4. Customer - from Proshop (customer name)
+  5. Due at Dock - from PO line item estimatedArrival (material ETA).
+     NOT the WO due date. Falls back to stock line psETA if no PO data.
+  6. Material - material type + grade, e.g. "Steel 4140PH"
+  7. PO # - hyperlink to Proshop PO page:
+     https://est.adionsystems.com/procnc/purchaseorders/{PO_NUMBER}
+  8. Expand arrow (▸) - click row to expand details
+
+EXPANDED ROW DETAILS:
+  Shows all fields from the first stock detail record:
+  - Material: Steel 4140PH
+  - Type: Rectangular Bar
+  - PO: 263174 (hyperlinked)
+  - Supplier: BICO (if available)
+  - Due at Dock: 3/27/2026 (yellow text)
+  - Received: 12/05/2025 (green text, if material arrived)
+  - Size: 44.25" × 23.25" × .5"
+  - Note: from partstockNote field
+
+SEARCH:
+  Client-side text filter across: workOrderNumber, partNumber, customer,
+  partstockNote. Case-insensitive partial match.
+
+REFRESH BUTTON:
+  Re-fetches all data from Proshop API. Shows spinning icon while loading.
+
+HYPERLINKS:
+  - WO numbers link to: https://est.adionsystems.com/procnc/workorders/{WO}
+  - PO numbers link to: https://est.adionsystems.com/procnc/purchaseorders/{PO}
+  Both open in new tabs with noopener noreferrer.
+
+
+================================================================================
+7. PROSHOP GRAPHQL SCHEMA REFERENCE
+================================================================================
+
+KEY TYPES (from PS-API-Schema.gql):
+
+  WorkOrder:
+    workOrderNumber, status, dueDate, partstockNote, notes,
+    part { partNumber }, customer { name },
+    partStockStatuses(pageSize, pageStart) → PaginatedWorkOrderPartStockResult
+
+  WorkOrderPartStock (each stock line on a WO):
+    material, materialGrade, partStockType,
+    psPONumberPlainText,          ← PO number (string, links to PurchaseOrder)
+    psETA,                        ← ETA on stock line (usually null)
+    psActualETA,                  ← Actual arrival on stock (usually null)
+    psActualQuantity,             ← Actual qty received on stock
+    psQuantityQrdered,            ← Qty ordered (note: API has typo "Qrdered")
+    psSizeOrdered, psSupplierPlainText,
+    roughStockHeight, roughStockLength, roughStockWidth,
+    stockRelatedOps, stockSpec
+
+  WorkOrderFilter:
+    workOrderNumber: [String]     ← filter by WO numbers
+    status: [String]              ← filter by status (e.g. ["Active"])
+
+  PurchaseOrder:
+    id, cost, date, orderStatus, poType,
+    supplier { name },
+    poItems(pageSize, pageStart) → PaginatedPurchaseOrderPOItemsResult
+
+  PurchaseOrderPOItems (each line item on a PO):
+    itemNumber, description, quantity, costPer,
+    estimatedArrival,             ← "Due at Dock" date (M/D/YYYY format)
+    actualDueDate,                ← Internal due date
+    receivedDate,                 ← When received (M/DD/YYYY; HH:MM:SS AM)
+    receivedQty,                  ← How many received (integer)
+    receivedBy,                   ← Who received it (string)
+    releasedDate, releasedQty, releasedBy,
+    invoiceReceived, invoiceReceivedDate
+
+  IMPORTANT: The "Due at Dock" date is on PurchaseOrderPOItems.estimatedArrival
+  NOT on the work order or the stock line. You must query the PO separately
+  to get this date. The stock line only has the PO number reference.
+
+
+================================================================================
+8. STYLING REFERENCE
+================================================================================
+
+MATERIAL STATUS BADGES:
+  not-ordered: bg-red-500/20    text-red-400    border-red-500/30
+               AlertCircle icon, label "Not Ordered"
+  ordered:     bg-yellow-500/20 text-yellow-400 border-yellow-500/30
+               Truck icon, label "Ordered"
+  arrived:     bg-green-500/20  text-green-400  border-green-500/30
+               CheckCircle2 icon, label "Arrived"
+  unknown:     bg-zinc-500/20   text-zinc-400   border-zinc-500/30
+               HelpCircle icon, label "Unknown"
+
+SUMMARY CARDS:
+  Default border: border-white/10
+  Selected border: border-{color}-500/40
+  Background: bg-zinc-900/50
+  Rounded: rounded-xl, padding: p-3.5
+
+TABLE:
+  Container: bg-zinc-900/50 border border-white/10 rounded-xl
+  Header: text-zinc-500, text-xs, uppercase, tracking-wider
+  Rows: divide-y divide-white/5, hover:bg-white/[0.02]
+  Expanded detail: bg-white/[0.01] border-t border-white/5
+
+LINKS:
+  text-blue-400 hover:text-blue-300 hover:underline
+  ExternalLink icon (w-3 h-3) next to link text
+
+
+================================================================================
+9. TYPESCRIPT TYPES
+================================================================================
+
+  interface ProshopStockDetail {
+    material: string | null;        // "Steel", "/na", null
+    materialGrade: string | null;   // "4140PH", "FX2", null
+    stockType: string | null;       // "Rectangular Bar"
+    poNumber: string | null;        // "263174" — links to PO
+    dueAtDock: string | null;       // "3/27/2026" — from PO estimatedArrival
+    eta: string | null;             // from stock line psETA (usually null)
+    actualArrived: string | null;   // from stock line psActualETA
+    receivedDate: string | null;    // from PO line receivedDate
+    receivedQty: number | null;     // from PO line receivedQty
+    quantityOrdered: number | null; // from stock line psQuantityQrdered
+    sizeOrdered: string | null;
+    supplier: string | null;
+    dimensions: string | null;      // "44.25\" × 23.25\" × .5\""
+  }
+
+  interface ProshopMaterialStatus {
+    workOrderNumber: string;
+    status: string;                 // Proshop WO status
+    dueDate: string | null;         // WO customer due date (NOT material)
+    partNumber: string | null;
+    customer: string | null;
+    partstockNote: string | null;
+    materialStatus: 'not-ordered' | 'ordered' | 'arrived' | 'unknown';
+    stockDetails: ProshopStockDetail[];
+  }
+
+
+================================================================================
+10. FILES IN THIS CODEBASE
+================================================================================
+
+  server/routes/materialStatus.js   - Backend route handler
+  server/index.js                   - Route mounted at /api/proshop/material-status
+  src/pages/MaterialTracking.tsx    - Frontend page component
+  src/services/api.ts               - getProshopMaterialStatus() function
+  src/types/index.ts                - ProshopStockDetail, ProshopMaterialStatus
+  src/App.tsx                       - Route: /material-tracking
+  src/components/Layout.tsx         - Nav item: Package icon, "Material"
+
+
+================================================================================
+11. VERIFIED TEST DATA
+================================================================================
+
+These WOs were tested against the live Proshop API (2026-02-25):
+
+  WO        Customer  Material Status  PO      Due@Dock    Received
+  ────────  ────────  ───────────────  ──────  ──────────  ──────────
+  26-0341   SSP       ordered          263174  3/27/2026   —
+  25-1784   ICI       arrived          253955  12/5/2025   12/05/2025
+  26-0358   AICHI     not-ordered      —       —           —
+  26-0317   AICHI     (varies)         ...     ...         ...
+  26-0332   BFPMT     (varies)         ...     ...         ...
+  25-1878   AICHI     (varies)         ...     ...         ...
+  26-0074   PFI       (varies)         ...     ...         ...
+
+KEY VALIDATION:
+  - 26-0341: User confirmed the Due at Dock date should be 3/27/2026
+    (from PO 263174 line item estimatedArrival). The WO due date is 4/3/2026
+    which is a DIFFERENT date — do NOT confuse the two.
+  - 25-1784: WO status is "Invoiced" (completed). PO 253955 line item has
+    receivedDate "12/05/2025; 08:33:53 AM". Both trigger "arrived" status.
+
+
+================================================================================
+12. COMMON GOTCHAS & EDGE CASES
+================================================================================
+
+1. DUE DATE vs DUE AT DOCK:
+   The WO dueDate field is the CUSTOMER due date (when the finished parts
+   must be delivered). The material "Due at Dock" date is on the PO line
+   item (estimatedArrival). These are completely different dates.
+   ALWAYS show estimatedArrival for material tracking, not dueDate.
+
+2. PO LINE ITEM MATCHING:
+   A PO can have multiple line items. When matching a WO stock line to a
+   PO line item, the current logic tries description matching (does the PO
+   line description contain the material name or grade?), then falls back
+   to the first item. This works for most cases but could misfire if a PO
+   has many unrelated line items.
+
+3. MATERIAL "/na":
+   Some WOs have material set to "/na" meaning no raw material is required
+   (e.g., rebuild jobs, software changes). These show as "not-ordered"
+   since they have no PO. Consider filtering these out or showing a
+   "N/A" status.
+
+4. psQuantityQrdered TYPO:
+   The Proshop GraphQL schema has a typo: the field is "psQuantityQrdered"
+   (missing an 'O'). This is in the API itself, not our code.
+
+5. STOCK LINE psETA vs PO estimatedArrival:
+   The stock line has its own psETA field, but it's almost always null.
+   The actual "Due at Dock" date lives on the PO line item as
+   estimatedArrival. Always use the PO data, falling back to psETA only
+   if PO lookup fails.
+
+6. RECEIVED DATE FORMAT:
+   PO line item receivedDate includes a timestamp:
+   "12/05/2025; 08:33:53 AM". The estimatedArrival is just a date:
+   "3/27/2026". Both use M/D/YYYY format (no zero-padding on month).
+
+7. WO STATUS FOR COMPLETED JOBS:
+   A WO can be "Invoiced" (shipped and billed), "Shipped", "Complete",
+   or "Closed". All of these mean the job is done and material was used.
+   The deriveMaterialStatus function checks all these as "arrived".
+
+8. MULTIPLE STOCK LINES:
+   A WO can have 0, 1, or multiple partStockStatuses records. Each
+   represents a different material needed. The frontend shows the first
+   stock line in the table row and all lines in the expanded detail.
+   The materialStatus derivation checks ALL lines (if ANY has arrived,
+   the overall status is "arrived").
+
+9. TOKEN PER REQUEST:
+   The backend gets a new Proshop auth token for every API request.
+   No caching. This adds ~200ms latency but avoids token expiration issues.
+
+10. RATE LIMITING:
+    When the schedule has many WOs with many different POs, the backend
+    makes one GraphQL query per unique PO number (in parallel). For a
+    schedule with 50 WOs referencing 30 different POs, this is ~31 API
+    calls total (1 for WOs + 30 for POs). The Proshop API has not shown
+    rate limiting issues at this scale.
+
+
+================================================================================
+END OF MATERIAL TRACKING BRAIN FILE
+================================================================================

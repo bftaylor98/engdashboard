@@ -1,0 +1,28 @@
+{
+  "name": "pp-trial2-logging-server",
+  "version": "1.0.0",
+  "description": "Edit logging server for Process Packet Trial 2",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

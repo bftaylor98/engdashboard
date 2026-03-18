@@ -1,0 +1,325 @@
+# Proshop API — Brain File for Agents
+
+This document tells another agent everything needed to **query the Proshop API**: authentication (including hardcoded credentials), endpoint usage, schema location, and copy-paste-ready query patterns. Use it when implementing or debugging Proshop integration.
+
+---
+
+## 1. Purpose and code locations
+
+- **Purpose**: Proshop is an external ERP; we read work orders, purchase orders, parts, and contacts via its GraphQL API. All Proshop access goes through the backend.
+- **Auth + GraphQL client**: `server/lib/proshopClient.js` — getProshopToken(), executeGraphQLQuery(), PROSHOP_CONFIG.
+- **Routes that call Proshop**: `server/routes/proshop.js` (material-status, tooling expenses, open POs, work-order import, etc.), `server/routes/timeTracking.js` (users/time data).
+
+---
+
+## 2. Hardcoded login (credentials and config)
+
+Credentials and base URL are **hardcoded** in `server/lib/proshopClient.js`. No env vars are used for Proshop.
+
+```javascript
+// From server/lib/proshopClient.js
+export const PROSHOP_CONFIG = {
+  ROOT_URL: 'https://est.adionsystems.com',
+  USERNAME: 'admin@esttool.com',
+  PASSWORD: 'EstAdmin4626!!',
+  SCOPE: 'nonconformancereports:r workorders:r parts:r users:r toolpots:r purchaseorders:r contacts:r',
+};
+```
+
+- **Base URL**: https://est.adionsystems.com
+- **Username**: admin@esttool.com
+- **Password**: EstAdmin4626!!
+- **Scope**: Must include at least `workorders:r parts:r users:r purchaseorders:r contacts:r` for the queries used in this app. The full scope above is what the app uses.
+
+---
+
+## 3. How to authenticate
+
+1. **Obtain a session token**
+   - **Endpoint**: `POST {ROOT_URL}/api/beginsession`
+   - **Headers**: `Accept: application/json`, `Content-Type: application/json`
+   - **Body** (JSON):
+     ```json
+     {
+       "username": "admin@esttool.com",
+       "password": "EstAdmin4626!!",
+       "scope": "nonconformancereports:r workorders:r parts:r users:r toolpots:r purchaseorders:r contacts:r"
+     }
+     ```
+   - **Response**: JSON with `authorizationResult.token`. Use that string as the Bearer token.
+
+2. **Use the token on every GraphQL request**
+   - **Endpoint**: `POST {ROOT_URL}/api/graphql`
+   - **Headers**: `Authorization: Bearer <token>`, `Accept: application/json`, `Content-Type: application/json`
+   - **Body** (JSON): `{ "query": "<GraphQL query or mutation>", "variables": { ... } }`
+   - **Response**: JSON with `data` (and optionally `errors`). The app throws if `errors` is present.
+
+In code, always call `getProshopToken()` once per request (or batch), then pass the token into `executeGraphQLQuery(query, variables, token)`.
+
+---
+
+## 4. Schema and reference docs
+
+- **Full GraphQL schema (exact types and fields)**: `PS-API-Schema.gql` in the project root. Search for type names (e.g. `type WorkOrder`, `type PurchaseOrder`) and input types (e.g. `input WorkOrderFilter`).
+- **Human-readable guide**: `PROSHOP_GRAPHQL_SCHEMA_READABLE.md` — operations, filters, and common fields in plain language. Use it to find the right operation and then confirm field names in `PS-API-Schema.gql`.
+
+Important naming conventions:
+- List operations return `{ totalRecords, records: [...] }`.
+- Filters: `WorkOrderFilter`, `PartFilter`, etc.
+- Single-entity: `workOrder(workOrderNumber: String!)`, `purchaseOrder(id: String!)`, `part(partNumber: String!)`.
+
+---
+
+## 5. Query patterns (how to query)
+
+### 5.1 Pagination
+
+All list queries take:
+- `pageSize`: Int (e.g. 20–200)
+- `pageStart`: Int (0-based index)
+
+Response shape: `{ totalRecords: Int, records: [ ... ] }`. To fetch all, loop with increasing `pageStart` until `records.length < pageSize`.
+
+### 5.2 Work orders list — workOrders
+
+**Operation**: `workOrders(pageSize: Int!, pageStart: Int!, filter: WorkOrderFilter)`  
+**Filter (WorkOrderFilter)** examples:
+- `filter: { status: ["Active"] }`
+- `filter: { workOrderNumber: ["26-0349", "26-0350"] }`
+- `filter: { customer: ["Company Name"] }` (customer name)
+- No filter for “work center” on the WO list; filter by work center on the **ops** field (see below).
+
+**Minimal useful query (with ops filtered by work center ENGINEERING)**:
+
+```graphql
+query GetWorkOrders($pageSize: Int!, $pageStart: Int!, $filter: WorkOrderFilter) {
+  workOrders(pageSize: $pageSize, pageStart: $pageStart, filter: $filter) {
+    totalRecords
+    records {
+      workOrderNumber
+      status
+      dueDate
+      notes
+      defaultRouting
+      type
+      class
+      part { partNumber }
+      customer { name }
+      ops(filter: { workCenter: ["ENGINEERING"] }, pageSize: 50) {
+        records { operationNumber }
+      }
+    }
+  }
+}
+```
+
+Variables: `{ "pageSize": 200, "pageStart": 0, "filter": { "status": ["Active"] } }`.  
+Then keep only WOs where `ops.records.length > 0` if you need “only WOs that have an ENGINEERING op”.
+
+**Work order with Part Stock and BOM (material tracking)**:
+
+```graphql
+query GetWorkOrders($pageSize: Int!, $pageStart: Int!, $filter: WorkOrderFilter) {
+  workOrders(pageSize: $pageSize, pageStart: $pageStart, filter: $filter) {
+    totalRecords
+    records {
+      workOrderNumber
+      status
+      dueDate
+      partstockNote
+      part { partNumber }
+      customer { name }
+      partStockStatuses(pageSize: 20, pageStart: 0) {
+        totalRecords
+        records {
+          material
+          materialGrade
+          partStockType
+          psPONumberPlainText
+          psETA
+          psActualETA
+          psActualQuantity
+          psQuantityQrdered
+          psSizeOrdered
+          psSupplierPlainText
+          roughStockHeight
+          roughStockLength
+          roughStockWidth
+          stockRelatedOps
+        }
+      }
+      ops(pageSize: 100, pageStart: 0) {
+        records {
+          operationNumber
+          billOfMaterials(pageSize: 50, pageStart: 0) {
+            records {
+              poNumber
+              description
+              partNumber
+              orderNumber
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Field gotchas**:
+- On `workOrder.part`, only `partNumber` is used; **description is not available** on that nested type. Use the `part(partNumber: String!)` query to get `partDescription`.
+
+### 5.3 Single work order — workOrder(workOrderNumber: String!)
+
+Same fields as in the list; use when you have one WO number.
+
+```graphql
+query GetWorkOrder($workOrderNumber: String!) {
+  workOrder(workOrderNumber: $workOrderNumber) {
+    workOrderNumber
+    status
+    dueDate
+    part { partNumber }
+    customer { name }
+  }
+}
+```
+
+### 5.4 Part (single) — part(partNumber: String!)
+
+Use this to get **part description**; it is not on `workOrder.part`. Request `partDescription` (not `description` — the API rejects `description` on Part).
+
+```graphql
+query GetPart($partNumber: String!) {
+  part(partNumber: $partNumber) {
+    partNumber
+    partDescription
+  }
+}
+```
+
+Variables: `{ "partNumber": "12345" }`.
+
+### 5.5 Purchase orders list — purchaseOrders
+
+**Operation**: `purchaseOrders(pageSize: Int!, pageStart: Int!)`.  
+No filter in the current app; paginate and filter in code (e.g. by `date`, `orderStatus`, `poType`).
+
+**Valid fields on list** (do not use: `poNumber` → use `id`; `total` → use `cost`; `vendor` → use `supplier.name`):
+
+```graphql
+query GetPurchaseOrders($pageSize: Int!, $pageStart: Int!) {
+  purchaseOrders(pageSize: $pageSize, pageStart: $pageStart) {
+    totalRecords
+    records {
+      id
+      cost
+      date
+      orderStatus
+      poType
+      supplier { name }
+    }
+  }
+}
+```
+
+### 5.6 Single purchase order (with line items) — purchaseOrder(id: String!)
+
+**Operation**: `purchaseOrder(id: String!)`. PO **id** is the PO number (e.g. numeric string). Line items are under `poItems(pageSize, pageStart)`.
+
+**Minimal (material-status style)**:
+
+```graphql
+query GetPO($id: String!) {
+  purchaseOrder(id: $id) {
+    id
+    orderStatus
+    poItems(pageSize: 100, pageStart: 0) {
+      records {
+        itemNumber
+        description
+        quantity
+        costPer
+        estimatedArrival
+        receivedDate
+        receivedQty
+        releasedDate
+        releasedQty
+      }
+    }
+  }
+}
+```
+
+**With extra line-item fields (open POs / tooling)**:
+
+```graphql
+query GetPurchaseOrder($id: String!) {
+  purchaseOrder(id: $id) {
+    id
+    cost
+    date
+    orderStatus
+    poType
+    supplier { name }
+    poItems(pageSize: 100, pageStart: 0) {
+      totalRecords
+      records {
+        description
+        quantity
+        costPer
+        total
+        itemNumber
+        orderNumber
+        statusStatus
+        statusQty
+        statusDate
+        releasedQty
+        releasedDate
+        releasedBy
+        receivedQty
+        receivedDate
+      }
+    }
+  }
+}
+```
+
+Variables: `{ "id": "263146" }` (use PO id as string).
+
+---
+
+## 6. Important field and type notes
+
+| Context | Use this | Not this (invalid or wrong) |
+|--------|----------|-----------------------------|
+| PO identity / number | `id` | `poNumber` |
+| PO total amount | `cost` | `total` |
+| Supplier name | `supplier { name }` | `vendor` |
+| Part description | `partDescription` (on `part(partNumber)`) | `description` on Part or on workOrder.part |
+| Work order list filter | `filter: WorkOrderFilter` (e.g. status, workOrderNumber) | No top-level “work center” filter; use `ops(filter: { workCenter: ["ENGINEERING"] })` |
+| Part stock “PO or status” | `psPONumberPlainText` (can be PO id, date like "2/27/2026", or text like "Requested"/"Cyan") | — |
+| BOM line PO | `billOfMaterials.records[].poNumber` (can be PO id or status like "Complete") | — |
+
+---
+
+## 7. WorkOrderPartStock (partStockStatuses)
+
+Used for material tracking. Key fields:
+- `material`, `materialGrade`, `partStockType`
+- `psPONumberPlainText` — either a **numeric PO id** (ordered), a **date** (e.g. "2/27/2026" = released/requested), or a **status word/color** (e.g. Requested, Cyan)
+- `psETA`, `psActualETA`, `psActualQuantity`, `psQuantityQrdered`, `psSizeOrdered`, `psSupplierPlainText`
+- `roughStockLength`, `roughStockWidth`, `roughStockHeight` (dimensions)
+
+The app treats: numeric-only `psPONumberPlainText` → PO id (ordered); date `M/D/YYYY` or words like "requested"/"released"/"cyan" → requested; then fetches `purchaseOrder(id)` for each PO id to get received dates and line items.
+
+---
+
+## 8. Summary for an agent
+
+1. **Auth**: POST to `https://est.adionsystems.com/api/beginsession` with the hardcoded username, password, and scope; use returned token as `Authorization: Bearer <token>`.
+2. **GraphQL**: POST to `https://est.adionsystems.com/api/graphql` with `{ query, variables }`; read from `data`, treat `errors` as failure.
+3. **Schema**: Use `PROSHOP_GRAPHQL_SCHEMA_READABLE.md` to find operations and `PS-API-Schema.gql` for exact types and field names.
+4. **Code**: All logic in `server/lib/proshopClient.js` and `server/routes/proshop.js`; reuse `getProshopToken()` and `executeGraphQLQuery()`.
+5. **Pagination**: All lists use `pageSize` and `pageStart`; response has `totalRecords` and `records`.
+6. **Gotchas**: Use `id`/`cost`/`supplier.name`/`partDescription` as in the table above; filter ENGINEERING WOs via `ops(filter: { workCenter: ["ENGINEERING"] })`.

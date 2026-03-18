@@ -1,0 +1,150 @@
+Most nodes in the ProShop GraphQL schema that return a list of objects allow for that list to be divided into sets of a fixed size--20 or 50 records, for example--with the option to retrieve further records by setting a start index and re-running the query. This drastically improves the performance of the query, and as such all queries with this capability default to returning 20 records.
+
+Arguments
+The following arguments are common to all paginated query nodes, although filter may not appear if there are no fields available on which to filter a particular node.
+
+pageSize
+
+An integer that specifies the number of records to retrieve in a single page. If the query finds fewer or exactly as many objects as specified, it will return all of them.
+
+The default for this argument on all paginated queries is 20; however, there is effectively no upper limit, so if query time is not important, it may be set to an extremely large number in order to retrieve all records in a single query.
+
+pageStart
+
+An integer that specifies the index of the first record to retrieve, starting from zero. The ordering of records in the query is guaranteed, so this allows for retrieving the next “page” by setting the number to a multiple of pageSize.
+
+filter
+
+If present, this argument allows for filtering the objects to match a given set of arguments. The pageSize and pageStart arguments will be applied after filtering, so page sizes will be consistent regardless of filters.
+
+Further information on the way filters work is available on here: 
+Filters
+ 
+
+query
+
+If present, this argument allows for allows for more detailed searching against the given fields than Filters can provide.
+
+Further information on the way queries work is available here: 
+Queries
+ 
+
+Selectable Fields
+All paginated query nodes have four fields; records provides access to the list of data while the other three provide metadata about the pagination itself.
+
+records
+
+As mentioned, this is an array of objects of the type requested. It will be of length pageSize or shorter, and field selection works as it would with a typical (non-paginated) array in any GraphQL API.
+
+totalRecords
+
+An integer representing the total number of records that match the query, to allow looping queries to stop when they’ve reached the end of the dataset.
+
+pageSize
+
+This is a mirror of the pageSize argument that was passed in.
+
+pageStart
+
+This is a mirror of the pageStart argument that was passed in.
+
+Many of the query nodes in the ProShop GraphQL schema allow filtering records comparable to each Module’s Advanced Search in the web interface. Similar to 
+Queries
+, filters allow for basic arguments.  While the fields available for filtering obviously depend on the module and field, there are some commonalities among filter fields across the API.
+
+Booleans
+This is the simplest filter case; a boolean filter only accepts true or false as input. Since passing both would essentially mean returning all records, these fields only accept a single value.
+
+Strings
+Any String-type filter field will accept an array of values; the query will return any record that matches any of the values.
+
+Enums
+Similar to strings, enumerated fields (“Enums”) accept an array of values, and records matching any item in the array will be returned. In the case of enums, the values are selected from a list of named options, similar to a picklist or an HTML select. The list of possible values is specified in the schema and available via introspection.
+
+Numbers (Float or Int fields)
+Number values are filtered using an object with several fields to allow for doing comparative (greater than, less than, etc.) filtering rather than simple matches. Each field takes a single value of the appropriate type (Float or Int depending on the type of the field being filtered on); an object is only returned if all of the values match.
+
+exactly
+
+Matches only if the value on the record and the value in the filter are exactly equal.
+
+greaterThan
+
+Matches if the record value is greater than the filter value, but not if the two are equal.
+
+greaterThanOrEqual
+
+Matches if the record value is greater than or equal to the filter value.
+
+lessThan
+
+Matches if the record value is less than the filter value, but not if the two are equal.
+
+lessThanOrEqual
+
+Matches if the record value is less than or equal to the filter value.
+
+Since all of these fields must match in order for the record to be returned, it doesn’t typically make sense to mix exactly with any other fields, nor to mix greaterThanOrEqual with greaterThan, or lessThanOrEqual with lessThan.
+
+Dates
+Date filters work similarly to numeric filters, with the same five fields allowing comparison between date values; however, the values are passed as Strings and parsed following the conventions outlined by the W3C and ISO8601. https://www.w3.org/TR/NOTE-datetime 
+
+Many of the query nodes in the ProShop GraphQL schema allow further querying of records comparable to each Module’s Advanced Search in the web interface. Similar to 
+Filters
+ , queries allow for more in depth arguments. While the fields available for queries obviously depend on the module and field, there are some commonalities among query fields across the API.
+
+Booleans
+This is the simplest query case; a boolean filter only accepts true or false as input. Since passing both would essentially mean returning all records, these fields only accept a single value.
+
+Strings
+Any String-type query field allows for querying an object by one of the following comparisons.
+
+exactly
+
+Matches only if the value on the record and the value in the filter are exactly equal.
+
+in
+
+Matches only if the value on the record contains one of the values in the query. 
+
+not
+
+Matches only if the value on the record and the value in the query are not exactly equal.
+
+Numbers (Float or Int fields)
+Number values are queried using an object with several fields to allow for doing comparative (greater than, less than, etc.) searching rather than simple matches. Each field takes a single value of the appropriate type (Float or Int depending on the type of the field being filtered on); an object is only returned if all of the values match.
+
+exactly
+
+Matches only if the value on the record and the value in the query are exactly equal.
+
+greaterThan
+
+Matches if the record value is greater than the query value, but not if the two are equal.
+
+greaterThanOrEqual
+
+Matches if the record value is greater than or equal to the query value.
+
+in
+
+Matches only if the value on the record contains one of the values in the query. 
+
+lessThan
+
+Matches if the record value is less than the query value, but not if the two are equal.
+
+lessThanOrEqual
+
+Matches if the record value is less than or equal to the query value.
+
+not
+
+Matches only if the value on the record and the value in the query are not exactly equal.
+
+Since all of these fields must match in order for the record to be returned, it doesn’t typically make sense to mix exactly, in, or not with any other fields, nor to mix greaterThanOrEqual with greaterThan, or lessThanOrEqual with lessThan.
+
+Dates
+Date filters work similarly to numeric filters, with the same seven fields allowing comparison between date values; however, the values are passed as Strings and parsed following the conventions outlined by the W3C and ISO8601. Date and Time Formats
+
+ 
