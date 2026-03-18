@@ -28,14 +28,14 @@ async function loadMssql() {
   }
 }
 
-// EST100 Database Configuration (hardcoded as per reference project)
+// EST100 Database Configuration (from .env)
 const EST100_CONFIG = {
-  server: '192.168.1.36',
-  database: 'EST100',
-  user: 'ITM2005',
-  password: 'ITM',
+  server: process.env.EST100_SERVER || '192.168.1.36',
+  database: process.env.EST100_DATABASE || 'EST100',
+  user: process.env.EST100_USER || '',
+  password: process.env.EST100_PASSWORD || '',
   options: {
-    encrypt: false, // Use false for local network connections
+    encrypt: false,
     trustServerCertificate: true,
     enableArithAbort: true,
   },
