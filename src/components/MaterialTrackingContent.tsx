@@ -43,7 +43,7 @@ const STATUS_CONFIG: Record<string, { label: string; icon: typeof AlertCircle; c
   unknown: {
     label: 'Unknown',
     icon: HelpCircle,
-    className: 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30',
+    className: 'bg-[var(--bg-hover)] text-[var(--text-muted)] border-[var(--border-default)]',
   },
   'not-applicable': {
     label: 'N/A',
@@ -125,49 +125,49 @@ export function ProshopMaterialDetailPanel({ row }: { row: ProshopMaterialStatus
     <div className="space-y-3 text-sm max-h-[320px] overflow-y-auto">
       {row.stockDetails?.length ? (
         row.stockDetails.map((s, i) => (
-          <div key={i} className="rounded-lg border border-white/5 bg-zinc-900/50 p-3 space-y-1.5">
+          <div key={i} className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3 space-y-1.5">
             <div className="flex flex-wrap gap-x-4 gap-y-1">
-              <span className="text-zinc-500">Material:</span>
-              <span className="text-zinc-200">
+              <span className="text-[var(--text-muted)]">Material:</span>
+              <span className="text-[var(--text-primary)]">
                 {[s.material, s.materialGrade].filter(Boolean).join(' ') || '—'}
               </span>
-              <span className="text-zinc-500">Type:</span>
-              <span className="text-zinc-200">{s.stockType ?? '—'}</span>
+              <span className="text-[var(--text-muted)]">Type:</span>
+              <span className="text-[var(--text-primary)]">{s.stockType ?? '—'}</span>
             </div>
             <div className="flex flex-wrap gap-x-4 gap-y-1">
-              <span className="text-zinc-500">PO:</span>
+              <span className="text-[var(--text-muted)]">PO:</span>
               <span>{s.poNumber ? <POLink po={s.poNumber} /> : '—'}</span>
               {s.supplier && (
                 <>
-                  <span className="text-zinc-500">Supplier:</span>
-                  <span className="text-zinc-200">{s.supplier}</span>
+                  <span className="text-[var(--text-muted)]">Supplier:</span>
+                  <span className="text-[var(--text-primary)]">{s.supplier}</span>
                 </>
               )}
             </div>
             <div className="flex flex-wrap gap-x-4 gap-y-1">
-              <span className="text-zinc-500">Due at Dock:</span>
+              <span className="text-[var(--text-muted)]">Due at Dock:</span>
               <span className="text-yellow-400">{s.dueAtDock ?? '—'}</span>
-              <span className="text-zinc-500">Received:</span>
+              <span className="text-[var(--text-muted)]">Received:</span>
               <span className="text-green-400">{formatReceivedDate(s.receivedDate)}</span>
             </div>
             {s.dimensions && (
               <div>
-                <span className="text-zinc-500">Size: </span>
-                <span className="text-zinc-200">{s.dimensions}</span>
+                <span className="text-[var(--text-muted)]">Size: </span>
+                <span className="text-[var(--text-primary)]">{s.dimensions}</span>
               </div>
             )}
           </div>
         ))
       ) : (
-        <p className="text-zinc-500">No stock details</p>
+        <p className="text-[var(--text-muted)]">No stock details</p>
       )}
       {row.bomDetails && row.bomDetails.lines.length > 0 && (
-        <div className="rounded-lg border border-white/5 bg-zinc-900/50 p-3 space-y-2">
-          <p className="text-zinc-400 font-medium">
+        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3 space-y-2">
+          <p className="text-[var(--text-secondary)] font-medium">
             {row.bomArrived ? 'BOM items arrived' : 'BOM items ordered'}
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-1 mb-1.5">
-            <span className="text-zinc-500">POs:</span>
+            <span className="text-[var(--text-muted)]">POs:</span>
             <span className="flex flex-wrap gap-2">
               {row.bomDetails.poNumbers.map((po) => (
                 <POLink key={po} po={po} />
@@ -176,22 +176,22 @@ export function ProshopMaterialDetailPanel({ row }: { row: ProshopMaterialStatus
           </div>
           <div className="space-y-1">
             {row.bomDetails.lines.slice(0, 10).map((line, i) => (
-              <div key={i} className="flex flex-wrap gap-x-3 gap-y-0 text-zinc-300">
+              <div key={i} className="flex flex-wrap gap-x-3 gap-y-0 text-[var(--text-secondary)]">
                 {line.partNumber && <span className="font-mono text-xs">{line.partNumber}</span>}
                 {line.description && <span className="text-xs">{line.description}</span>}
                 {line.poNumber && <POLink po={line.poNumber} />}
               </div>
             ))}
             {row.bomDetails.lines.length > 10 && (
-              <p className="text-zinc-500 text-xs">+{row.bomDetails.lines.length - 10} more</p>
+              <p className="text-[var(--text-muted)] text-xs">+{row.bomDetails.lines.length - 10} more</p>
             )}
           </div>
         </div>
       )}
       {row.partstockNote && (
-        <p className="text-zinc-500">
-          <span className="text-zinc-500">Note: </span>
-          <span className="text-zinc-300 whitespace-pre-wrap">{row.partstockNote}</span>
+        <p className="text-[var(--text-muted)]">
+          <span className="text-[var(--text-muted)]">Note: </span>
+          <span className="text-[var(--text-secondary)] whitespace-pre-wrap">{row.partstockNote}</span>
         </p>
       )}
     </div>
@@ -325,16 +325,16 @@ export default function MaterialTrackingContent({
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-2">
-              <Package className="w-7 h-7 text-zinc-400" />
+              <Package className="w-7 h-7 text-[var(--text-secondary)]" />
               {title}
             </h1>
-            <p className="text-sm text-zinc-400 mt-0.5">{subtitle}</p>
+            <p className="text-sm text-[var(--text-secondary)] mt-0.5">{subtitle}</p>
           </div>
           <button
             type="button"
             onClick={fetchData}
             disabled={loading}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-200 hover:bg-zinc-700 border border-white/10 text-sm font-medium disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-primary)] hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] text-sm font-medium disabled:opacity-50"
           >
             {loading ? (
               <RefreshCw className="w-4 h-4 animate-spin" />
@@ -351,22 +351,22 @@ export default function MaterialTrackingContent({
           type="button"
           onClick={() => toggleStatusFilter('all')}
           className={cn(
-            'rounded-xl p-3.5 bg-zinc-900/50 border text-left transition-colors',
-            statusFilter === 'all' ? 'border-blue-500/40' : 'border-white/10 hover:border-white/20'
+            'rounded-xl p-3.5 bg-[var(--bg-surface)] border text-left transition-colors',
+            statusFilter === 'all' ? 'border-blue-500/40' : 'border-[var(--border-subtle)] hover:border-[var(--border-default)]'
           )}
         >
-          <div className="text-xs uppercase tracking-wider text-zinc-500">Total Active</div>
-          <div className="text-xl font-semibold text-zinc-100 mt-0.5">{total}</div>
+          <div className="text-xs uppercase tracking-wider text-[var(--text-muted)]">Total Active</div>
+          <div className="text-xl font-semibold text-[var(--text-primary)] mt-0.5">{total}</div>
         </button>
         <button
           type="button"
           onClick={() => toggleStatusFilter('not-ordered')}
           className={cn(
-            'rounded-xl p-3.5 bg-zinc-900/50 border text-left transition-colors',
-            statusFilter === 'not-ordered' ? 'border-red-500/40' : 'border-white/10 hover:border-white/20'
+            'rounded-xl p-3.5 bg-[var(--bg-surface)] border text-left transition-colors',
+            statusFilter === 'not-ordered' ? 'border-red-500/40' : 'border-[var(--border-subtle)] hover:border-[var(--border-default)]'
           )}
         >
-          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-500">
+          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-muted)]">
             <AlertCircle className="w-3.5 h-3.5 text-red-400" />
             Not Ordered
           </div>
@@ -376,11 +376,11 @@ export default function MaterialTrackingContent({
           type="button"
           onClick={() => toggleStatusFilter('requested')}
           className={cn(
-            'rounded-xl p-3.5 bg-zinc-900/50 border text-left transition-colors',
-            statusFilter === 'requested' ? 'border-sky-500/40' : 'border-white/10 hover:border-white/20'
+            'rounded-xl p-3.5 bg-[var(--bg-surface)] border text-left transition-colors',
+            statusFilter === 'requested' ? 'border-sky-500/40' : 'border-[var(--border-subtle)] hover:border-[var(--border-default)]'
           )}
         >
-          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-500">
+          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-muted)]">
             <Send className="w-3.5 h-3.5 text-sky-400" />
             Requested
           </div>
@@ -390,11 +390,11 @@ export default function MaterialTrackingContent({
           type="button"
           onClick={() => toggleStatusFilter('ordered')}
           className={cn(
-            'rounded-xl p-3.5 bg-zinc-900/50 border text-left transition-colors',
-            statusFilter === 'ordered' ? 'border-yellow-500/40' : 'border-white/10 hover:border-white/20'
+            'rounded-xl p-3.5 bg-[var(--bg-surface)] border text-left transition-colors',
+            statusFilter === 'ordered' ? 'border-yellow-500/40' : 'border-[var(--border-subtle)] hover:border-[var(--border-default)]'
           )}
         >
-          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-500">
+          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-muted)]">
             <Truck className="w-3.5 h-3.5 text-yellow-400" />
             Ordered
           </div>
@@ -404,11 +404,11 @@ export default function MaterialTrackingContent({
           type="button"
           onClick={() => toggleStatusFilter('arrived')}
           className={cn(
-            'rounded-xl p-3.5 bg-zinc-900/50 border text-left transition-colors',
-            statusFilter === 'arrived' ? 'border-green-500/40' : 'border-white/10 hover:border-white/20'
+            'rounded-xl p-3.5 bg-[var(--bg-surface)] border text-left transition-colors',
+            statusFilter === 'arrived' ? 'border-green-500/40' : 'border-[var(--border-subtle)] hover:border-[var(--border-default)]'
           )}
         >
-          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-500">
+          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-muted)]">
             <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
             Arrived
           </div>
@@ -418,11 +418,11 @@ export default function MaterialTrackingContent({
           type="button"
           onClick={() => toggleStatusFilter('not-applicable')}
           className={cn(
-            'rounded-xl p-3.5 bg-zinc-900/50 border text-left transition-colors',
-            statusFilter === 'not-applicable' ? 'border-slate-500/40' : 'border-white/10 hover:border-white/20'
+            'rounded-xl p-3.5 bg-[var(--bg-surface)] border text-left transition-colors',
+            statusFilter === 'not-applicable' ? 'border-slate-500/40' : 'border-[var(--border-subtle)] hover:border-[var(--border-default)]'
           )}
         >
-          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-500">
+          <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-muted)]">
             <Package className="w-3.5 h-3.5 text-slate-400" />
             N/A
           </div>
@@ -437,28 +437,28 @@ export default function MaterialTrackingContent({
             placeholder="Search WO, part, customer..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-zinc-900/50 px-3 py-2 pl-9 text-sm text-zinc-200 placeholder:text-zinc-500 outline-none focus:border-white/20"
+            className="w-full rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-3 py-2 pl-9 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--border-default)]"
           />
-          <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" />
+          <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)] pointer-events-none" />
         </div>
         <button
           type="button"
           onClick={clearAll}
-          className="px-3 py-2 rounded-lg border border-white/10 bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700 text-sm font-medium"
+          className="px-3 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] text-sm font-medium"
         >
           Clear All
         </button>
       </div>
 
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-[var(--text-muted)]">
         Showing {filtered.length} of {total} work orders
       </p>
 
-      <div className="rounded-xl border border-white/10 bg-zinc-900/50 overflow-hidden">
+      <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="text-left text-zinc-500 text-xs uppercase tracking-wider border-b border-white/10">
+              <tr className="text-left text-[var(--text-muted)] text-xs uppercase tracking-wider border-b border-[var(--border-subtle)]">
                 <th className="py-3 px-4 font-medium">Material Status</th>
                 <th className="py-3 px-4 font-medium">WO #</th>
                 <th className="py-3 px-4 font-medium">Part #</th>
@@ -469,14 +469,14 @@ export default function MaterialTrackingContent({
                 <th className="py-3 px-4 w-8" aria-label="Expand" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-[var(--border-subtle)]">
               {filtered.flatMap((row) => {
                 const isExpanded = expandedWo === row.workOrderNumber;
                 return [
                   <tr
                     key={row.workOrderNumber}
                     onClick={() => setExpandedWo(isExpanded ? null : row.workOrderNumber)}
-                    className="hover:bg-white/[0.02] cursor-pointer transition-colors"
+                    className="hover:bg-[var(--bg-hover)] cursor-pointer transition-colors"
                   >
                     <td className="py-2.5 px-4">
                       <MaterialStatusBadge status={row.materialStatus} bomOrdered={row.bomOrdered} bomArrived={row.bomArrived} />
@@ -484,71 +484,71 @@ export default function MaterialTrackingContent({
                     <td className="py-2.5 px-4">
                       <WOLink wo={row.workOrderNumber} />
                     </td>
-                    <td className="py-2.5 px-4 text-sm text-zinc-300 font-mono truncate max-w-[140px]" title={row.partNumber ?? ''}>
+                    <td className="py-2.5 px-4 text-sm text-[var(--text-secondary)] font-mono truncate max-w-[140px]" title={row.partNumber ?? ''}>
                       {row.partNumber ?? '—'}
                     </td>
-                    <td className="py-2.5 px-4 text-sm text-zinc-300">{row.customer ?? '—'}</td>
-                    <td className="py-2.5 px-4 text-sm text-zinc-300">{firstDueAtDock(row) ?? '—'}</td>
-                    <td className="py-2.5 px-4 text-sm text-zinc-300">{firstMaterial(row)}</td>
+                    <td className="py-2.5 px-4 text-sm text-[var(--text-secondary)]">{row.customer ?? '—'}</td>
+                    <td className="py-2.5 px-4 text-sm text-[var(--text-secondary)]">{firstDueAtDock(row) ?? '—'}</td>
+                    <td className="py-2.5 px-4 text-sm text-[var(--text-secondary)]">{firstMaterial(row)}</td>
                     <td className="py-2.5 px-4">
                       {firstPo(row) ? <POLink po={firstPo(row)!} /> : '—'}
                     </td>
                     <td className="py-2.5 px-4">
                       <ChevronRight
-                        className={cn('w-4 h-4 text-zinc-500 transition-transform', isExpanded && 'rotate-90')}
+                        className={cn('w-4 h-4 text-[var(--text-muted)] transition-transform', isExpanded && 'rotate-90')}
                       />
                     </td>
                   </tr>,
                   ...(isExpanded
                     ? [
                         <tr key={`${row.workOrderNumber}-exp`}>
-                          <td colSpan={8} className="bg-white/[0.01] border-t border-white/5 p-4">
+                          <td colSpan={8} className="bg-[var(--bg-hover)] border-t border-[var(--border-subtle)] p-4">
                             <div className="space-y-3 text-sm">
                               {row.stockDetails?.length ? (
                                 row.stockDetails.map((s, i) => (
-                                  <div key={i} className="rounded-lg border border-white/5 bg-zinc-900/50 p-3 space-y-1.5">
+                                  <div key={i} className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3 space-y-1.5">
                                     <div className="flex flex-wrap gap-x-4 gap-y-1">
-                                      <span className="text-zinc-500">Material:</span>
-                                      <span className="text-zinc-200">
+                                      <span className="text-[var(--text-muted)]">Material:</span>
+                                      <span className="text-[var(--text-primary)]">
                                         {[s.material, s.materialGrade].filter(Boolean).join(' ') || '—'}
                                       </span>
-                                      <span className="text-zinc-500">Type:</span>
-                                      <span className="text-zinc-200">{s.stockType ?? '—'}</span>
+                                      <span className="text-[var(--text-muted)]">Type:</span>
+                                      <span className="text-[var(--text-primary)]">{s.stockType ?? '—'}</span>
                                     </div>
                                     <div className="flex flex-wrap gap-x-4 gap-y-1">
-                                      <span className="text-zinc-500">PO:</span>
+                                      <span className="text-[var(--text-muted)]">PO:</span>
                                       <span>{s.poNumber ? <POLink po={s.poNumber} /> : '—'}</span>
                                       {s.supplier && (
                                         <>
-                                          <span className="text-zinc-500">Supplier:</span>
-                                          <span className="text-zinc-200">{s.supplier}</span>
+                                          <span className="text-[var(--text-muted)]">Supplier:</span>
+                                          <span className="text-[var(--text-primary)]">{s.supplier}</span>
                                         </>
                                       )}
                                     </div>
                                     <div className="flex flex-wrap gap-x-4 gap-y-1">
-                                      <span className="text-zinc-500">Due at Dock:</span>
+                                      <span className="text-[var(--text-muted)]">Due at Dock:</span>
                                       <span className="text-yellow-400">{s.dueAtDock ?? '—'}</span>
-                                      <span className="text-zinc-500">Received:</span>
+                                      <span className="text-[var(--text-muted)]">Received:</span>
                                       <span className="text-green-400">{formatReceivedDate(s.receivedDate)}</span>
                                     </div>
                                     {s.dimensions && (
                                       <div>
-                                        <span className="text-zinc-500">Size: </span>
-                                        <span className="text-zinc-200">{s.dimensions}</span>
+                                        <span className="text-[var(--text-muted)]">Size: </span>
+                                        <span className="text-[var(--text-primary)]">{s.dimensions}</span>
                                       </div>
                                     )}
                                   </div>
                                 ))
                               ) : (
-                                <p className="text-zinc-500">No stock details</p>
+                                <p className="text-[var(--text-muted)]">No stock details</p>
                               )}
                               {row.bomDetails && row.bomDetails.lines.length > 0 && (
-                                <div className="rounded-lg border border-white/5 bg-zinc-900/50 p-3 space-y-2">
-                                  <p className="text-zinc-400 font-medium">
+                                <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-3 space-y-2">
+                                  <p className="text-[var(--text-secondary)] font-medium">
                                     {row.bomArrived ? 'BOM items arrived' : 'BOM items ordered'}
                                   </p>
                                   <div className="flex flex-wrap gap-x-4 gap-y-1 mb-1.5">
-                                    <span className="text-zinc-500">POs:</span>
+                                    <span className="text-[var(--text-muted)]">POs:</span>
                                     <span className="flex flex-wrap gap-2">
                                       {row.bomDetails.poNumbers.map((po) => (
                                         <POLink key={po} po={po} />
@@ -557,22 +557,22 @@ export default function MaterialTrackingContent({
                                   </div>
                                   <div className="space-y-1">
                                     {row.bomDetails.lines.slice(0, 10).map((line, i) => (
-                                      <div key={i} className="flex flex-wrap gap-x-3 gap-y-0 text-zinc-300">
+                                      <div key={i} className="flex flex-wrap gap-x-3 gap-y-0 text-[var(--text-secondary)]">
                                         {line.partNumber && <span className="font-mono text-xs">{line.partNumber}</span>}
                                         {line.description && <span className="text-xs">{line.description}</span>}
                                         {line.poNumber && <POLink po={line.poNumber} />}
                                       </div>
                                     ))}
                                     {row.bomDetails.lines.length > 10 && (
-                                      <p className="text-zinc-500 text-xs">+{row.bomDetails.lines.length - 10} more</p>
+                                      <p className="text-[var(--text-muted)] text-xs">+{row.bomDetails.lines.length - 10} more</p>
                                     )}
                                   </div>
                                 </div>
                               )}
                               {row.partstockNote && (
-                                <p className="text-zinc-500">
-                                  <span className="text-zinc-500">Note: </span>
-                                  <span className="text-zinc-300 whitespace-pre-wrap">{row.partstockNote}</span>
+                                <p className="text-[var(--text-muted)]">
+                                  <span className="text-[var(--text-muted)]">Note: </span>
+                                  <span className="text-[var(--text-secondary)] whitespace-pre-wrap">{row.partstockNote}</span>
                                 </p>
                               )}
                             </div>
@@ -586,7 +586,7 @@ export default function MaterialTrackingContent({
           </table>
         </div>
         {filtered.length === 0 && (
-          <div className="py-12 text-center text-zinc-500 text-sm">
+          <div className="py-12 text-center text-[var(--text-muted)] text-sm">
             No work orders match the current filters.
           </div>
         )}
