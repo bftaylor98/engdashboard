@@ -117,25 +117,25 @@ export default function Layout() {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed lg:static inset-y-0 left-0 z-50 flex flex-col bg-zinc-900 border-r border-white/[0.06] transition-all duration-200',
-          collapsed ? 'w-16' : 'w-56',
+          'fixed lg:static inset-y-0 left-0 z-50 flex flex-col bg-[var(--bg-surface)] border-r border-[var(--border-subtle)] transition-all duration-200',
+          collapsed ? 'w-16' : 'w-60',
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
       >
         {/* Logo area */}
-        <div className={cn('flex items-center h-14 px-4 border-b border-white/[0.06]', collapsed && 'justify-center px-2')}>
+        <div className={cn('flex items-center h-14 px-4 border-b border-[var(--border-subtle)]', collapsed && 'justify-center px-2')}>
           {!collapsed && (
-            <span className="text-sm font-semibold text-zinc-100 truncate">{getGreeting()}</span>
+            <span className="text-sm font-semibold text-[var(--text-primary)] truncate">{getGreeting()}</span>
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="hidden lg:flex ml-auto p-1 rounded hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors"
+            className="hidden lg:flex ml-auto p-1 rounded hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
           >
             <ChevronLeft className={cn('w-4 h-4 transition-transform', collapsed && 'rotate-180')} />
           </button>
           <button
             onClick={() => setMobileOpen(false)}
-            className="lg:hidden ml-auto p-1 rounded hover:bg-zinc-800 text-zinc-400"
+            className="lg:hidden ml-auto p-1 rounded hover:bg-[var(--bg-hover)] text-[var(--text-muted)]"
           >
             <X className="w-4 h-4" />
           </button>
@@ -151,11 +151,11 @@ export default function Layout() {
                 to={path}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150',
+                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
                   collapsed && 'justify-center px-2',
                   isActive
-                    ? 'bg-accent/10 text-accent border border-accent/20'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-transparent'
+                    ? 'bg-[var(--accent-muted)] text-[var(--accent)] border-l-2 border-l-[var(--accent)] border-y-0 border-r-0'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] border-l-2 border-l-transparent border-y-0 border-r-0'
                 )}
                 title={collapsed ? label : undefined}
               >
@@ -167,14 +167,14 @@ export default function Layout() {
         </nav>
 
         {/* Bottom section: export (admin only) + user */}
-        <div className={cn('border-t border-white/[0.06]', collapsed && 'px-1')}>
+        <div className={cn('border-t border-[var(--border-subtle)]', collapsed && 'px-1')}>
           {admin && (
             <div className={cn('p-2 space-y-1', collapsed && 'px-1')}>
               <a
                 href={getExportUrl('xlsx')}
                 download
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 transition-colors',
+                  'flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] transition-colors',
                   collapsed && 'justify-center px-2'
                 )}
                 title="Export XLSX"
@@ -187,7 +187,7 @@ export default function Layout() {
 
           {/* User info + logout */}
           {user && (
-            <div className={cn('p-2 border-t border-white/[0.06]', collapsed && 'px-1')}>
+            <div className={cn('p-2 border-t border-[var(--border-subtle)]', collapsed && 'px-1')}>
               <div
                 className={cn(
                   'flex items-center gap-3 px-3 py-2 rounded-lg',
@@ -200,7 +200,7 @@ export default function Layout() {
                 {!collapsed && (
                   <button
                     onClick={() => navigate('/settings')}
-                    className="text-sm text-zinc-300 truncate flex-1 text-left hover:text-zinc-100 transition-colors"
+                    className="text-sm text-[var(--text-secondary)] truncate flex-1 text-left hover:text-[var(--text-primary)] transition-colors"
                     title="Account settings"
                   >
                     {user.displayName}
@@ -209,7 +209,7 @@ export default function Layout() {
                 <button
                   onClick={logout}
                   className={cn(
-                    'p-1 rounded hover:bg-zinc-800 text-zinc-500 hover:text-red-400 transition-colors',
+                    'p-1 rounded hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-red-400 transition-colors',
                     collapsed && 'ml-0'
                   )}
                   title="Sign out"
@@ -225,20 +225,20 @@ export default function Layout() {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="flex items-center h-14 px-4 lg:px-6 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-sm shrink-0">
+        <header className="flex items-center h-14 px-4 lg:px-6 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)] shrink-0">
           <button
             onClick={() => setMobileOpen(true)}
-            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-zinc-800 text-zinc-400"
+            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-[var(--bg-hover)] text-[var(--text-muted)]"
           >
             <Menu className="w-5 h-5" />
           </button>
 
           <div className="flex items-center gap-2 ml-2 lg:ml-0 flex-1 max-w-md">
-            <Search className="w-4 h-4 text-zinc-500" />
+            <Search className="w-4 h-4 text-[var(--text-muted)]" />
             <input
               type="text"
               placeholder="Search work orders..."
-              className="bg-transparent border-none outline-none text-sm text-zinc-200 placeholder:text-zinc-500 w-full"
+              className="bg-transparent border-none outline-none text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] w-full"
             />
           </div>
         </header>
