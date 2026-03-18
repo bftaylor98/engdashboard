@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProshopToken, executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
+import { executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
 import { cacheLog } from '../lib/cacheLogger.js';
 import { setCache, setCacheError, getCacheData, getCacheError } from '../lib/cacheStore.js';
 
@@ -65,20 +65,7 @@ function isIncompleteOpForMachine(op, key) {
  */
 export async function buildMachinesResponse() {
   cacheLog.info('machines', 'buildMachinesResponse started');
-  cacheLog.info('machines', 'fetching ProShop token...');
-  let token;
-  try {
-    token = await Promise.race([
-      getProshopToken(),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('getProshopToken timed out after 30s')), 30000)
-      )
-    ]);
-  } catch (err) {
-    cacheLog.error('machines', 'Token fetch failed:', err.message);
-    throw err;
-  }
-  cacheLog.info('machines', 'token acquired, starting pagination...');
+  cacheLog.info('machines', 'starting pagination...');
   const query = `
     query GetWorkOrdersForMachines($pageSize: Int!, $pageStart: Int!, $filter: WorkOrderFilter) {
       workOrders(pageSize: $pageSize, pageStart: $pageStart, filter: $filter) {
@@ -124,7 +111,7 @@ export async function buildMachinesResponse() {
         pageSize,
         pageStart,
         filter: { status: ['Active'] },
-      }, token);
+      });
       cacheLog.info('machines', 'page', pagesFetched + 1, 'returned', data?.workOrders?.records?.length ?? 'null', 'records');
 
       if (!data?.workOrders?.records) break;

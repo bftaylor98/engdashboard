@@ -4,7 +4,7 @@
  * work center and time. Run from repo root: node server/scripts/debug-machines-probe.js
  */
 
-import { getProshopToken, executeGraphQLQuery } from '../lib/proshopClient.js';
+import { executeGraphQLQuery } from '../lib/proshopClient.js';
 
 const WO_NUMBERS = ['26-0337', '26-0217', '26-0344'];
 
@@ -42,8 +42,7 @@ const query = `
 `;
 
 async function main() {
-  console.log('[probe] Fetching token...');
-  const token = await getProshopToken();
+  console.log('[probe] Fetching work orders...');
 
   const findings = {
     workCenterField: null,
@@ -63,7 +62,7 @@ async function main() {
         pageSize: 1,
         pageStart: 0,
         filter: { workOrderNumber: [wo] },
-      }, token);
+      });
 
       console.log(JSON.stringify(data, null, 2));
 

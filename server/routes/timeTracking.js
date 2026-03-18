@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProshopToken, executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
+import { executeGraphQLQuery, isProshopRateLimitError } from '../lib/proshopClient.js';
 import { cacheLog } from '../lib/cacheLogger.js';
 import { setCache, setCacheError, clearCacheError, getCacheData, getCacheError } from '../lib/cacheStore.js';
 
@@ -184,7 +184,7 @@ function normalizeEntry(record) {
   };
 }
 
-async function fetchUserTimeTracking(token, userId, range) {
+async function fetchUserTimeTracking(userId, range) {
   const filter = {
     timeIn: {
       greaterThanOrEqual: range.startISO,
@@ -198,8 +198,7 @@ async function fetchUserTimeTracking(token, userId, range) {
   do {
     const data = await executeGraphQLQuery(
       TIME_TRACKING_QUERY,
-      { userId, pageSize, pageStart, filter },
-      token
+      { userId, pageSize, pageStart, filter }
     );
     const user = data?.user;
     if (!user) throw new Error('No user in response');
@@ -227,7 +226,6 @@ async function fetchUserTimeTracking(token, userId, range) {
  */
 async function buildTimeTrackingResponse(dateStr, userIdFilter = null) {
   const range = toESTRange(dateStr);
-  const token = await getProshopToken();
   const usersToFetch = userIdFilter
     ? TRACKED_USERS.filter((u) => u.proshopId === userIdFilter)
     : TRACKED_USERS;
@@ -235,7 +233,7 @@ async function buildTimeTrackingResponse(dateStr, userIdFilter = null) {
   const results = await Promise.all(
     usersToFetch.map(async (u) => {
       try {
-        const entries = await fetchUserTimeTracking(token, u.proshopId, range);
+        const entries = await fetchUserTimeTracking(u.proshopId, range);
         const totalLaborTime = entries.reduce(
           (sum, e) => sum + (e.laborTime != null ? e.laborTime : 0),
           0
@@ -279,7 +277,6 @@ async function buildTimeTrackingResponse(dateStr, userIdFilter = null) {
  */
 async function buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFilter = null) {
   const range = toESTRangeBetween(startDateStr, endDateStr);
-  const token = await getProshopToken();
   const usersToFetch = userIdFilter
     ? TRACKED_USERS.filter((u) => u.proshopId === userIdFilter)
     : TRACKED_USERS;
@@ -287,7 +284,7 @@ async function buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFi
   const results = await Promise.all(
     usersToFetch.map(async (u) => {
       try {
-        const entries = await fetchUserTimeTracking(token, u.proshopId, range);
+        const entries = await fetchUserTimeTracking(u.proshopId, range);
         const totalLaborTime = entries.reduce(
           (sum, e) => sum + (e.laborTime != null ? e.laborTime : 0),
           0
@@ -388,7 +385,6 @@ router.get('/', (req, res) => {
  * Build latest-date response (shared for route and cache warming).
  */
 async function buildLatestDateResponse() {
-  const token = await getProshopToken();
   const today = getESTDate();
   const [y, m, d] = today.split('-').map(Number);
 
@@ -407,8 +403,7 @@ async function buildLatestDateResponse() {
         };
         const data = await executeGraphQLQuery(
           TIME_TRACKING_QUERY,
-          { userId: u.proshopId, pageSize: 1, pageStart: 0, filter },
-          token
+          { userId: u.proshopId, pageSize: 1, pageStart: 0, filter }
         );
         const total = data?.user?.timeTracking?.totalRecords ?? 0;
         if (total > 0) {
@@ -535,12 +530,11 @@ async function buildStatsResponse() {
   const [y] = todayStr.split('-').map(Number);
   const startDateStr = `${y}-01-01`;
   const range = toESTRangeBetween(startDateStr, todayStr);
-  const token = await getProshopToken();
 
   const results = await Promise.all(
     TRACKED_USERS.map(async (u) => {
       try {
-        const entries = await fetchUserTimeTracking(token, u.proshopId, range);
+        const entries = await fetchUserTimeTracking(u.proshopId, range);
         const stats = computeUserStats(entries, todayStr);
         return {
           userId: u.proshopId,

@@ -20,6 +20,10 @@ const TOKEN_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 const TOKEN_VALID_BUFFER_MS = 2 * 60 * 1000; // consider valid if at least 2 min left
 let tokenCache = null; // { token, expiresAt }
 
+function invalidateTokenCache() {
+  tokenCache = null;
+}
+
 /** Global throttle: one ProShop operation at a time, small delay between to avoid bursts */
 const PROSHOP_THROTTLE_DELAY_MS = 300;
 let throttleLastDone = 0;
@@ -102,7 +106,7 @@ export async function getProshopToken() {
   if (tokenCache && tokenCache.expiresAt > now + TOKEN_VALID_BUFFER_MS) {
     return tokenCache.token;
   }
-  return runWithThrottle(() =>
+  const authFn = () =>
     withRetry(async () => {
       const response = await fetch(`${PROSHOP_CONFIG.ROOT_URL}/api/beginsession`, {
         method: 'POST',
@@ -148,17 +152,23 @@ export async function getProshopToken() {
         if (msg.includes('401') || msg.includes('403')) return false;
         return true;
       },
-    })
-  );
+    });
+
+  // If we're already inside an in-flight ProShop throttled operation (e.g. GraphQL retry),
+  // avoid a nested `runWithThrottle()` that could deadlock.
+  if (throttleRunning) return authFn();
+  return runWithThrottle(authFn);
 }
 
 /**
  * Execute GraphQL query against Proshop API (with retries).
  * Runs through global throttle to avoid bursts.
  */
-export async function executeGraphQLQuery(query, variables, token) {
+export async function executeGraphQLQuery(query, variables) {
   return runWithThrottle(() =>
     withRetry(async () => {
+      const token = await getProshopToken();
+
       const response = await fetch(`${PROSHOP_CONFIG.ROOT_URL}/api/graphql`, {
         method: 'POST',
         headers: {
@@ -180,6 +190,9 @@ export async function executeGraphQLQuery(query, variables, token) {
         const e = new Error(`GraphQL request failed: ${response.status}`);
         e.status = response.status;
         e.detail = detail;
+        if (response.status === 401) {
+          invalidateTokenCache();
+        }
         if (response.status === 429 || response.status === 400) {
           e.isRateLimit = true;
           const retryAfter = response.headers.get('Retry-After');
@@ -189,15 +202,14 @@ export async function executeGraphQLQuery(query, variables, token) {
       }
 
       const body = await response.json();
-
       if (body.errors) {
         throw new Error(`GraphQL errors: ${JSON.stringify(body.errors)}`);
       }
-
       return body.data;
     }, {
       isRetryable(err) {
         const status = err.status;
+        if (status === 401) return true;
         if (status != null && status >= 400 && status < 500 && status !== 429) return false;
         return true;
       },

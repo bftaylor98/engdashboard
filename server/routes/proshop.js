@@ -6,7 +6,7 @@ import fs from 'fs';
 import XLSX from 'xlsx';
 import { v4 as uuidv4 } from 'uuid';
 import { eventBus } from '../lib/eventBus.js';
-import { getProshopToken, executeGraphQLQuery, PROSHOP_CONFIG, isProshopRateLimitError } from '../lib/proshopClient.js';
+import { executeGraphQLQuery, PROSHOP_CONFIG, isProshopRateLimitError } from '../lib/proshopClient.js';
 import { cacheLog } from '../lib/cacheLogger.js';
 import { setCache, setCacheError, clearCacheError, getCache, getCacheData, getCacheError } from '../lib/cacheStore.js';
 
@@ -249,7 +249,7 @@ function transformPartNumber(rawPartNumber, customerName) {
  * Fetch part descriptions via Part(partNumber) using partDescription (API rejects "description" on Part).
  * Returns Map(partNumber -> description string or null).
  */
-async function fetchPartDescriptions(partNumbers, token) {
+async function fetchPartDescriptions(partNumbers) {
   const map = new Map();
   if (!partNumbers || partNumbers.length === 0) return map;
   const unique = [...new Set(partNumbers.filter(Boolean))];
@@ -263,7 +263,7 @@ async function fetchPartDescriptions(partNumbers, token) {
   `;
   await Promise.all(unique.map(async (partNumber) => {
     try {
-      const data = await executeGraphQLQuery(query, { partNumber }, token);
+      const data = await executeGraphQLQuery(query, { partNumber });
       const desc = data?.part?.partDescription;
       map.set(partNumber, (typeof desc === 'string' && desc.trim()) ? desc.trim() : null);
     } catch (err) {
@@ -488,8 +488,6 @@ function calculateStatsByType(pos, startDate, endDate) {
  * Build tooling expenses response from Proshop API (shared for route and cache warming).
  */
 async function buildToolingExpensesResponse() {
-  const token = await getProshopToken();
-
   const currentMonthRange = getCurrentMonthRange();
   const rolling30DaysRange = getRolling30DaysRange();
   const lastMonthRange = getLastMonthRange();
@@ -526,7 +524,7 @@ async function buildToolingExpensesResponse() {
 
   while (hasMore && pagesFetched < MAX_PAGES) {
     const variables = { pageSize, pageStart };
-    const data = await executeGraphQLQuery(query, variables, token);
+    const data = await executeGraphQLQuery(query, variables);
 
     if (!data || !data.purchaseOrders || !data.purchaseOrders.records) {
       break;
@@ -717,7 +715,6 @@ async function buildMaterialStatusResponse(db, woNumbersFromQuery = null) {
   }
 
   const cacheKey = woNumbers.slice().sort().join(',');
-  const token = await getProshopToken();
 
     const workOrdersQuery = `
       query GetWorkOrders($pageSize: Int!, $pageStart: Int!, $filter: WorkOrderFilter) {
@@ -776,7 +773,7 @@ async function buildMaterialStatusResponse(db, woNumbersFromQuery = null) {
         pageSize,
         pageStart,
         filter: { workOrderNumber: woNumbers },
-      }, token);
+      });
       const records = data?.workOrders?.records ?? [];
       allRecords = allRecords.concat(records);
       if (records.length < pageSize) hasMore = false;
@@ -853,7 +850,7 @@ async function buildMaterialStatusResponse(db, woNumbersFromQuery = null) {
       const batch = poIdsArray.slice(i, i + PO_BATCH_SIZE);
       await Promise.all(batch.map(async (id) => {
         try {
-          const data = await executeGraphQLQuery(poQuery, { id }, token);
+          const data = await executeGraphQLQuery(poQuery, { id });
           poMap[id] = data?.purchaseOrder ?? null;
         } catch (err) {
           cacheLog.error('proshop', 'material-status: failed to fetch PO', id, err.message);
@@ -1083,7 +1080,6 @@ router.get('/material-status', (req, res) => {
  * Build open POs response (shared for route and cache warming).
  */
 async function buildOpenPOsResponse() {
-  const token = await getProshopToken();
   const query = `
       query GetPurchaseOrders($pageSize: Int!, $pageStart: Int!) {
         purchaseOrders(pageSize: $pageSize, pageStart: $pageStart) {
@@ -1111,7 +1107,7 @@ async function buildOpenPOsResponse() {
 
     while (hasMore && pagesFetched < MAX_PAGES) {
       const variables = { pageSize, pageStart };
-      const data = await executeGraphQLQuery(query, variables, token);
+      const data = await executeGraphQLQuery(query, variables);
       
       if (!data || !data.purchaseOrders || !data.purchaseOrders.records) {
         break;
@@ -1182,7 +1178,7 @@ async function buildOpenPOsResponse() {
             }
           `;
           
-          const detailData = await executeGraphQLQuery(detailQuery, { id: po.id }, token);
+          const detailData = await executeGraphQLQuery(detailQuery, { id: po.id });
           const poData = detailData.purchaseOrder;
           
           // Process line items
@@ -1400,18 +1396,18 @@ function normalizeNcrRecord(ncr) {
 // Max records to request in one call (ProShop accepts pageSize; cap to avoid huge responses).
 const NCR_FETCH_CAP = 10000;
 
-async function fetchAllNcrs(token, options = {}) {
+async function fetchAllNcrs(options = {}) {
   const { maxRecords = NCR_FETCH_CAP } = options;
   let totalRecords = 0;
   try {
-    const countData = await executeGraphQLQuery(NCR_COUNT_QUERY, { pageSize: 1 }, token);
+    const countData = await executeGraphQLQuery(NCR_COUNT_QUERY, { pageSize: 1 });
     const raw = countData?.nonConformanceReports?.totalRecords;
     totalRecords = typeof raw === 'number' ? raw : parseInt(raw, 10) || 0;
   } catch (e) {
     cacheLog.warn('proshop', 'NCR count query failed, will try direct fetch:', e.message);
   }
   const pageSize = totalRecords > 0 ? Math.min(totalRecords, maxRecords) : maxRecords;
-  const data = await executeGraphQLQuery(NCR_LIST_QUERY, { pageSize }, token);
+  const data = await executeGraphQLQuery(NCR_LIST_QUERY, { pageSize });
   const result = data?.nonConformanceReports;
   const records = Array.isArray(result?.records) ? result.records : [];
   return records.filter((ncr) => ncr && typeof ncr === 'object');
@@ -1433,11 +1429,7 @@ async function getSharedAllNcrs() {
   if (entry?.data && entry.timestamp && (now - entry.timestamp) < ALL_NCRS_CACHE_TTL) {
     return entry.data;
   }
-  const token = await getProshopToken();
-  if (!token || typeof token !== 'string') {
-    throw new Error('ProShop authentication did not return a valid token.');
-  }
-  const all = await fetchAllNcrs(token, { maxRecords: NCR_FETCH_CAP });
+  const all = await fetchAllNcrs({ maxRecords: NCR_FETCH_CAP });
   setCache('ncrs-all', all);
   return all;
 }
@@ -1606,18 +1598,6 @@ router.post('/import-work-orders', async (req, res) => {
       errors: []
     };
 
-    // Authenticate with Proshop
-    let token;
-    try {
-      token = await getProshopToken();
-    } catch (authError) {
-      cacheLog.error('proshop', 'Authentication failed:', authError);
-      return res.status(500).json({
-        success: false,
-        error: 'Failed to authenticate with Proshop API. Please check credentials and network connection.',
-      });
-    }
-
     // GraphQL query to fetch work orders with ops filtered by work center ENGINEERING.
     // Per PS-API-Schema.gql: WorkOrder.ops(filter: WorkOrderOperationFilter) returns operations;
     // WorkOrderOperationFilter has workCenter: [String]; WorkOrderOperation has workCenterPlainText.
@@ -1669,7 +1649,7 @@ router.post('/import-work-orders', async (req, res) => {
       };
       let data;
       try {
-        data = await executeGraphQLQuery(query, variables, token);
+        data = await executeGraphQLQuery(query, variables);
       } catch (queryError) {
         cacheLog.error('proshop', 'GraphQL query failed at page', pagesFetched + 1, queryError);
         // If it's the first page, fail completely; otherwise, continue with what we have
@@ -1710,7 +1690,7 @@ router.post('/import-work-orders', async (req, res) => {
     let partDescriptionMap = new Map();
     if (rawPartNumbers.length > 0) {
       try {
-        partDescriptionMap = await fetchPartDescriptions(rawPartNumbers, token);
+        partDescriptionMap = await fetchPartDescriptions(rawPartNumbers);
         const withDesc = [...partDescriptionMap.values()].filter(Boolean).length;
         if (withDesc > 0) cacheLog.info('proshop', 'Fetched part descriptions for', withDesc, 'parts');
       } catch (err) {
@@ -1949,17 +1929,6 @@ router.get('/test-query', async (req, res) => {
     const fieldsParam = req.query.fields || 'workOrderNumber';
     const fields = fieldsParam.split(',').map(f => f.trim());
     
-    // Authenticate with Proshop
-    let token;
-    try {
-      token = await getProshopToken();
-    } catch (authError) {
-      return res.status(500).json({
-        success: false,
-        error: 'Failed to authenticate with Proshop API.',
-      });
-    }
-
     // Build query dynamically based on requested fields
     const fieldSelections = fields.map(field => {
       // Handle nested fields
@@ -1992,7 +1961,7 @@ router.get('/test-query', async (req, res) => {
     let error = null;
     
     try {
-      data = await executeGraphQLQuery(query, variables, token);
+      data = await executeGraphQLQuery(query, variables);
     } catch (queryError) {
       error = queryError.message;
       cacheLog.error('proshop', 'Query failed:', queryError);
@@ -2087,16 +2056,6 @@ router.get('/cost-analysis', async (req, res) => {
       }
     }
 
-    // Estimated total minutes from Proshop (sum of ops totalCycleTime; paginate ops to get all)
-    let token;
-    try {
-      token = await getProshopToken();
-    } catch (authError) {
-      cacheLog.warn('proshop', 'cost-analysis: Proshop auth failed, returning DB-only data:', authError?.message);
-      data.estimatedHours = data.estimatedTotalMinutes != null ? Math.round((data.estimatedTotalMinutes / 60) * 100) / 100 : null;
-      return res.json({ success: true, data });
-    }
-
     const OPS_PAGE_SIZE = 100;
     const MAX_OPS_PAGES = 30; // 3000 ops max to avoid long timeouts
     let totalMinutes = 0;
@@ -2152,7 +2111,7 @@ router.get('/cost-analysis', async (req, res) => {
         pageSize: 1,
         pageStart: 0,
         filter: { workOrderNumber: [woNumber] },
-      }, token);
+      });
     } catch (queryError) {
       cacheLog.warn('proshop', 'cost-analysis: Proshop query failed, returning DB-only data:', queryError?.message);
       data.estimatedTotalMinutes = totalMinutes > 0 ? Math.round(totalMinutes) : null;
@@ -2228,7 +2187,7 @@ router.get('/cost-analysis', async (req, res) => {
           pageSize: 1,
           pageStart: 0,
           filter: { workOrderNumber: [woNumber] },
-        }, token);
+        });
       } catch (opsErr) {
         cacheLog.warn('proshop', 'cost-analysis: ops pagination failed:', opsErr?.message);
         break;
@@ -2263,7 +2222,7 @@ router.get('/cost-analysis', async (req, res) => {
       const batch = poIdsArray.slice(i, i + PO_BATCH_SIZE);
       await Promise.all(batch.map(async (id) => {
         try {
-          const poRes = await executeGraphQLQuery(poItemQuery, { id }, token);
+          const poRes = await executeGraphQLQuery(poItemQuery, { id });
           const po = poRes?.purchaseOrder;
           if (!po?.poItems?.records) return;
           for (const item of po.poItems.records) {
@@ -2347,18 +2306,6 @@ router.get('/cost-analysis', async (req, res) => {
  */
 router.get('/debug-work-orders', async (req, res) => {
   try {
-    // Authenticate with Proshop
-    let token;
-    try {
-      token = await getProshopToken();
-    } catch (authError) {
-      cacheLog.error('proshop', 'Authentication failed:', authError);
-      return res.status(500).json({
-        success: false,
-        error: 'Failed to authenticate with Proshop API. Please check credentials and network connection.',
-      });
-    }
-
     // GraphQL query - using only tested working fields
     const query = `
       query GetWorkOrders($pageSize: Int!, $pageStart: Int!) {
@@ -2384,7 +2331,7 @@ router.get('/debug-work-orders', async (req, res) => {
     const variables = { pageSize: 10, pageStart: 0 };
     let data;
     try {
-      data = await executeGraphQLQuery(query, variables, token);
+      data = await executeGraphQLQuery(query, variables);
     } catch (queryError) {
       cacheLog.error('proshop', 'GraphQL query failed:', queryError);
       return res.status(500).json({
@@ -2442,18 +2389,6 @@ router.get('/debug-work-orders', async (req, res) => {
  */
 router.get('/export-work-orders-csv', async (req, res) => {
   try {
-    // Authenticate with Proshop
-    let token;
-    try {
-      token = await getProshopToken();
-    } catch (authError) {
-      cacheLog.error('proshop', 'Authentication failed:', authError);
-      return res.status(500).json({
-        success: false,
-        error: 'Failed to authenticate with Proshop API.',
-      });
-    }
-
     // GraphQL query - using only tested working fields
     const query = `
       query GetWorkOrders($pageSize: Int!, $pageStart: Int!) {
@@ -2487,7 +2422,7 @@ router.get('/export-work-orders-csv', async (req, res) => {
       const variables = { pageSize, pageStart };
       let data;
       try {
-        data = await executeGraphQLQuery(query, variables, token);
+      data = await executeGraphQLQuery(query, variables);
       } catch (queryError) {
         cacheLog.error('proshop', 'GraphQL query failed at page', pagesFetched + 1, queryError);
         if (pagesFetched === 0) {
