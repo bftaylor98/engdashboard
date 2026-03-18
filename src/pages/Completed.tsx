@@ -96,7 +96,7 @@ export default function Completed() {
       cell: ({ row }) => {
         const overdue = isOverdue(row.original.dueDate);
         return (
-          <span className={cn('text-xs', overdue ? 'text-red-400 font-medium' : 'text-zinc-300')}>
+          <span className={cn('text-xs', overdue ? 'text-red-400 font-medium' : 'text-[var(--text-secondary)]')}>
             {formatDate(row.original.dueDate)}
           </span>
         );
@@ -105,13 +105,13 @@ export default function Completed() {
     columnHelper.accessor('partNumber', {
       header: 'Part #',
       size: 120,
-      cell: ({ getValue }) => <span className="font-mono text-xs text-zinc-300">{getValue()}</span>,
+      cell: ({ getValue }) => <span className="font-mono text-xs text-[var(--text-secondary)]">{getValue()}</span>,
     }),
     columnHelper.accessor('partName', {
       header: 'Part Name',
       size: 350,
       cell: ({ row }) => (
-        <button onClick={() => setSelectedWO(row.original)} className="text-xs text-zinc-200 hover:text-white hover:underline text-left block w-full" style={{ maxWidth: '350px' }} title={row.original.partName}>
+        <button onClick={() => setSelectedWO(row.original)} className="text-xs text-[var(--text-primary)] hover:underline text-left block w-full" style={{ maxWidth: '350px' }} title={row.original.partName}>
           <span className="truncate block">{row.original.partName}</span>
         </button>
       ),
@@ -119,17 +119,17 @@ export default function Completed() {
     columnHelper.accessor('project', {
       header: 'Project',
       size: 130,
-      cell: ({ getValue }) => <span className="text-xs text-zinc-400 truncate max-w-[130px]">{getValue() || '—'}</span>,
+      cell: ({ getValue }) => <span className="text-xs text-[var(--text-secondary)] truncate max-w-[130px]">{getValue() || '—'}</span>,
     }),
     columnHelper.accessor('customer', {
       header: 'Customer',
       size: 70,
-      cell: ({ getValue }) => <span className="text-xs font-medium text-zinc-300">{getValue()}</span>,
+      cell: ({ getValue }) => <span className="text-xs font-medium text-[var(--text-secondary)]">{getValue()}</span>,
     }),
     columnHelper.accessor('currentBox', {
       header: 'Assignee',
       size: 100,
-      cell: ({ getValue }) => <span className="text-sm text-zinc-300">{getValue() || '—'}</span>,
+      cell: ({ getValue }) => <span className="text-sm text-[var(--text-secondary)]">{getValue() || '—'}</span>,
     }),
     columnHelper.accessor('currentStatus', {
       header: 'Status',
@@ -143,7 +143,7 @@ export default function Completed() {
     columnHelper.accessor('updatedAt', {
       header: 'Completed Date',
       size: 120,
-      cell: ({ getValue }) => <span className="text-xs text-zinc-400">{formatDate(getValue())}</span>,
+      cell: ({ getValue }) => <span className="text-xs text-[var(--text-secondary)]">{formatDate(getValue())}</span>,
     }),
   ], []);
 

@@ -1403,7 +1403,7 @@ function statusBarColor(status: string): string {
     case 'programming': return 'bg-purple-500';
     case 'programming-completed': return 'bg-green-500';
     case 'hold': return 'bg-orange-500';
-    default: return 'bg-zinc-600';
+    default: return 'bg-[var(--bg-elevated)]';
   }
 }
 

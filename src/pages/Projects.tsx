@@ -344,7 +344,7 @@ export default function Projects() {
                                 <button
                                   type="button"
                                   onClick={() => handleDelete(p.id)}
-                                  className="p-2 rounded hover:bg-red-500/20 text-zinc-400 hover:text-red-400"
+                                  className="p-2 rounded hover:bg-red-500/20 text-[var(--text-secondary)] hover:text-red-400"
                                   title="Delete"
                                 >
                                   <Trash2 className="w-4 h-4" />
@@ -388,7 +388,7 @@ export default function Projects() {
                       <button
                         type="button"
                         onClick={() => handleDelete(p.id)}
-                        className="p-2 rounded hover:bg-red-500/20 text-zinc-400 hover:text-red-400"
+                        className="p-2 rounded hover:bg-red-500/20 text-[var(--text-secondary)] hover:text-red-400"
                         title="Delete"
                       >
                         <Trash2 className="w-4 h-4" />

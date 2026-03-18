@@ -518,7 +518,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 gap-3 text-zinc-400">
+      <div className="flex flex-col items-center justify-center h-64 gap-3 text-[var(--text-secondary)]">
         <Loader2 className="w-8 h-8 text-accent animate-spin" />
         <span className="text-sm">Loading dashboard...</span>
       </div>
@@ -531,7 +531,7 @@ export default function Dashboard() {
         {loadError && (
           <p className="text-red-400 text-sm">{loadError}</p>
         )}
-        <p className="text-zinc-400">
+        <p className="text-[var(--text-secondary)]">
           No data loaded.{' '}
           <Link to="/import" className="text-accent hover:underline">Import an Excel file</Link> to get started.
         </p>
@@ -576,7 +576,7 @@ export default function Dashboard() {
             </h2>
             <div className="flex items-center gap-2">
               <Link to="/time-tracking" className="text-sm text-accent hover:text-accent-hover transition-colors">Time tracking</Link>
-              <span className="text-zinc-600">|</span>
+              <span className="text-[var(--text-muted)]">|</span>
               <Link to="/non-conformances" className="text-sm text-accent hover:text-accent-hover transition-colors">Non-conformances</Link>
             </div>
           </div>
@@ -694,14 +694,14 @@ export default function Dashboard() {
       {user && (
         <div className="card">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold flex items-center gap-2 text-zinc-100">
-              <ClipboardList className="w-5 h-5 text-zinc-400" />
+            <h2 className="text-lg font-semibold flex items-center gap-2 text-[var(--text-primary)]">
+              <ClipboardList className="w-5 h-5 text-[var(--text-secondary)]" />
               My schedule
             </h2>
             <Link to="/schedule" className="text-sm text-accent hover:text-accent-hover transition-colors">View full schedule</Link>
           </div>
           {myScheduleWorkOrders.length === 0 ? (
-            <p className="text-zinc-500 text-sm py-4">No work orders assigned to you.</p>
+            <p className="text-[var(--text-muted)] text-sm py-4">No work orders assigned to you.</p>
           ) : (
             <div className="rounded-xl overflow-hidden border border-[var(--border-subtle)]">
               <div className="overflow-x-auto">
@@ -743,15 +743,15 @@ export default function Dashboard() {
                             {wo.qn} <ExternalLink className="w-3 h-3 opacity-50" />
                           </a>
                         ) : (
-                          <span className="text-zinc-500 text-xs">—</span>
+                          <span className="text-[var(--text-muted)] text-xs">—</span>
                         )}
                       </td>
                       <td className={cn('px-4 py-3.5 text-xs', isOverdue(wo.dueDate) && 'text-red-400 font-medium')}>
                         {formatDate(wo.dueDate)}
                       </td>
-                      <td className="px-4 py-3.5 font-mono text-xs text-zinc-300">{wo.partNumber || '—'}</td>
-                      <td className="px-4 py-3.5 max-w-[220px] truncate text-xs text-zinc-200" title={wo.partName}>{wo.partName || '—'}</td>
-                      <td className="px-4 py-3.5 text-xs font-medium text-zinc-300">{wo.customer || '—'}</td>
+                      <td className="px-4 py-3.5 font-mono text-xs text-[var(--text-secondary)]">{wo.partNumber || '—'}</td>
+                      <td className="px-4 py-3.5 max-w-[220px] truncate text-xs text-[var(--text-primary)]" title={wo.partName}>{wo.partName || '—'}</td>
+                      <td className="px-4 py-3.5 text-xs font-medium text-[var(--text-secondary)]">{wo.customer || '—'}</td>
                       <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                         <AssigneeCell wo={wo} onUpdate={handleUpdate} />
                       </td>
@@ -761,10 +761,10 @@ export default function Dashboard() {
                       <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                         <ProshopMaterialCell woNumber={wo.woNumber} proshop={proshopByWo.get(wo.woNumber)} />
                       </td>
-                      <td className="px-4 py-3.5 text-xs text-zinc-300">
+                      <td className="px-4 py-3.5 text-xs text-[var(--text-secondary)]">
                         {proshopByWo.get(wo.woNumber)?.stockDetails?.[0]?.dueAtDock ?? '—'}
                       </td>
-                      <td className="px-4 py-3.5 text-xs text-zinc-400 truncate max-w-[180px]" title={wo.notes || undefined}>{wo.notes || '—'}</td>
+                      <td className="px-4 py-3.5 text-xs text-[var(--text-secondary)] truncate max-w-[180px]" title={wo.notes || undefined}>{wo.notes || '—'}</td>
                     </tr>
                   ))}
                 </tbody>

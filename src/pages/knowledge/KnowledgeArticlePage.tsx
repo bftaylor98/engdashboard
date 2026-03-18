@@ -138,7 +138,7 @@ export default function KnowledgeArticlePage() {
     <article className="animate-fade-in max-w-4xl mx-auto">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100">{article.title}</h1>
+          <h1 className="text-2xl font-bold text-[var(--text-primary)]">{article.title}</h1>
           <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-[var(--text-secondary)]">
             {article.categoryName && (
               <span className="flex items-center gap-1">
@@ -164,7 +164,7 @@ export default function KnowledgeArticlePage() {
                 'px-2 py-0.5 rounded text-xs font-medium',
                 article.status === 'standard' && 'bg-green-500/20 text-green-400',
                 article.status === 'reviewed' && 'bg-blue-500/20 text-blue-400',
-                article.status === 'draft' && 'bg-zinc-500/20 text-[var(--text-secondary)]'
+                article.status === 'draft' && 'bg-[var(--bg-hover)] text-[var(--text-secondary)]'
               )}
             >
               {article.status}

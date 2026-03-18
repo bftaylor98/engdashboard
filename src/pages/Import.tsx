@@ -171,7 +171,7 @@ export default function Import() {
               </a>
             </div>
             {proshopImporting && (
-              <p className="text-xs text-zinc-400 text-center">Fetching and processing work orders...</p>
+              <p className="text-xs text-[var(--text-secondary)] text-center">Fetching and processing work orders...</p>
             )}
             {debugLoading && (
               <p className="text-xs text-[var(--text-secondary)] text-center">Fetching debug data...</p>

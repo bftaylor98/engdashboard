@@ -534,7 +534,7 @@ export default function Schedule() {
       size: 100,
       cell: ({ row }) => {
         const qn = row.original.qn;
-        if (!qn) return <span className="text-zinc-500 text-xs">—</span>;
+        if (!qn) return <span className="text-[var(--text-muted)] text-xs">—</span>;
         return (
           <a href={erpQuoteUrl(qn)} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-hover font-mono text-xs inline-flex items-center gap-1">
             {qn} <ExternalLink className="w-3 h-3 opacity-50" />
@@ -548,7 +548,7 @@ export default function Schedule() {
       cell: ({ row }) => {
         const overdue = isOverdue(row.original.dueDate);
         return (
-          <span className={cn('text-xs', overdue ? 'text-red-400 font-medium' : 'text-zinc-300')}>
+          <span className={cn('text-xs', overdue ? 'text-red-400 font-medium' : 'text-[var(--text-secondary)]')}>
             {formatDate(row.original.dueDate)}
           </span>
         );
@@ -557,13 +557,13 @@ export default function Schedule() {
     columnHelper.accessor('partNumber', {
       header: 'Part #',
       size: 120,
-      cell: ({ getValue }) => <span className="font-mono text-xs text-zinc-300">{getValue()}</span>,
+      cell: ({ getValue }) => <span className="font-mono text-xs text-[var(--text-secondary)]">{getValue()}</span>,
     }),
     columnHelper.accessor('partName', {
       header: 'Part Name',
       size: 350,
       cell: ({ row }) => (
-        <button onClick={() => setSelectedWO(row.original)} className="text-xs text-zinc-200 hover:text-white hover:underline text-left block w-full" style={{ maxWidth: '350px' }} title={row.original.partName}>
+        <button onClick={() => setSelectedWO(row.original)} className="text-xs text-[var(--text-primary)] hover:text-[var(--text-primary)] hover:underline text-left block w-full" style={{ maxWidth: '350px' }} title={row.original.partName}>
           <span className="truncate block">{row.original.partName}</span>
         </button>
       ),
@@ -571,7 +571,7 @@ export default function Schedule() {
     columnHelper.accessor('customer', {
       header: 'Customer',
       size: 70,
-      cell: ({ getValue }) => <span className="text-xs font-medium text-zinc-300">{getValue()}</span>,
+      cell: ({ getValue }) => <span className="text-xs font-medium text-[var(--text-secondary)]">{getValue()}</span>,
     }),
     columnHelper.accessor('currentBox', {
       header: 'Assignee',
@@ -598,7 +598,7 @@ export default function Schedule() {
       cell: ({ row }) => {
         const proshop = proshopByWo.get(row.original.woNumber);
         const due = proshop?.stockDetails?.[0]?.dueAtDock ?? null;
-        return <span className="text-xs text-zinc-300">{due || '—'}</span>;
+        return <span className="text-xs text-[var(--text-secondary)]">{due || '—'}</span>;
       },
     }),
     columnHelper.accessor('notes', {
@@ -772,12 +772,12 @@ export default function Schedule() {
               </Dialog.Trigger>
               <Dialog.Portal>
                 <Dialog.Overlay className="fixed inset-0 bg-black/60 z-[60]" />
-                <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border border-white/10 rounded-lg shadow-2xl p-6 z-[61] min-w-[400px]">
+                <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-lg shadow-lg p-6 z-[61] min-w-[400px]">
                   <Dialog.Title className="text-lg font-bold text-white mb-2">Delete Work Orders</Dialog.Title>
-                  <Dialog.Description className="text-sm text-zinc-400 mb-4">
+                  <Dialog.Description className="text-sm text-[var(--text-secondary)] mb-4">
                     Are you sure you want to delete <span className="font-bold text-accent">{selectedIds.size}</span> work order(s)?
                     <br />
-                    <span className="text-zinc-500">This action cannot be undone.</span>
+                    <span className="text-[var(--text-muted)]">This action cannot be undone.</span>
                   </Dialog.Description>
                   <div className="flex items-center justify-end gap-3">
                     <Dialog.Close asChild>
