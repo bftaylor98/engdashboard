@@ -327,24 +327,24 @@ async function buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFi
   };
 }
 
-export function warmTimeTrackingCache() {
+export async function warmTimeTrackingCache() {
   const dateStr = getESTDate();
   const cacheKey = `${dateStr}:all`;
-  buildTimeTrackingResponse(dateStr, null)
-    .then((response) => {
-      timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
-      setCache('time-tracking', { entries: { ...timeTrackingCache } });
-      clearCacheError('time-tracking');
-      cacheLog.info('time-tracking', 'Cache warmed for date:', dateStr);
-    })
-    .catch((err) => {
-      cacheLog.error('time-tracking', 'Warm failed:', err.message || err);
-      if (isProshopRateLimitError(err)) {
-        setCacheError('time-tracking', { reason: 'rate_limited' });
-      } else {
-        setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
-      }
-    });
+  try {
+    const response = await buildTimeTrackingResponse(dateStr, null);
+    timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
+    setCache('time-tracking', { entries: { ...timeTrackingCache } });
+    clearCacheError('time-tracking');
+    cacheLog.info('time-tracking', 'Cache warmed for date:', dateStr);
+  } catch (err) {
+    cacheLog.error('time-tracking', 'Warm failed:', err.message || err);
+    if (isProshopRateLimitError(err)) {
+      setCacheError('time-tracking', { reason: 'rate_limited' });
+    } else {
+      setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
+    }
+    throw err;
+  }
 }
 
 /**
@@ -427,21 +427,21 @@ async function buildLatestDateResponse() {
   return { success: true, data: { date: today } };
 }
 
-export function warmLatestDateCache() {
-  buildLatestDateResponse()
-    .then((response) => {
-      setCache('time-tracking-latest-date', response);
-      clearCacheError('time-tracking');
-      cacheLog.info('time-tracking', 'Latest-date cache warmed');
-    })
-    .catch((err) => {
-      cacheLog.error('time-tracking', 'Latest-date warm failed:', err.message || err);
-      if (isProshopRateLimitError(err)) {
-        setCacheError('time-tracking', { reason: 'rate_limited' });
-      } else {
-        setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
-      }
-    });
+export async function warmLatestDateCache() {
+  try {
+    const response = await buildLatestDateResponse();
+    setCache('time-tracking-latest-date', response);
+    clearCacheError('time-tracking');
+    cacheLog.info('time-tracking', 'Latest-date cache warmed');
+  } catch (err) {
+    cacheLog.error('time-tracking', 'Latest-date warm failed:', err.message || err);
+    if (isProshopRateLimitError(err)) {
+      setCacheError('time-tracking', { reason: 'rate_limited' });
+    } else {
+      setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
+    }
+    throw err;
+  }
 }
 
 /**
@@ -575,21 +575,21 @@ async function buildStatsResponse() {
   };
 }
 
-export function warmTimeTrackingStatsCache() {
-  buildStatsResponse()
-    .then((response) => {
-      setCache('time-tracking-stats', response);
-      clearCacheError('time-tracking');
-      cacheLog.info('time-tracking', 'Stats cache warmed');
-    })
-    .catch((err) => {
-      cacheLog.error('time-tracking', 'Stats warm failed:', err.message || err);
-      if (isProshopRateLimitError(err)) {
-        setCacheError('time-tracking', { reason: 'rate_limited' });
-      } else {
-        setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
-      }
-    });
+export async function warmTimeTrackingStatsCache() {
+  try {
+    const response = await buildStatsResponse();
+    setCache('time-tracking-stats', response);
+    clearCacheError('time-tracking');
+    cacheLog.info('time-tracking', 'Stats cache warmed');
+  } catch (err) {
+    cacheLog.error('time-tracking', 'Stats warm failed:', err.message || err);
+    if (isProshopRateLimitError(err)) {
+      setCacheError('time-tracking', { reason: 'rate_limited' });
+    } else {
+      setCacheError('time-tracking', { reason: 'error', message: err.message || String(err) });
+    }
+    throw err;
+  }
 }
 
 /**

@@ -33,6 +33,7 @@ import calendarRoutes from './routes/calendar.js';
 import machinesRoutes, { warmMachinesCache } from './routes/machines.js';
 import { getProshopToken } from './lib/proshopClient.js';
 import { getCacheStatus } from './lib/cacheStore.js';
+import { registerJob, getSchedulerStatus, stopAll } from './lib/cacheScheduler.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -156,7 +157,7 @@ app.get('/api/debug/requests', requireAuth, (req, res) => {
 
 // Debug: cache status – requires auth
 app.get('/api/debug/caches', requireAuth, (req, res) => {
-  res.json({ caches: getCacheStatus() });
+  res.json({ caches: getCacheStatus(), scheduler: getSchedulerStatus() });
 });
 
 // Serve static frontend in production
@@ -166,86 +167,23 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
-/** Delay between each ProShop-dependent cache warm at startup to avoid 429 burst */
-const PROSHOP_WARM_DELAY_MS = 5000;
-
-/** Intervals and initial delays for background-only ProShop refresh (no user request triggers ProShop). */
-const NCR_INTERVAL_MS = 10 * 60 * 1000;       // 10 min
-const MATERIAL_INTERVAL_MS = 5 * 60 * 1000;   // 5 min
-const TOOLING_INTERVAL_MS = 15 * 60 * 1000;   // 15 min
-const OPEN_POS_INTERVAL_MS = 15 * 60 * 1000;  // 15 min
-const TIME_TRACKING_INTERVAL_MS = 10 * 60 * 1000;  // 10 min
-const MATERIAL_FIRST_DELAY_MS = 30000;   // 30s offset
-const TOOLING_FIRST_DELAY_MS = 60000;    // 60s offset
-const OPEN_POS_FIRST_DELAY_MS = 90000;   // 90s offset
-const NCR_FIRST_DELAY_MS = 10 * 60 * 1000;   // 10 min (initial warm already ran NCR)
-const TIME_TRACKING_FIRST_DELAY_MS = 2 * 60 * 1000;   // 2 min (stagger from NCR 10 min)
-const MACHINES_INTERVAL_MS = 10 * 60 * 1000;   // 10 min
-const MACHINES_FIRST_DELAY_MS = 3 * 60 * 1000;   // 3 min stagger
-
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-/** Initial cache warm at startup (runs once; staggered so ProShop is not hit in burst). */
-async function runProshopWarmsSequentially() {
-  warmStockGridCache(); // does not use ProShop
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmToolingExpensesCache();
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmOpenPOsCache();
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmSharedNcrCache();
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmMaterialStatusCache(db);
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmTimeTrackingCache();
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmLatestDateCache();
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmTimeTrackingStatsCache();
-  await delay(PROSHOP_WARM_DELAY_MS);
-  warmMachinesCache();
-}
-
 const server = app.listen(PORT, () => {
   console.log(`[server] Engineering Schedule Dashboard API running on http://localhost:${PORT}`);
   const count = db.prepare('SELECT COUNT(*) as count FROM engineering_work_orders').get();
   console.log(`[server] Database initialized with ${count.count} work orders`);
   console.log('[server] ProShop cache warming started (see logs/cache.log for details)');
-  setImmediate(() => runProshopWarmsSequentially());
 
-  // Staggered background refresh only (no user request ever triggers ProShop)
-  setTimeout(() => {
-    warmSharedNcrCache();
-    setInterval(warmSharedNcrCache, NCR_INTERVAL_MS);
-  }, NCR_FIRST_DELAY_MS);
-  setTimeout(() => {
-    warmMaterialStatusCache(db);
-    setInterval(() => warmMaterialStatusCache(db), MATERIAL_INTERVAL_MS);
-  }, MATERIAL_FIRST_DELAY_MS);
-  setTimeout(() => {
-    warmToolingExpensesCache();
-    setInterval(warmToolingExpensesCache, TOOLING_INTERVAL_MS);
-  }, TOOLING_FIRST_DELAY_MS);
-  setTimeout(() => {
-    warmOpenPOsCache();
-    setInterval(warmOpenPOsCache, OPEN_POS_INTERVAL_MS);
-  }, OPEN_POS_FIRST_DELAY_MS);
-  setTimeout(() => {
-    warmTimeTrackingCache();
-    warmLatestDateCache();
-    warmTimeTrackingStatsCache();
-    setInterval(() => {
-      warmTimeTrackingCache();
-      warmLatestDateCache();
-      warmTimeTrackingStatsCache();
-    }, TIME_TRACKING_INTERVAL_MS);
-  }, TIME_TRACKING_FIRST_DELAY_MS);
-  setTimeout(() => {
-    warmMachinesCache();
-    setInterval(() => warmMachinesCache(db), MACHINES_INTERVAL_MS);
-  }, MACHINES_FIRST_DELAY_MS);
+  registerJob('stock-grid', warmStockGridCache, { intervalMs: 5 * 60 * 1000, initialDelayMs: 0 });
+  registerJob('material-status', () => warmMaterialStatusCache(db), { intervalMs: 5 * 60 * 1000, initialDelayMs: 2000 });
+  registerJob('ncrs', warmSharedNcrCache, { intervalMs: 10 * 60 * 1000, initialDelayMs: 7000 });
+  registerJob('time-tracking', async () => {
+    await warmTimeTrackingCache();
+    await warmLatestDateCache();
+    await warmTimeTrackingStatsCache();
+  }, { intervalMs: 10 * 60 * 1000, initialDelayMs: 12000 });
+  registerJob('machines', warmMachinesCache, { intervalMs: 10 * 60 * 1000, initialDelayMs: 17000 });
+  registerJob('tooling-expenses', warmToolingExpensesCache, { intervalMs: 15 * 60 * 1000, initialDelayMs: 22000 });
+  registerJob('open-pos', warmOpenPOsCache, { intervalMs: 15 * 60 * 1000, initialDelayMs: 27000 });
 });
 
 server.on('error', (err) => {
@@ -255,6 +193,13 @@ server.on('error', (err) => {
   }
   throw err;
 });
+
+function shutdown() {
+  stopAll();
+  server.close(() => process.exit(0));
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
 export default app;
 

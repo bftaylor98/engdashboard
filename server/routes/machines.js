@@ -217,20 +217,20 @@ export async function buildMachinesResponse() {
   };
 }
 
-export function warmMachinesCache() {
+export async function warmMachinesCache() {
   cacheLog.info('machines', 'warmMachinesCache called');
-  buildMachinesResponse()
-    .then((response) => {
-      setCache('machines', response);
-      cacheLog.info('machines', 'Machines cache warmed');
-    })
-    .catch((err) => {
-      cacheLog.error('machines', 'buildMachinesResponse FAILED:', err.message);
-      cacheLog.error('machines', err.stack);
-      if (isProshopRateLimitError(err)) {
-        setCacheError('machines', { reason: 'rate_limited', message: 'ProShop temporarily unavailable.' });
-      }
-    });
+  try {
+    const response = await buildMachinesResponse();
+    setCache('machines', response);
+    cacheLog.info('machines', 'Machines cache warmed');
+  } catch (err) {
+    cacheLog.error('machines', 'buildMachinesResponse FAILED:', err.message);
+    cacheLog.error('machines', err.stack);
+    if (isProshopRateLimitError(err)) {
+      setCacheError('machines', { reason: 'rate_limited', message: 'ProShop temporarily unavailable.' });
+    }
+    throw err;
+  }
 }
 
 router.get('/', (req, res) => {

@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { eventBus } from '../lib/eventBus.js';
 import { getProshopToken, executeGraphQLQuery, PROSHOP_CONFIG, isProshopRateLimitError } from '../lib/proshopClient.js';
 import { cacheLog } from '../lib/cacheLogger.js';
-import { setCache, setCacheError, clearCacheError, getCacheData, getCacheError } from '../lib/cacheStore.js';
+import { setCache, setCacheError, clearCacheError, getCache, getCacheData, getCacheError } from '../lib/cacheStore.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -656,20 +656,20 @@ async function buildToolingExpensesResponse() {
 /**
  * Warm tooling expenses cache in the background (call only from setInterval/startup; never from route).
  */
-export function warmToolingExpensesCache() {
-  buildToolingExpensesResponse()
-    .then((response) => {
-      setCache('tooling-expenses', response);
-      cacheLog.info('proshop', 'Tooling expenses cache warmed');
-    })
-    .catch((err) => {
-      if (isProshopRateLimitError(err)) {
-        setCacheError('tooling-expenses', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
-        cacheLog.warn('proshop', 'Tooling expenses warm rate limited (429/400), cache unchanged');
-      } else {
-        cacheLog.error('proshop', 'Tooling expenses warm failed:', err.message || err);
-      }
-    });
+export async function warmToolingExpensesCache() {
+  try {
+    const response = await buildToolingExpensesResponse();
+    setCache('tooling-expenses', response);
+    cacheLog.info('proshop', 'Tooling expenses cache warmed');
+  } catch (err) {
+    if (isProshopRateLimitError(err)) {
+      setCacheError('tooling-expenses', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
+      cacheLog.warn('proshop', 'Tooling expenses warm rate limited (429/400), cache unchanged');
+    } else {
+      cacheLog.error('proshop', 'Tooling expenses warm failed:', err.message || err);
+    }
+    throw err;
+  }
 }
 
 /**
@@ -1035,24 +1035,24 @@ async function buildMaterialStatusResponse(db, woNumbersFromQuery = null) {
   return { response, cacheKey };
 }
 
-export function warmMaterialStatusCache(db) {
+export async function warmMaterialStatusCache(db) {
   if (!db) {
     cacheLog.warn('proshop', 'warmMaterialStatusCache skipped: no db');
     return;
   }
-  buildMaterialStatusResponse(db, null)
-    .then(({ response }) => {
-      setCache('material-status', response);
-      cacheLog.info('proshop', 'Material status cache warmed');
-    })
-    .catch((err) => {
-      if (isProshopRateLimitError(err)) {
-        setCacheError('material-status', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
-        cacheLog.warn('proshop', 'Material status warm rate limited (429/400), cache unchanged');
-      } else {
-        cacheLog.error('proshop', 'Material status warm failed:', err.message || err);
-      }
-    });
+  try {
+    const { response } = await buildMaterialStatusResponse(db, null);
+    setCache('material-status', response);
+    cacheLog.info('proshop', 'Material status cache warmed');
+  } catch (err) {
+    if (isProshopRateLimitError(err)) {
+      setCacheError('material-status', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
+      cacheLog.warn('proshop', 'Material status warm rate limited (429/400), cache unchanged');
+    } else {
+      cacheLog.error('proshop', 'Material status warm failed:', err.message || err);
+    }
+    throw err;
+  }
 }
 
 /**
@@ -1244,20 +1244,20 @@ async function buildOpenPOsResponse() {
   return { success: true, data: detailedPOs };
 }
 
-export function warmOpenPOsCache() {
-  buildOpenPOsResponse()
-    .then((response) => {
-      setCache('open-pos', response);
-      cacheLog.info('proshop', 'Open POs cache warmed');
-    })
-    .catch((err) => {
-      if (isProshopRateLimitError(err)) {
-        setCacheError('open-pos', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
-        cacheLog.warn('proshop', 'Open POs warm rate limited (429/400), cache unchanged');
-      } else {
-        cacheLog.error('proshop', 'Open POs warm failed:', err.message || err);
-      }
-    });
+export async function warmOpenPOsCache() {
+  try {
+    const response = await buildOpenPOsResponse();
+    setCache('open-pos', response);
+    cacheLog.info('proshop', 'Open POs cache warmed');
+  } catch (err) {
+    if (isProshopRateLimitError(err)) {
+      setCacheError('open-pos', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
+      cacheLog.warn('proshop', 'Open POs warm rate limited (429/400), cache unchanged');
+    } else {
+      cacheLog.error('proshop', 'Open POs warm failed:', err.message || err);
+    }
+    throw err;
+  }
 }
 
 /**
@@ -1492,9 +1492,9 @@ router.get('/ncrs/by-assignee', (req, res) => {
  * Warm the shared NCR cache (one fetch) and precompute recent, last24h, by-assignee caches.
  * Replaces separate warmNcrRecentCache, warmNcrLast24hCache, warmNcrByAssigneeCache.
  */
-export function warmSharedNcrCache() {
-  getSharedAllNcrs()
-    .then((all) => {
+export async function warmSharedNcrCache() {
+  try {
+    const all = await getSharedAllNcrs();
       const now = Date.now();
       const limit = 10;
       const withDate = all.map((ncr) => ({ ncr, created: getNcrCreatedTime(ncr) }));
@@ -1562,17 +1562,17 @@ export function warmSharedNcrCache() {
         success: true,
         data: { byAssignee, allNcrsByAssignee },
       });
-      clearCacheError('ncrs');
-      cacheLog.info('proshop', 'Shared NCR cache warmed (recent, last24h, by-assignee)');
-    })
-    .catch((err) => {
-      if (isProshopRateLimitError(err)) {
-        setCacheError('ncrs', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
-        cacheLog.warn('proshop', 'Shared NCR cache warm rate limited (429/400), cache unchanged');
-      } else {
-        cacheLog.error('proshop', 'Shared NCR cache warm failed:', err.message || err);
-      }
-    });
+    clearCacheError('ncrs');
+    cacheLog.info('proshop', 'Shared NCR cache warmed (recent, last24h, by-assignee)');
+  } catch (err) {
+    if (isProshopRateLimitError(err)) {
+      setCacheError('ncrs', { reason: 'rate_limited', message: RATE_LIMIT_RESPONSE.message });
+      cacheLog.warn('proshop', 'Shared NCR cache warm rate limited (429/400), cache unchanged');
+    } else {
+      cacheLog.error('proshop', 'Shared NCR cache warm failed:', err.message || err);
+    }
+    throw err;
+  }
 }
 
 /**

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { cacheLog } from '../lib/cacheLogger.js';
-import { setCache, getCache, getCacheData } from '../lib/cacheStore.js';
+import { setCache, setCacheError, getCache, getCacheData } from '../lib/cacheStore.js';
 
 const router = Router();
 
@@ -304,15 +304,16 @@ async function buildStockGridResponse() {
   }
 }
 
-export function warmStockGridCache() {
-  buildStockGridResponse()
-    .then((response) => {
-      setCache('stock-grid', response);
-      cacheLog.info('stock-grid', 'Cache warmed');
-    })
-    .catch((err) => {
-      cacheLog.error('stock-grid', 'Warm failed:', err.message || err);
-    });
+export async function warmStockGridCache() {
+  try {
+    const response = await buildStockGridResponse();
+    setCache('stock-grid', response);
+    cacheLog.info('stock-grid', 'Cache warmed');
+  } catch (err) {
+    cacheLog.error('stock-grid', 'Warm failed:', err.message || err);
+    setCacheError('stock-grid', { reason: 'error', message: err.message || String(err) });
+    throw err;
+  }
 }
 
 // GET /api/stock-grid
