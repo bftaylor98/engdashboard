@@ -252,5 +252,44 @@
     border-color: var(--border-default);
     box-shadow: var(--shadow-sm);
   }
+
+  /* Type scale — use these instead of arbitrary text-sm / text-xs everywhere */
+  .text-display {
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+  }
+  .text-title {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+  }
+  .text-heading {
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .text-body {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.375rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+  .text-caption {
+    font-size: 0.75rem; /* 12px */
+    line-height: 1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .text-mono {
+    font-family: 'SF Mono', 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.8125rem; /* 13px */
+    line-height: 1.25rem;
+  }
 }
 

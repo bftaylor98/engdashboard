@@ -244,7 +244,7 @@ export default function Layout() {
         </header>
 
         {/* Page content - overflow hidden when drawer/overlay is open to prevent scroll-to-top */}
-        <main className={cn('flex-1 p-4 lg:p-6', mainScrollLocked ? 'overflow-hidden' : 'overflow-y-auto')}>
+        <main className={cn('flex-1 p-6 lg:p-8', mainScrollLocked ? 'overflow-hidden' : 'overflow-y-auto')}>
           <MainScrollLockContext.Provider value={setMainScrollLocked}>
             <Outlet />
           </MainScrollLockContext.Provider>
