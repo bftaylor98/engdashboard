@@ -119,7 +119,7 @@ function StatCard({
           <Icon className="w-6 h-6 text-white" />
         </div>
         <div className="min-w-0">
-          <p className="text-2xl md:text-3xl font-bold text-white tabular-nums truncate">{value}</p>
+          <p className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] tabular-nums truncate">{value}</p>
           <p className="text-sm text-[var(--text-secondary)] truncate">{label}</p>
         </div>
       </div>
@@ -131,7 +131,7 @@ function StatCard({
         <Icon className="w-8 h-8 text-white" />
       </div>
       <div>
-        <p className="text-4xl md:text-5xl font-bold text-white tabular-nums">{value}</p>
+        <p className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] tabular-nums">{value}</p>
         <p className="text-lg text-[var(--text-secondary)]">{label}</p>
       </div>
     </div>
@@ -151,7 +151,7 @@ function statusBarColor(status: string): string {
     case 'hold':
       return 'bg-orange-500';
     default:
-      return 'bg-zinc-600';
+      return 'bg-[var(--bg-elevated)]';
   }
 }
 
@@ -339,7 +339,7 @@ export default function TVDashboard() {
             label="Eastern"
             value={easternTime}
             icon={Clock}
-            color="bg-zinc-600"
+            color="bg-[var(--bg-elevated)]"
             compact
           />
         );
@@ -384,7 +384,7 @@ export default function TVDashboard() {
       case 'status-breakdown':
         return (
           <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col h-full min-h-0">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5" />
               Status Breakdown
             </h2>
@@ -416,7 +416,7 @@ export default function TVDashboard() {
       case 'workload-distribution':
         return (
           <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col h-full min-h-0">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
               <Users className="w-5 h-5" />
               Workload Distribution
             </h2>
@@ -455,13 +455,13 @@ export default function TVDashboard() {
         );
       case 'calendar-this-week':
         return (
-          <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col h-full min-h-0 overflow-hidden">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+          <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col h-full min-h-0 overflow-hidden">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
               <CalendarDays className="w-5 h-5" />
               This week
             </h2>
             {calendarThisWeek.length === 0 ? (
-              <p className="text-sm text-zinc-500">No events this week</p>
+              <p className="text-sm text-[var(--text-muted)]">No events this week</p>
             ) : (
               <div className="space-y-1.5 overflow-y-auto max-h-[280px]">
                 {calendarThisWeek.map((ev) => {
@@ -474,7 +474,7 @@ export default function TVDashboard() {
                       className={cn('text-sm px-2 py-1.5 rounded-lg border truncate', pillColor)}
                       title={ev.title + (timeStr ? ` • ${timeStr}` : '')}
                     >
-                      <span className="text-zinc-400 text-xs font-medium">
+                      <span className="text-[var(--text-secondary)] text-xs font-medium">
                         {format(start, 'EEE M/d')}
                         {timeStr ? ` · ${timeStr}` : ''}
                       </span>
@@ -488,13 +488,13 @@ export default function TVDashboard() {
         );
       case 'hot-jobs':
         return (
-          <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col h-full min-h-0 overflow-hidden">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+          <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col h-full min-h-0 overflow-hidden">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
               <Flame className="w-5 h-5 text-orange-400 animate-fire-flicker" aria-hidden />
               Hot Jobs
             </h2>
             {hotJobList.length === 0 ? (
-              <p className="text-sm text-zinc-500">No hot jobs</p>
+              <p className="text-sm text-[var(--text-muted)]">No hot jobs</p>
             ) : (
               <div className="space-y-1">
                 {hotJobList.map((job) => {
@@ -506,7 +506,7 @@ export default function TVDashboard() {
                       title={`${job.wo_number} · ${job.part_name} · Due: ${dueStr}`}
                     >
                       <span className="min-w-0 truncate">{job.wo_number} · {job.part_name}</span>
-                      <span className="shrink-0 text-zinc-400">Due: {dueStr}</span>
+                      <span className="shrink-0 text-[var(--text-secondary)]">Due: {dueStr}</span>
                     </div>
                   );
                 })}
@@ -518,7 +518,7 @@ export default function TVDashboard() {
         return <BasketballScoreWidget />;
       case 'weather-footer':
         return (
-          <div className="flex items-center justify-between text-sm text-zinc-500 flex-wrap gap-x-4">
+          <div className="flex items-center justify-between text-sm text-[var(--text-muted)] flex-wrap gap-x-4">
             <span>
               Brodhead, KY:{' '}
               {weatherLoading ? (
@@ -584,7 +584,7 @@ export default function TVDashboard() {
                 label="Eastern"
                 value={easternTime}
                 icon={Clock}
-                color="bg-zinc-600"
+                color="bg-[var(--bg-elevated)]"
                 compact
               />
               {stats && (
@@ -619,21 +619,21 @@ export default function TVDashboard() {
               />
             </section>
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
-              <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col">
-                <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
                   <BarChart3 className="w-5 h-5" />
                   Status Breakdown
                 </h2>
                 {statusBreakdown.length === 0 ? (
-                  <p className="text-sm text-zinc-500">No status data</p>
+                  <p className="text-sm text-[var(--text-muted)]">No status data</p>
                 ) : (
                   <div className="space-y-2 flex-1">
                     {statusBreakdown.map((s) => {
                       const pct = totalForStatusPct ? Math.round((s.count / totalForStatusPct) * 100) : 0;
                       return (
                         <div key={s.value} className="flex items-center gap-3">
-                          <span className="text-xs text-zinc-400 w-24 text-right shrink-0">{s.label}</span>
-                          <div className="flex-1 h-6 bg-zinc-800 rounded-lg overflow-hidden relative min-w-0">
+                          <span className="text-xs text-[var(--text-secondary)] w-24 text-right shrink-0">{s.label}</span>
+                          <div className="flex-1 h-6 bg-[var(--bg-elevated)] rounded-lg overflow-hidden relative min-w-0">
                             <div
                               className={cn('h-full rounded-lg transition-all', statusBarColor(s.value))}
                               style={{ width: `${pct}%` }}
@@ -648,13 +648,13 @@ export default function TVDashboard() {
                   </div>
                 )}
               </div>
-              <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col">
-                <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
                   <Users className="w-5 h-5" />
                   Workload Distribution
                 </h2>
                 {workload.length === 0 ? (
-                  <p className="text-zinc-500 text-center py-4">No assignees with active work orders</p>
+                  <p className="text-[var(--text-muted)] text-center py-4">No assignees with active work orders</p>
                 ) : (
                   <div className="space-y-3">
                     {workload.map((row) => {
@@ -665,15 +665,15 @@ export default function TVDashboard() {
                       return (
                         <div key={row.assignee}>
                           <div className="flex items-center justify-between text-sm mb-1">
-                            <span className="text-zinc-200 font-medium">{row.assignee}</span>
-                            <span className="text-zinc-400 text-xs">
+                            <span className="text-[var(--text-primary)] font-medium">{row.assignee}</span>
+                            <span className="text-[var(--text-secondary)] text-xs">
                               {row.jobCount} items · {progHours.toFixed(1)}h prog · {engHours.toFixed(1)}h eng
                               {overdueCount > 0 && (
                                 <span className="text-red-400 ml-1">({overdueCount} overdue)</span>
                               )}
                             </span>
                           </div>
-                          <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                          <div className="h-2 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
                             <div
                               className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all"
                               style={{ width: `${maxCount > 0 ? (row.jobCount / maxCount) * 100 : 0}%` }}
@@ -687,13 +687,13 @@ export default function TVDashboard() {
               </div>
             </section>
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
-              <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col">
-                <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
                   <CalendarDays className="w-5 h-5" />
                   This week
                 </h2>
                 {calendarThisWeek.length === 0 ? (
-                  <p className="text-sm text-zinc-500">No events this week</p>
+                  <p className="text-sm text-[var(--text-muted)]">No events this week</p>
                 ) : (
                   <div className="space-y-1.5 overflow-y-auto max-h-[280px]">
                     {calendarThisWeek.map((ev) => {
@@ -706,7 +706,7 @@ export default function TVDashboard() {
                           className={cn('text-sm px-2 py-1.5 rounded-lg border truncate', pillColor)}
                           title={ev.title + (timeStr ? ` • ${timeStr}` : '')}
                         >
-                          <span className="text-zinc-400 text-xs font-medium">
+                          <span className="text-[var(--text-secondary)] text-xs font-medium">
                             {format(start, 'EEE M/d')}
                             {timeStr ? ` · ${timeStr}` : ''}
                           </span>
@@ -717,13 +717,13 @@ export default function TVDashboard() {
                   </div>
                 )}
               </div>
-              <div className="rounded-xl bg-zinc-900/80 border border-white/10 p-6 flex flex-col">
-                <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <div className="rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] p-6 flex flex-col">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
                   <Flame className="w-5 h-5 text-orange-400 animate-fire-flicker" aria-hidden />
                   Hot Jobs
                 </h2>
                 {hotJobList.length === 0 ? (
-                  <p className="text-sm text-zinc-500">No hot jobs</p>
+                  <p className="text-sm text-[var(--text-muted)]">No hot jobs</p>
                 ) : (
                   <div className="space-y-1">
                     {hotJobList.map((job) => {
@@ -735,7 +735,7 @@ export default function TVDashboard() {
                           title={`${job.wo_number} · ${job.part_name} · Due: ${dueStr}`}
                         >
                           <span className="min-w-0 truncate">{job.wo_number} · {job.part_name}</span>
-                          <span className="shrink-0 text-zinc-400">Due: {dueStr}</span>
+                          <span className="shrink-0 text-[var(--text-secondary)]">Due: {dueStr}</span>
                         </div>
                       );
                     })}
@@ -743,7 +743,7 @@ export default function TVDashboard() {
                 )}
               </div>
             </section>
-            <div className="flex items-center justify-between text-sm text-zinc-500">
+            <div className="flex items-center justify-between text-sm text-[var(--text-muted)]">
               <span>
                 Brodhead, KY:{' '}
                 {weatherLoading ? (
