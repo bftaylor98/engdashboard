@@ -70,7 +70,7 @@ function PriorityCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-1 min-w-[120px] max-h-64 overflow-y-auto"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[120px] max-h-64 overflow-y-auto animate-fade-in"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
             {Array.from({ length: 12 }, (_, i) => (
@@ -82,14 +82,14 @@ function PriorityCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
                   setOpen(false);
                 }}
                 className={cn(
-                  'flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs hover:bg-zinc-700 transition-colors text-left',
-                  wo.priority === i && 'bg-zinc-700'
+                  'flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors text-left',
+                  wo.priority === i && 'bg-[var(--accent-muted)]'
                 )}
               >
                 <span className={cn('w-5 h-5 rounded flex items-center justify-center text-white text-[10px] font-bold', PRIORITY_COLORS[i])}>
                   {i === 0 ? '—' : i === 11 ? 'H' : i}
                 </span>
-                <span className="text-zinc-200">{PRIORITY_LABELS[i]}</span>
+                <span className={cn('text-[var(--text-primary)]', wo.priority === i && 'text-[var(--accent)]')}>{PRIORITY_LABELS[i]}</span>
               </button>
             ))}
           </div>
@@ -141,7 +141,7 @@ function AssigneeCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-1 min-w-[140px] max-h-64 overflow-y-auto"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[140px] max-h-64 overflow-y-auto animate-fade-in"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
             {ASSIGNEES.map(a => (
@@ -152,7 +152,10 @@ function AssigneeCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
                   onUpdate(wo.id, { currentBox: a });
                   setOpen(false);
                 }}
-                className={cn('block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-zinc-700 transition-colors', wo.currentBox === a ? 'bg-zinc-700 text-white' : 'text-zinc-300')}
+                className={cn(
+                  'block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors',
+                  wo.currentBox === a ? 'bg-[var(--accent-muted)] text-[var(--accent)]' : 'text-[var(--text-secondary)]'
+                )}
               >
                 {a}
               </button>
@@ -190,7 +193,7 @@ function ProshopMaterialCell({ woNumber, proshop }: { woNumber: string; proshop:
   }, [open]);
 
   if (!proshop) {
-    return <span className="text-zinc-500 text-xs">—</span>;
+    return <span className="text-[var(--text-muted)] text-xs">—</span>;
   }
 
   return (
@@ -203,7 +206,7 @@ function ProshopMaterialCell({ woNumber, proshop }: { woNumber: string; proshop:
           e.stopPropagation();
           setOpen(!open);
         }}
-        className="p-0.5 rounded hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 transition-colors"
+        className="p-0.5 rounded hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
         title="Proshop material details"
       >
         <Info className="w-3.5 h-3.5" />
@@ -213,10 +216,10 @@ function ProshopMaterialCell({ woNumber, proshop }: { woNumber: string; proshop:
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-4 min-w-[320px] max-w-[420px]"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-4 min-w-[320px] max-w-[420px] animate-fade-in"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
-            <p className="text-xs text-zinc-500 font-medium mb-2">Proshop material — {woNumber}</p>
+            <p className="text-xs text-[var(--text-muted)] font-medium mb-2">Proshop material — {woNumber}</p>
             <ProshopMaterialDetailPanel row={proshop} />
           </div>
         </>
@@ -496,7 +499,7 @@ export default function Schedule() {
           checked={sortedData.length > 0 && selectedIds.size === sortedData.length}
           onChange={toggleSelectAll}
           onClick={(e) => e.stopPropagation()}
-          className="w-4 h-4 rounded border-white/20 bg-zinc-800 text-accent focus:ring-2 focus:ring-accent/50 cursor-pointer"
+          className="w-4 h-4 rounded border-[var(--border-default)] bg-[var(--bg-elevated)] text-accent focus:ring-2 focus:ring-accent/50 cursor-pointer"
         />
       ),
       size: 40,
@@ -511,7 +514,7 @@ export default function Schedule() {
               e.stopPropagation();
               toggleSelect(row.original.id, rowIndex, e.shiftKey);
             }}
-            className="w-4 h-4 rounded border-white/20 bg-zinc-800 text-accent focus:ring-2 focus:ring-accent/50 cursor-pointer"
+            className="w-4 h-4 rounded border-[var(--border-default)] bg-[var(--bg-elevated)] text-accent focus:ring-2 focus:ring-accent/50 cursor-pointer"
           />
         );
       },
@@ -636,7 +639,7 @@ export default function Schedule() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">Engineering Schedule</h1>
-          <p className="text-sm text-zinc-400 mt-0.5">
+          <p className="text-sm text-[var(--text-secondary)] mt-0.5">
             {data.length} work orders
             {selectedIds.size > 0 && (
               <span className="ml-2 text-accent">({selectedIds.size} selected)</span>
@@ -807,9 +810,9 @@ export default function Schedule() {
       </div>
 
       {/* Search & Filters bar */}
-      <div className="flex items-center gap-3 flex-wrap">
+      <div className="card flex items-center gap-3 flex-wrap">
         <div className="relative flex-1 min-w-[200px] max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
           <input
             type="text"
             value={search}
@@ -818,7 +821,7 @@ export default function Schedule() {
             className="input pl-9"
           />
           {search && (
-            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
+            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-secondary)]">
               <X className="w-3 h-3" />
             </button>
           )}
@@ -844,10 +847,6 @@ export default function Schedule() {
         >
           {filters.sortOrder === 'asc' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </button>
-      </div>
-
-      {/* Filters */}
-      <div className="card flex flex-wrap gap-3">
         <select value={filters.customer ?? ''} onChange={e => setFilters(f => ({ ...f, customer: e.target.value }))} className="select max-w-[140px]">
           <option value="">All Customers</option>
           {CUSTOMERS.map(c => <option key={c} value={c}>{c}</option>)}
@@ -871,14 +870,14 @@ export default function Schedule() {
       </div>
 
       {/* Table */}
-      <div className="card p-0 overflow-hidden">
+      <div className="rounded-xl overflow-hidden border border-[var(--border-subtle)]">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               {table.getHeaderGroups().map(hg => (
-                <tr key={hg.id} className="border-b border-white/[0.06]">
+                <tr key={hg.id} className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]">
                   {hg.headers.map(h => (
-                    <th key={h.id} className="px-3 py-3 text-left text-xs font-medium text-zinc-400 whitespace-nowrap" style={{ width: h.getSize() }}>
+                    <th key={h.id} className="px-4 py-3 text-left text-caption font-medium uppercase tracking-wide whitespace-nowrap" style={{ width: h.getSize() }}>
                       {flexRender(h.column.columnDef.header, h.getContext())}
                     </th>
                   ))}
@@ -887,16 +886,15 @@ export default function Schedule() {
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan={columns.length} className="text-center py-12"><Loader2 className="w-6 h-6 animate-spin mx-auto text-zinc-500" /></td></tr>
+                <tr><td colSpan={columns.length} className="text-center py-12"><Loader2 className="w-6 h-6 animate-spin mx-auto text-[var(--text-muted)]" /></td></tr>
               ) : data.length === 0 ? (
-                <tr><td colSpan={columns.length} className="text-center py-12 text-zinc-500">No work orders found</td></tr>
+                <tr><td colSpan={columns.length} className="text-center py-12 text-[var(--text-muted)]">No work orders found</td></tr>
               ) : (
                 table.getRowModel().rows.map((row, index) => (
                   <tr
                     key={row.id}
                     className={cn(
-                      'border-b border-white/[0.03] transition-colors cursor-pointer',
-                      index % 2 === 1 ? 'bg-zinc-800/40 hover:bg-zinc-800/60' : 'hover:bg-zinc-800/50',
+                      'border-b border-[var(--border-subtle)] transition-colors cursor-pointer hover:bg-[var(--bg-hover)]',
                       row.original.isHotJob && 'bg-orange-500/[0.12] hover:bg-orange-500/[0.16] border-l-2 border-l-orange-500'
                     )}
                     onClick={e => {
@@ -911,7 +909,7 @@ export default function Schedule() {
                       return (
                         <td 
                           key={cell.id} 
-                          className={isPartName ? "px-3 py-2.5" : "px-3 py-2.5 whitespace-nowrap"} 
+                          className={isPartName ? "px-4 py-3.5" : "px-4 py-3.5 whitespace-nowrap"} 
                           style={{ maxWidth: isPartName ? '350px' : cell.column.getSize() }}
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
