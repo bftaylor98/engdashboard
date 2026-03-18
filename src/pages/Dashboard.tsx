@@ -21,14 +21,14 @@ function StatCard({ label, value, icon: Icon, color, subtext }: {
   label: string; value: number | string; icon: React.ElementType; color: string; subtext?: string;
 }) {
   return (
-    <div className="stat-card flex items-start gap-4">
-      <div className={cn('p-2.5 rounded-lg', color)}>
+    <div className="stat-card flex items-start gap-4 p-5">
+      <div className={cn('p-3 rounded-xl', color)}>
         <Icon className="w-5 h-5 text-white" />
       </div>
       <div>
-        <p className="text-2xl font-bold text-zinc-100">{value}</p>
-        <p className="text-sm text-zinc-400">{label}</p>
-        {subtext && <p className="text-xs text-zinc-500 mt-0.5">{subtext}</p>}
+        <p className="text-display">{value}</p>
+        <p className="text-caption">{label}</p>
+        {subtext && <p className="text-caption mt-0.5">{subtext}</p>}
       </div>
     </div>
   );
@@ -76,7 +76,7 @@ function AssigneeCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-1 min-w-[140px] max-h-64 overflow-y-auto"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[140px] max-h-64 overflow-y-auto animate-fade-in"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
             {ASSIGNEES.map(a => (
@@ -87,7 +87,10 @@ function AssigneeCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
                   onUpdate(wo.id, { currentBox: a });
                   setOpen(false);
                 }}
-                className={cn('block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-zinc-700 transition-colors', wo.currentBox === a ? 'bg-zinc-700 text-white' : 'text-zinc-300')}
+                className={cn(
+                  'block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors',
+                  wo.currentBox === a ? 'bg-[var(--accent-muted)] text-[var(--accent)]' : 'text-[var(--text-secondary)]'
+                )}
               >
                 {a}
               </button>
@@ -141,7 +144,7 @@ function MaterialCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-1 min-w-[130px]"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[130px] animate-fade-in"
             style={{ top: `${position.top}px`, right: `${position.right}px` }}
           >
             {MATERIAL_OPTIONS.map(m => (
@@ -152,7 +155,10 @@ function MaterialCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
                   onUpdate(wo.id, { materialStatus: m.value as WorkOrder['materialStatus'] });
                   setOpen(false);
                 }}
-                className={cn('block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-zinc-700 transition-colors', wo.materialStatus === m.value ? 'bg-zinc-700 text-white' : 'text-zinc-300')}
+                className={cn(
+                  'block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors',
+                  wo.materialStatus === m.value ? 'bg-[var(--accent-muted)] text-[var(--accent)]' : 'text-[var(--text-secondary)]'
+                )}
               >
                 {m.label}
               </button>
@@ -206,7 +212,7 @@ function StatusCell({ wo, onUpdate, isAdminUser }: { wo: WorkOrder; onUpdate: (i
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-1 min-w-[160px]"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[160px] animate-fade-in"
             style={{ top: `${position.top}px`, right: `${position.right}px` }}
           >
             {STATUS_OPTIONS.filter(s => isAdminUser || s.value !== 'completed').map(s => (
@@ -217,7 +223,10 @@ function StatusCell({ wo, onUpdate, isAdminUser }: { wo: WorkOrder; onUpdate: (i
                   onUpdate(wo.id, { currentStatus: s.value as WorkOrder['currentStatus'] });
                   setOpen(false);
                 }}
-                className={cn('block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-zinc-700 transition-colors', wo.currentStatus === s.value ? 'bg-zinc-700 text-white' : 'text-zinc-300')}
+                className={cn(
+                  'block w-full text-left px-3 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors',
+                  wo.currentStatus === s.value ? 'bg-[var(--accent-muted)] text-[var(--accent)]' : 'text-[var(--text-secondary)]'
+                )}
               >
                 {s.label}
               </button>
@@ -271,7 +280,7 @@ function PriorityCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-1 min-w-[120px] max-h-64 overflow-y-auto"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-1 min-w-[120px] max-h-64 overflow-y-auto animate-fade-in"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
             {Array.from({ length: 12 }, (_, i) => (
@@ -283,14 +292,14 @@ function PriorityCell({ wo, onUpdate }: { wo: WorkOrder; onUpdate: (id: string, 
                   setOpen(false);
                 }}
                 className={cn(
-                  'flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs hover:bg-zinc-700 transition-colors text-left',
-                  wo.priority === i && 'bg-zinc-700'
+                  'flex items-center gap-2 w-full px-2 py-1.5 rounded text-xs hover:bg-[var(--bg-hover)] transition-colors text-left',
+                  wo.priority === i && 'bg-[var(--accent-muted)]'
                 )}
               >
                 <span className={cn('w-5 h-5 rounded flex items-center justify-center text-white text-[10px] font-bold', PRIORITY_COLORS[i])}>
                   {i === 0 ? '—' : i === 11 ? 'H' : i}
                 </span>
-                <span className="text-zinc-200">{PRIORITY_LABELS[i]}</span>
+                <span className={cn('text-[var(--text-primary)]', wo.priority === i && 'text-[var(--accent)]')}>{PRIORITY_LABELS[i]}</span>
               </button>
             ))}
           </div>
@@ -339,7 +348,7 @@ function ProshopMaterialCell({ woNumber, proshop }: { woNumber: string; proshop:
           e.stopPropagation();
           setOpen(!open);
         }}
-        className="p-0.5 rounded hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 transition-colors"
+        className="p-0.5 rounded hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
         title="Proshop material details"
       >
         <Info className="w-3.5 h-3.5" />
@@ -349,10 +358,10 @@ function ProshopMaterialCell({ woNumber, proshop }: { woNumber: string; proshop:
           <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
           <div
             ref={dropdownRef}
-            className="fixed z-[9999] bg-zinc-800 border border-white/10 rounded-lg shadow-2xl p-4 min-w-[320px] max-w-[420px]"
+            className="fixed z-[9999] bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl shadow-lg p-4 min-w-[320px] max-w-[420px] animate-fade-in"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
           >
-            <p className="text-xs text-zinc-500 font-medium mb-2">Proshop material — {woNumber}</p>
+            <p className="text-xs text-[var(--text-muted)] font-medium mb-2">Proshop material — {woNumber}</p>
             <ProshopMaterialDetailPanel row={proshop} />
           </div>
         </>
@@ -553,21 +562,24 @@ export default function Dashboard() {
           </button>
         </div>
       )}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
+      <div className="mb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>Dashboard</h1>
+            <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>Overview of engineering activity</p>
+          </div>
+          <Link to="/schedule" className="btn-primary">
+            <ClipboardList className="w-4 h-4" /> View Schedule
+          </Link>
         </div>
-        <Link to="/schedule" className="btn-primary">
-          <ClipboardList className="w-4 h-4" /> View Schedule
-        </Link>
       </div>
 
       {/* Personal summary: time tracking today, time summary, NCR for the logged-in employee */}
       {user && (
         <div className="card">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold flex items-center gap-2 text-zinc-100">
-              <User className="w-5 h-5 text-zinc-400" />
+            <h2 className="text-lg font-semibold flex items-center gap-2 text-[var(--text-primary)]">
+              <User className="w-5 h-5 text-[var(--text-muted)]" />
               My summary
             </h2>
             <div className="flex items-center gap-2">
@@ -583,15 +595,15 @@ export default function Dashboard() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Time Charged (combined: This Week + optional Today) */}
-              <div className="rounded-lg bg-zinc-800/50 border border-white/[0.06] p-4">
-                <h3 className="text-sm font-medium text-zinc-400 mb-2 flex items-center gap-1.5">
+              <div className="rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] p-4">
+                <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2 flex items-center gap-1.5">
                   <Timer className="w-4 h-4" /> Time Charged
                 </h3>
                 {(() => {
                   const myStats = timeTrackingStats?.users?.find(u => u.firstName === user.displayName);
                   const myUser = timeTrackingToday?.users?.find(u => u.firstName === user.displayName);
                   if (!myStats && !myUser) {
-                    return <p className="text-sm text-zinc-500">No time stats available.</p>;
+                    return <p className="text-sm text-[var(--text-muted)]">No time stats available.</p>;
                   }
                   const weekHours = Number(myStats?.hoursThisWeek ?? 0).toFixed(1);
                   const todayHours = myUser && !myUser.error ? (myUser.totalLaborTime ?? 0).toFixed(2) : null;
@@ -599,19 +611,19 @@ export default function Dashboard() {
                     <div className="space-y-1">
                       {todayHours != null ? (
                         <>
-                          <p className="text-zinc-100"><span className="text-zinc-400">Today:</span> <strong>{todayHours}h</strong></p>
-                          <p className="text-xs text-zinc-500">This week: {weekHours}h</p>
+                          <p className="text-[var(--text-primary)]"><span className="text-[var(--text-secondary)]">Today:</span> <strong>{todayHours}h</strong></p>
+                          <p className="text-xs text-[var(--text-muted)]">This week: {weekHours}h</p>
                         </>
                       ) : (
-                        <p className="text-zinc-100"><span className="text-zinc-400">This week:</span> <strong>{weekHours}h</strong></p>
+                        <p className="text-[var(--text-primary)]"><span className="text-[var(--text-secondary)]">This week:</span> <strong>{weekHours}h</strong></p>
                       )}
                     </div>
                   );
                 })()}
               </div>
               {/* Non-conformance summary and rate */}
-              <div className="rounded-lg bg-zinc-800/50 border border-white/[0.06] p-4">
-                <h3 className="text-sm font-medium text-zinc-400 mb-2 flex items-center gap-1.5">
+              <div className="rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] p-4">
+                <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2 flex items-center gap-1.5">
                   <AlertCircle className="w-4 h-4" /> Non-conformances
                 </h3>
                 {(() => {
@@ -620,40 +632,40 @@ export default function Dashboard() {
                   const uniqueWOs = timeTrackingStats?.users?.find(u => u.firstName === user.displayName)?.uniqueWorkOrdersThisYear ?? 0;
                   const ncrRatePct = myNcrStats && uniqueWOs > 0 ? (myNcrStats.year / uniqueWOs) * 100 : null;
                   if (!myNcrStats && myNcrList.length === 0) {
-                    return <p className="text-sm text-zinc-500">No NCR data for you.</p>;
+                    return <p className="text-sm text-[var(--text-muted)]">No NCR data for you.</p>;
                   }
                   const s = myNcrStats ?? { year: 0, quarter: 0, month: 0, week: 0, monthlyAvg: 0, weeklyAvg: 0 };
                   return (
                     <div className="space-y-1">
-                      <p className="text-zinc-100"><span className="text-zinc-400">YTD:</span> <strong>{s.year}</strong></p>
-                      <p className="text-zinc-100"><span className="text-zinc-400">Quarter / Month / Week:</span> <strong>{s.quarter}</strong> / {s.month} / {s.week}</p>
+                      <p className="text-[var(--text-primary)]"><span className="text-[var(--text-secondary)]">YTD:</span> <strong>{s.year}</strong></p>
+                      <p className="text-[var(--text-primary)]"><span className="text-[var(--text-secondary)]">Quarter / Month / Week:</span> <strong>{s.quarter}</strong> / {s.month} / {s.week}</p>
                       {ncrRatePct != null && (
-                        <p className="text-zinc-100"><span className="text-zinc-400">NCR rate:</span> <strong>{ncrRatePct.toFixed(1)}%</strong></p>
+                        <p className="text-[var(--text-primary)]"><span className="text-[var(--text-secondary)]">NCR rate:</span> <strong>{ncrRatePct.toFixed(1)}%</strong></p>
                       )}
                       {myNcrList.length > 0 && (
-                        <p className="text-xs text-zinc-500 mt-1">{myNcrList.length} NCR(s) this year · <Link to={`/non-conformances?assignee=${encodeURIComponent(user.displayName)}`} className="text-accent hover:underline">View all</Link></p>
+                        <p className="text-xs text-[var(--text-muted)] mt-1">{myNcrList.length} NCR(s) this year · <Link to={`/non-conformances?assignee=${encodeURIComponent(user.displayName)}`} className="text-accent hover:underline">View all</Link></p>
                       )}
                     </div>
                   );
                 })()}
               </div>
               {/* My side projects */}
-              <div className="rounded-lg bg-zinc-800/50 border border-white/[0.06] p-4">
-                <h3 className="text-sm font-medium text-zinc-400 mb-2 flex items-center gap-1.5">
+              <div className="rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] p-4">
+                <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2 flex items-center gap-1.5">
                   <FolderKanban className="w-4 h-4" /> My projects
                 </h3>
                 {myProjects.length === 0 ? (
-                  <p className="text-sm text-zinc-500">No side projects assigned to you.</p>
+                  <p className="text-sm text-[var(--text-muted)]">No side projects assigned to you.</p>
                 ) : (
                   <ul className="space-y-1.5">
                     {myProjects.map((proj) => (
                       <li key={proj.id} className="text-sm">
-                        <p className="text-zinc-100 font-medium">{proj.title}</p>
+                        <p className="text-[var(--text-primary)] font-medium">{proj.title}</p>
                         {proj.description && (
-                          <p className="text-xs text-zinc-500 mt-0.5">{proj.description}</p>
+                          <p className="text-xs text-[var(--text-muted)] mt-0.5">{proj.description}</p>
                         )}
                         {proj.dueDate && (
-                          <p className="text-xs text-zinc-500 mt-0.5">
+                          <p className="text-xs text-[var(--text-muted)] mt-0.5">
                             Due {dateFnsFormat(new Date(proj.dueDate + 'T12:00:00'), 'MMM d, yyyy')}
                           </p>
                         )}
@@ -699,40 +711,41 @@ export default function Dashboard() {
           {myScheduleWorkOrders.length === 0 ? (
             <p className="text-zinc-500 text-sm py-4">No work orders assigned to you.</p>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="rounded-xl overflow-hidden border border-[var(--border-subtle)]">
+              <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-zinc-400 text-left border-b border-white/[0.06]">
-                    <th className="pb-2 pr-2 font-medium">Priority</th>
-                    <th className="pb-2 pr-2 font-medium">WO #</th>
-                    <th className="pb-2 pr-2 font-medium">Quote #</th>
-                    <th className="pb-2 pr-2 font-medium">Due Date</th>
-                    <th className="pb-2 pr-2 font-medium">Part #</th>
-                    <th className="pb-2 pr-2 font-medium">Part Name</th>
-                    <th className="pb-2 pr-2 font-medium">Customer</th>
-                    <th className="pb-2 pr-2 font-medium">Assignee</th>
-                    <th className="pb-2 pr-2 font-medium">Status</th>
-                    <th className="pb-2 pr-2 font-medium">Material</th>
-                    <th className="pb-2 pr-2 font-medium">Material Due</th>
-                    <th className="pb-2 font-medium">Notes</th>
+                  <tr className="text-left border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]">
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Priority</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">WO #</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Quote #</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Due Date</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Part #</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Part Name</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Customer</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Assignee</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Status</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Material</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Material Due</th>
+                    <th className="px-4 py-3 text-caption font-medium uppercase tracking-wide">Notes</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/[0.04]">
+                <tbody className="divide-y divide-[var(--border-subtle)]">
                   {myScheduleWorkOrders.map((wo) => (
                     <tr
                       key={wo.id}
                       onClick={() => setSelectedWO(wo)}
-                      className={cn('hover:bg-zinc-800/50 transition-colors cursor-pointer', wo.isHotJob && 'bg-orange-500/5')}
+                      className={cn('hover:bg-[var(--bg-hover)] transition-colors cursor-pointer', wo.isHotJob && 'bg-orange-500/5')}
                     >
-                      <td className="py-2.5" onClick={(e) => e.stopPropagation()}>
+                      <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                         <PriorityCell wo={wo} onUpdate={handleUpdate} />
                       </td>
-                      <td className="py-2.5">
+                      <td className="px-4 py-3.5">
                         <a href={erpWorkOrderUrl(wo.woNumber)} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-mono text-xs inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                           {wo.woNumber} <ExternalLink className="w-3 h-3 opacity-50" />
                         </a>
                       </td>
-                      <td className="py-2.5">
+                      <td className="px-4 py-3.5">
                         {wo.qn ? (
                           <a href={erpQuoteUrl(wo.qn)} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-mono text-xs inline-flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                             {wo.qn} <ExternalLink className="w-3 h-3 opacity-50" />
@@ -741,29 +754,30 @@ export default function Dashboard() {
                           <span className="text-zinc-500 text-xs">—</span>
                         )}
                       </td>
-                      <td className={cn('py-2.5 text-xs', isOverdue(wo.dueDate) && 'text-red-400 font-medium')}>
+                      <td className={cn('px-4 py-3.5 text-xs', isOverdue(wo.dueDate) && 'text-red-400 font-medium')}>
                         {formatDate(wo.dueDate)}
                       </td>
-                      <td className="py-2.5 font-mono text-xs text-zinc-300">{wo.partNumber || '—'}</td>
-                      <td className="py-2.5 max-w-[220px] truncate text-xs text-zinc-200" title={wo.partName}>{wo.partName || '—'}</td>
-                      <td className="py-2.5 text-xs font-medium text-zinc-300">{wo.customer || '—'}</td>
-                      <td className="py-2.5" onClick={(e) => e.stopPropagation()}>
+                      <td className="px-4 py-3.5 font-mono text-xs text-zinc-300">{wo.partNumber || '—'}</td>
+                      <td className="px-4 py-3.5 max-w-[220px] truncate text-xs text-zinc-200" title={wo.partName}>{wo.partName || '—'}</td>
+                      <td className="px-4 py-3.5 text-xs font-medium text-zinc-300">{wo.customer || '—'}</td>
+                      <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                         <AssigneeCell wo={wo} onUpdate={handleUpdate} />
                       </td>
-                      <td className="py-2.5" onClick={(e) => e.stopPropagation()}>
+                      <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                         <StatusCell wo={wo} onUpdate={handleUpdate} isAdminUser={admin} />
                       </td>
-                      <td className="py-2.5" onClick={(e) => e.stopPropagation()}>
+                      <td className="px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                         <ProshopMaterialCell woNumber={wo.woNumber} proshop={proshopByWo.get(wo.woNumber)} />
                       </td>
-                      <td className="py-2.5 text-xs text-zinc-300">
+                      <td className="px-4 py-3.5 text-xs text-zinc-300">
                         {proshopByWo.get(wo.woNumber)?.stockDetails?.[0]?.dueAtDock ?? '—'}
                       </td>
-                      <td className="py-2.5 text-xs text-zinc-400 truncate max-w-[180px]" title={wo.notes || undefined}>{wo.notes || '—'}</td>
+                      <td className="px-4 py-3.5 text-xs text-zinc-400 truncate max-w-[180px]" title={wo.notes || undefined}>{wo.notes || '—'}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
           )}
         </div>
