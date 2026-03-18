@@ -172,10 +172,10 @@ export default function Projects() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2">
-            <FolderKanban className="w-7 h-7 text-zinc-400" />
+            <FolderKanban className="w-7 h-7 text-[var(--text-muted)]" />
             Side Projects
           </h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <p className="text-sm text-[var(--text-secondary)] mt-1">
             Simple tasks like &quot;buy a tool&quot; — assign to a team member; they see them on their dashboard.
           </p>
         </div>
@@ -192,7 +192,7 @@ export default function Projects() {
 
       {adding && (
         <div className="card p-4 space-y-3">
-          <h3 className="font-medium text-zinc-200">New project</h3>
+          <h3 className="font-medium text-[var(--text-primary)]">New project</h3>
           <input
             type="text"
             placeholder="Title (e.g. Buy a tool)"
@@ -220,7 +220,7 @@ export default function Projects() {
             ))}
           </select>
           <div>
-            <label className="block text-xs text-zinc-500 mb-1">Due date (optional)</label>
+            <label className="block text-xs text-[var(--text-muted)] mb-1">Due date (optional)</label>
             <input
               type="date"
               value={form.dueDate}
@@ -250,19 +250,19 @@ export default function Projects() {
       ) : (
         <>
           <div className="card">
-            <h2 className="text-lg font-semibold mb-4 text-zinc-200">Active — by assignee</h2>
+            <h2 className="text-lg font-semibold mb-4 text-[var(--text-primary)]">Active — by assignee</h2>
             {activeList.length === 0 ? (
-              <p className="text-zinc-500 text-sm py-4">No active projects. Add one above.</p>
+              <p className="text-[var(--text-muted)] text-sm py-4">No active projects. Add one above.</p>
             ) : (
               <div className="space-y-6">
                 {activeByAssignee.map(({ assignee, projects }) => (
                   <div key={assignee}>
-                    <h3 className="text-sm font-medium text-zinc-400 flex items-center gap-2 mb-2">
+                    <h3 className="text-sm font-medium text-[var(--text-secondary)] flex items-center gap-2 mb-2">
                       <User className="w-4 h-4" /> {assignee}
                     </h3>
-                    <ul className="divide-y divide-white/[0.06] rounded-lg border border-white/[0.06] overflow-hidden">
+                    <ul className="divide-y divide-[var(--border-subtle)] rounded-lg border border-[var(--border-subtle)] overflow-hidden">
                       {projects.map((p) => (
-                        <li key={p.id} className="py-3 px-3 flex items-start justify-between gap-4 bg-zinc-800/30">
+                        <li key={p.id} className="py-3 px-3 flex items-start justify-between gap-4 bg-[var(--bg-elevated)]">
                           {editingId === p.id ? (
                             <div className="flex-1 space-y-2">
                               <input
@@ -288,7 +288,7 @@ export default function Projects() {
                                 ))}
                               </select>
                               <div>
-                                <label className="block text-xs text-zinc-500 mb-1">Due date</label>
+                                <label className="block text-xs text-[var(--text-muted)] mb-1">Due date</label>
                                 <input
                                   type="date"
                                   value={editForm.dueDate}
@@ -308,11 +308,11 @@ export default function Projects() {
                           ) : (
                             <>
                               <div className="min-w-0">
-                                <p className="font-medium text-zinc-100">{p.title}</p>
+                                <p className="font-medium text-[var(--text-primary)]">{p.title}</p>
                                 {p.description && (
-                                  <p className="text-sm text-zinc-500 mt-0.5">{p.description}</p>
+                                  <p className="text-sm text-[var(--text-muted)] mt-0.5">{p.description}</p>
                                 )}
-                                <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-1.5 text-xs text-zinc-500">
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-1.5 text-xs text-[var(--text-muted)]">
                                   <span className="flex items-center gap-1">
                                     <Calendar className="w-3.5 h-3.5" />
                                     Assigned {formatDate(p.assignedAt)}
@@ -328,7 +328,7 @@ export default function Projects() {
                                 <button
                                   type="button"
                                   onClick={() => startEdit(p)}
-                                  className="p-2 rounded hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200"
+                                  className="p-2 rounded hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                                   title="Edit"
                                 >
                                   <Pencil className="w-4 h-4" />
@@ -336,7 +336,7 @@ export default function Projects() {
                                 <button
                                   type="button"
                                   onClick={() => handleMarkDone(p)}
-                                  className="p-2 rounded hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 text-xs"
+                                  className="p-2 rounded hover:bg-[var(--bg-hover)] text-[var(--text-muted)] hover:text-[var(--text-primary)] text-xs"
                                   title="Mark done"
                                 >
                                   Done
@@ -363,16 +363,16 @@ export default function Projects() {
 
           {doneList.length > 0 && (
             <div className="card">
-              <h2 className="text-lg font-semibold mb-3 text-zinc-400">Done</h2>
-              <ul className="divide-y divide-white/[0.06]">
+              <h2 className="text-lg font-semibold mb-3 text-[var(--text-secondary)]">Done</h2>
+              <ul className="divide-y divide-[var(--border-subtle)]">
                 {doneList.map((p) => (
                   <li key={p.id} className="py-3 flex items-center justify-between gap-4 opacity-80">
                     <div>
-                      <p className="font-medium text-zinc-300 line-through">{p.title}</p>
+                      <p className="font-medium text-[var(--text-secondary)] line-through">{p.title}</p>
                       {p.description && (
-                        <p className="text-sm text-zinc-500 mt-0.5">{p.description}</p>
+                        <p className="text-sm text-[var(--text-muted)] mt-0.5">{p.description}</p>
                       )}
-                      <p className="text-xs text-zinc-500 mt-1">
+                      <p className="text-xs text-[var(--text-muted)] mt-1">
                         {p.assignee}
                         {p.dueDate && ` · Due ${formatDate(p.dueDate)}`}
                       </p>

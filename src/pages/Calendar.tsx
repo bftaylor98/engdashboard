@@ -112,9 +112,9 @@ export default function Calendar() {
       {/* Calendar Grid */}
       <div className="card p-0 overflow-hidden">
         {/* Day headers */}
-        <div className="grid grid-cols-7 border-b border-white/[0.06]">
+        <div className="grid grid-cols-7 border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="px-2 py-2 text-xs font-medium text-zinc-500 text-center">
+            <div key={day} className="px-2 py-2 text-xs font-medium text-[var(--text-muted)] text-center">
               {day}
             </div>
           ))}
@@ -132,14 +132,14 @@ export default function Calendar() {
               <div
                 key={key}
                 className={cn(
-                  'min-h-[110px] border-b border-r border-white/[0.04] p-1.5 transition-colors',
-                  !inMonth && 'bg-zinc-900/50 opacity-40',
+                  'min-h-[110px] border-b border-r border-[var(--border-subtle)] p-1.5 transition-colors',
+                  !inMonth && 'bg-[var(--bg-surface)] opacity-40',
                   today && 'bg-accent/[0.03]',
                 )}
               >
                 <div className={cn(
                   'text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full',
-                  today ? 'bg-accent text-white' : 'text-zinc-400',
+                  today ? 'bg-accent text-white' : 'text-[var(--text-muted)]',
                 )}>
                   {format(day, 'd')}
                 </div>
@@ -163,7 +163,7 @@ export default function Calendar() {
                     );
                   })}
                   {dayEvents.length > 4 && (
-                    <div className="text-[10px] text-zinc-500 px-1">+{dayEvents.length - 4} more</div>
+                    <div className="text-[10px] text-[var(--text-muted)] px-1">+{dayEvents.length - 4} more</div>
                   )}
                 </div>
               </div>
@@ -176,20 +176,20 @@ export default function Calendar() {
       <Dialog.Root open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/60 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg border border-white/10 bg-zinc-900 p-4 shadow-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border border-[var(--border-default)] bg-[var(--bg-primary)] p-4 shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
             {selectedEvent && (
               <>
                 <div className="flex items-start justify-between gap-2">
-                  <Dialog.Title className="text-lg font-semibold text-white">
+                  <Dialog.Title className="text-lg font-semibold text-[var(--text-primary)]">
                     {selectedEvent.title}
                   </Dialog.Title>
                   <Dialog.Close asChild>
-                    <button className="rounded p-1 text-zinc-400 hover:bg-white/10 hover:text-white">
+                    <button className="rounded p-1 text-[var(--text-muted)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]">
                       <X className="w-4 h-4" />
                     </button>
                   </Dialog.Close>
                 </div>
-                <div className="mt-3 space-y-1 text-sm text-zinc-400">
+                <div className="mt-3 space-y-1 text-sm text-[var(--text-secondary)]">
                   {selectedEvent.allDay ? (
                     <p>
                       {format(parseISO(selectedEvent.start), 'EEE, MMM d, yyyy')}
@@ -203,7 +203,7 @@ export default function Calendar() {
                     </p>
                   )}
                   {selectedEvent.description && (
-                    <p className="mt-2 text-zinc-300 whitespace-pre-wrap">{selectedEvent.description}</p>
+                    <p className="mt-2 text-[var(--text-primary)] whitespace-pre-wrap">{selectedEvent.description}</p>
                   )}
                 </div>
               </>

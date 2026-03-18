@@ -117,7 +117,7 @@ export default function Import() {
     <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold">Import Work Orders</h1>
-        <p className="text-sm text-zinc-400 mt-1">Import work orders from Proshop API or upload an Excel/CSV file</p>
+        <p className="text-sm text-[var(--text-secondary)] mt-1">Import work orders from Proshop API or upload an Excel/CSV file</p>
       </div>
 
       {/* Proshop Import Section */}
@@ -126,7 +126,7 @@ export default function Import() {
           <Database className="w-6 h-6 text-accent" />
           <div>
             <h2 className="text-lg font-semibold">Import from Proshop</h2>
-            <p className="text-xs text-zinc-400">Import active work orders with Engineering work center from Proshop API</p>
+            <p className="text-xs text-[var(--text-secondary)]">Import active work orders with Engineering work center from Proshop API</p>
           </div>
         </div>
 
@@ -174,7 +174,7 @@ export default function Import() {
               <p className="text-xs text-zinc-400 text-center">Fetching and processing work orders...</p>
             )}
             {debugLoading && (
-              <p className="text-xs text-zinc-400 text-center">Fetching debug data...</p>
+              <p className="text-xs text-[var(--text-secondary)] text-center">Fetching debug data...</p>
             )}
           </div>
         ) : debugData ? (
@@ -182,7 +182,7 @@ export default function Import() {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-md font-semibold">Proshop Data Structure</h3>
-                <p className="text-xs text-zinc-400">Total records: {debugData.totalRecords}, Fetched: {debugData.recordsFetched}, Engineering: {debugData.engineeringRecords}</p>
+                <p className="text-xs text-[var(--text-secondary)]">Total records: {debugData.totalRecords}, Fetched: {debugData.recordsFetched}, Engineering: {debugData.engineeringRecords}</p>
               </div>
               <button onClick={resetProshop} className="btn-ghost text-xs">
                 <RotateCcw className="w-3 h-3" /> Reset
@@ -190,11 +190,11 @@ export default function Import() {
             </div>
 
             {debugData.engineeringSample && debugData.engineeringSample.length > 0 && (
-              <div className="bg-zinc-800/50 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-zinc-200 mb-2">Sample Engineering Work Orders ({debugData.engineeringSample.length})</h4>
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-4">
+                <h4 className="text-sm font-medium text-[var(--text-primary)] mb-2">Sample Engineering Work Orders ({debugData.engineeringSample.length})</h4>
                 <details className="text-xs">
-                  <summary className="text-zinc-400 cursor-pointer hover:text-zinc-300 mb-2">View sample data</summary>
-                  <pre className="bg-zinc-900/50 p-3 rounded overflow-x-auto text-zinc-300 mt-2">
+                  <summary className="text-[var(--text-secondary)] cursor-pointer hover:text-[var(--text-primary)] mb-2">View sample data</summary>
+                  <pre className="bg-[var(--bg-surface)] p-3 rounded overflow-x-auto text-[var(--text-secondary)] mt-2">
                     {JSON.stringify(debugData.engineeringSample, null, 2)}
                   </pre>
                 </details>
@@ -202,11 +202,11 @@ export default function Import() {
             )}
 
             {debugData.sampleRecords && debugData.sampleRecords.length > 0 && (
-              <div className="bg-zinc-800/50 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-zinc-200 mb-2">Sample All Work Orders ({debugData.sampleRecords.length})</h4>
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-4">
+                <h4 className="text-sm font-medium text-[var(--text-primary)] mb-2">Sample All Work Orders ({debugData.sampleRecords.length})</h4>
                 <details className="text-xs">
-                  <summary className="text-zinc-400 cursor-pointer hover:text-zinc-300 mb-2">View sample data</summary>
-                  <pre className="bg-zinc-900/50 p-3 rounded overflow-x-auto text-zinc-300 mt-2">
+                  <summary className="text-[var(--text-secondary)] cursor-pointer hover:text-[var(--text-primary)] mb-2">View sample data</summary>
+                  <pre className="bg-[var(--bg-surface)] p-3 rounded overflow-x-auto text-[var(--text-secondary)] mt-2">
                     {JSON.stringify(debugData.sampleRecords, null, 2)}
                   </pre>
                 </details>
@@ -233,22 +233,22 @@ export default function Import() {
               <CheckCircle2 className="w-6 h-6 text-green-400" />
               <div>
                 <h3 className="text-md font-semibold text-green-400">Proshop Import Complete</h3>
-                <p className="text-xs text-zinc-400">Work orders have been imported and updated</p>
+                <p className="text-xs text-[var(--text-secondary)]">Work orders have been imported and updated</p>
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="bg-green-500/10 rounded-lg p-3 text-center">
                 <p className="text-2xl font-bold text-green-400">{proshopResult.schedule.imported}</p>
-                <p className="text-xs text-zinc-400">New Work Orders</p>
+                <p className="text-xs text-[var(--text-secondary)]">New Work Orders</p>
               </div>
               <div className="bg-blue-500/10 rounded-lg p-3 text-center">
                 <p className="text-2xl font-bold text-blue-400">{proshopResult.schedule.updated || 0}</p>
-                <p className="text-xs text-zinc-400">Updated</p>
+                <p className="text-xs text-[var(--text-secondary)]">Updated</p>
               </div>
               <div className="bg-yellow-500/10 rounded-lg p-3 text-center">
                 <p className="text-2xl font-bold text-yellow-400">{proshopResult.schedule.skipped || 0}</p>
-                <p className="text-xs text-zinc-400">Skipped</p>
+                <p className="text-xs text-[var(--text-secondary)]">Skipped</p>
               </div>
             </div>
 
@@ -274,7 +274,7 @@ export default function Import() {
       {/* Excel/CSV Import Section */}
       <div>
         <h2 className="text-xl font-semibold mb-2">Import Excel / CSV</h2>
-        <p className="text-sm text-zinc-400 mb-4">Upload an Engineering Schedule workbook (.xlsx, .xls, .xlsm) or CSV file (.csv) to import or update data</p>
+        <p className="text-sm text-[var(--text-secondary)] mb-4">Upload an Engineering Schedule workbook (.xlsx, .xls, .xlsm) or CSV file (.csv) to import or update data</p>
       </div>
 
       {/* Step 1: Upload */}
@@ -285,28 +285,28 @@ export default function Import() {
           onDrop={handleDrop}
           className={cn(
             'border-2 border-dashed rounded-2xl p-12 text-center transition-all',
-            dragOver ? 'border-accent bg-accent/5' : 'border-white/10 hover:border-white/20',
+            dragOver ? 'border-accent bg-accent/5' : 'border-[var(--border-default)] hover:border-[var(--border-strong)]',
           )}
         >
           {loading ? (
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="w-10 h-10 text-accent animate-spin" />
-              <p className="text-zinc-300">Parsing file...</p>
+              <p className="text-[var(--text-secondary)]">Parsing file...</p>
             </div>
           ) : file ? (
             <div className="flex flex-col items-center gap-3">
               <FileSpreadsheet className="w-10 h-10 text-green-400" />
-              <p className="text-zinc-200 font-medium">{file.name}</p>
-              <p className="text-xs text-zinc-500">{(file.size / 1024).toFixed(1)} KB</p>
+              <p className="text-[var(--text-primary)] font-medium">{file.name}</p>
+              <p className="text-xs text-[var(--text-muted)]">{(file.size / 1024).toFixed(1)} KB</p>
               <button onClick={reset} className="btn-ghost text-xs mt-2">
                 <RotateCcw className="w-3 h-3" /> Choose different file
               </button>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3">
-              <Upload className="w-10 h-10 text-zinc-500" />
-              <p className="text-zinc-300">Drag & drop your Excel or CSV file here</p>
-              <p className="text-xs text-zinc-500">or</p>
+              <Upload className="w-10 h-10 text-[var(--text-muted)]" />
+              <p className="text-[var(--text-secondary)]">Drag & drop your Excel or CSV file here</p>
+              <p className="text-xs text-[var(--text-muted)]">or</p>
               <label className="btn-primary cursor-pointer">
                 <Upload className="w-4 h-4" /> Browse Files
                 <input type="file" accept=".xlsx,.xls,.xlsm,.csv" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
@@ -327,20 +327,20 @@ export default function Import() {
             {/* Sheets detected */}
             <div className="space-y-3">
               {Object.entries(preview.sheets).map(([sheetName, sheet]) => (
-                <div key={sheetName} className="bg-zinc-800/50 rounded-lg p-4">
+                <div key={sheetName} className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-medium text-zinc-200">{sheetName}</h3>
-                    <span className="text-xs text-zinc-500">{sheet.rowCount} rows detected</span>
+                    <h3 className="font-medium text-[var(--text-primary)]">{sheetName}</h3>
+                    <span className="text-xs text-[var(--text-muted)]">{sheet.rowCount} rows detected</span>
                   </div>
 
                   {/* Column Mappings */}
                   <div className="text-xs space-y-1">
-                    <p className="text-zinc-500 mb-1">Column Mappings:</p>
+                    <p className="text-[var(--text-muted)] mb-1">Column Mappings:</p>
                     <div className="grid grid-cols-2 gap-1">
                       {sheet.mappings.filter(m => m.mapped).map(m => (
                         <div key={m.index} className="flex items-center gap-1">
-                          <span className="text-zinc-400">{m.original}</span>
-                          <span className="text-zinc-600">→</span>
+                          <span className="text-[var(--text-secondary)]">{m.original}</span>
+                          <span className="text-[var(--text-muted)]">→</span>
                           <span className="text-accent">{m.dbColumn}</span>
                         </div>
                       ))}
@@ -358,11 +358,11 @@ export default function Import() {
                   {/* Sample rows */}
                   {sheet.sampleRows.length > 0 && (
                     <details className="mt-2">
-                      <summary className="text-xs text-zinc-500 cursor-pointer hover:text-zinc-300">View sample rows ({sheet.sampleRows.length})</summary>
+                      <summary className="text-xs text-[var(--text-muted)] cursor-pointer hover:text-[var(--text-secondary)]">View sample rows ({sheet.sampleRows.length})</summary>
                       <div className="mt-2 overflow-x-auto">
                         <table className="text-xs w-full">
                           <thead>
-                            <tr className="text-zinc-500">
+                            <tr className="text-[var(--text-muted)]">
                               {Object.keys(sheet.sampleRows[0]).map(k => (
                                 <th key={k} className="text-left px-2 py-1 font-medium">{k}</th>
                               ))}
@@ -370,9 +370,9 @@ export default function Import() {
                           </thead>
                           <tbody>
                             {sheet.sampleRows.map((row, i) => (
-                              <tr key={i} className="border-t border-white/[0.03]">
+                              <tr key={i} className="border-t border-[var(--border-subtle)]">
                                 {Object.values(row).map((v, j) => (
-                                  <td key={j} className="px-2 py-1 text-zinc-300 max-w-[150px] truncate">{String(v ?? '')}</td>
+                                  <td key={j} className="px-2 py-1 text-[var(--text-secondary)] max-w-[150px] truncate">{String(v ?? '')}</td>
                                 ))}
                               </tr>
                             ))}
@@ -404,27 +404,27 @@ export default function Import() {
             <CheckCircle2 className="w-8 h-8 text-green-400" />
             <div>
               <h2 className="text-lg font-semibold text-green-400">Import Complete</h2>
-              <p className="text-sm text-zinc-400">Data has been loaded into the database</p>
+              <p className="text-sm text-[var(--text-secondary)]">Data has been loaded into the database</p>
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4 mb-4">
             <div className="bg-green-500/10 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-green-400">{result.schedule.imported}</p>
-              <p className="text-xs text-zinc-400">Work Orders</p>
+              <p className="text-xs text-[var(--text-secondary)]">Work Orders</p>
             </div>
             <div className="bg-blue-500/10 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-blue-400">{result.revisions.imported}</p>
-              <p className="text-xs text-zinc-400">Revisions</p>
+              <p className="text-xs text-[var(--text-secondary)]">Revisions</p>
             </div>
             <div className="bg-purple-500/10 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-purple-400">{result.construction.imported}</p>
-              <p className="text-xs text-zinc-400">Construction Metrics</p>
+              <p className="text-xs text-[var(--text-secondary)]">Construction Metrics</p>
             </div>
           </div>
 
           {result.schedule.skipped > 0 && (
-            <p className="text-xs text-zinc-500 mb-2">Skipped {result.schedule.skipped} rows (missing WO number)</p>
+            <p className="text-xs text-[var(--text-muted)] mb-2">Skipped {result.schedule.skipped} rows (missing WO number)</p>
           )}
 
           {result.schedule.errors.length > 0 && (
