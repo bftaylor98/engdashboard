@@ -292,6 +292,7 @@ export interface CostAnalysisData {
 
 /** Cost-analysis can take 60s+ when Proshop returns many ops pages and POs. */
 const COST_ANALYSIS_TIMEOUT_MS = 120 * 1000;
+const TIME_TRACKING_RANGE_TIMEOUT_MS = 90 * 1000;
 
 export async function getCostAnalysis(woNumber: string): Promise<ApiResponse<CostAnalysisData>> {
   const params = new URLSearchParams({ woNumber: woNumber.trim() });
@@ -407,7 +408,8 @@ export async function getTimeTrackingRange(
   params.set('endDate', endDate);
   if (userId) params.set('userId', userId);
   const result = await fetchJSON<ApiResponse<TimeTrackingData>>(
-    `${BASE_URL}/proshop/time-tracking?${params.toString()}`
+    `${BASE_URL}/proshop/time-tracking?${params.toString()}`,
+    { timeoutMs: TIME_TRACKING_RANGE_TIMEOUT_MS }
   );
   return result;
 }
