@@ -206,9 +206,12 @@ async function runInitialWarm() {
   }
   await sleep(3000);
 
-  // 5. machines
+  // 5. machines (30s hard timeout — machines query is large and can hang on startup)
   try {
-    await warmMachinesCache();
+    await Promise.race([
+      warmMachinesCache(),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('machines warm timed out')), 30000)),
+    ]);
   } catch (_) {
     // warm functions already log to cache.log; keep startup console clean
   }
