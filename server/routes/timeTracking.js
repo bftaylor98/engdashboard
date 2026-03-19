@@ -363,10 +363,20 @@ router.get('/', async (req, res) => {
     const cached = entries?.[cacheKey];
     if (cached?.response) return res.json(cached.response);
     if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
-    return res.status(200).json({
-      success: true,
-      data: { date: startDateStr, endDate: endDateStr, users: [] },
-    });
+
+    // Cache miss — fetch from ProShop directly for this range
+    try {
+      const response = await buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFilter);
+      timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
+      setCache('time-tracking', { entries: { ...timeTrackingCache } });
+      return res.json(response);
+    } catch (err) {
+      cacheLog.error('time-tracking', `On-demand range fetch failed for ${startDateStr}–${endDateStr}:`, err.message || err);
+      return res.status(200).json({
+        success: true,
+        data: { date: startDateStr, endDate: endDateStr, users: [] },
+      });
+    }
   }
 
   const dateStr = req.query.date || getESTDate();
