@@ -633,7 +633,7 @@ export default function TimeTracking() {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="input rounded-lg px-3 py-2 text-sm"
+          className="input rounded-lg px-3 py-2 text-sm w-[160px]"
         />
         <span className="text-sm text-[var(--text-secondary)] min-w-[200px]">{date ? formatDateLong(date) : ''}</span>
         <button

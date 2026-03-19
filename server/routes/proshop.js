@@ -690,7 +690,7 @@ router.get('/tooling-expenses', (req, res) => {
   if (cached) return res.json(cached);
   const err = getCacheError('tooling-expenses');
   if (err?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
-  return res.status(200).json({ success: true, data: null });
+  return res.status(200).json({ success: false, warming: true, error: 'Tooling data is still loading — cache is warming. Try again in a moment.' });
 });
 
 // Material status: cache filled only by background refresh; routes never call ProShop (state in cacheStore)

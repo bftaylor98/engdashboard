@@ -349,7 +349,7 @@ export async function warmTimeTrackingCache() {
  * Returns cached time tracking only (never calls ProShop). Background job refreshes cache.
  * Query params: date (YYYY-MM-DD) for single day, OR startDate + endDate for range; optional userId
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.set('Pragma', 'no-cache');
   const startDateStr = req.query.startDate || null;
@@ -375,10 +375,21 @@ router.get('/', (req, res) => {
   const cached = entries?.[cacheKey];
   if (cached?.response) return res.json(cached.response);
   if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
-  return res.status(200).json({
-    success: true,
-    data: { date: dateStr, users: [] },
-  });
+
+  // Cache miss — fetch from ProShop directly for this date
+  try {
+    const response = await buildTimeTrackingResponse(dateStr, userIdFilter);
+    // Store in the in-memory cache for subsequent navigations
+    timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
+    setCache('time-tracking', { entries: { ...timeTrackingCache } });
+    return res.json(response);
+  } catch (err) {
+    cacheLog.error('time-tracking', `On-demand fetch failed for ${dateStr}:`, err.message || err);
+    return res.json({
+      success: true,
+      data: { date: dateStr, users: [] },
+    });
+  }
 });
 
 /**

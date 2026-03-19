@@ -79,6 +79,11 @@ export default function Analytics() {
           setExpensesLoading(false);
           return;
         }
+        if (!response.success && response.warming) {
+          setExpensesError('Tooling data is still loading — refresh in a moment.');
+          setExpensesLoading(false);
+          return;
+        }
         if (response.success && response.data) {
           setExpensesData(response.data);
           setExpensesLoading(false);
