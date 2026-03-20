@@ -39,7 +39,12 @@ function formatMdy(dateStr: string | null | undefined): string {
   if (!dateStr) return '—';
   const d = new Date(dateStr);
   if (Number.isNaN(d.getTime())) return '—';
-  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+  const date = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+  const hours = d.getHours();
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const h = hours % 12 || 12;
+  return `${date} ${h}:${minutes} ${ampm}`;
 }
 
 export default function Machines() {
@@ -160,13 +165,6 @@ export default function Machines() {
                   ) : (
                     workOrders.map((wo) => {
                       const ops: MachineOp[] = (wo.scheduledOps as MachineOp[] | undefined) ?? [];
-                      const latestScheduledEndDate = ops.reduce<string | null>((latest, op) => {
-                        if (!op.scheduledEndDate) return latest;
-                        if (!latest) return op.scheduledEndDate;
-                        const a = new Date(latest).getTime();
-                        const b = new Date(op.scheduledEndDate).getTime();
-                        return b > a ? op.scheduledEndDate : latest;
-                      }, null);
 
                       return (
                         <div
@@ -189,7 +187,6 @@ export default function Machines() {
                             <div>
                               {wo.partNumber || '—'} · {wo.customer || '—'}
                             </div>
-                            <div>Due {latestScheduledEndDate ? formatDate(latestScheduledEndDate) : (wo.dueDate ? formatDate(wo.dueDate) : '—')}</div>
 
                             <div className="space-y-1">
                               {ops.length ? (
