@@ -223,45 +223,56 @@ async function fetchUserTimeTracking(userId, range) {
 
 /**
  * Build time-tracking-by-date response (shared for route and cache warming).
+ * @param {string} dateStr - YYYY-MM-DD
+ * @param {string|null} userIdFilter - optional user id; null = all
+ * @param {{ sequential?: boolean }} options - sequential: true for on-demand route to avoid throttle burst
  */
-async function buildTimeTrackingResponse(dateStr, userIdFilter = null) {
+async function buildTimeTrackingResponse(dateStr, userIdFilter = null, { sequential = false } = {}) {
   const range = toESTRange(dateStr);
   const usersToFetch = userIdFilter
     ? TRACKED_USERS.filter((u) => u.proshopId === userIdFilter)
     : TRACKED_USERS;
 
-  const results = await Promise.all(
-    usersToFetch.map(async (u) => {
-      try {
-        const entries = await fetchUserTimeTracking(u.proshopId, range);
-        const totalLaborTime = entries.reduce(
-          (sum, e) => sum + (e.laborTime != null ? e.laborTime : 0),
-          0
-        );
-        return {
-          userId: u.proshopId,
-          firstName: u.firstName,
-          lastName: u.lastName,
-          displayName: `${u.firstName} ${u.lastName}`,
-          totalEntries: entries.length,
-          totalLaborTime: Math.round(totalLaborTime * 100) / 100,
-          error: null,
-          entries,
-        };
-      } catch (err) {
-        return {
-          userId: u.proshopId,
-          firstName: u.firstName,
-          lastName: u.lastName,
-          displayName: `${u.firstName} ${u.lastName}`,
-          totalEntries: 0,
-          totalLaborTime: 0,
-          error: err.message || 'Failed to fetch',
-          entries: [],
-        };
-      }
-    })
-  );
+  const results = [];
+  const runOne = async (u) => {
+    try {
+      const entries = await fetchUserTimeTracking(u.proshopId, range);
+      const totalLaborTime = entries.reduce(
+        (sum, e) => sum + (e.laborTime != null ? e.laborTime : 0),
+        0
+      );
+      return {
+        userId: u.proshopId,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        displayName: `${u.firstName} ${u.lastName}`,
+        totalEntries: entries.length,
+        totalLaborTime: Math.round(totalLaborTime * 100) / 100,
+        error: null,
+        entries,
+      };
+    } catch (err) {
+      return {
+        userId: u.proshopId,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        displayName: `${u.firstName} ${u.lastName}`,
+        totalEntries: 0,
+        totalLaborTime: 0,
+        error: err.message || 'Failed to fetch',
+        entries: [],
+      };
+    }
+  };
+
+  if (sequential) {
+    for (const u of usersToFetch) {
+      results.push(await runOne(u));
+    }
+  } else {
+    const parallelResults = await Promise.all(usersToFetch.map(runOne));
+    results.push(...parallelResults);
+  }
 
   return {
     success: true,
@@ -274,45 +285,54 @@ async function buildTimeTrackingResponse(dateStr, userIdFilter = null) {
 
 /**
  * Build time-tracking-by-range response (startDate + endDate, optional userId).
+ * @param {{ sequential?: boolean }} options - sequential: true for on-demand route to avoid throttle burst
  */
-async function buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFilter = null) {
+async function buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFilter = null, { sequential = false } = {}) {
   const range = toESTRangeBetween(startDateStr, endDateStr);
   const usersToFetch = userIdFilter
     ? TRACKED_USERS.filter((u) => u.proshopId === userIdFilter)
     : TRACKED_USERS;
 
-  const results = await Promise.all(
-    usersToFetch.map(async (u) => {
-      try {
-        const entries = await fetchUserTimeTracking(u.proshopId, range);
-        const totalLaborTime = entries.reduce(
-          (sum, e) => sum + (e.laborTime != null ? e.laborTime : 0),
-          0
-        );
-        return {
-          userId: u.proshopId,
-          firstName: u.firstName,
-          lastName: u.lastName,
-          displayName: `${u.firstName} ${u.lastName}`,
-          totalEntries: entries.length,
-          totalLaborTime: Math.round(totalLaborTime * 100) / 100,
-          error: null,
-          entries,
-        };
-      } catch (err) {
-        return {
-          userId: u.proshopId,
-          firstName: u.firstName,
-          lastName: u.lastName,
-          displayName: `${u.firstName} ${u.lastName}`,
-          totalEntries: 0,
-          totalLaborTime: 0,
-          error: err.message || 'Failed to fetch',
-          entries: [],
-        };
-      }
-    })
-  );
+  const results = [];
+  const runOne = async (u) => {
+    try {
+      const entries = await fetchUserTimeTracking(u.proshopId, range);
+      const totalLaborTime = entries.reduce(
+        (sum, e) => sum + (e.laborTime != null ? e.laborTime : 0),
+        0
+      );
+      return {
+        userId: u.proshopId,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        displayName: `${u.firstName} ${u.lastName}`,
+        totalEntries: entries.length,
+        totalLaborTime: Math.round(totalLaborTime * 100) / 100,
+        error: null,
+        entries,
+      };
+    } catch (err) {
+      return {
+        userId: u.proshopId,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        displayName: `${u.firstName} ${u.lastName}`,
+        totalEntries: 0,
+        totalLaborTime: 0,
+        error: err.message || 'Failed to fetch',
+        entries: [],
+      };
+    }
+  };
+
+  if (sequential) {
+    for (const u of usersToFetch) {
+      results.push(await runOne(u));
+    }
+  } else {
+    const parallelResults = await Promise.all(usersToFetch.map(runOne));
+    results.push(...parallelResults);
+  }
 
   return {
     success: true,
@@ -364,13 +384,19 @@ router.get('/', async (req, res) => {
     if (cached?.response) return res.json(cached.response);
     if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
 
-    // Cache miss — fetch from ProShop directly for this range
+    // Cache miss — fetch from ProShop directly for this range (sequential + 60s timeout)
     try {
-      const response = await buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFilter);
+      const response = await Promise.race([
+        buildTimeTrackingRangeResponse(startDateStr, endDateStr, userIdFilter, { sequential: true }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 60000)),
+      ]);
       timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
       setCache('time-tracking', { entries: { ...timeTrackingCache } });
       return res.json(response);
     } catch (err) {
+      if (err.message === 'timeout') {
+        return res.status(200).json({ success: false, error: 'ProShop is busy — try again in a moment.' });
+      }
       cacheLog.error('time-tracking', `On-demand range fetch failed for ${startDateStr}–${endDateStr}:`, err.message || err);
       return res.status(200).json({
         success: true,
@@ -386,14 +412,20 @@ router.get('/', async (req, res) => {
   if (cached?.response) return res.json(cached.response);
   if (getCacheError('time-tracking')?.reason === 'rate_limited') return res.status(200).json(RATE_LIMIT_RESPONSE);
 
-  // Cache miss — fetch from ProShop directly for this date
+  // Cache miss — fetch from ProShop directly for this date (sequential + 60s timeout)
   try {
-    const response = await buildTimeTrackingResponse(dateStr, userIdFilter);
+    const response = await Promise.race([
+      buildTimeTrackingResponse(dateStr, userIdFilter, { sequential: true }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 60000)),
+    ]);
     // Store in the in-memory cache for subsequent navigations
     timeTrackingCache[cacheKey] = { response, timestamp: Date.now() };
     setCache('time-tracking', { entries: { ...timeTrackingCache } });
     return res.json(response);
   } catch (err) {
+    if (err.message === 'timeout') {
+      return res.status(200).json({ success: false, error: 'ProShop is busy — try again in a moment.' });
+    }
     cacheLog.error('time-tracking', `On-demand fetch failed for ${dateStr}:`, err.message || err);
     return res.json({
       success: true,
