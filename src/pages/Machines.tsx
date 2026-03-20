@@ -7,6 +7,18 @@ import { cn } from '@/lib/utils';
 const MACHINE_KEYS = ['VMX 84-1', 'VMX 64-1', 'VMX 64-2'] as const;
 const BACKLOG_HOURS_CAP = 40;
 
+type MachineOp = {
+  operationNumber: unknown;
+  estimatedTotalTime: unknown;
+  completedTime:
+    | {
+        setupTimeSpent?: unknown;
+        runTimeSpent?: unknown;
+      }
+    | null;
+  scheduledEndDate: string | null;
+};
+
 function dueDateIndicatorClass(dueDate: string | null): string {
   const days = daysUntilDue(dueDate);
   if (days === null) return 'border-l-zinc-500';
@@ -14,6 +26,20 @@ function dueDateIndicatorClass(dueDate: string | null): string {
   if (days < 2) return 'border-l-red-500';
   if (days <= 5) return 'border-l-yellow-500';
   return 'border-l-green-500';
+}
+
+function opRemainingHours(op: MachineOp): number {
+  const parse = (v: unknown) => Math.max(0, parseFloat(String(v ?? 0).replace(/,/g, '')) || 0);
+  const estimated = parse(op.estimatedTotalTime);
+  const spent = parse(op.completedTime?.setupTimeSpent) + parse(op.completedTime?.runTimeSpent);
+  return Math.max(0, Math.round(((estimated - spent) / 60) * 10) / 10);
+}
+
+function formatMdy(dateStr: string | null | undefined): string {
+  if (!dateStr) return '—';
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return '—';
+  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 }
 
 export default function Machines() {
@@ -132,31 +158,68 @@ export default function Machines() {
                       No jobs currently scheduled
                     </p>
                   ) : (
-                    workOrders.map((wo) => (
-                      <div
-                        key={`${machineKey}-${wo.workOrderNumber}`}
-                        className={cn(
-                          'rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-3 border-l-4',
-                          dueDateIndicatorClass(wo.dueDate)
-                        )}
-                      >
-                        <a
-                          href={erpWorkOrderUrl(wo.workOrderNumber)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-accent hover:underline font-mono text-sm"
+                    workOrders.map((wo) => {
+                      const ops: MachineOp[] = (wo.scheduledOps as MachineOp[] | undefined) ?? [];
+                      const latestScheduledEndDate = ops.reduce<string | null>((latest, op) => {
+                        if (!op.scheduledEndDate) return latest;
+                        if (!latest) return op.scheduledEndDate;
+                        const a = new Date(latest).getTime();
+                        const b = new Date(op.scheduledEndDate).getTime();
+                        return b > a ? op.scheduledEndDate : latest;
+                      }, null);
+
+                      return (
+                        <div
+                          key={`${machineKey}-${wo.workOrderNumber}`}
+                          className={cn(
+                            'rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-3 border-l-4',
+                            dueDateIndicatorClass(wo.dueDate)
+                          )}
                         >
-                          {wo.workOrderNumber}
-                        </a>
-                        <div className="mt-1 text-xs text-[var(--text-secondary)] space-y-0.5">
-                          <div>{wo.partNumber || '—'}</div>
-                          <div>{wo.customer || '—'}</div>
-                          <div>
-                            Due {wo.dueDate ? formatDate(wo.dueDate) : '—'} · {wo.totalEstimatedHours.toFixed(1)}h
+                          <a
+                            href={erpWorkOrderUrl(wo.workOrderNumber)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-accent hover:underline font-mono text-sm"
+                          >
+                            {wo.workOrderNumber}
+                          </a>
+
+                          <div className="mt-2 text-xs text-[var(--text-secondary)] space-y-2">
+                            <div>
+                              {wo.partNumber || '—'} · {wo.customer || '—'}
+                            </div>
+                            <div>Due {latestScheduledEndDate ? formatDate(latestScheduledEndDate) : (wo.dueDate ? formatDate(wo.dueDate) : '—')}</div>
+
+                            <div className="space-y-1">
+                              {ops.length ? (
+                                ops.map((op) => {
+                                  const opNumber = op.operationNumber ?? '—';
+                                  const remaining = opRemainingHours(op);
+                                  const endLabel = op.scheduledEndDate ? formatMdy(op.scheduledEndDate) : '—';
+                                  return (
+                                    <div
+                                      key={`${wo.workOrderNumber}-${String(opNumber)}`}
+                                      className="grid grid-cols-[auto_auto_1fr] gap-x-3 items-start"
+                                    >
+                                      <div>Op {String(opNumber)}</div>
+                                      <div className="text-right">{remaining.toFixed(1)}h</div>
+                                      <div className="text-right">ends {endLabel}</div>
+                                    </div>
+                                  );
+                                })
+                              ) : (
+                                <div className="text-[var(--text-muted)]">No ops scheduled</div>
+                              )}
+                            </div>
+
+                            <div className="pt-2 border-t border-[var(--border-subtle)] text-[var(--text-secondary)]">
+                              Total remaining: {wo.totalEstimatedHours.toFixed(1)}h
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))
+                      );
+                    })
                   )}
                 </div>
 
