@@ -1,22 +1,21 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Loader2, RefreshCw, Cpu } from 'lucide-react';
 import { getMachinesData, isProshopUnavailableResponse, type MachinesData, type MachineWorkOrder } from '@/services/api';
-import { erpWorkOrderUrl, formatDate, daysUntilDue } from '@/lib/utils';
+import { erpWorkOrderUrl, daysUntilDue } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
 const MACHINE_KEYS = ['VMX 84-1', 'VMX 64-1', 'VMX 64-2'] as const;
-const BACKLOG_HOURS_CAP = 40;
 
 type MachineOp = {
   operationNumber: unknown;
-  estimatedTotalTime: unknown;
+  estimatedSetupTime: unknown;
+  estimatedRunTime: unknown;
   completedTime:
     | {
         setupTimeSpent?: unknown;
         runTimeSpent?: unknown;
       }
     | null;
-  scheduledEndDate: string | null;
 };
 
 function dueDateIndicatorClass(dueDate: string | null): string {
@@ -30,21 +29,11 @@ function dueDateIndicatorClass(dueDate: string | null): string {
 
 function opRemainingHours(op: MachineOp): number {
   const parse = (v: unknown) => Math.max(0, parseFloat(String(v ?? 0).replace(/,/g, '')) || 0);
-  const estimated = parse(op.estimatedTotalTime);
-  const spent = parse(op.completedTime?.setupTimeSpent) + parse(op.completedTime?.runTimeSpent);
-  return Math.max(0, Math.round(((estimated - spent) / 60) * 10) / 10);
-}
-
-function formatMdy(dateStr: string | null | undefined): string {
-  if (!dateStr) return '—';
-  const d = new Date(dateStr);
-  if (Number.isNaN(d.getTime())) return '—';
-  const date = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
-  const hours = d.getHours();
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  const h = hours % 12 || 12;
-  return `${date} ${h}:${minutes} ${ampm}`;
+  const setupMinutes = parse(op.estimatedSetupTime);
+  const runMinutes = parse(op.estimatedRunTime);
+  const spentMinutes = parse(op.completedTime?.setupTimeSpent) + parse(op.completedTime?.runTimeSpent);
+  const remainingMinutes = Math.max(0, setupMinutes + runMinutes - spentMinutes);
+  return Math.round((remainingMinutes / 60) * 100) / 100;
 }
 
 export default function Machines() {
@@ -139,8 +128,8 @@ export default function Machines() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {MACHINE_KEYS.map((machineKey) => {
             const workOrders: MachineWorkOrder[] = data?.[machineKey] ?? [];
-            const totalHours = workOrders.reduce((sum, wo) => sum + (wo.totalEstimatedHours ?? 0), 0);
-            const progressPercent = Math.min(100, (totalHours / BACKLOG_HOURS_CAP) * 100);
+            const totalHours = workOrders.reduce((sum, wo) =>
+              sum + (((wo.scheduledOps as MachineOp[] | undefined) ?? []).reduce((s, op) => s + opRemainingHours(op), 0)), 0);
 
             return (
               <div
@@ -193,15 +182,13 @@ export default function Machines() {
                                 ops.map((op) => {
                                   const opNumber = op.operationNumber ?? '—';
                                   const remaining = opRemainingHours(op);
-                                  const endLabel = op.scheduledEndDate ? formatMdy(op.scheduledEndDate) : '—';
                                   return (
                                     <div
                                       key={`${wo.workOrderNumber}-${String(opNumber)}`}
-                                      className="grid grid-cols-[auto_auto_1fr] gap-x-3 items-start"
+                                      className="grid grid-cols-[auto_1fr] gap-x-3 items-start"
                                     >
-                                      <div>Op {String(opNumber)}</div>
-                                      <div className="text-right">{remaining.toFixed(1)}h</div>
-                                      <div className="text-right">ends {endLabel}</div>
+                                      <div>OP {String(opNumber)}</div>
+                                      <div className="text-right">{remaining.toFixed(2)}h</div>
                                     </div>
                                   );
                                 })
@@ -211,22 +198,13 @@ export default function Machines() {
                             </div>
 
                             <div className="pt-2 border-t border-[var(--border-subtle)] text-[var(--text-secondary)]">
-                              Total remaining: {wo.totalEstimatedHours.toFixed(1)}h
+                              Total remaining: {(((wo.scheduledOps as MachineOp[] | undefined) ?? []).reduce((sum, op) => sum + opRemainingHours(op), 0)).toFixed(2)}h
                             </div>
                           </div>
                         </div>
                       );
                     })
                   )}
-                </div>
-
-                <div className="mt-3 pt-3 border-t border-[var(--border-subtle)]">
-                  <div className="h-2 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-accent rounded-full transition-all"
-                      style={{ width: `${progressPercent}%` }}
-                    />
-                  </div>
                 </div>
               </div>
             );
