@@ -429,6 +429,12 @@ export default function TimeTracking() {
     for (let attempt = 1; attempt <= TT_MAX_ATTEMPTS; attempt++) {
       try {
         const res = await getTimeTracking(d);
+        if (!res.success && res.error) {
+          setData(null);
+          setLoading(false);
+          // show the error — re-use the rateLimitData path or just leave data null
+          return;
+        }
         setData(res.data ?? null);
         setLoading(false);
         return;
@@ -565,7 +571,7 @@ export default function TimeTracking() {
         setRangeData(res.data);
       } else {
         setRangeData(null);
-        setRangeError(res.message ?? 'Failed to load range summary');
+        setRangeError(res.error ?? res.message ?? 'Failed to load range summary');
       }
     } catch (err) {
       setRangeData(null);
