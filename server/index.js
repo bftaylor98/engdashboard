@@ -206,12 +206,9 @@ async function runInitialWarm() {
   }
   await sleep(3000);
 
-  // 5. machines (30s hard timeout — machines query is large and can hang on startup)
+  // 5. machines (large query, can take 3-5 minutes — no timeout)
   try {
-    await Promise.race([
-      warmMachinesCache(),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('machines warm timed out')), 30000)),
-    ]);
+    await warmMachinesCache();
   } catch (_) {
     // warm functions already log to cache.log; keep startup console clean
   }
@@ -246,7 +243,7 @@ async function runInitialWarm() {
     },
     { intervalMs: 10 * 60 * 1000 }
   );
-  registerJob('machines', warmMachinesCache, { intervalMs: 10 * 60 * 1000 });
+  registerJob('machines', warmMachinesCache, { intervalMs: 20 * 60 * 1000 });
   registerJob('tooling-expenses', warmToolingExpensesCache, { intervalMs: 15 * 60 * 1000 });
   registerJob('open-pos', warmOpenPOsCache, { intervalMs: 15 * 60 * 1000 });
 }
